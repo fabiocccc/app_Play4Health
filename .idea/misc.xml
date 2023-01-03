@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/border.xml" value="0.196" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/circle.xml" value="0.172" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/cirlce1.xml" value="0.196" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/shape.xml" value="0.268" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/shape_droptarget.xml" value="0.268" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/spinner_base.xml" value="0.366" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_campo.xml" value="0.33" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_campo_ruoli.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_carica.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_corpo.xml" value="0.45220030349013657" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_mano.xml" value="0.33" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_parla.xml" value="0.33" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_scegli.xml" value="0.33" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_scrivere.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_viso.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/spinner_base.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

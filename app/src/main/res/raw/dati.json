@@ -1,0 +1,22 @@
+[
+   {
+      "ita": "arbitro",
+      "fra": "arbitre",
+      "eng": "referee",
+      "sug1": "arbito",
+      "sug2": "arbiro",
+      "sug3": "arbitto",
+      "img": "",
+      "svolto": false
+   },
+   {
+      "ita": "porta",
+      "fra": "but",
+      "eng": "net",
+      "sug1": "porto",
+      "sug2": "parto",
+      "sug3": "porra",
+      "img": "",
+      "svolto": false
+   }
+]

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityCampo">
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/card_Campo"
+      android:layout_width="359dp"
+      android:layout_height="56dp"
+      android:layout_marginStart="15dp"
+      android:layout_marginEnd="15dp"
+      app:layout_constraintBottom_toTopOf="@+id/imageView3"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.95">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+      <Spinner
+          android:id="@+id/spinner_Corpo"
+          android:layout_width="match_parent"
+          android:layout_height="55dp" />
+
+    </LinearLayout>
+
+  </androidx.cardview.widget.CardView>
+
+
+  <ImageView
+      android:id="@+id/imageView3"
+      android:layout_width="396sp"
+      android:layout_height="557sp"
+      android:scaleType="centerCrop"
+      android:src="@drawable/campo"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.466"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:srcCompat="@drawable/campo" />
+
+  <Button
+      android:id="@+id/button_Rigore2"
+      android:layout_width="195dp"
+      android:layout_height="95dp"
+      android:layout_marginBottom="28dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintHorizontal_bias="0.497"
+      app:layout_constraintStart_toStartOf="@+id/imageView3" />
+
+  <Button
+      android:id="@+id/button_Rigore1"
+      android:layout_width="190dp"
+      android:layout_height="102dp"
+      android:layout_marginTop="24dp"
+      android:background="#00FFFFFF"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintStart_toStartOf="@+id/imageView3"
+      app:layout_constraintTop_toBottomOf="@+id/card_Campo" />
+
+  <Button
+      android:id="@+id/button_Centro"
+      android:layout_width="101dp"
+      android:layout_height="101dp"
+      android:layout_marginBottom="228dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintStart_toStartOf="@+id/imageView3" />
+
+  <Button
+      android:id="@+id/button_Linea1"
+      android:layout_width="127dp"
+      android:layout_height="35dp"
+      android:layout_marginBottom="260dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+      app:layout_constraintEnd_toStartOf="@+id/button_Centro"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintStart_toStartOf="@+id/imageView3" />
+
+  <Button
+      android:id="@+id/button_Linea2"
+      android:layout_width="125dp"
+      android:layout_height="35dp"
+      android:layout_marginBottom="260dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+      app:layout_constraintStart_toEndOf="@+id/button_Centro" />
+
+  <Button
+      android:id="@+id/button_Porta2"
+      android:layout_width="92dp"
+      android:layout_height="47dp"
+      android:layout_marginBottom="28dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      android:elevation="20dp"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintHorizontal_bias="0.498"
+      app:layout_constraintStart_toStartOf="@+id/imageView3"
+      app:layout_constraintTop_toTopOf="@+id/button_Rigore2"
+      app:layout_constraintVertical_bias="1.0" />
+
+  <Button
+      android:id="@+id/button_Porta1"
+      android:layout_width="99dp"
+      android:layout_height="53dp"
+      android:layout_marginBottom="444dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      android:elevation="20dp"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintStart_toStartOf="@+id/imageView3"
+      app:layout_constraintTop_toTopOf="@+id/button_Rigore1"
+      app:layout_constraintVertical_bias="0.0" />
+
+  <Button
+      android:id="@+id/button_Angolo1"
+      android:layout_width="51dp"
+      android:layout_height="43dp"
+      android:layout_marginTop="24dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintHorizontal_bias="0.026"
+      app:layout_constraintStart_toStartOf="@+id/imageView3"
+      app:layout_constraintTop_toBottomOf="@+id/card_Campo" />
+
+  <Button
+      android:id="@+id/button_Angolo2"
+      android:layout_width="51dp"
+      android:layout_height="43dp"
+      android:layout_marginTop="24dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintHorizontal_bias="0.973"
+      app:layout_constraintStart_toStartOf="@+id/imageView3"
+      app:layout_constraintTop_toBottomOf="@+id/card_Campo" />
+
+  <Button
+      android:id="@+id/button_Angolo3"
+      android:layout_width="51dp"
+      android:layout_height="43dp"
+      android:layout_marginBottom="26dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintHorizontal_bias="0.023"
+      app:layout_constraintStart_toStartOf="@+id/imageView3" />
+
+  <Button
+      android:id="@+id/button_Angolo4"
+      android:layout_width="51dp"
+      android:layout_height="43dp"
+      android:layout_marginBottom="26dp"
+      android:background="#00FFFFFF"
+      android:backgroundTint="#6DE91E63"
+      android:backgroundTintMode="screen"
+      app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+      app:layout_constraintEnd_toEndOf="@+id/imageView3"
+      app:layout_constraintHorizontal_bias="0.973"
+      app:layout_constraintStart_toStartOf="@+id/imageView3" />
+
+  <Button
+      android:id="@+id/button_Ruoli"
+      android:layout_width="142dp"
+      android:layout_height="49dp"
+      android:text="Button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/imageView3"
+      app:layout_constraintVertical_bias="0.315"
+      tools:layout_editor_absoluteX="26dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

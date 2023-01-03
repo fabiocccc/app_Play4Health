@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#D7FFA7"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_Campo"
+        android:layout_width="359dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner_Viso"
+                android:layout_width="match_parent"
+                android:layout_height="55dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView2"
+        android:layout_width="391dp"
+        android:layout_height="111dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/frame1"
+                android:layout_width="120dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/orecchie"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/orecchie"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame2"
+                android:layout_width="145dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/capelli"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/capelli" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame3"
+                android:layout_width="75dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/naso"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/naso" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame4"
+                android:layout_width="140dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/sopracciglia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/sopracciglia" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame5"
+                android:layout_width="100dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/bocca"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bocca" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame6"
+                android:layout_width="150dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/occhi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/occhi" />
+            </FrameLayout>
+        </LinearLayout>
+
+
+    </HorizontalScrollView>
+
+    <FrameLayout
+        android:layout_width="352dp"
+        android:layout_height="420dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/card_Campo"
+        app:layout_constraintVertical_bias="0.71000004">
+
+        <ImageView
+            android:id="@+id/image_face"
+            android:layout_width="260dp"
+            android:layout_height="340dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/face"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/image_face_capelli_orecchie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/face_capelli_orecchie"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/image_face_capelli"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/face_capelli"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/image_face_orecchie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="33dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/face_orecchie"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/framecapelli"
+                android:layout_width="300dp"
+                android:layout_height="110dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameorecchio1"
+                android:layout_width="50dp"
+                android:layout_height="80dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.6"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameorecchio2"
+                android:layout_width="50dp"
+                android:layout_height="80dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.6"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/framebocca"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.85">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="4sp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/bocca"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/framenaso"
+                android:layout_width="120dp"
+                android:layout_height="57dp"
+                app:layout_constraintBottom_toTopOf="@+id/framebocca"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="4sp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/naso"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameocchi"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/framenaso"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="4sp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/occhi"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/framesopracciglia"
+                android:layout_width="210dp"
+                android:layout_height="45dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameocchi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="4sp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/sopracciglia"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
