@@ -2,11 +2,14 @@ package com.example.tesi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -14,17 +17,17 @@ import java.util.Locale;
 
 public class ActivityCampo extends AppCompatActivity {
 
-    private Button button_Porta1;
-    private Button button_Rigore1;
-    private Button button_Porta2;
-    private Button button_Rigore2;
-    private Button button_Angolo1;
-    private Button button_Angolo2;
-    private Button button_Angolo3;
-    private Button button_Angolo4;
-    private Button button_Centro;
-    private Button button_Linea1;
-    private Button button_Linea2;
+    private FrameLayout button_Porta1;
+    private FrameLayout button_Rigore1;
+    private FrameLayout button_Porta2;
+    private FrameLayout button_Rigore2;
+    private FrameLayout button_Angolo1;
+    private FrameLayout button_Angolo2;
+    private FrameLayout button_Angolo3;
+    private FrameLayout button_Angolo4;
+    private FrameLayout button_Centro;
+    private FrameLayout button_Linea1;
+    private FrameLayout button_Linea2;
     private Button button_Ruoli;
     private Spinner spinner;
     private TextToSpeech textToSpeech;
@@ -49,6 +52,8 @@ public class ActivityCampo extends AppCompatActivity {
         spinner = findViewById(R.id.spinner_Corpo);
     }
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -56,121 +61,144 @@ public class ActivityCampo extends AppCompatActivity {
         button_Porta1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di porta"); parole.add("Surface de but"); parole.add("Goal area");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Porta1.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
+
             }
         });
 
         button_Porta2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di porta"); parole.add("Surface de but"); parole.add("Goal area");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Porta2.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Rigore1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di rigore"); parole.add("Zone de penalty"); parole.add("Penalty area");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Rigore1.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Rigore2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di rigore"); parole.add("Zone de penalty"); parole.add("Penalty area");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Rigore2.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Angolo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Angolo1.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Angolo2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Angolo2.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Angolo3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Angolo3.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Angolo4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Angolo4.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Linea1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Linea mediana"); parole.add("Ligne médiane"); parole.add("Half-way line");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Linea1.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Linea2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Linea mediana"); parole.add("Ligne médiane"); parole.add("Half-way line");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Linea2.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
         button_Centro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Cerchio di centrocampo"); parole.add("Rond central"); parole.add("Centre circle");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Centro.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
@@ -214,12 +242,26 @@ public class ActivityCampo extends AppCompatActivity {
             }
         });
 
-        /*button_Ruoli.setOnClickListener(new View.OnClickListener() {
+        button_Ruoli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ActivityCampoRuoli.class);
                 startActivity(intent);
             }
-        });*/
+        });
+    }
+
+    public void resettaEvidenzia(){
+        button_Porta1.setBackgroundColor(0x0FFFFFF);
+        button_Porta2.setBackgroundColor(0x0FFFFFF);
+        button_Rigore1.setBackgroundColor(0x0FFFFFF);
+        button_Rigore2.setBackgroundColor(0x0FFFFFF);
+        button_Angolo1.setBackgroundColor(0x0FFFFFF);
+        button_Angolo2.setBackgroundColor(0x0FFFFFF);
+        button_Angolo3.setBackgroundColor(0x0FFFFFF);
+        button_Angolo4.setBackgroundColor(0x0FFFFFF);
+        button_Centro.setBackgroundColor(0x0FFFFFF);
+        button_Linea1.setBackgroundColor(0x0FFFFFF);
+        button_Linea2.setBackgroundColor(0x0FFFFFF);
     }
 }

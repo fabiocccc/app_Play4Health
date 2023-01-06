@@ -5,44 +5,91 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class SpinnerAdapter extends ArrayAdapter<String> {
+public class SpinnerAdapter extends BaseAdapter {
 
-    public SpinnerAdapter(Context context, int textViewResourceId,
-                          ArrayList<String> lista) {
-        super(context, textViewResourceId, lista);
+    private Context context;
+    private ArrayList<String> list;
+    private Boolean doppio;
 
+    public SpinnerAdapter(Context context, ArrayList<String> list){
+        this.context = context;
+        this.list = list;
+        doppio = false;
     }
 
+    public SpinnerAdapter(Context context, ArrayList<String> list, Boolean flag){
+        this.context = context;
+        this.list = list;
+        this.doppio = flag;
+    }
 
     @Override
-    public View getView(int i, View v, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) getContext()
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        v = inflater.inflate(R.layout.spinner_base, null);
-        TextView textView = (TextView)v.findViewById(R.id.textView_SB);
+    public int getCount() {
+        return list != null ? list.size() : 0;
+    }
+
+    @Override
+    public String getItem(int i) {
+        return list.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+
+        View rootView;
+
+        if(doppio){
+            rootView = LayoutInflater.from(context)
+                    .inflate(R.layout.spinner_doppia_scelta, viewGroup, false);
+
+        } else{
+            rootView = LayoutInflater.from(context)
+                    .inflate(R.layout.spinner_base, viewGroup, false);
+        }
+
+
+
+        TextView textView = (TextView) rootView.findViewById(R.id.textView_SB);
         String text = getItem(i);
 
         textView.setText(text);
-        ImageView imageView = (ImageView)v.findViewById(R.id.imageView_SB);
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView_SB);
 
-        switch(i) {
-            case 0:
-                imageView.setImageResource(R.drawable.ita);
-            break;
-            case 1:
-                imageView.setImageResource(R.drawable.fra);
-                break;
-            case 2:
-                imageView.setImageResource(R.drawable.eng);
-
+        if(list.size() == 2){
+            switch(i) {
+                case 0:
+                    imageView.setImageResource(R.drawable.fra);
+                    break;
+                case 1:
+                    imageView.setImageResource(R.drawable.eng);
+                    break;
+            }
+        } else {
+            switch(i) {
+                case 0:
+                    imageView.setImageResource(R.drawable.ita);
+                    break;
+                case 1:
+                    imageView.setImageResource(R.drawable.fra);
+                    break;
+                case 2:
+                    imageView.setImageResource(R.drawable.eng);
+                    break;
+            }
         }
 
-        return v;
 
+        return rootView;
     }
-    }
+}

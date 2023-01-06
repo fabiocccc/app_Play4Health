@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -28,7 +30,7 @@ import java.util.Locale;
 
 public class ActivityScegli extends AppCompatActivity {
 
-    private Button button_Ascolta;
+    private FloatingActionButton button_Ascolta;
     private ImageView imageView1;
     private ImageView imageView2;
     private JSONArray jsonArray;
@@ -101,11 +103,11 @@ public class ActivityScegli extends AppCompatActivity {
             corretta = parole2.get(0);
         }
 
-        SpinnerAdapter adapter1 = new SpinnerAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole1);
+        SpinnerAdapter adapter1 = new SpinnerAdapter(getApplicationContext(), parole1, true);
         spinner1.setAdapter(adapter1);
         spinner1.setSelection(0);
 
-        SpinnerAdapter adapter2 = new SpinnerAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole2);
+        SpinnerAdapter adapter2 = new SpinnerAdapter(getApplicationContext(), parole2, true);
         spinner2.setAdapter(adapter2);
         spinner2.setSelection(0);
 

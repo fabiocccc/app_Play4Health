@@ -4,93 +4,197 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D7FFA7"
     tools:context=".Home">
 
-    <Button
-        android:id="@+id/button_HomeParla"
-        android:layout_width="164dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="16dp"
-        android:text="PARLA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.872"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/button_HomeAscolta"
-        android:layout_width="164dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="16dp"
-        android:text="ASCOLTA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_HomeScegli"
-        android:layout_width="164dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="156dp"
-        android:text="SCEGLI"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:id="@+id/button_HomeAscolta"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_ascolta"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="IMPARA"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:autoSizeTextType="uniform"
+                android:layout_marginTop="130dp"/>
+        </FrameLayout>
 
-    <Button
-        android:id="@+id/button_HomeCampo"
-        android:layout_width="164dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="296dp"
-        android:text="Campo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:id="@+id/button_HomeParla"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_parla"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/button_HomeCorpo"
-        android:layout_width="164dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="296dp"
-        android:text="Corpo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.874"
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="PARLA"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:autoSizeTextType="uniform"
+            android:layout_marginTop="130dp"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+
+        <FrameLayout
+            android:id="@+id/button_HomeScegli"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_scegli"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="SCEGLI"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:layout_marginTop="130dp"/>
+
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/button_HomeScrivere"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_scrivere"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="SCRIVI"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:layout_marginTop="130dp"/>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+
+        <FrameLayout
+            android:id="@+id/button_HomeCampo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_campo"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="CAMPO"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:layout_marginTop="130dp"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/button_HomeCorpo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_corpo"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="CORPO"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:layout_marginTop="130dp"/>
+
+
+        </FrameLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/button_HomeCarica"
         android:layout_width="164dp"
         android:layout_height="110dp"
-        android:layout_marginTop="412dp"
+        android:layout_marginTop="580dp"
         android:text="Carica"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_HomeScrivere"
-        android:layout_width="164dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="156dp"
-        android:text="SCRIVERE"
+        android:id="@+id/button_HomeCorpo2"
+        android:layout_width="162dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="520dp"
+        android:text="Corpo scegli"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.874"
+        app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageViewTest"
-        android:layout_width="144dp"
-        android:layout_height="141dp"
-        android:layout_marginBottom="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/button_HomeCorpo3"
+        android:layout_width="162dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="528dp"
+        android:text="COMP VISO"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.763"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_HomeCorpo5"
+        android:layout_width="162dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="648dp"
+        android:text="SCRIVI DIFFICILE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_HomeCorpo4"
+        android:layout_width="162dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="588dp"
+        android:text="COMP MANO"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

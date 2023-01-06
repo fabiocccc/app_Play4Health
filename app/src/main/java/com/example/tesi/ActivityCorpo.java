@@ -29,20 +29,20 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
     private TextToSpeech textToSpeech;
 
     private Boolean faddome = false;
-    private Boolean fpetto = false;
+    private Boolean ftorace = false;
+    private Boolean fcollo = false;
     private Boolean ftesta = false;
-    private Boolean fpiedes = false;
-    private Boolean fpieded = false;
-    private Boolean fpolpd = false;
-    private Boolean fpolps = false;
-    private Boolean fcoscias = false;
-    private Boolean fcosciad = false;
-    private Boolean fmanos = false;
+    private Boolean fpiedi = false;
+    private Boolean fcaviglie = false;
+    private Boolean fstinchi = false;
+    private Boolean fginocchia = false;
+    private Boolean fcoscie = false;
     private Boolean fmanod = false;
-    private Boolean favambs = false;
+    private Boolean fmanos = false;
     private Boolean favambd = false;
-    private Boolean fbraccios = false;
+    private Boolean favambs = false;
     private Boolean fbracciod = false;
+    private Boolean fbraccios = false;
 
     private Drawable enterShape;
     private Drawable normalShape;
@@ -61,38 +61,38 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
         windowwidth = getWindowManager().getDefaultDisplay().getWidth();
         windowheight = getWindowManager().getDefaultDisplay().getHeight();
 
-        findViewById(R.id.piedes).setOnTouchListener(this);
-        findViewById(R.id.pieded).setOnTouchListener(this);
-        findViewById(R.id.polps).setOnTouchListener(this);
-        findViewById(R.id.polpd).setOnTouchListener(this);
-        findViewById(R.id.cosciad).setOnTouchListener(this);
-        findViewById(R.id.coscias).setOnTouchListener(this);
+        findViewById(R.id.piedi).setOnTouchListener(this);
+        findViewById(R.id.caviglie).setOnTouchListener(this);
+        findViewById(R.id.stinchi).setOnTouchListener(this);
+        findViewById(R.id.ginocchia).setOnTouchListener(this);
+        findViewById(R.id.coscie).setOnTouchListener(this);
         findViewById(R.id.addome).setOnTouchListener(this);
+        findViewById(R.id.torace).setOnTouchListener(this);
+        findViewById(R.id.collo).setOnTouchListener(this);
         findViewById(R.id.testa).setOnTouchListener(this);
-        findViewById(R.id.petto).setOnTouchListener(this);
-        findViewById(R.id.manod).setOnTouchListener(this);
-        findViewById(R.id.manos).setOnTouchListener(this);
-        findViewById(R.id.bracciod).setOnTouchListener(this);
-        findViewById(R.id.braccios).setOnTouchListener(this);
-        findViewById(R.id.avambd).setOnTouchListener(this);
-        findViewById(R.id.avambs).setOnTouchListener(this);
+        findViewById(R.id.braccioDestro).setOnTouchListener(this);
+        findViewById(R.id.braccioSinistro).setOnTouchListener(this);
+        findViewById(R.id.avambraccioDestro).setOnTouchListener(this);
+        findViewById(R.id.avambraccioSinistro).setOnTouchListener(this);
+        findViewById(R.id.manoDestra).setOnTouchListener(this);
+        findViewById(R.id.manoSinistra).setOnTouchListener(this);
 
 
-        findViewById(R.id.framepieded).setOnDragListener(this);
-        findViewById(R.id.framepolpd).setOnDragListener(this);
-        findViewById(R.id.framegambad).setOnDragListener(this);
-        findViewById(R.id.framepetto).setOnDragListener(this);
-        findViewById(R.id.frameaddome).setOnDragListener(this);
-        findViewById(R.id.frametesta).setOnDragListener(this);
-        findViewById(R.id.framemanod).setOnDragListener(this);
-        findViewById(R.id.frameavambd).setOnDragListener(this);
-        findViewById(R.id.framebracciod).setOnDragListener(this);
-        findViewById(R.id.framepiedes).setOnDragListener(this);
-        findViewById(R.id.framepolps).setOnDragListener(this);
-        findViewById(R.id.framegambas).setOnDragListener(this);
-        findViewById(R.id.framemanos).setOnDragListener(this);
-        findViewById(R.id.frameavambs).setOnDragListener(this);
-        findViewById(R.id.framebraccios).setOnDragListener(this);
+        findViewById(R.id.framePiedi).setOnDragListener(this);
+        findViewById(R.id.frameCaviglie).setOnDragListener(this);
+        findViewById(R.id.frameStinchi).setOnDragListener(this);
+        findViewById(R.id.frameGinocchia).setOnDragListener(this);
+        findViewById(R.id.frameCoscie).setOnDragListener(this);
+        findViewById(R.id.frameAddome).setOnDragListener(this);
+        findViewById(R.id.frameTorace).setOnDragListener(this);
+        findViewById(R.id.frameCollo).setOnDragListener(this);
+        findViewById(R.id.frameTesta).setOnDragListener(this);
+        findViewById(R.id.frameBraccioD).setOnDragListener(this);
+        findViewById(R.id.frameBraccioS).setOnDragListener(this);
+        findViewById(R.id.frameAvambraccioD).setOnDragListener(this);
+        findViewById(R.id.frameAvambraccioS).setOnDragListener(this);
+        findViewById(R.id.frameManoS).setOnDragListener(this);
+        findViewById(R.id.frameManoD).setOnDragListener(this);
 
         findViewById(R.id.frame1).setOnDragListener(this);
         findViewById(R.id.frame2).setOnDragListener(this);
@@ -218,7 +218,7 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                     switch (getResources().getResourceEntryName(view.getId())){
                         case "testa":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("frametesta") && !ftesta) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameTesta") && !ftesta) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
                                 ftesta = true;
                                 owner.removeView(view);
@@ -226,55 +226,27 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frametesta") && ftesta) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameTesta") && ftesta) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "braccios":
+                        case "braccioDestro":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framebraccios") && !fbraccios) {
-                                //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                                fbraccios = true;
-                                owner.removeView(view);
-                                owner.setVisibility(View.GONE);
-                                FrameLayout container = (FrameLayout) v;
-                                ImageView img = (ImageView) view;
-                                container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
-                                img.setVisibility(View.VISIBLE);
-
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
-
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framebraccios") && fbraccios) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
-                            }
-                            break;
-                        case "bracciod":
-
-                            if(getResources().getResourceEntryName(v.getId()).equals("framebracciod") && !fbracciod) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameBraccioD") && !fbracciod) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
                                 fbracciod = true;
                                 owner.removeView(view);
@@ -282,27 +254,53 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framebracciod") && fbracciod) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameBraccioD") && fbracciod) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "avambd":
+                        case "braccioSinistro":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("frameavambd") && !favambd) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameBraccioS") && !fbraccios) {
+                                //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
+                                fbraccios = true;
+                                owner.removeView(view);
+                                owner.setVisibility(View.GONE);
+                                FrameLayout container = (FrameLayout) v;
+                                ImageView img = (ImageView) view;
+                                container.addView(img);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                                img.setVisibility(View.VISIBLE);
+
+                                ArrayList parole = new ArrayList();
+                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                                spinner.setAdapter(adapter);
+                                spinner.setSelection(0);
+
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameBraccioS") && fbraccios) {
+                                ArrayList parole = new ArrayList();
+                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                                spinner.setAdapter(adapter);
+                                spinner.setSelection(0);
+                            }
+                            break;
+                        case "avambraccioDestro":
+
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameAvambraccioD") && !favambd) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
                                 favambd = true;
                                 owner.removeView(view);
@@ -310,27 +308,26 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameavambd") && favambd) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameAvambraccioD") && favambd) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "avambs":
+                        case "avambraccioSinistro":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("frameavambs") && !favambs) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameAvambraccioS") && !favambs) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
                                 favambs = true;
                                 owner.removeView(view);
@@ -338,27 +335,26 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameavambs") && favambs) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameAvambraccioS") && favambs) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "manod":
+                        case "manoDestra":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framemanod") && !fmanod) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameManoD") && !fmanod) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
                                 fmanod = true;
                                 owner.removeView(view);
@@ -366,27 +362,26 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framemanod") && fmanod) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameManoD") && fmanod) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "manos":
+                        case "manoSinistra":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framemanos") && !fmanos) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameManoS") && !fmanos) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
                                 fmanos = true;
                                 owner.removeView(view);
@@ -394,55 +389,53 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framemanos") && fmanos) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameManoS") && fmanos) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "petto":
+                        case "torace":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framepetto") && !fpetto) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameTorace") && !ftorace) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                                fpetto = true;
+                                ftorace = true;
                                 owner.removeView(view);
                                 owner.setVisibility(View.GONE);
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framepetto") && fpetto) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameTorace") && ftorace) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
                         case "addome":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("frameaddome") && !faddome) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameAddome") && !faddome) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
                                 faddome = true;
                                 owner.removeView(view);
@@ -450,186 +443,179 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
-                                img.setVisibility(View.VISIBLE);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameaddome") && faddome) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameAddome") && faddome) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "cosciad":
+                        case "coscie":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framegambad") && !fcosciad) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameCoscie") && !fcoscie) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                                fcosciad = true;
+                                fcoscie = true;
                                 owner.removeView(view);
                                 owner.setVisibility(View.GONE);
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framegambad") && fcosciad) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameCoscie") && fcoscie) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "coscias":
+                        case "ginocchia":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framegambas") && !fcoscias) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameGinocchia") && !fginocchia) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                                fcoscias = true;
+                                fginocchia = true;
                                 owner.removeView(view);
                                 owner.setVisibility(View.GONE);
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framegambas") && fcoscias) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameGinocchia") && fginocchia) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "polps":
+                        case "stinchi":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framepolps") && !fpolps) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameStinchi") && !fstinchi) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                                fpolpd = true;
+                                fstinchi = true;
                                 owner.removeView(view);
                                 owner.setVisibility(View.GONE);
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framepolpd") && fpolpd) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameStinchi") && fstinchi) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "polpd":
+                        case "caviglie":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framepolpd") && !fpolpd) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameCaviglie") && !fcaviglie) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                                fpolps = true;
+                                fcaviglie = true;
                                 owner.removeView(view);
                                 owner.setVisibility(View.GONE);
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framepolps") && fpolps) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameCaviglie") && fcaviglie) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "piedes":
+                        case "piedi":
 
-                            if(getResources().getResourceEntryName(v.getId()).equals("framepiedes") && !fpiedes) {
+                            if(getResources().getResourceEntryName(v.getId()).equals("framePiedi") && !fpiedi) {
                                 //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                                fpiedes = true;
+                                fpiedi = true;
                                 owner.removeView(view);
                                 owner.setVisibility(View.GONE);
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
+                                img.setScaleType(ImageView.ScaleType.FIT_XY);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framepiedes") && fpiedes) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("framePiedi") && fpiedi) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }
                             break;
-                        case "pieded":
-                            if(getResources().getResourceEntryName(v.getId()).equals("framepieded") && !fpieded) {
-                                fpieded = true;
+                        case "collo":
+                            if(getResources().getResourceEntryName(v.getId()).equals("frameCollo") && !fcollo) {
+                                fcollo = true;
 
                                 owner.removeView(view);
                                 owner.setVisibility(View.GONE);
                                 FrameLayout container = (FrameLayout) v;
                                 ImageView img = (ImageView) view;
                                 container.addView(img);
-                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framepieded") && fpieded) {
+                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameCollo") && fcollo) {
                                 ArrayList parole = new ArrayList();
                                 parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                                 spinner.setAdapter(adapter);
                                 spinner.setSelection(0);
                             }

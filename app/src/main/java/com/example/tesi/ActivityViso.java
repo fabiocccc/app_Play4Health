@@ -71,6 +71,60 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
     protected void onStart() {
         super.onStart();
 
+        findViewById(R.id.framecapelli).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(fcapelli){
+                    ArrayList parole = new ArrayList();
+                    parole.add("Gamba destra");
+                    parole.add("Surface de but");
+                    parole.add("Goal area");
+                    SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                    spinner.setAdapter(adapter);
+                    spinner.setSelection(0);
+
+                }
+
+                return true;
+            }
+        });
+
+        findViewById(R.id.frameorecchio1).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(forecchie){
+                    ArrayList parole = new ArrayList();
+                    parole.add("Gamba destra");
+                    parole.add("Surface de but");
+                    parole.add("Goal area");
+                    SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                    spinner.setAdapter(adapter);
+                    spinner.setSelection(0);
+
+                }
+
+                return true;
+            }
+        });
+
+        findViewById(R.id.frameorecchio2).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(forecchie){
+                    ArrayList parole = new ArrayList();
+                    parole.add("Gamba destra");
+                    parole.add("Surface de but");
+                    parole.add("Goal area");
+                    SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                    spinner.setAdapter(adapter);
+                    spinner.setSelection(0);
+
+                }
+
+                return true;
+            }
+        });
+
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -166,7 +220,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
 
@@ -175,7 +229,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
                         }
@@ -202,7 +256,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
 
@@ -211,7 +265,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
                         }
@@ -234,7 +288,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
 
@@ -243,7 +297,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
                         }
@@ -266,7 +320,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
 
@@ -275,7 +329,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
                         }
@@ -298,7 +352,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
 
@@ -307,7 +361,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
                         }
@@ -330,7 +384,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
 
@@ -339,7 +393,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             parole.add("Gamba destra");
                             parole.add("Surface de but");
                             parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0);
                         }

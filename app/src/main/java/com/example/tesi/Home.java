@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,12 +31,13 @@ import java.io.InputStreamReader;
 
 public class Home extends AppCompatActivity {
 
-    private Button button_HomeAscolta;
-    private Button button_HomeParla;
-    private Button button_HomeScrivere;
-    private Button button_HomeScegli;
-    private Button button_HomeCampo;
-    private Button button_HomeCorpo;
+    private FrameLayout button_HomeAscolta;
+    private FrameLayout button_HomeParla;
+    private FrameLayout button_HomeScrivere;
+    private FrameLayout button_HomeScegli;
+    private FrameLayout button_HomeCampo;
+    private FrameLayout button_HomeCorpo;
+    private Button button_HomeCorpoScegli;
     private Button button_HomeCarica;
 
     private ImageView imageViewTest;
@@ -47,13 +49,34 @@ public class Home extends AppCompatActivity {
 
         button_HomeParla = findViewById(R.id.button_HomeParla);
         button_HomeScrivere = findViewById(R.id.button_HomeScrivere);
-        button_HomeScrivere = findViewById(R.id.button_HomeScrivere);
         button_HomeAscolta = findViewById(R.id.button_HomeAscolta);
         button_HomeScegli = findViewById(R.id.button_HomeScegli);
         button_HomeCampo = findViewById(R.id.button_HomeCampo);
         button_HomeCorpo = findViewById(R.id.button_HomeCorpo);
         button_HomeCarica = findViewById(R.id.button_HomeCarica);
-        imageViewTest = findViewById(R.id.imageViewTest);
+        button_HomeCorpoScegli= findViewById(R.id.button_HomeCorpo2);
+
+        findViewById(R.id.button_HomeCorpo3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this, ActivityViso.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.button_HomeCorpo4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this, ActivityMano.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.button_HomeCorpo5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this, ActivityScrivereDifficile.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -88,8 +111,8 @@ public class Home extends AppCompatActivity {
         button_HomeAscolta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(Home.this, .class);
-                //startActivity(intent);
+                Intent intent = new Intent(Home.this, ActivityAscolta.class);
+                startActivity(intent);
             }
         });
 
@@ -104,7 +127,15 @@ public class Home extends AppCompatActivity {
         button_HomeCorpo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityMano.class);
+                Intent intent = new Intent(Home.this, ActivityCorpo.class);
+                startActivity(intent);
+            }
+        });
+
+        button_HomeCorpoScegli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this, ActivityCorpoScegli.class);
                 startActivity(intent);
             }
         });

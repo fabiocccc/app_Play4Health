@@ -4,22 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.FrameMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 public class ActivityCampoRuoli extends AppCompatActivity {
 
-    private Button button_portiere;
-    private Button button_difensore1;
-    private Button button_difensore2;
-    private Button button_terzinod;
-    private Button button_terzinos;
-    private Button button_centro1;
-    private Button button_centro2;
-    private Button button_esternod;
-    private Button button_esternos;
-    private Button button_att1;
-    private Button button_att2;
+    private FrameLayout button_portiere;
+    private FrameLayout button_difensore1;
+    private FrameLayout button_difensore2;
+    private FrameLayout button_terzinod;
+    private FrameLayout button_terzinos;
+    private FrameLayout button_centro1;
+    private FrameLayout button_centro2;
+    private FrameLayout button_esternod;
+    private FrameLayout button_esternos;
+    private FrameLayout button_att1;
+    private FrameLayout button_att2;
     private Button button_campo;
 
     @Override
@@ -41,9 +45,40 @@ public class ActivityCampoRuoli extends AppCompatActivity {
         button_campo = findViewById(R.id.button_Campo);
     }
 
+    boolean abort;
+    int count = 0;
+
+    private void changeBackground(){
+        if (abort)
+            return;
+        new Handler().postDelayed(new Runnable() {
+
+            public void run() {
+
+                Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
+                count++;
+                if(count % 2 == 0){
+                    button_portiere.setBackground(getDrawable(R.drawable.circle_att));
+                }else{
+                    button_portiere.setBackground(getDrawable(R.drawable.circle_portiere));
+                }
+                changeBackground();
+
+            }
+        }, 500);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
+
+        button_portiere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //changeBackground();
+
+            }
+        });
 
         button_campo.setOnClickListener(new View.OnClickListener() {
             @Override

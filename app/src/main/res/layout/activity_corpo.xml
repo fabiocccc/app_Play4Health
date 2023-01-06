@@ -37,340 +37,293 @@
     </androidx.cardview.widget.CardView>
 
     <FrameLayout
-        android:layout_width="229dp"
-        android:layout_height="497dp"
+        android:layout_width="310dp"
+        android:layout_height="432dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="46dp"
+        android:background="@drawable/cirlce1"
+        android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:elevation="5dp"
-        android:background="@drawable/cirlce1"
         app:layout_constraintTop_toBottomOf="@+id/card_Campo"
-        app:layout_constraintVertical_bias="0.63">
+        app:layout_constraintVertical_bias="1.0">
+
+
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:layout_width="220dp"
-                android:layout_height="469dp"
-                android:layout_marginStart="114dp"
+            <ImageView
+                android:visibility="visible"
+                android:layout_width="123dp"
+                android:layout_height="370dp"
+                android:src="@drawable/corpo_vuoto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.92"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.51">
+                app:layout_constraintVertical_bias="0.75" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+            <FrameLayout
+
+                android:id="@+id/framePiedi"
+                android:layout_width="51dp"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.96">
+
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <FrameLayout
-                        android:id="@+id/framegambad"
-                        android:layout_width="54dp"
-                        android:layout_height="123dp"
-                        app:layout_constraintBottom_toTopOf="@+id/framepolpd"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.22"
-                        app:layout_constraintStart_toStartOf="parent">
-
-
-                        <ImageView
-                            android:id="@+id/igambad"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/cosciad"
-                            android:visibility="visible" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framepolpd"
-                        android:layout_width="51dp"
-                        android:layout_height="87dp"
-                        app:layout_constraintBottom_toTopOf="@+id/framepieded"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.23"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <ImageView
-                            android:id="@+id/ipieded2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/polpd"
-                            android:visibility="visible"
-                            tools:layout_editor_absoluteX="-18dp"
-                            tools:layout_editor_absoluteY="338dp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framepieded"
-                        android:layout_width="52dp"
-                        android:layout_height="36dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.23"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <ImageView
-                            android:id="@+id/ipieded"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/pieded"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framegambas"
-                        android:layout_width="54dp"
-                        android:layout_height="123dp"
-                        app:layout_constraintBottom_toTopOf="@+id/framepolps"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/framegambad">
-
-
-                        <ImageView
-                            android:id="@+id/igambas"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/coscias"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framepolps"
-                        android:layout_width="51dp"
-                        android:layout_height="87dp"
-                        app:layout_constraintBottom_toTopOf="@+id/framepiedes"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toEndOf="@+id/framepolpd">
-
-                        <ImageView
-                            android:id="@+id/ipolps"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/polps"
-                            android:visibility="visible"
-                            tools:layout_editor_absoluteX="-18dp"
-                            tools:layout_editor_absoluteY="338dp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framepiedes"
-                        android:layout_width="52dp"
-                        android:layout_height="36dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toEndOf="@+id/framepieded">
-
-                        <ImageView
-                            android:id="@+id/ipiedes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/piedes"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/frameaddome"
-                        android:layout_width="110dp"
-                        android:layout_height="73dp"
-                        app:layout_constraintBottom_toTopOf="@+id/framegambad"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.34"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <ImageView
-                            android:id="@+id/iaddome"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/addome"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framepetto"
-                        android:layout_width="110dp"
-                        android:layout_height="73dp"
-                        app:layout_constraintBottom_toTopOf="@+id/frameaddome"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.34"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <ImageView
-                            android:id="@+id/ipetto"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/petto"
-                            android:visibility="visible" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/frametesta"
-                        android:layout_width="78dp"
-                        android:layout_height="72dp"
-                        app:layout_constraintBottom_toTopOf="@+id/framepetto"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.38"
-                        app:layout_constraintStart_toStartOf="parent">
-
-                        <ImageView
-                            android:id="@+id/itesta"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/testa"
-                            android:visibility="visible" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framebraccios"
-                        android:layout_width="30dp"
-                        android:layout_height="110dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/framegambas"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/framepetto"
-                        app:layout_constraintTop_toTopOf="@+id/framepetto"
-                        app:layout_constraintVertical_bias="0.01999998">
-
-
-                        <ImageView
-                            android:id="@+id/ibraccios"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/braccios"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/frameavambs"
-                        android:layout_width="32dp"
-                        android:layout_height="70dp"
-                        android:layout_marginStart="54dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/framegambas"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.1"
-                        app:layout_constraintStart_toStartOf="@+id/framegambas"
-                        app:layout_constraintTop_toBottomOf="@+id/framebraccios"
-                        app:layout_constraintVertical_bias="0.0">
-
-
-                        <ImageView
-                            android:id="@+id/iavambs"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/avambs"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framemanos"
-                        android:layout_width="23dp"
-                        android:layout_height="30dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.26"
-                        app:layout_constraintStart_toEndOf="@+id/framegambas"
-                        app:layout_constraintTop_toBottomOf="@+id/frameavambs">
-
-
-                        <ImageView
-                            android:id="@+id/imanos"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/manos"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framebracciod"
-                        android:layout_width="30dp"
-                        android:layout_height="110dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/framegambas"
-                        app:layout_constraintEnd_toStartOf="@+id/framepetto"
-                        app:layout_constraintTop_toTopOf="@+id/framepetto"
-                        app:layout_constraintVertical_bias="0.035">
-
-
-                        <ImageView
-                            android:id="@+id/ibracciod"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/bracciod"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/frameavambd"
-                        android:layout_width="33dp"
-                        android:layout_height="70dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/framegambas"
-                        app:layout_constraintEnd_toStartOf="@+id/frameaddome"
-                        app:layout_constraintHorizontal_bias="0.65"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/framebracciod"
-                        app:layout_constraintVertical_bias="0.0">
-
-
-                        <ImageView
-                            android:id="@+id/iavambd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/avambd"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/framemanod"
-                        android:layout_width="23dp"
-                        android:layout_height="30dp"
-                        app:layout_constraintEnd_toStartOf="@+id/framegambad"
-                        app:layout_constraintHorizontal_bias="0.2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/frameavambd">
-
-
-                        <ImageView
-                            android:id="@+id/imanod"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/manod"
-                            android:visibility="visible" />
-
-                    </FrameLayout>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/piedi"
+                    android:visibility="gone" />
             </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameCaviglie"
+                android:layout_width="45dp"
+                android:layout_height="11dp"
+                app:layout_constraintBottom_toTopOf="@+id/framePiedi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="11dp"
+                    android:src="@drawable/caviglie"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameStinchi"
+                android:layout_width="55dp"
+                android:layout_height="60dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameCaviglie"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="55dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/stinchi" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameGinocchia"
+                android:layout_width="50dp"
+                android:layout_height="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameStinchi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="50dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ginocchia" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameCoscie"
+                android:layout_width="75dp"
+                android:layout_height="80dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameGinocchia"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="75dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/coscie" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameAddome"
+                android:layout_width="75dp"
+                android:layout_height="80dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameCoscie"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="75dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/addome" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameTorace"
+                android:layout_width="82dp"
+                android:layout_height="46dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameAddome"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1">
+
+                <ImageView
+                    android:layout_width="82dp"
+                    android:layout_height="46dp"
+                    android:src="@drawable/torace"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameBraccioD"
+                android:layout_width="25dp"
+                android:layout_height="59dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameGinocchia"
+                app:layout_constraintEnd_toEndOf="@+id/frameTorace"
+                app:layout_constraintHorizontal_bias="0.565"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.465">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="25dp"
+                    android:layout_height="59dp"
+                    android:src="@drawable/bracciodestro" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameAvambraccioD"
+                android:layout_width="28dp"
+                android:layout_height="45dp"
+                app:layout_constraintEnd_toEndOf="@+id/frameAddome"
+                app:layout_constraintHorizontal_bias="0.56"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameBraccioD">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="28dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/avambracciodestro" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameManoD"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/frameCoscie"
+                app:layout_constraintHorizontal_bias="0.54"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameAvambraccioD">
+
+                <ImageView
+                        android:visibility="invisible"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/manodestra" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameBraccioS"
+                android:layout_width="25dp"
+                android:layout_height="59dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameGinocchia"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.435"
+                app:layout_constraintStart_toStartOf="@+id/frameTorace"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.465">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="25dp"
+                    android:layout_height="59dp"
+                    android:src="@drawable/bracciosinistro" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameAvambraccioS"
+                android:layout_width="28dp"
+                android:layout_height="45dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.44"
+                app:layout_constraintStart_toStartOf="@+id/frameAddome"
+                app:layout_constraintTop_toBottomOf="@+id/frameBraccioD">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="28dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/avambracciosinistro" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameManoS"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.46"
+                app:layout_constraintStart_toStartOf="@+id/frameAddome"
+                app:layout_constraintTop_toBottomOf="@+id/frameAvambraccioS">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/manosinistra" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameCollo"
+                android:layout_width="44dp"
+                android:layout_height="15dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameTorace"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="44dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/collo" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameTesta"
+                android:layout_width="54dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/frameTorace"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.85">
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/testa" />
+            </FrameLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
@@ -378,8 +331,8 @@
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
-        android:layout_width="393dp"
-        android:layout_height="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -395,11 +348,11 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/manos"
+                    android:id="@+id/manoDestra"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/manos" />
+                    android:src="@drawable/manodestra" />
             </FrameLayout>
 
             <FrameLayout
@@ -408,11 +361,11 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/avambs"
+                    android:id="@+id/avambraccioDestro"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/avambs" />
+                    android:src="@drawable/avambracciodestro" />
             </FrameLayout>
 
             <FrameLayout
@@ -434,58 +387,6 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/manod"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/manod" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frame5"
-                android:layout_width="75dp"
-                android:layout_height="75dp">
-
-                <ImageView
-                    android:id="@+id/avambd"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/avambd" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frame6"
-                android:layout_width="75dp"
-                android:layout_height="75dp">
-
-                <ImageView
-                    android:id="@+id/piedes"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/piedes" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frame7"
-                android:layout_width="75dp"
-                android:layout_height="75dp">
-
-                <ImageView
-                    android:id="@+id/petto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/petto" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frame8"
-                android:layout_width="75dp"
-                android:layout_height="75dp">
-
-                <ImageView
                     android:id="@+id/testa"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -494,16 +395,68 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame5"
+                android:layout_width="75dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/ginocchia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ginocchia" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame6"
+                android:layout_width="75dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/piedi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/piedi" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame7"
+                android:layout_width="75dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/torace"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/torace" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame8"
+                android:layout_width="75dp"
+                android:layout_height="75dp">
+
+                <ImageView
+                    android:id="@+id/braccioDestro"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bracciodestro" />
+            </FrameLayout>
+
+            <FrameLayout
                 android:id="@+id/frame9"
                 android:layout_width="75dp"
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/polps"
+                    android:id="@+id/manoSinistra"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/polps" />
+                    android:src="@drawable/manosinistra" />
             </FrameLayout>
 
             <FrameLayout
@@ -512,11 +465,11 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/pieded"
+                    android:id="@+id/stinchi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/pieded" />
+                    android:src="@drawable/stinchi" />
             </FrameLayout>
 
             <FrameLayout
@@ -525,11 +478,11 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/cosciad"
+                    android:id="@+id/braccioSinistro"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/cosciad" />
+                    android:src="@drawable/bracciosinistro" />
             </FrameLayout>
 
             <FrameLayout
@@ -538,11 +491,11 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/bracciod"
+                    android:id="@+id/caviglie"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/bracciod" />
+                    android:src="@drawable/caviglie" />
             </FrameLayout>
 
             <FrameLayout
@@ -551,11 +504,11 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/polpd"
+                    android:id="@+id/collo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/polpd" />
+                    android:src="@drawable/collo" />
             </FrameLayout>
 
             <FrameLayout
@@ -564,11 +517,11 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/coscias"
+                    android:id="@+id/coscie"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/coscias" />
+                    android:src="@drawable/coscie" />
             </FrameLayout>
 
             <FrameLayout
@@ -577,17 +530,15 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/braccios"
+                    android:id="@+id/avambraccioSinistro"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/braccios" />
+                    android:src="@drawable/avambracciosinistro" />
             </FrameLayout>
 
         </LinearLayout>
     </HorizontalScrollView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

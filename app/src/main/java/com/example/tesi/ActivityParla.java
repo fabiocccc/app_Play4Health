@@ -45,14 +45,15 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
     private static final int REQUEST_RECORD_PERMISSION = 100;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1;
     private Spinner spinner;
-    private FloatingActionButton button_Parla;
-    private Button button_Ascolta;
+    private Button button_Parla;
+    private FloatingActionButton button_Ascolta;
     private TextView text_Riconosciuto;
-    private TextToSpeech t1;
+    private TextToSpeech textToSpeech;
     private SpeechRecognizer speechRecognizer;
     private Intent recognizerIntent;
     private JSONArray jsonArray;
     private ImageView imageView_Parla;
+    private String corretta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
         ArrayList<String> parole = new ArrayList<>();
         try {
+            corretta = jsonArray.getJSONObject(random).getString("ita");
             parole.add(jsonArray.getJSONObject(random).getString("ita"));
             parole.add(jsonArray.getJSONObject(random).getString("fra"));
             parole.add(jsonArray.getJSONObject(random).getString("eng"));
@@ -99,7 +101,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         }
 
 
-        SpinnerAdapter adapter = new SpinnerAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, parole);
+        SpinnerAdapter adapter = new SpinnerAdapter(this, parole);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
 
@@ -125,7 +127,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         });
 
 
-        t1 = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
@@ -135,24 +137,24 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
                             switch (i){
                                 case 0:
                                     //Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
-                                    t1.setLanguage(Locale.ITALIAN);
+                                    textToSpeech.setLanguage(Locale.ITALIAN);
                                     String toSpeakIt = spinner.getSelectedItem().toString();
 
-                                    t1.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
+                                    textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
                                     break;
                                 case 1:
                                     //Toast.makeText(getApplicationContext(), "ENGLISH",Toast.LENGTH_SHORT).show();
-                                    t1.setLanguage(Locale.FRANCE);
+                                    textToSpeech.setLanguage(Locale.FRANCE);
                                     String toSpeakFr = spinner.getSelectedItem().toString();
 
-                                    t1.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                    textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
                                     break;
                                 case 2:
                                     //Toast.makeText(getApplicationContext(), "BAGUETA",Toast.LENGTH_SHORT).show();
-                                    t1.setLanguage(Locale.ENGLISH);
+                                    textToSpeech.setLanguage(Locale.ENGLISH);
                                     String toSpeakEn = spinner.getSelectedItem().toString();
 
-                                    t1.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                    textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
                             }
                         }
 
@@ -172,11 +174,13 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
             public void onClick(View v) {
                 String toSpeak = spinner.getItemAtPosition(0).toString();
                 spinner.setSelection(0);
-                t1.setLanguage(Locale.ITALY);
-                t1.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                textToSpeech.setLanguage(Locale.ITALY);
+                textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
             }
         });
+
     }
+
 
     public void checkPermission(String permission, int requestCode)
     {
@@ -203,20 +207,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
-            if (resultCode == RESULT_OK && data != null) {
-                ArrayList<String> result = data.getStringArrayListExtra(
-                        RecognizerIntent.EXTRA_RESULTS);
-                text_Riconosciuto.setText(
-                        Objects.requireNonNull(result).get(0));
 
-            }
-        }
-    }
 
     @Override
     public void onReadyForSpeech(Bundle bundle) {
@@ -256,6 +247,13 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         for (String result : matches)
             text = result + "";
         text_Riconosciuto.setText(text);
+
+
+        if(text_Riconosciuto.getText().toString().equalsIgnoreCase(corretta)){
+            Toast.makeText(getApplicationContext(), "EX SVOLTO BENE",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "NON GIUSTA",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -288,7 +286,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
                 message = "Network timeout";
                 break;
             case SpeechRecognizer.ERROR_NO_MATCH:
-                message = "RIPROVA";
+                message = "Riprova";
                 break;
             case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
                 message = "RecognitionService busy";
