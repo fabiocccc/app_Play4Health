@@ -2,7 +2,11 @@ package com.example.tesi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.ClipData;
+import android.graphics.Path;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -18,7 +22,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ActivityViso extends AppCompatActivity implements View.OnDragListener, View.OnTouchListener {
+public class ActivityViso extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener, View.OnClickListener {
 
     private Boolean fbocca = false;
     private Boolean fcapelli = false;
@@ -31,6 +35,10 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
 
     private Drawable enterShape;
     private Drawable normalShape;
+
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private AnimationDrawable animationDrawable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +66,23 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
         findViewById(R.id.frame5).setOnDragListener(this);
         findViewById(R.id.frame6).setOnDragListener(this);
 
-        findViewById(R.id.bocca).setOnTouchListener(this);
-        findViewById(R.id.naso).setOnTouchListener(this);
-        findViewById(R.id.occhi).setOnTouchListener(this);
-        findViewById(R.id.sopracciglia).setOnTouchListener(this);
-        findViewById(R.id.capelli).setOnTouchListener(this);
-        findViewById(R.id.orecchie).setOnTouchListener(this);
+        findViewById(R.id.bocca).setOnLongClickListener(this);
+        findViewById(R.id.naso).setOnLongClickListener(this);
+        findViewById(R.id.occhi).setOnLongClickListener(this);
+        findViewById(R.id.sopracciglia).setOnLongClickListener(this);
+        findViewById(R.id.capelli).setOnLongClickListener(this);
+        findViewById(R.id.orecchie).setOnLongClickListener(this);
+
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
     }
 
@@ -71,12 +90,62 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
     protected void onStart() {
         super.onStart();
 
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                help1.setVisibility(View.VISIBLE);
+                button_aiuto.setVisibility(View.GONE);
+
+                help1.setBackgroundResource(R.drawable.animation_pointing);
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.setOneShot(true);
+                animationDrawable.start();
+
+                //ObjectAnimator animation = ObjectAnimator.ofFloat(help1, "translationY", -700f);
+                Path path = new Path();
+                path.lineTo(-520f, 700f);
+                ObjectAnimator animation = ObjectAnimator.ofFloat(help1, "translationY", "translationX", path);
+                animation.setStartDelay(500);
+                animation.setDuration(1000);
+                animation.start();
+
+                animation.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        help1.setBackgroundResource(R.drawable.animation_drag);
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+
+
+
+            }
+        });
+
         findViewById(R.id.framecapelli).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(fcapelli){
                     ArrayList parole = new ArrayList();
-                    parole.add("Gamba destra");
+                    parole.add("Capelli");
                     parole.add("Surface de but");
                     parole.add("Goal area");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
@@ -94,7 +163,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(forecchie){
                     ArrayList parole = new ArrayList();
-                    parole.add("Gamba destra");
+                    parole.add("Orecchie");
                     parole.add("Surface de but");
                     parole.add("Goal area");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
@@ -112,7 +181,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(forecchie){
                     ArrayList parole = new ArrayList();
-                    parole.add("Gamba destra");
+                    parole.add("Orecchie");
                     parole.add("Surface de but");
                     parole.add("Goal area");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
@@ -177,26 +246,12 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                 v.setBackgroundDrawable(enterShape);
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
-                v.setBackgroundDrawable(null);
+                v.setBackgroundResource(0);
                 break;
             case DragEvent.ACTION_DROP:
                 // Dropped, reassign View to ViewGroup
                 View view = (View) event.getLocalState(); //immagine // View v = framelayout in cui è droppato
-                ViewGroup owner = (ViewGroup) view.getParent();/*
-                    owner.removeView(view);
-                    owner.setVisibility(View.GONE);
-                    FrameLayout container = (FrameLayout) v;*/
-
-
-                    /*container.addView(view); VECCHIO
-                    view.setVisibility(View.VISIBLE);*/
-/*
-
-                    ImageView img = (ImageView) view;
-                    container.addView(img);
-                    img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                    img.setScaleType(ImageView.ScaleType.FIT_XY);
-                    img.setVisibility(View.VISIBLE);*/
+                ViewGroup owner = (ViewGroup) view.getParent();
 
                 switch (getResources().getResourceEntryName(view.getId())) {
                     case "capelli":
@@ -215,23 +270,10 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                                 findViewById(R.id.image_face).setVisibility(View.GONE);
                             }
 
+                            ImageView img = (ImageView) view;
+                            img.setOnClickListener(ActivityViso.this);
+                            img.performClick();
 
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
-
-                        } else if (getResources().getResourceEntryName(v.getId()).equals("framecapelli") && fcapelli) {
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
                         }
                         break;
                     case "orecchie":
@@ -251,23 +293,10 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                                 findViewById(R.id.image_face).setVisibility(View.GONE);
                             }
 
+                            ImageView img = (ImageView) view;
+                            img.setOnClickListener(ActivityViso.this);
+                            img.performClick();
 
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
-
-                        } else if (getResources().getResourceEntryName(v.getId()).equals("framecapelli") && fcapelli) {
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
                         }
                         break;
                     case "bocca":
@@ -284,22 +313,8 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                             img.setVisibility(View.VISIBLE);
 
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
-
-                        } else if (getResources().getResourceEntryName(v.getId()).equals("frametesta") && fbocca) {
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
+                            img.setOnClickListener(ActivityViso.this);
+                            img.performClick();
                         }
                         break;
                     case "naso":
@@ -316,22 +331,9 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                             img.setVisibility(View.VISIBLE);
 
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
+                            img.setOnClickListener(ActivityViso.this);
+                            img.performClick();
 
-                        } else if (getResources().getResourceEntryName(v.getId()).equals("framenaso") && fnaso) {
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
                         }
                         break;
                     case "occhi":
@@ -348,22 +350,8 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                             img.setVisibility(View.VISIBLE);
 
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
-
-                        } else if (getResources().getResourceEntryName(v.getId()).equals("frameocchi") && focchi) {
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
+                            img.setOnClickListener(ActivityViso.this);
+                            img.performClick();
                         }
                         break;
                     case "sopracciglia":
@@ -380,27 +368,13 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                             img.setVisibility(View.VISIBLE);
 
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
-
-                        } else if (getResources().getResourceEntryName(v.getId()).equals("framesopracciglia") && fsopracc) {
-                            ArrayList parole = new ArrayList();
-                            parole.add("Gamba destra");
-                            parole.add("Surface de but");
-                            parole.add("Goal area");
-                            SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                            spinner.setAdapter(adapter);
-                            spinner.setSelection(0);
+                            img.setOnClickListener(ActivityViso.this);
+                            img.performClick();
                         }
                         break;
                 }
             case DragEvent.ACTION_DRAG_ENDED:
-                //v.setBackgroundDrawable(normalShape);
+                v.setBackgroundResource(0);
             default:
                 break;
         }
@@ -408,16 +382,67 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-            ClipData data = ClipData.newPlainText(getResources().getResourceEntryName(view.getId()), "");
-            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
-                    view);
-            view.startDrag(data, shadowBuilder, view, 0);
-            //view.setVisibility(View.INVISIBLE);
-            return true;
-        } else {
-            return false;
+    public boolean onLongClick(View view) {
+
+        ClipData data = ClipData.newPlainText(getResources().getResourceEntryName(view.getId()), "");
+        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
+        view);
+        view.startDrag(data, shadowBuilder, view, 0);
+        //view.setVisibility(View.INVISIBLE);
+        return true;
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        ArrayList parole;
+        SpinnerAdapter adapter;
+
+        switch (view.getId()){
+            case R.id.capelli:
+                parole = new ArrayList();
+                parole.add("Capelli"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.orecchie:
+                parole = new ArrayList();
+                parole.add("Orecchie"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.sopracciglia:
+                parole = new ArrayList();
+                parole.add("Sopracciglia"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.occhi:
+                parole = new ArrayList();
+                parole.add("Occhi"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.naso:
+                parole = new ArrayList();
+                parole.add("Naso"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.bocca:
+                parole = new ArrayList();
+                parole.add("Bocca"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
         }
+
     }
 }

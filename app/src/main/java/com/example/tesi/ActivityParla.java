@@ -7,11 +7,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -21,6 +24,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -55,6 +59,11 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
     private ImageView imageView_Parla;
     private String corretta;
 
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private ImageView help2;
+    private AnimationDrawable animationDrawable = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +75,41 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         text_Riconosciuto = findViewById(R.id.TextRiconosciuto);
         imageView_Parla = findViewById(R.id.imageView_Scrivere);
 
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+        help2 = findViewById(R.id.help2);
+
+
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
+
+
 
         String jsonString = read(this, "dati.json");
         try {
@@ -112,6 +151,15 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         button_Parla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(animationDrawable != null) {
+                    help2.setVisibility(View.GONE);
+                    animationDrawable.stop();
+                    animationDrawable = null;
+
+                    button_aiuto.setVisibility(View.VISIBLE);
+                }
+
                 recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT");
@@ -172,6 +220,17 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         button_Ascolta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(animationDrawable != null) {
+                    help1.setVisibility(View.GONE);
+                    animationDrawable.stop();
+
+                    help2.setVisibility(View.VISIBLE);
+
+                    animationDrawable = (AnimationDrawable) help2.getBackground();
+                    animationDrawable.start();
+                }
+
                 String toSpeak = spinner.getItemAtPosition(0).toString();
                 spinner.setSelection(0);
                 textToSpeech.setLanguage(Locale.ITALY);

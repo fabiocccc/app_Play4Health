@@ -153,48 +153,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_HomeCorpo2"
-        android:layout_width="162dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="520dp"
-        android:text="Corpo scegli"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.116"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_HomeCorpo3"
-        android:layout_width="162dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="528dp"
-        android:text="COMP VISO"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_HomeCorpo5"
-        android:layout_width="162dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="648dp"
-        android:text="SCRIVI DIFFICILE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_HomeCorpo4"
-        android:layout_width="162dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="588dp"
-        android:text="COMP MANO"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

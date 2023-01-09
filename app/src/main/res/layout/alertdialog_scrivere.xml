@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#D7FFA7"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="230dp"
+        app:cardCornerRadius="20sp"
+        android:backgroundTint="#D7FFA7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="sans-serif-medium"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:paddingRight="5dp"
+                android:text="Seleziona difficoltà"
+                android:textAlignment="center"
+
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/button_ScrivereFacile"
+                android:layout_width="260dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:textSize="24dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#80e5ff"
+                android:text="FACILE" />
+
+            <Button
+                android:id="@+id/button_ScrivereDifficile"
+                android:layout_width="260dp"
+                android:layout_height="70dp"
+                android:textSize="24dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#80e5ff"
+                android:text="DIFFICILE"/>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

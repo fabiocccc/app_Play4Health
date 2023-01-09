@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
@@ -50,15 +51,33 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
     private String corretta;
     private String mischiata;
 
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private ImageView help2;
+    private AnimationDrawable animationDrawable = null;
+    private AnimationDrawable animationDrawableScelta1 = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrivere_difficile);
 
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         imageView = findViewById(R.id.imageView_Scrivere);
         spinner = findViewById(R.id.spinner);
         button_Ascolta = findViewById(R.id.button_Ascolta2);
+
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+        help2 = findViewById(R.id.help2);
 
         String jsonString = read(this, "dati.json");
         try {
@@ -93,8 +112,6 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
         SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, parole, true);
         spinner.setAdapter(spinnerAdapter);
         spinner.setSelection(0);
-
-
 
         //Toast.makeText(getApplicationContext(), "-"+ lettera.getChildAt(1).toString(), Toast.LENGTH_SHORT).show();
         List<String> characters = Arrays.asList(corretta.split(""));
@@ -135,6 +152,15 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
             lettera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    if(animationDrawableScelta1 != null) {
+                        help2.setVisibility(View.GONE);
+                        animationDrawableScelta1.stop();
+                        animationDrawableScelta1 = null;
+
+                        button_aiuto.setVisibility(View.VISIBLE);
+                    }
+
                     LinearLayout v = (LinearLayout) finalLettera.getParent();
 
                     if(getResources().getResourceEntryName(v.getId()).equals("linear_risposta")){
@@ -190,26 +216,39 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.start();
+                button_aiuto.setVisibility(View.GONE);
+            }
+        });
+
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-
-                button_Ascolta.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        textToSpeech.setLanguage(Locale.ITALIAN);
-                        String toSpeakIt = corretta;
-
-                        textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
-
-                    }
-                });
 
                 if(status != TextToSpeech.ERROR) {
 
                     button_Ascolta.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
+                            if(animationDrawable != null) {
+                                help1.setVisibility(View.GONE);
+                                animationDrawable.stop();
+                                animationDrawable = null;
+
+                                help2.setVisibility(View.VISIBLE);
+
+                                animationDrawableScelta1 = (AnimationDrawable) help2.getBackground();
+                                animationDrawableScelta1.start();
+
+                            }
+
                             textToSpeech.setLanguage(Locale.ITALIAN);
                             String toSpeakIt = corretta;
 

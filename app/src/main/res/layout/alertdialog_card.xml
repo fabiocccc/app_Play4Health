@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#D7FFA7"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="300dp"
         android:layout_height="320dp"
         app:cardCornerRadius="20sp"
+        android:backgroundTint="#D7FFA7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

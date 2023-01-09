@@ -50,6 +50,14 @@ public class ActivityCampo extends AppCompatActivity {
         button_Linea2 = findViewById(R.id.button_Linea2);
         button_Ruoli = findViewById(R.id.button_Ruoli);
         spinner = findViewById(R.id.spinner_Corpo);
+
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
 

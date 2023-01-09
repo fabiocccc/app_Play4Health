@@ -11,46 +11,76 @@
     android:background="#D7FFA7"
     android:stretchMode="columnWidth" >
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_Campo"
-        android:layout_width="359dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="?attr/colorSecondary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:id="@+id/button_indietro"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_cancella"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="270dp"
+                android:layout_height="56dp"
+                android:autoSizeTextType="uniform"
+                android:layout_marginStart="4dp"
+                android:paddingTop="3dp"
+                android:text="Componi il corpo"
+                android:textColor="#F0000000"
+                android:textSize="40sp"
+                app:layout_constraintStart_toEndOf="@+id/button_indietro"
+                tools:layout_editor_absoluteY="6dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_Campo"
+        android:layout_width="290dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Spinner
+            android:id="@+id/spinner_Corpo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Spinner
-                android:id="@+id/spinner_Corpo"
-                android:layout_width="match_parent"
-                android:layout_height="55dp" />
-
-        </LinearLayout>
+            android:layout_height="match_parent" />
 
     </androidx.cardview.widget.CardView>
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="310dp"
         android:layout_height="432dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="46dp"
         android:background="@drawable/cirlce1"
         android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_Campo"
-        app:layout_constraintVertical_bias="1.0">
-
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,10 +88,10 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:visibility="visible"
                 android:layout_width="123dp"
                 android:layout_height="370dp"
                 android:src="@drawable/corpo_vuoto"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,10 +145,10 @@
                 app:layout_constraintVertical_bias="1">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="55dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/stinchi" />
+                    android:src="@drawable/stinchi"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -132,10 +162,10 @@
                 app:layout_constraintVertical_bias="1">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="50dp"
                     android:layout_height="10dp"
-                    android:src="@drawable/ginocchia" />
+                    android:src="@drawable/ginocchia"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -149,10 +179,10 @@
                 app:layout_constraintVertical_bias="1">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="75dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/coscie" />
+                    android:src="@drawable/coscie"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -166,10 +196,10 @@
                 app:layout_constraintVertical_bias="1">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="75dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/addome" />
+                    android:src="@drawable/addome"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -201,10 +231,10 @@
                 app:layout_constraintVertical_bias="0.465">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="25dp"
                     android:layout_height="59dp"
-                    android:src="@drawable/bracciodestro" />
+                    android:src="@drawable/bracciodestro"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -217,10 +247,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/frameBraccioD">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="28dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/avambracciodestro" />
+                    android:src="@drawable/avambracciodestro"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -233,10 +263,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/frameAvambraccioD">
 
                 <ImageView
-                        android:visibility="invisible"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/manodestra" />
+                    android:src="@drawable/manodestra"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -251,10 +281,10 @@
                 app:layout_constraintVertical_bias="0.465">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="25dp"
                     android:layout_height="59dp"
-                    android:src="@drawable/bracciosinistro" />
+                    android:src="@drawable/bracciosinistro"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -267,10 +297,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/frameBraccioD">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="28dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/avambracciosinistro" />
+                    android:src="@drawable/avambracciosinistro"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -283,10 +313,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/frameAvambraccioS">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/manosinistra" />
+                    android:src="@drawable/manosinistra"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -300,10 +330,10 @@
                 app:layout_constraintVertical_bias="1">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="44dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/collo" />
+                    android:src="@drawable/collo"
+                    android:visibility="invisible" />
             </FrameLayout>
 
             <FrameLayout
@@ -317,10 +347,10 @@
                 app:layout_constraintVertical_bias="0.85">
 
                 <ImageView
-                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/testa" />
+                    android:src="@drawable/testa"
+                    android:visibility="invisible" />
             </FrameLayout>
 
 
@@ -332,7 +362,8 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -361,11 +392,12 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/avambraccioDestro"
+                    android:id="@+id/addome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/avambracciodestro" />
+                    android:src="@drawable/addome" />
+
             </FrameLayout>
 
             <FrameLayout
@@ -374,11 +406,11 @@
                 android:layout_height="75dp">
 
                 <ImageView
-                    android:id="@+id/addome"
+                    android:id="@+id/avambraccioDestro"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/addome" />
+                    android:src="@drawable/avambracciodestro" />
             </FrameLayout>
 
             <FrameLayout
@@ -539,6 +571,28 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <FrameLayout
+        android:visibility="visible"
+        android:id="@+id/button_aiuto"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/black"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/help1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="50"
+        android:visibility="invisible"
+        android:layout_marginLeft="45dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

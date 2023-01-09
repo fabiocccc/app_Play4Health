@@ -2,24 +2,32 @@ package com.example.tesi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.ClipData;
+import android.graphics.Path;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.DragEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ActivityCorpo extends AppCompatActivity implements View.OnTouchListener, View.OnDragListener {
+public class ActivityCorpo extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener, View.OnClickListener {
 
     private ImageView img1;
 
@@ -47,6 +55,10 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
     private Drawable enterShape;
     private Drawable normalShape;
 
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private AnimationDrawable animationDrawable = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,22 +73,23 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
         windowwidth = getWindowManager().getDefaultDisplay().getWidth();
         windowheight = getWindowManager().getDefaultDisplay().getHeight();
 
-        findViewById(R.id.piedi).setOnTouchListener(this);
-        findViewById(R.id.caviglie).setOnTouchListener(this);
-        findViewById(R.id.stinchi).setOnTouchListener(this);
-        findViewById(R.id.ginocchia).setOnTouchListener(this);
-        findViewById(R.id.coscie).setOnTouchListener(this);
-        findViewById(R.id.addome).setOnTouchListener(this);
-        findViewById(R.id.torace).setOnTouchListener(this);
-        findViewById(R.id.collo).setOnTouchListener(this);
-        findViewById(R.id.testa).setOnTouchListener(this);
-        findViewById(R.id.braccioDestro).setOnTouchListener(this);
-        findViewById(R.id.braccioSinistro).setOnTouchListener(this);
-        findViewById(R.id.avambraccioDestro).setOnTouchListener(this);
-        findViewById(R.id.avambraccioSinistro).setOnTouchListener(this);
-        findViewById(R.id.manoDestra).setOnTouchListener(this);
-        findViewById(R.id.manoSinistra).setOnTouchListener(this);
+        button_aiuto = findViewById(R.id.button_aiuto);
 
+        findViewById(R.id.piedi).setOnLongClickListener(this);
+        findViewById(R.id.caviglie).setOnLongClickListener(this);
+        findViewById(R.id.stinchi).setOnLongClickListener(this);
+        findViewById(R.id.ginocchia).setOnLongClickListener(this);
+        findViewById(R.id.coscie).setOnLongClickListener(this);
+        findViewById(R.id.addome).setOnLongClickListener(this);
+        findViewById(R.id.torace).setOnLongClickListener(this);
+        findViewById(R.id.collo).setOnLongClickListener(this);
+        findViewById(R.id.testa).setOnLongClickListener(this);
+        findViewById(R.id.braccioDestro).setOnLongClickListener(this);
+        findViewById(R.id.braccioSinistro).setOnLongClickListener(this);
+        findViewById(R.id.avambraccioDestro).setOnLongClickListener(this);
+        findViewById(R.id.avambraccioSinistro).setOnLongClickListener(this);
+        findViewById(R.id.manoDestra).setOnLongClickListener(this);
+        findViewById(R.id.manoSinistra).setOnLongClickListener(this);
 
         findViewById(R.id.framePiedi).setOnDragListener(this);
         findViewById(R.id.frameCaviglie).setOnDragListener(this);
@@ -110,16 +123,70 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
         findViewById(R.id.frame14).setOnDragListener(this);
         findViewById(R.id.frame15).setOnDragListener(this);
 
-       /* findViewById(R.id.framepolpd).setOnDragListener(new MyDragListener());
-        findViewById(R.id.framepieded).setOnDragListener(new MyDragListener());
-        findViewById(R.id.frameLayout1).setOnDragListener(new MyDragListener());
-        findViewById(R.id.frameLayout2).setOnDragListener(new MyDragListener());*/
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                help1.setVisibility(View.VISIBLE);
+                button_aiuto.setVisibility(View.GONE);
+
+                help1.setBackgroundResource(R.drawable.animation_pointing);
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.setOneShot(true);
+                animationDrawable.start();
+
+                //ObjectAnimator animation = ObjectAnimator.ofFloat(help1, "translationY", -700f);
+                Path path = new Path();
+                path.lineTo(-660f, 210f);
+                ObjectAnimator animation = ObjectAnimator.ofFloat(help1, "translationY", "translationX", path);
+                animation.setStartDelay(500);
+                animation.setDuration(1000);
+                animation.start();
+
+                animation.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        help1.setBackgroundResource(R.drawable.animation_drag);
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+
+
+
+            }
+        });
 
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -165,7 +232,7 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
 
     }
 
-    @Override
+    /*@Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 ClipData data = ClipData.newPlainText(getResources().getResourceEntryName(view.getId()), "");
@@ -177,7 +244,137 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
             } else {
                 return false;
             }
+        return true;
+        }*/
+
+    @Override
+    public boolean onLongClick(View view) {
+
+        ClipData data = ClipData.newPlainText(getResources().getResourceEntryName(view.getId()), "");
+        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
+                    view);
+        view.startDrag(data, shadowBuilder, view, 0);
+        //view.setVisibility(View.INVISIBLE);
+        return true;
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        ArrayList parole;
+        SpinnerAdapter adapter;
+
+        switch (view.getId()){
+            case R.id.piedi:
+                parole = new ArrayList();
+                parole.add("Piedi"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.caviglie:
+                parole = new ArrayList();
+                parole.add("Caviglie"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.stinchi:
+                parole = new ArrayList();
+                parole.add("Stinchi"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.ginocchia:
+                parole = new ArrayList();
+                parole.add("Ginocchia"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.coscie:
+                parole = new ArrayList();
+                parole.add("Coscie"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.addome:
+                parole = new ArrayList();
+                parole.add("Addome"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.torace:
+                parole = new ArrayList();
+                parole.add("Torace"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.collo:
+                parole = new ArrayList();
+                parole.add("Collo"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.testa:
+                parole = new ArrayList();
+                parole.add("Testa"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.braccioDestro:
+                parole = new ArrayList();
+                parole.add("Braccio"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.braccioSinistro:
+                parole = new ArrayList();
+                parole.add("Braccio"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.avambraccioDestro:
+                parole = new ArrayList();
+                parole.add("Avambraccio"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.avambraccioSinistro:
+                parole = new ArrayList();
+                parole.add("Avambraccio"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.manoDestra:
+                parole = new ArrayList();
+                parole.add("Mano"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
+            case R.id.manoSinistra:
+                parole = new ArrayList();
+                parole.add("Mano"); parole.add("Surface de but"); parole.add("Goal area");
+                adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                break;
         }
+
+    }
+
 
 
 
@@ -194,7 +391,7 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                     v.setBackgroundDrawable(enterShape);
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
-                    v.setBackgroundDrawable(null);
+                    v.setBackgroundResource(0);
                     break;
                 case DragEvent.ACTION_DROP:
                     // Dropped, reassign View to ViewGroup
@@ -230,18 +427,8 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
 
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
-
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameTesta") && ftesta) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
                             }
                             break;
                         case "braccioDestro":
@@ -257,18 +444,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameBraccioD") && fbracciod) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "braccioSinistro":
@@ -284,18 +462,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameBraccioS") && fbraccios) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "avambraccioDestro":
@@ -311,18 +480,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameAvambraccioD") && favambd) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "avambraccioSinistro":
@@ -338,18 +498,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameAvambraccioS") && favambs) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "manoDestra":
@@ -365,18 +516,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameManoD") && fmanod) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "manoSinistra":
@@ -392,18 +534,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameManoS") && fmanos) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "torace":
@@ -419,18 +552,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameTorace") && ftorace) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "addome":
@@ -445,18 +569,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 container.addView(img);
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameAddome") && faddome) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "coscie":
@@ -472,18 +587,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameCoscie") && fcoscie) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "ginocchia":
@@ -499,18 +605,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameGinocchia") && fginocchia) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "stinchi":
@@ -526,18 +623,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameStinchi") && fstinchi) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "caviglie":
@@ -553,18 +641,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameCaviglie") && fcaviglie) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "piedi":
@@ -581,18 +660,9 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setVisibility(View.VISIBLE);
                                 img.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
 
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("framePiedi") && fpiedi) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
                             }
                             break;
                         case "collo":
@@ -607,28 +677,21 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnTouchList
                                 img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                                 img.setVisibility(View.VISIBLE);
 
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
-                            } else if(getResources().getResourceEntryName(v.getId()).equals("frameCollo") && fcollo) {
-                                ArrayList parole = new ArrayList();
-                                parole.add("Gamba destra"); parole.add("Surface de but"); parole.add("Goal area");
-                                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                                spinner.setAdapter(adapter);
-                                spinner.setSelection(0);
+                                img.setOnClickListener(ActivityCorpo.this);
+                                img.performClick();
+
                             }
                             break;
                     }
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
-                    //v.setBackgroundDrawable(normalShape);
+                    v.setBackgroundResource(0);
                 default:
                     break;
             }
             return true;
         }
+
 
 
 }

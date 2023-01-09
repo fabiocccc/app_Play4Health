@@ -137,7 +137,7 @@ public class ActivityCarica extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.JPEG, 50, baos); //bm is the bitmap object
+                photo.compress(Bitmap.CompressFormat.JPEG, 80, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 image_CaricaBase64 = Base64.encodeToString(b, Base64.NO_WRAP);
                 //TextView textView2 = findViewById(R.id.textView2);

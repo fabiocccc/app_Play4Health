@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -40,6 +42,14 @@ public class ActivityScegli extends AppCompatActivity {
     private String corretta;
     private Boolean ascoltato;
 
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private ImageView help2;
+    private ImageView help3;
+    private AnimationDrawable animationDrawable = null;
+    private AnimationDrawable animationDrawableScelta1 = null;
+    private AnimationDrawable animationDrawableScelta2 = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +61,40 @@ public class ActivityScegli extends AppCompatActivity {
         spinner1 = findViewById(R.id.spinner_Scelta1);
         spinner2 = findViewById(R.id.spinner_Scelta2);
 
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+        help2 = findViewById(R.id.help2);
+        help3 = findViewById(R.id.help3);
+
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
+
         ascoltato = false;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.start();
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
 
         String jsonString = read(this, "dati.json");
         try {
@@ -67,6 +105,9 @@ public class ActivityScegli extends AppCompatActivity {
 
         int random1 = (int)(Math.random() * jsonArray.length());
         int random2 = (int)(Math.random() * jsonArray.length());
+        while(random2 == random1){
+            random2 = (int)(Math.random() * jsonArray.length());
+        }
 
         ArrayList<String> parole1 = new ArrayList<>();
         ArrayList<String> parole2 = new ArrayList<>();
@@ -120,6 +161,21 @@ public class ActivityScegli extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 
+                            if(animationDrawable != null) {
+                                help1.setVisibility(View.GONE);
+                                animationDrawable.stop();
+                                animationDrawable = null;
+
+                                help2.setVisibility(View.VISIBLE);
+                                help3.setVisibility(View.VISIBLE);
+
+                                animationDrawableScelta1 = (AnimationDrawable) help2.getBackground();
+                                animationDrawableScelta2 = (AnimationDrawable) help3.getBackground();
+                                animationDrawableScelta1.start();
+                                animationDrawableScelta2.start();
+
+                            }
+
                             ascoltato = true;
 
                             if(corr == 1){
@@ -132,26 +188,24 @@ public class ActivityScegli extends AppCompatActivity {
                         }
                     });
 
-                    /*spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             switch (i){
                                 case 0:
-                                    //Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
                                     textToSpeech.setLanguage(Locale.ITALIAN);
                                     String toSpeakIt = spinner1.getSelectedItem().toString();
 
                                     textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
                                     break;
                                 case 1:
-                                    //Toast.makeText(getApplicationContext(), "ENGLISH",Toast.LENGTH_SHORT).show();
                                     textToSpeech.setLanguage(Locale.FRANCE);
                                     String toSpeakFr = spinner1.getSelectedItem().toString();
 
                                     textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
                                     break;
                                 case 2:
-                                    //Toast.makeText(getApplicationContext(), "BAGUETA",Toast.LENGTH_SHORT).show();
+
                                     textToSpeech.setLanguage(Locale.ENGLISH);
                                     String toSpeakEn = spinner1.getSelectedItem().toString();
 
@@ -170,21 +224,21 @@ public class ActivityScegli extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             switch (i){
                                 case 0:
-                                    //Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
+
                                     textToSpeech.setLanguage(Locale.ITALIAN);
                                     String toSpeakIt = spinner2.getSelectedItem().toString();
 
                                     textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
                                     break;
                                 case 1:
-                                    //Toast.makeText(getApplicationContext(), "ENGLISH",Toast.LENGTH_SHORT).show();
+
                                     textToSpeech.setLanguage(Locale.FRANCE);
                                     String toSpeakFr = spinner2.getSelectedItem().toString();
 
                                     textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
                                     break;
                                 case 2:
-                                    //Toast.makeText(getApplicationContext(), "BAGUETA",Toast.LENGTH_SHORT).show();
+
                                     textToSpeech.setLanguage(Locale.ENGLISH);
                                     String toSpeakEn = spinner2.getSelectedItem().toString();
 
@@ -196,7 +250,7 @@ public class ActivityScegli extends AppCompatActivity {
                         public void onNothingSelected(AdapterView<?> adapterView) {
 
                         }
-                    });*/
+                    });
                 }
             }
         });
@@ -204,6 +258,19 @@ public class ActivityScegli extends AppCompatActivity {
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(animationDrawableScelta1 != null && animationDrawableScelta2 != null) {
+                    help2.setVisibility(View.GONE);
+                    animationDrawableScelta1.stop();
+                    animationDrawableScelta1 = null;
+
+                    help3.setVisibility(View.GONE);
+                    animationDrawableScelta2.stop();
+                    animationDrawableScelta2 = null;
+
+                    button_aiuto.setVisibility(View.VISIBLE);
+                }
+
                 if(ascoltato){
                     if(corr == 1){
                         //giusto
@@ -220,6 +287,19 @@ public class ActivityScegli extends AppCompatActivity {
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(animationDrawableScelta1 != null && animationDrawableScelta2 != null) {
+                    help2.setVisibility(View.GONE);
+                    animationDrawableScelta1.stop();
+                    animationDrawableScelta1 = null;
+
+                    help3.setVisibility(View.GONE);
+                    animationDrawableScelta2.stop();
+                    animationDrawableScelta2 = null;
+
+                    button_aiuto.setVisibility(View.VISIBLE);
+                }
+
                 if(ascoltato){
                     if(corr == 2){
                         //giusto

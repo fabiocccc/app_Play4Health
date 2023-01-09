@@ -5,11 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.view.FrameMetrics;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class ActivityCampoRuoli extends AppCompatActivity {
 
@@ -25,6 +31,9 @@ public class ActivityCampoRuoli extends AppCompatActivity {
     private FrameLayout button_att1;
     private FrameLayout button_att2;
     private Button button_campo;
+
+    private TextToSpeech textToSpeech;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
         button_att1 = findViewById(R.id.button_Att1);
         button_att2 = findViewById(R.id.button_Att2);
         button_campo = findViewById(R.id.button_Campo);
+
+        spinner = findViewById(R.id.spinner_Corpo);
+
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     boolean abort;
@@ -75,16 +94,189 @@ public class ActivityCampoRuoli extends AppCompatActivity {
         button_portiere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //changeBackground();
+
+                ArrayList parole = new ArrayList();
+                parole.add("Portiere"); parole.add("Gardien de but"); parole.add("Goalkeeper");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
 
             }
         });
+
+        button_difensore1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Difensore"); parole.add("Défenseur"); parole.add("Defender");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_difensore2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Difensore"); parole.add("Défenseur"); parole.add("Defender");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_terzinod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Terzino destro"); parole.add("Arrière droit"); parole.add("Right-back");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_terzinos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Terzino sinistro"); parole.add("Arrière gauche"); parole.add("Left-back");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_centro1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Centrocampista"); parole.add("Milieu de terrain"); parole.add("Midfielder");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_centro2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Centrocampista"); parole.add("Milieu de terrain"); parole.add("Midfielder");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_esternod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Esterno destro"); parole.add("Champ droit"); parole.add("Right winger");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_esternos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Esterno sinistro"); parole.add("Champ gauche"); parole.add("Left winger");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_att1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Attaccante"); parole.add("Attaquant"); parole.add("Striker");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
+        button_att2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList parole = new ArrayList();
+                parole.add("Attaccante"); parole.add("Attaquant"); parole.add("Striker");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+
+            }
+        });
+
 
         button_campo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ActivityCampo.class);
                 startActivity(intent);
+            }
+        });
+
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            switch (i){
+                                case 0:
+                                    textToSpeech.setLanguage(Locale.ITALIAN);
+                                    String toSpeakIt = spinner.getSelectedItem().toString();
+
+                                    textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
+                                    break;
+                                case 1:
+                                    textToSpeech.setLanguage(Locale.FRANCE);
+                                    String toSpeakFr = spinner.getSelectedItem().toString();
+
+                                    textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                    break;
+                                case 2:
+                                    textToSpeech.setLanguage(Locale.ENGLISH);
+                                    String toSpeakEn = spinner.getSelectedItem().toString();
+
+                                    textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+                }
             }
         });
     }

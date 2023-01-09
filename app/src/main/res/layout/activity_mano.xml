@@ -7,40 +7,80 @@
     android:background="#D7FFA7"
     tools:context=".ActivityMano">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_Campo"
-        android:layout_width="359dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="?attr/colorSecondary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:id="@+id/button_indietro"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_cancella"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="270dp"
+                android:layout_height="56dp"
+                android:autoSizeTextType="uniform"
+                android:layout_marginStart="4dp"
+                android:paddingTop="3dp"
+                android:text="Componi la mano"
+                android:textColor="#F0000000"
+                android:textSize="40sp"
+                app:layout_constraintStart_toEndOf="@+id/button_indietro"
+                tools:layout_editor_absoluteY="6dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_Campo"
+        android:layout_width="290dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <Spinner
+            android:id="@+id/spinner_Mano"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="55dp" />
 
-            <Spinner
-                android:id="@+id/spinner_Mano"
-                android:layout_width="match_parent"
-                android:layout_height="55dp" />
-
-        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <FrameLayout
+        android:id="@+id/frameLayout2"
         android:layout_width="352dp"
         android:layout_height="420dp"
+        android:background="@drawable/cirlce1"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/card_Campo"
-        app:layout_constraintVertical_bias="0.88">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98">
 
         <ImageView
             android:id="@+id/image_mano_vuota"
@@ -210,7 +250,8 @@
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView2"
         android:layout_width="398dp"
-        android:layout_height="137dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -315,6 +356,28 @@
 
 
     </HorizontalScrollView>
+
+    <FrameLayout
+        android:visibility="visible"
+        android:id="@+id/button_aiuto"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/black"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/help1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="50"
+        android:layout_marginBottom="-30dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

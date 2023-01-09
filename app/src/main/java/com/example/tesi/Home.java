@@ -2,6 +2,7 @@ package com.example.tesi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.graphics.CornerPathEffect;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -54,29 +56,6 @@ public class Home extends AppCompatActivity {
         button_HomeCampo = findViewById(R.id.button_HomeCampo);
         button_HomeCorpo = findViewById(R.id.button_HomeCorpo);
         button_HomeCarica = findViewById(R.id.button_HomeCarica);
-        button_HomeCorpoScegli= findViewById(R.id.button_HomeCorpo2);
-
-        findViewById(R.id.button_HomeCorpo3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityViso.class);
-                startActivity(intent);
-            }
-        });
-        findViewById(R.id.button_HomeCorpo4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityMano.class);
-                startActivity(intent);
-            }
-        });
-        findViewById(R.id.button_HomeCorpo5).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityScrivereDifficile.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -95,8 +74,32 @@ public class Home extends AppCompatActivity {
         button_HomeScrivere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityScrivere.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+                builder.setCancelable(true);
+
+                View dialogView = getLayoutInflater().inflate(R.layout.alertdialog_scrivere, null);
+                builder.setView(dialogView);
+                AlertDialog alert = builder.create();
+                alert.show();
+
+                dialogView.findViewById(R.id.button_ScrivereFacile).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(Home.this, ActivityScrivere.class);
+                        startActivity(intent);
+                    }
+                });
+
+                dialogView.findViewById(R.id.button_ScrivereDifficile).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Home.this, ActivityScrivereDifficile.class);
+                        startActivity(intent);
+                    }
+                });
+
+
             }
         });
 
@@ -127,19 +130,50 @@ public class Home extends AppCompatActivity {
         button_HomeCorpo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityCorpo.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+                builder.setCancelable(true);
+
+                View dialogView = getLayoutInflater().inflate(R.layout.alertdialog_corpo, null);
+                builder.setView(dialogView);
+                AlertDialog alert = builder.create();
+                alert.show();
+
+                dialogView.findViewById(R.id.button_AlertCorpo).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(Home.this, ActivityCorpo.class);
+                        startActivity(intent);
+                    }
+                });
+
+                dialogView.findViewById(R.id.button_AlertViso).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Home.this, ActivityViso.class);
+                        startActivity(intent);
+                    }
+                });
+
+                dialogView.findViewById(R.id.button_AlertMano).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(Home.this, ActivityMano.class);
+                        startActivity(intent);
+                    }
+                });
+
+                dialogView.findViewById(R.id.button_AlertCorpoScegli).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Home.this, ActivityCorpoScegli.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
-        button_HomeCorpoScegli.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityCorpoScegli.class);
-                startActivity(intent);
-            }
-        });
-/*/*//*/*/
 
         button_HomeCarica.setOnClickListener(new View.OnClickListener() {
             @Override

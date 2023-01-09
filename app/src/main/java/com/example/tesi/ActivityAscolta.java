@@ -47,6 +47,14 @@ public class ActivityAscolta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ascolta);
 
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         linearLayout = findViewById(R.id.linear);
 
         String jsonString = read(this, "dati.json");

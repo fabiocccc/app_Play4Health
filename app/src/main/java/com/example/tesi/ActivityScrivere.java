@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -50,6 +52,18 @@ public class ActivityScrivere extends AppCompatActivity {
     private TextToSpeech textToSpeech;
     private ArrayList<String> risposte;
 
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private ImageView help2;
+    private ImageView help3;
+    private ImageView help4;
+    private ImageView help5;
+    private AnimationDrawable animationDrawable = null;
+    private AnimationDrawable animationDrawableScelta1 = null;
+    private AnimationDrawable animationDrawableScelta2 = null;
+    private AnimationDrawable animationDrawableScelta3 = null;
+    private AnimationDrawable animationDrawableScelta4 = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +78,24 @@ public class ActivityScrivere extends AppCompatActivity {
         imageView_Scrivere = findViewById(R.id.imageView_Scrivere);
         spinner = findViewById(R.id.spinner_Corpo);
 
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+        help2 = findViewById(R.id.help2);
+        help3 = findViewById(R.id.help3);
+        help4 = findViewById(R.id.help4);
+        help5 = findViewById(R.id.help5);
+
         risposte = new ArrayList<>();
+
+        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
     }
 
     @Override
@@ -85,7 +116,19 @@ public class ActivityScrivere extends AppCompatActivity {
         ArrayList<String> parole = new ArrayList<>();
 
 
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
 
         try {
             corretta = jsonArray.getJSONObject(random).getString("ita");
@@ -114,10 +157,18 @@ public class ActivityScrivere extends AppCompatActivity {
 
                     if (button_Risp1.getText().toString().equals(corretta)) {
                         //Corretto
+                        disabilitaBottoni();
+                        terminaAnimazioneScelta();
+                        button_Risp1.setBackgroundColor(Color.parseColor("#50e024"));
+
                         if(errori == 0){
                             //metti il SVOLTO nel JSON
 
+                        } else {
+                            Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
+
                         }
+
                     } else {
                         errori++;
 
@@ -126,12 +177,12 @@ public class ActivityScrivere extends AppCompatActivity {
                         }
 
                         button_Risp1.setClickable(false);
-                        button_Risp1.setBackgroundColor(Color.BLACK);
+                        button_Risp1.setBackgroundColor(Color.parseColor("#f54518"));
 
                     }
 
                 }
-            });
+                });
 
             temp = (int) (Math.random() * risposte.size() );
             button_Risp2.setText(risposte.get(temp));
@@ -142,10 +193,19 @@ public class ActivityScrivere extends AppCompatActivity {
 
                     if (button_Risp2.getText().toString().equals(corretta)) {
                         //Corretto
+                        disabilitaBottoni();
+                        terminaAnimazioneScelta();
+                        button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
+
                         if(errori == 0){
                             //metti il SVOLTO nel JSON
 
+                        }else {
+                            Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
+
                         }
+
+
                     } else {
                         errori++;
 
@@ -154,7 +214,7 @@ public class ActivityScrivere extends AppCompatActivity {
                         }
 
                         button_Risp2.setClickable(false);
-                        button_Risp2.setBackgroundColor(Color.BLACK);
+                        button_Risp2.setBackgroundColor(Color.parseColor("#f54518"));
 
                     }
                 }
@@ -172,10 +232,18 @@ public class ActivityScrivere extends AppCompatActivity {
 
                     if (button_Risp3.getText().toString().equals(corretta)) {
                         //Corretto
+                        disabilitaBottoni();
+                        terminaAnimazioneScelta();
+                        button_Risp3.setBackgroundColor(Color.parseColor("#50e024"));
+
                         if(errori == 0){
                             //metti il SVOLTO nel JSON
 
+                        } else {
+                            Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
+
                         }
+
                     } else {
                         errori++;
 
@@ -184,7 +252,7 @@ public class ActivityScrivere extends AppCompatActivity {
                         }
 
                         button_Risp3.setClickable(false);
-                        button_Risp3.setBackgroundColor(Color.BLACK);
+                        button_Risp3.setBackgroundColor(Color.parseColor("#f54518"));
 
                     }
 
@@ -200,13 +268,18 @@ public class ActivityScrivere extends AppCompatActivity {
 
                     if (button_Risp4.getText().toString().equals(corretta)) {
                         //Corretto
+                        disabilitaBottoni();
+                        terminaAnimazioneScelta();
+                        button_Risp4.setBackgroundColor(Color.parseColor("#50e024"));
+
                         if(errori == 0){
                             //metti il SVOLTO nel JSON
 
 
-                        }
+                        }else {
+                            Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         errori++;
 
@@ -215,7 +288,7 @@ public class ActivityScrivere extends AppCompatActivity {
                         }
 
                         button_Risp4.setClickable(false);
-                        button_Risp4.setBackgroundColor(Color.BLACK);
+                        button_Risp4.setBackgroundColor(Color.parseColor("#f54518"));
 
                     }
 
@@ -243,6 +316,28 @@ public class ActivityScrivere extends AppCompatActivity {
                     button_Ascolta.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
+                            if(animationDrawable != null) {
+                                help1.setVisibility(View.GONE);
+                                animationDrawable.stop();
+                                animationDrawable = null;
+
+                                help2.setVisibility(View.VISIBLE);
+                                help3.setVisibility(View.VISIBLE);
+                                help4.setVisibility(View.VISIBLE);
+                                help5.setVisibility(View.VISIBLE);
+
+                                animationDrawableScelta1 = (AnimationDrawable) help2.getBackground();
+                                animationDrawableScelta2 = (AnimationDrawable) help3.getBackground();
+                                animationDrawableScelta3 = (AnimationDrawable) help4.getBackground();
+                                animationDrawableScelta4 = (AnimationDrawable) help5.getBackground();
+                                animationDrawableScelta1.start();
+                                animationDrawableScelta2.start();
+                                animationDrawableScelta3.start();
+                                animationDrawableScelta4.start();
+
+                            }
+
                             textToSpeech.setLanguage(Locale.ITALIAN);
                             String toSpeakIt = corretta;
 
@@ -280,6 +375,37 @@ public class ActivityScrivere extends AppCompatActivity {
         });
 
 
+    }
+
+    private void terminaAnimazioneScelta(){
+        if(animationDrawableScelta1 != null && animationDrawableScelta2 != null
+                && animationDrawableScelta3 != null && animationDrawableScelta4 != null) {
+
+            help2.setVisibility(View.GONE);
+            animationDrawableScelta1.stop();
+            animationDrawableScelta1 = null;
+
+            help3.setVisibility(View.GONE);
+            animationDrawableScelta2.stop();
+            animationDrawableScelta2 = null;
+
+            help4.setVisibility(View.GONE);
+            animationDrawableScelta3.stop();
+            animationDrawableScelta3 = null;
+
+            help5.setVisibility(View.GONE);
+            animationDrawableScelta4.stop();
+            animationDrawableScelta4 = null;
+
+            button_aiuto.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void disabilitaBottoni(){
+        button_Risp1.setClickable(false);
+        button_Risp2.setClickable(false);
+        button_Risp3.setClickable(false);
+        button_Risp4.setClickable(false);
     }
 
     private String read(Context context, String fileName) {
