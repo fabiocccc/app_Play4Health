@@ -81,7 +81,7 @@
       android:id="@+id/imageView3"
       android:layout_width="360dp"
       android:layout_height="500dp"
-      android:scaleType="center"
+      android:scaleType="centerCrop"
       android:src="@drawable/campo"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +89,18 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.71000004"
       tools:srcCompat="@drawable/campo" />
+
+  <ImageView
+      android:id="@+id/help1"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:layout_marginStart="100dp"
+      android:background="@drawable/animation_pointing"
+      android:elevation="7dp"
+      android:rotation="50"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@+id/button_Rigore2"
+      app:layout_constraintStart_toStartOf="@+id/imageView3" />
 
   <FrameLayout
       android:id="@+id/button_Rigore2"
@@ -211,16 +223,29 @@
       app:layout_constraintHorizontal_bias="0.973"
       app:layout_constraintStart_toStartOf="@+id/imageView3" />
 
-  <Button
+  <android.widget.Button
       android:id="@+id/button_Ruoli"
-      android:layout_width="101dp"
-      android:layout_height="62dp"
-      android:text="RUOLI"
+      android:layout_width="145dp"
+      android:layout_height="55dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="10dp"
+      android:background="@drawable/button_avanti"
+      android:text="Ruoli"
+      android:textAlignment="viewStart"
+      android:paddingLeft="15dp"
+      android:textSize="24dp"
+      android:visibility="visible"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.943"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/imageView3"
-      app:layout_constraintVertical_bias="0.757" />
+      app:layout_constraintEnd_toEndOf="parent" />
+
+  <FrameLayout
+      android:visibility="visible"
+      android:id="@+id/button_aiuto"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:backgroundTint="@color/black"
+      android:background="@drawable/ic_baseline_help_outline_24"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

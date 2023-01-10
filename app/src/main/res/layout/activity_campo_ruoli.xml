@@ -111,6 +111,18 @@
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="@+id/imageView3" />
 
+    <ImageView
+        android:id="@+id/help1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="50"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/button_Difensore2"
+        app:layout_constraintStart_toEndOf="@+id/button_Difensore1" />
+
     <FrameLayout
         android:id="@+id/button_Difensore2"
         android:layout_width="44dp"
@@ -210,17 +222,31 @@
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="@+id/imageView3" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_Campo"
-        android:layout_width="101dp"
-        android:layout_height="62dp"
+        android:layout_width="145dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_avanti"
         android:text="Campo"
+        android:textAlignment="viewStart"
+        android:paddingLeft="15dp"
+        android:textSize="24dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:visibility="visible"
+        android:id="@+id/button_aiuto"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/black"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

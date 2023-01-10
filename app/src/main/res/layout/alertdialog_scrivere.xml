@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="300dp"
-        android:layout_height="230dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="20sp"
         android:backgroundTint="#D7FFA7"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,6 +23,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textDifficolta"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:autoSizeTextType="uniform"
@@ -30,29 +31,70 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="10dp"
                 android:paddingRight="5dp"
-                android:text="Seleziona difficoltà"
+                android:text="Difficoltà"
                 android:textAlignment="center"
-
                 android:textColor="#000000" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button_ScrivereFacile"
                 android:layout_width="260dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:textSize="24dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#80e5ff"
+                android:background="@drawable/button_scrivere_facile"
+                android:layout_marginTop="10dp"
                 android:text="FACILE" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button_ScrivereDifficile"
                 android:layout_width="260dp"
                 android:layout_height="70dp"
                 android:textSize="24dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
-                android:backgroundTint="#80e5ff"
+                android:background="@drawable/button_scrivere_difficile"
                 android:text="DIFFICILE"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ita"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ita"
+                    app:layout_constraintRight_toLeftOf="@+id/fra"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fra"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/fra"
+                    app:layout_constraintRight_toLeftOf="@+id/eng"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintLeft_toRightOf="@+id/ita"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/eng"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/eng"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintLeft_toRightOf="@+id/fra"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"  />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </LinearLayout>
 
 

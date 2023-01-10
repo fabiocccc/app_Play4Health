@@ -3,6 +3,7 @@ package com.example.tesi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,9 +33,11 @@ public class ActivityCampoRuoli extends AppCompatActivity {
     private FrameLayout button_att1;
     private FrameLayout button_att2;
     private Button button_campo;
-
     private TextToSpeech textToSpeech;
     private Spinner spinner;
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private AnimationDrawable animationDrawable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class ActivityCampoRuoli extends AppCompatActivity {
         button_att1 = findViewById(R.id.button_Att1);
         button_att2 = findViewById(R.id.button_Att2);
         button_campo = findViewById(R.id.button_Campo);
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
 
         spinner = findViewById(R.id.spinner_Corpo);
 
@@ -91,6 +97,22 @@ public class ActivityCampoRuoli extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        button_aiuto.setVisibility(View.VISIBLE);
+
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
+
         button_portiere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +142,13 @@ public class ActivityCampoRuoli extends AppCompatActivity {
         button_difensore2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(animationDrawable != null){
+                    animationDrawable.stop();
+                    animationDrawable = null;
+                    help1.setVisibility(View.GONE);
+                    button_aiuto.setVisibility(View.VISIBLE);
+                }
 
                 ArrayList parole = new ArrayList();
                 parole.add("Difensore"); parole.add("Défenseur"); parole.add("Defender");
@@ -239,6 +268,7 @@ public class ActivityCampoRuoli extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ActivityCampo.class);
+                finish();
                 startActivity(intent);
             }
         });

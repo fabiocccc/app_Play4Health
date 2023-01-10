@@ -98,6 +98,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:orientation="horizontal"
@@ -110,16 +111,17 @@
             android:id="@+id/button_HomeCampo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/home_campo"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/home_campo">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="CAMPO"
-                android:textColor="#000000"
-                android:gravity="center"
+                android:layout_marginTop="130dp"
                 android:autoSizeTextType="uniform"
-                android:layout_marginTop="130dp"/>
+                android:gravity="center"
+                android:text="CAMPO"
+                android:textColor="#000000" />
 
         </FrameLayout>
 
@@ -127,30 +129,32 @@
             android:id="@+id/button_HomeCorpo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/home_corpo"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/home_corpo">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="CORPO"
-                android:textColor="#000000"
-                android:gravity="center"
+                android:layout_marginTop="130dp"
                 android:autoSizeTextType="uniform"
-                android:layout_marginTop="130dp"/>
+                android:gravity="center"
+                android:text="CORPO"
+                android:textColor="#000000" />
 
 
         </FrameLayout>
     </LinearLayout>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_HomeCarica"
-        android:layout_width="164dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="580dp"
+        android:layout_width="157dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/teal_200"
         android:text="Carica"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

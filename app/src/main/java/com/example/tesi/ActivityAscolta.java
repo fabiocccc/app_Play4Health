@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -41,11 +43,33 @@ public class ActivityAscolta extends AppCompatActivity {
     private LinearLayout linearLayout;
     private JSONArray jsonArray;
     private TextToSpeech textToSpeech;
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private AnimationDrawable animationDrawable = null;
+    private AnimationDrawable animationDrawable1 = null;
+    private AnimationDrawable animationDrawable2 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ascolta);
+
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
 
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +128,12 @@ public class ActivityAscolta extends AppCompatActivity {
             card1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    if(animationDrawable != null) {
+                        help1.setVisibility(View.GONE);
+                        animationDrawable.stop();
+                    }
+
                     buildCard(parole.get(finalI1));
                 }
             });
@@ -132,6 +162,11 @@ public class ActivityAscolta extends AppCompatActivity {
                 card2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(animationDrawable != null) {
+                            help1.setVisibility(View.GONE);
+                            animationDrawable.stop();
+                        }
+
                         buildCard(parole.get(finalI));
                     }
                 });
@@ -166,6 +201,11 @@ public class ActivityAscolta extends AppCompatActivity {
                 card3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(animationDrawable != null) {
+                            help1.setVisibility(View.GONE);
+                            animationDrawable.stop();
+                        }
+
                         buildCard(parole.get(finalI));
                     }
                 });
@@ -188,6 +228,8 @@ public class ActivityAscolta extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.alertdialog_card, null);
         Spinner spinner = dialogView.findViewById(R.id.spinnerCard);
         ImageView imageView = dialogView.findViewById(R.id.imageCard);
+        ImageView help2 = dialogView.findViewById(R.id.help2);
+        ImageView help3 = dialogView.findViewById(R.id.help3);
 
         ArrayList<String> paroleAlert = new ArrayList<>();
         paroleAlert.add(ita);
@@ -206,9 +248,28 @@ public class ActivityAscolta extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        if(animationDrawable != null){
+            animationDrawable = null;
+            help2.setVisibility(View.VISIBLE);
+
+            animationDrawable1 = (AnimationDrawable) help2.getBackground();
+            animationDrawable1.start();
+
+        }
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(animationDrawable1 != null){
+                    animationDrawable1.stop();
+                    animationDrawable1 = null;
+
+                    help2.setVisibility(View.GONE);
+                    help3.setVisibility(View.VISIBLE);
+
+                    animationDrawable2 = (AnimationDrawable) help3.getBackground();
+                    animationDrawable2.start();
+                }
                 textToSpeech.setLanguage(Locale.ITALIAN);
                 String toSpeakIt = spinner.getSelectedItem().toString();
 
@@ -230,6 +291,15 @@ public class ActivityAscolta extends AppCompatActivity {
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            if(animationDrawable2 != null){
+                                help3.setVisibility(View.GONE);
+                                animationDrawable2.stop();
+                                animationDrawable2 = null;
+
+                                button_aiuto.setVisibility(View.VISIBLE);
+                            }
+
                             switch (i){
                                 case 0:
 
@@ -263,6 +333,12 @@ public class ActivityAscolta extends AppCompatActivity {
             }
         });
 
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                button_aiuto.setVisibility(View.VISIBLE);
+            }
+        });
         builder.setView(dialogView);
         AlertDialog alert11 = builder.create();
         alert11.show();
@@ -274,19 +350,6 @@ public class ActivityAscolta extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
-
-        //LinearLayout oneLinear = (LinearLayout) linearLayout.getChildAt(0);
-        //Toast.makeText(getApplicationContext(), "-"+ oneLinear.getChildCount(), Toast.LENGTH_SHORT).show();
-
-
-        /*View card = li.getChildAt(0);
-        TextView textView = card.findViewById(R.id.textCard);
-        textView.setText("CAne");*/
-
-
-
-        //Toast.makeText(getApplicationContext(), "-"+ view.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private String read(Context context, String fileName) {

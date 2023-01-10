@@ -36,8 +36,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_Parla"
-        android:layout_width="290dp"
-        android:layout_height="340dp"
+        android:layout_width="270dp"
+        android:layout_height="320dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:clickable="false"
@@ -57,7 +57,7 @@
             <ImageView
                 android:id="@+id/imageView_Scrivere"
                 android:layout_width="match_parent"
-                android:layout_height="290dp"
+                android:layout_height="270dp"
                 android:scaleType="fitXY" />
 
             <Spinner
@@ -72,24 +72,26 @@
         android:id="@+id/button_Ascolta"
         android:layout_width="120dp"
         android:layout_height="115dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
         android:foreground="@drawable/audio"
         android:foregroundGravity="fill_horizontal|clip_horizontal|center|fill_vertical"
+        android:foregroundTint="#A91F70"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_Parla" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_Parla"
         android:layout_width="108dp"
         android:layout_height="109dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/cirlce1"
-        android:backgroundTint="#FFB6B6"
+        android:backgroundTint="#03DAC5"
         android:foreground="@drawable/mic_off"
+        android:foregroundTint="#A91F70"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.801"
+        app:layout_constraintHorizontal_bias="0.798"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_Parla" />
 
@@ -106,6 +108,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_Parla" />
+
+    <ImageView
+        android:id="@+id/esito1"
+        android:layout_width="110dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="12dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextRiconosciuto" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout3"
@@ -160,8 +173,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-
+    <android.widget.Button
+        android:id="@+id/button_avanti"
+        android:layout_width="145dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_avanti"
+        android:text="Avanti"
+        android:textAlignment="viewStart"
+        android:paddingLeft="15dp"
+        android:textSize="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

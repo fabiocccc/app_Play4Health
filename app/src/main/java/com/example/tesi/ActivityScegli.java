@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -41,6 +45,8 @@ public class ActivityScegli extends AppCompatActivity {
     private TextToSpeech textToSpeech;
     private String corretta;
     private Boolean ascoltato;
+    private ImageView esito1;
+    private ImageView esito2;
 
     private FrameLayout button_aiuto;
     private ImageView help1;
@@ -49,6 +55,8 @@ public class ActivityScegli extends AppCompatActivity {
     private AnimationDrawable animationDrawable = null;
     private AnimationDrawable animationDrawableScelta1 = null;
     private AnimationDrawable animationDrawableScelta2 = null;
+
+    private Button button_avanti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +68,15 @@ public class ActivityScegli extends AppCompatActivity {
         imageView2 = findViewById(R.id.imageView2_Scegli);
         spinner1 = findViewById(R.id.spinner_Scelta1);
         spinner2 = findViewById(R.id.spinner_Scelta2);
+        esito1 = findViewById(R.id.esito1);
+        esito2 = findViewById(R.id.esito2);
 
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
         help3 = findViewById(R.id.help3);
+
+        button_avanti = findViewById(R.id.button_avanti);
 
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,15 +85,29 @@ public class ActivityScegli extends AppCompatActivity {
             }
         });
 
-
-
-
-        ascoltato = false;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        ascoltato = false;
+        esito1.setVisibility(View.GONE);
+        esito1.clearAnimation();
+        esito2.setVisibility(View.GONE);
+        esito2.clearAnimation();
+        button_aiuto.setVisibility(View.VISIBLE);
+
+
+        button_avanti.setVisibility(View.GONE);
+
+        button_avanti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onStart();
+
+            }
+        });
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,17 +166,15 @@ public class ActivityScegli extends AppCompatActivity {
         int corr = (int)(Math.random() * 2 + 1);
         if(corr == 1){
             corretta = parole1.get(0);
-        }else {
+        }else if (corr == 2) {
             corretta = parole2.get(0);
         }
 
         SpinnerAdapter adapter1 = new SpinnerAdapter(getApplicationContext(), parole1, true);
         spinner1.setAdapter(adapter1);
-        spinner1.setSelection(0);
 
         SpinnerAdapter adapter2 = new SpinnerAdapter(getApplicationContext(), parole2, true);
         spinner2.setAdapter(adapter2);
-        spinner2.setSelection(0);
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -191,25 +215,26 @@ public class ActivityScegli extends AppCompatActivity {
                     spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            switch (i){
-                                case 0:
-                                    textToSpeech.setLanguage(Locale.ITALIAN);
-                                    String toSpeakIt = spinner1.getSelectedItem().toString();
+                            if(ascoltato){
+                                switch (i){
+                                    case 0:
+                                        textToSpeech.setLanguage(Locale.ITALIAN);
+                                        String toSpeakIt = spinner1.getSelectedItem().toString();
 
-                                    textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
-                                    break;
-                                case 1:
-                                    textToSpeech.setLanguage(Locale.FRANCE);
-                                    String toSpeakFr = spinner1.getSelectedItem().toString();
+                                        textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
+                                        break;
+                                    case 1:
+                                        textToSpeech.setLanguage(Locale.FRANCE);
+                                        String toSpeakFr = spinner1.getSelectedItem().toString();
 
-                                    textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
-                                    break;
-                                case 2:
+                                        textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                        break;
+                                    case 2:
+                                        textToSpeech.setLanguage(Locale.ENGLISH);
+                                        String toSpeakEn = spinner1.getSelectedItem().toString();
 
-                                    textToSpeech.setLanguage(Locale.ENGLISH);
-                                    String toSpeakEn = spinner1.getSelectedItem().toString();
-
-                                    textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                        textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                }
                             }
                         }
 
@@ -222,27 +247,26 @@ public class ActivityScegli extends AppCompatActivity {
                     spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            switch (i){
-                                case 0:
+                            if(ascoltato){
+                                switch (i){
+                                    case 0:
+                                        textToSpeech.setLanguage(Locale.ITALIAN);
+                                        String toSpeakIt = spinner2.getSelectedItem().toString();
 
-                                    textToSpeech.setLanguage(Locale.ITALIAN);
-                                    String toSpeakIt = spinner2.getSelectedItem().toString();
+                                        textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
+                                        break;
+                                    case 1:
+                                        textToSpeech.setLanguage(Locale.FRANCE);
+                                        String toSpeakFr = spinner2.getSelectedItem().toString();
 
-                                    textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
-                                    break;
-                                case 1:
+                                        textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                        break;
+                                    case 2:
+                                        textToSpeech.setLanguage(Locale.ENGLISH);
+                                        String toSpeakEn = spinner2.getSelectedItem().toString();
 
-                                    textToSpeech.setLanguage(Locale.FRANCE);
-                                    String toSpeakFr = spinner2.getSelectedItem().toString();
-
-                                    textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
-                                    break;
-                                case 2:
-
-                                    textToSpeech.setLanguage(Locale.ENGLISH);
-                                    String toSpeakEn = spinner2.getSelectedItem().toString();
-
-                                    textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                        textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                }
                             }
                         }
 
@@ -274,12 +298,34 @@ public class ActivityScegli extends AppCompatActivity {
                 if(ascoltato){
                     if(corr == 1){
                         //giusto
-                        Toast.makeText(getApplicationContext(), "giusto", Toast.LENGTH_SHORT).show();
+                        button_aiuto.setVisibility(View.GONE);
+                        button_avanti.setVisibility(View.VISIBLE);
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_up);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        imageView1.setClickable(false);
+                        imageView2.setClickable(false);
+
                     }else{
-                        Toast.makeText(getApplicationContext(), "sbalgio", Toast.LENGTH_SHORT).show();
+                        button_aiuto.setVisibility(View.GONE);
+                        button_avanti.setVisibility(View.VISIBLE);
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        imageView1.setClickable(false);
+                        imageView2.setClickable(false);
                     }
                 }else{
-                    Toast.makeText(getApplicationContext(), "ASCOLTA PRIM;A", Toast.LENGTH_SHORT).show();
+                    help1.setVisibility(View.VISIBLE);
+
+                    animationDrawable = (AnimationDrawable) help1.getBackground();
+                    animationDrawable.start();
                 }
             }
         });
@@ -303,12 +349,33 @@ public class ActivityScegli extends AppCompatActivity {
                 if(ascoltato){
                     if(corr == 2){
                         //giusto
-                        Toast.makeText(getApplicationContext(), "giusto", Toast.LENGTH_SHORT).show();
+                        button_avanti.setVisibility(View.VISIBLE);
+                        button_aiuto.setVisibility(View.GONE);
+
+                        esito2.setVisibility(View.VISIBLE);
+                        esito2.setImageResource(R.drawable.thumbs_up);
+
+                        esito2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        imageView1.setClickable(false);
+                        imageView2.setClickable(false);
                     }else{
-                        Toast.makeText(getApplicationContext(), "sbalgio", Toast.LENGTH_SHORT).show();
+                        button_aiuto.setVisibility(View.GONE);
+                        button_avanti.setVisibility(View.VISIBLE);
+
+                        esito2.setVisibility(View.VISIBLE);
+                        esito2.setImageResource(R.drawable.thumbs_down);
+
+                        esito2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        imageView1.setClickable(false);
+                        imageView2.setClickable(false);
                     }
                 }else{
-                    Toast.makeText(getApplicationContext(), "ASCOLTA PRIM;A", Toast.LENGTH_SHORT).show();
+                    help1.setVisibility(View.VISIBLE);
+
+                    animationDrawable = (AnimationDrawable) help1.getBackground();
+                    animationDrawable.start();
                 }
             }
         });

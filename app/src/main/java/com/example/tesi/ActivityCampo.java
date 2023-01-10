@@ -3,6 +3,7 @@ package com.example.tesi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -31,6 +33,9 @@ public class ActivityCampo extends AppCompatActivity {
     private Button button_Ruoli;
     private Spinner spinner;
     private TextToSpeech textToSpeech;
+    private FrameLayout button_aiuto;
+    private ImageView help1;
+    private AnimationDrawable animationDrawable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class ActivityCampo extends AppCompatActivity {
         button_Linea2 = findViewById(R.id.button_Linea2);
         button_Ruoli = findViewById(R.id.button_Ruoli);
         spinner = findViewById(R.id.spinner_Corpo);
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
 
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +72,22 @@ public class ActivityCampo extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        button_aiuto.setVisibility(View.VISIBLE);
+
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable = (AnimationDrawable) help1.getBackground();
+                animationDrawable.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
 
         button_Porta1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +106,7 @@ public class ActivityCampo extends AppCompatActivity {
         button_Porta2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di porta"); parole.add("Surface de but"); parole.add("Goal area");
@@ -109,6 +133,14 @@ public class ActivityCampo extends AppCompatActivity {
         button_Rigore2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(animationDrawable != null){
+                    animationDrawable.stop();
+                    animationDrawable = null;
+                    help1.setVisibility(View.GONE);
+                    button_aiuto.setVisibility(View.VISIBLE);
+                }
+
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di rigore"); parole.add("Zone de penalty"); parole.add("Penalty area");
@@ -254,6 +286,7 @@ public class ActivityCampo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ActivityCampoRuoli.class);
+                finish();
                 startActivity(intent);
             }
         });

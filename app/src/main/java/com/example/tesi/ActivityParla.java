@@ -12,8 +12,10 @@ import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -22,6 +24,7 @@ import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -58,11 +61,15 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
     private JSONArray jsonArray;
     private ImageView imageView_Parla;
     private String corretta;
+    private ImageView esito1;
+    private Boolean ascoltato;
 
     private FrameLayout button_aiuto;
     private ImageView help1;
     private ImageView help2;
     private AnimationDrawable animationDrawable = null;
+
+    private Button button_avanti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +81,12 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         button_Ascolta = findViewById(R.id.button_Ascolta);
         text_Riconosciuto = findViewById(R.id.TextRiconosciuto);
         imageView_Parla = findViewById(R.id.imageView_Scrivere);
+        esito1 = findViewById(R.id.esito1);
 
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
+        button_avanti = findViewById(R.id.button_avanti);
 
 
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
@@ -94,6 +103,22 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
     protected void onStart() {
         super.onStart();
 
+        ascoltato = false;
+
+        button_avanti.setVisibility(View.GONE);
+        button_aiuto.setVisibility(View.VISIBLE);
+        esito1.setVisibility(View.GONE);
+        esito1.clearAnimation();
+
+        text_Riconosciuto.setText("");
+
+        button_avanti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onStart();
+
+            }
+        });
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,24 +177,30 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
             @Override
             public void onClick(View view) {
 
-                if(animationDrawable != null) {
-                    help2.setVisibility(View.GONE);
-                    animationDrawable.stop();
-                    animationDrawable = null;
+                if(ascoltato){
+                    button_avanti.setVisibility(View.VISIBLE);
 
-                    button_aiuto.setVisibility(View.VISIBLE);
+                    if(animationDrawable != null) {
+                        help2.setVisibility(View.GONE);
+                        animationDrawable.stop();
+                        animationDrawable = null;
+
+                        button_aiuto.setVisibility(View.VISIBLE);
+                    }
+
+                    recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                    recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                    recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT");
+                    ActivityCompat.requestPermissions(ActivityParla.this, new String[] { Manifest.permission.RECORD_AUDIO }, REQUEST_RECORD_PERMISSION);
+
+                }else {
+                    help1.setVisibility(View.VISIBLE);
+
+                    animationDrawable = (AnimationDrawable) help1.getBackground();
+                    animationDrawable.start();
+
+                    button_aiuto.setVisibility(View.GONE);
                 }
-
-                recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT");
-                ActivityCompat.requestPermissions(ActivityParla.this, new String[] { Manifest.permission.RECORD_AUDIO }, REQUEST_RECORD_PERMISSION);
-
-                /*try {
-                    startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
-                } catch (ActivityNotFoundException e){
-                    Toast.makeText(getApplicationContext(), "non supporta", Toast.LENGTH_LONG);
-                }*/
 
             }
         });
@@ -182,27 +213,29 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            switch (i){
-                                case 0:
-                                    //Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
-                                    textToSpeech.setLanguage(Locale.ITALIAN);
-                                    String toSpeakIt = spinner.getSelectedItem().toString();
+                            if(ascoltato){
+                                switch (i){
+                                    case 0:
+                                        //Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
+                                        textToSpeech.setLanguage(Locale.ITALIAN);
+                                        String toSpeakIt = spinner.getSelectedItem().toString();
 
-                                    textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
-                                    break;
-                                case 1:
-                                    //Toast.makeText(getApplicationContext(), "ENGLISH",Toast.LENGTH_SHORT).show();
-                                    textToSpeech.setLanguage(Locale.FRANCE);
-                                    String toSpeakFr = spinner.getSelectedItem().toString();
+                                        textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
+                                        break;
+                                    case 1:
+                                        //Toast.makeText(getApplicationContext(), "ENGLISH",Toast.LENGTH_SHORT).show();
+                                        textToSpeech.setLanguage(Locale.FRANCE);
+                                        String toSpeakFr = spinner.getSelectedItem().toString();
 
-                                    textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
-                                    break;
-                                case 2:
-                                    //Toast.makeText(getApplicationContext(), "BAGUETA",Toast.LENGTH_SHORT).show();
-                                    textToSpeech.setLanguage(Locale.ENGLISH);
-                                    String toSpeakEn = spinner.getSelectedItem().toString();
+                                        textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                        break;
+                                    case 2:
+                                        //Toast.makeText(getApplicationContext(), "BAGUETA",Toast.LENGTH_SHORT).show();
+                                        textToSpeech.setLanguage(Locale.ENGLISH);
+                                        String toSpeakEn = spinner.getSelectedItem().toString();
 
-                                    textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                        textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                }
                             }
                         }
 
@@ -220,6 +253,8 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         button_Ascolta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ascoltato = true;
 
                 if(animationDrawable != null) {
                     help1.setVisibility(View.GONE);
@@ -270,7 +305,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
     @Override
     public void onReadyForSpeech(Bundle bundle) {
-        button_Parla.setForeground(getResources().getDrawable(R.drawable.mic_on));
+        button_Parla.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ff4d00")));
     }
 
     @Override
@@ -290,7 +325,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
     @Override
     public void onEndOfSpeech() {
-        button_Parla.setForeground(getResources().getDrawable(R.drawable.mic_off));
+        button_Parla.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#A91F70")));
     }
 
     @Override
@@ -309,9 +344,23 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
 
         if(text_Riconosciuto.getText().toString().equalsIgnoreCase(corretta)){
-            Toast.makeText(getApplicationContext(), "EX SVOLTO BENE",Toast.LENGTH_SHORT).show();
+            button_aiuto.setVisibility(View.GONE);
+            button_avanti.setVisibility(View.VISIBLE);
+
+            esito1.setVisibility(View.VISIBLE);
+            esito1.setImageResource(R.drawable.thumbs_up);
+
+            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+            button_Parla.setClickable(false);
         } else {
-            Toast.makeText(getApplicationContext(), "NON GIUSTA",Toast.LENGTH_SHORT).show();
+            button_aiuto.setVisibility(View.GONE);
+            button_avanti.setVisibility(View.VISIBLE);
+
+            esito1.setVisibility(View.VISIBLE);
+            esito1.setImageResource(R.drawable.thumbs_down);
+
+            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
         }
     }
 
@@ -329,35 +378,35 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         String message;
         switch (errorCode) {
             case SpeechRecognizer.ERROR_AUDIO:
-                message = "Audio recording error";
+                message = "Errore audio";
                 break;
             case SpeechRecognizer.ERROR_CLIENT:
-                message = "Client side error";
+                message = "Errore client";
                 break;
             case
                     SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-                message = "Insufficient permissions";
+                message = "Accetta i permessi";
                 break;
             case SpeechRecognizer.ERROR_NETWORK:
-                message = "Network error";
+                message = "Errore di rete";
                 break;
             case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-                message = "Network timeout";
+                message = "Errore di rete";
                 break;
             case SpeechRecognizer.ERROR_NO_MATCH:
                 message = "Riprova";
                 break;
             case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-                message = "RecognitionService busy";
+                message = "Aspetta";
                 break;
             case SpeechRecognizer.ERROR_SERVER:
-                message = "error from server";
+                message = "Errore server";
                 break;
             case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-                message = "No speech input";
+                message = "Nessuna voce riconosciuta.";
                 break;
             default:
-                message = "Didn't understand, please try again.";
+                message = "Prova ancora.";
                 break;
         }
         return message;

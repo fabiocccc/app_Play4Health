@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -51,6 +52,8 @@ public class ActivityScrivere extends AppCompatActivity {
     private Spinner spinner;
     private TextToSpeech textToSpeech;
     private ArrayList<String> risposte;
+    private ImageView esito1;
+    private Boolean ascoltato;
 
     private FrameLayout button_aiuto;
     private ImageView help1;
@@ -64,12 +67,13 @@ public class ActivityScrivere extends AppCompatActivity {
     private AnimationDrawable animationDrawableScelta3 = null;
     private AnimationDrawable animationDrawableScelta4 = null;
 
+    private Button button_avanti;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrivere);
 
-        errori = 0;
         button_Ascolta = findViewById(R.id.button_Ascolta2);
         button_Risp1 = findViewById(R.id.button_Risp1);
         button_Risp2 = findViewById(R.id.button_Risp2);
@@ -77,6 +81,7 @@ public class ActivityScrivere extends AppCompatActivity {
         button_Risp4 = findViewById(R.id.button_Risp4);
         imageView_Scrivere = findViewById(R.id.imageView_Scrivere);
         spinner = findViewById(R.id.spinner_Corpo);
+        esito1 = findViewById(R.id.esito1);
 
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
@@ -84,6 +89,8 @@ public class ActivityScrivere extends AppCompatActivity {
         help3 = findViewById(R.id.help3);
         help4 = findViewById(R.id.help4);
         help5 = findViewById(R.id.help5);
+
+        button_avanti = findViewById(R.id.button_avanti);
 
         risposte = new ArrayList<>();
 
@@ -93,15 +100,32 @@ public class ActivityScrivere extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        ascoltato = false;
+
+        button_aiuto.setVisibility(View.VISIBLE);
+        esito1.setVisibility(View.GONE);
+        esito1.clearAnimation();
+
+        errori = 0;
+
+        button_Risp1.setBackgroundColor(Color.parseColor("#ffff66"));
+        button_Risp2.setBackgroundColor(Color.parseColor("#ffff66"));
+        button_Risp3.setBackgroundColor(Color.parseColor("#ffff66"));
+        button_Risp4.setBackgroundColor(Color.parseColor("#ffff66"));
+        button_avanti.setVisibility(View.GONE);
+
+        button_avanti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onStart();
+            }
+        });
 
         String jsonString = read(this, "dati.json");
         try {
@@ -126,7 +150,6 @@ public class ActivityScrivere extends AppCompatActivity {
                 animationDrawable.start();
 
                 button_aiuto.setVisibility(View.GONE);
-
             }
         });
 
@@ -155,31 +178,61 @@ public class ActivityScrivere extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (button_Risp1.getText().toString().equals(corretta)) {
-                        //Corretto
-                        disabilitaBottoni();
-                        terminaAnimazioneScelta();
-                        button_Risp1.setBackgroundColor(Color.parseColor("#50e024"));
+                    if(ascoltato){
+                        if (button_Risp1.getText().toString().equals(corretta)) {
+                            //Corretto
+                            disabilitaBottoni();
+                            terminaAnimazioneScelta();
 
-                        if(errori == 0){
-                            //metti il SVOLTO nel JSON
+
+                            button_avanti.setVisibility(View.VISIBLE);
+
+                            if(errori == 0){
+                                //metti il SVOLTO nel JSON
+
+                            } else {
+
+                            }
+
+                            button_aiuto.setVisibility(View.GONE);
+                            button_avanti.setVisibility(View.VISIBLE);
+
+                            esito1.setVisibility(View.VISIBLE);
+                            esito1.setImageResource(R.drawable.thumbs_up);
+
+                            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
+                            errori++;
+
+                            if(errori == 3){
+                                button_aiuto.setVisibility(View.GONE);
+                                button_avanti.setVisibility(View.VISIBLE);
+
+                                esito1.setVisibility(View.VISIBLE);
+                                esito1.setImageResource(R.drawable.thumbs_down);
+
+                                esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                                disabilitaBottoni();
+                                terminaAnimazioneScelta();
+
+                            }
+
+                            button_Risp1.setClickable(false);
+                            button_Risp1.setBackgroundColor(Color.parseColor("#f54518"));
 
                         }
 
                     } else {
-                        errori++;
+                        help1.setVisibility(View.VISIBLE);
 
-                        if(errori == 3){
-                            Toast.makeText(getApplicationContext(), "HAI PERSO", Toast.LENGTH_SHORT).show();
-                        }
-
-                        button_Risp1.setClickable(false);
-                        button_Risp1.setBackgroundColor(Color.parseColor("#f54518"));
-
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.GONE);
                     }
+
+
 
                 }
                 });
@@ -191,32 +244,59 @@ public class ActivityScrivere extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (button_Risp2.getText().toString().equals(corretta)) {
-                        //Corretto
-                        disabilitaBottoni();
-                        terminaAnimazioneScelta();
-                        button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
+                    if(ascoltato){
+                        if (button_Risp2.getText().toString().equals(corretta)) {
+                            //Corretto
+                            disabilitaBottoni();
+                            terminaAnimazioneScelta();
+                            button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
+                            button_avanti.setVisibility(View.VISIBLE);
 
-                        if(errori == 0){
-                            //metti il SVOLTO nel JSON
+                            if(errori == 0){
+                                //metti il SVOLTO nel JSON
 
-                        }else {
-                            Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
+                            }else {
+
+                            }
+
+                            button_aiuto.setVisibility(View.GONE);
+                            button_avanti.setVisibility(View.VISIBLE);
+
+                            esito1.setVisibility(View.VISIBLE);
+                            esito1.setImageResource(R.drawable.thumbs_up);
+
+                            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+
+                        } else {
+                            errori++;
+
+                            if(errori == 3){
+                                button_aiuto.setVisibility(View.GONE);
+                                button_avanti.setVisibility(View.VISIBLE);
+
+                                esito1.setVisibility(View.VISIBLE);
+                                esito1.setImageResource(R.drawable.thumbs_down);
+
+                                esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+                                disabilitaBottoni();
+                                terminaAnimazioneScelta();
+                            }
+
+                            button_Risp2.setClickable(false);
+                            button_Risp2.setBackgroundColor(Color.parseColor("#f54518"));
 
                         }
-
 
                     } else {
-                        errori++;
+                        help1.setVisibility(View.VISIBLE);
 
-                        if(errori == 3){
-                            Toast.makeText(getApplicationContext(), "HAI PERSO", Toast.LENGTH_SHORT).show();
-                        }
-
-                        button_Risp2.setClickable(false);
-                        button_Risp2.setBackgroundColor(Color.parseColor("#f54518"));
-
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.GONE);
                     }
+
+
                 }
             });
 
@@ -230,31 +310,58 @@ public class ActivityScrivere extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (button_Risp3.getText().toString().equals(corretta)) {
-                        //Corretto
-                        disabilitaBottoni();
-                        terminaAnimazioneScelta();
-                        button_Risp3.setBackgroundColor(Color.parseColor("#50e024"));
+                    if(ascoltato){
+                        if (button_Risp3.getText().toString().equals(corretta)) {
+                            //Corretto
+                            disabilitaBottoni();
+                            terminaAnimazioneScelta();
+                            button_avanti.setVisibility(View.VISIBLE);
 
-                        if(errori == 0){
-                            //metti il SVOLTO nel JSON
+                            if(errori == 0){
+                                //metti il SVOLTO nel JSON
+
+                            } else {
+
+
+                            }
+
+                            button_aiuto.setVisibility(View.GONE);
+                            button_avanti.setVisibility(View.VISIBLE);
+
+                            esito1.setVisibility(View.VISIBLE);
+                            esito1.setImageResource(R.drawable.thumbs_up);
+
+                            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
+                            errori++;
+
+                            if(errori == 3){
+                                button_aiuto.setVisibility(View.GONE);
+                                button_avanti.setVisibility(View.VISIBLE);
+
+                                esito1.setVisibility(View.VISIBLE);
+                                esito1.setImageResource(R.drawable.thumbs_down);
+
+                                esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+                                disabilitaBottoni();
+                                terminaAnimazioneScelta();
+                            }
+
+                            button_Risp3.setClickable(false);
+                            button_Risp3.setBackgroundColor(Color.parseColor("#f54518"));
 
                         }
 
                     } else {
-                        errori++;
+                        help1.setVisibility(View.VISIBLE);
 
-                        if(errori == 3){
-                            Toast.makeText(getApplicationContext(), "HAI PERSO", Toast.LENGTH_SHORT).show();
-                        }
-
-                        button_Risp3.setClickable(false);
-                        button_Risp3.setBackgroundColor(Color.parseColor("#f54518"));
-
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.GONE);
                     }
+
+
 
                 }
             });
@@ -266,31 +373,58 @@ public class ActivityScrivere extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (button_Risp4.getText().toString().equals(corretta)) {
-                        //Corretto
-                        disabilitaBottoni();
-                        terminaAnimazioneScelta();
-                        button_Risp4.setBackgroundColor(Color.parseColor("#50e024"));
+                    if(ascoltato){
+                        if (button_Risp4.getText().toString().equals(corretta)) {
+                            //Corretto
+                            disabilitaBottoni();
+                            terminaAnimazioneScelta();
+                            button_avanti.setVisibility(View.VISIBLE);
 
-                        if(errori == 0){
-                            //metti il SVOLTO nel JSON
+                            if(errori == 0){
+                                //metti il SVOLTO nel JSON
 
 
-                        }else {
-                            Toast.makeText(getApplicationContext(), "FAI MENO ERRORI", Toast.LENGTH_SHORT).show();
+                            }else {
+
+                            }
+
+                            button_aiuto.setVisibility(View.GONE);
+                            button_avanti.setVisibility(View.VISIBLE);
+
+                            esito1.setVisibility(View.VISIBLE);
+                            esito1.setImageResource(R.drawable.thumbs_up);
+
+                            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        } else {
+                            errori++;
+
+                            if(errori == 3){
+                                button_aiuto.setVisibility(View.GONE);
+                                button_avanti.setVisibility(View.VISIBLE);
+
+                                esito1.setVisibility(View.VISIBLE);
+                                esito1.setImageResource(R.drawable.thumbs_down);
+
+                                esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+                                disabilitaBottoni();
+                                terminaAnimazioneScelta();
+                            }
+
+                            button_Risp4.setClickable(false);
+                            button_Risp4.setBackgroundColor(Color.parseColor("#f54518"));
 
                         }
+
                     } else {
-                        errori++;
+                        help1.setVisibility(View.VISIBLE);
 
-                        if(errori == 3){
-                            Toast.makeText(getApplicationContext(), "HAI PERSO", Toast.LENGTH_SHORT).show();
-                        }
-
-                        button_Risp4.setClickable(false);
-                        button_Risp4.setBackgroundColor(Color.parseColor("#f54518"));
-
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.GONE);
                     }
+
+
 
                 }
             });
@@ -316,6 +450,8 @@ public class ActivityScrivere extends AppCompatActivity {
                     button_Ascolta.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
+                            ascoltato = true;
 
                             if(animationDrawable != null) {
                                 help1.setVisibility(View.GONE);
@@ -349,19 +485,22 @@ public class ActivityScrivere extends AppCompatActivity {
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            switch (i){
-                                case 0:
-                                    textToSpeech.setLanguage(Locale.FRANCE);
-                                    String toSpeakFr = spinner.getSelectedItem().toString();
 
-                                    textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
-                                    break;
-                                case 1:
-                                    textToSpeech.setLanguage(Locale.ENGLISH);
-                                    String toSpeakEn = spinner.getSelectedItem().toString();
+                            if(ascoltato){
+                                switch (i){
+                                    case 0:
+                                        textToSpeech.setLanguage(Locale.FRANCE);
+                                        String toSpeakFr = spinner.getSelectedItem().toString();
 
-                                    textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
-                                    break;
+                                        textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                        break;
+                                    case 1:
+                                        textToSpeech.setLanguage(Locale.ENGLISH);
+                                        String toSpeakEn = spinner.getSelectedItem().toString();
+
+                                        textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                        break;
+                                }
                             }
                         }
 
@@ -402,6 +541,19 @@ public class ActivityScrivere extends AppCompatActivity {
     }
 
     private void disabilitaBottoni(){
+
+
+
+        if( button_Risp1.getText().toString().equals(corretta)){
+            button_Risp1.setBackgroundColor(Color.parseColor("#50e024"));
+        } else if ( button_Risp2.getText().toString().equals(corretta)){
+            button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
+        } else if ( button_Risp3.getText().toString().equals(corretta)){
+            button_Risp3.setBackgroundColor(Color.parseColor("#50e024"));
+        } else if ( button_Risp4.getText().toString().equals(corretta)){
+            button_Risp4.setBackgroundColor(Color.parseColor("#50e024"));
+        }
+
         button_Risp1.setClickable(false);
         button_Risp2.setClickable(false);
         button_Risp3.setClickable(false);

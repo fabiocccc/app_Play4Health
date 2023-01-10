@@ -7,10 +7,13 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/animation_pointing.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/bg_spinner.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/border.xml" value="0.196" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/button_avanti.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/button_cancella.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/button_corpo.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/button_corposcegli.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/button_mano.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/button_scrivere_difficile.xml" value="0.285" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/button_scrivere_facile.xml" value="0.285" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/button_viso.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/circle.xml" value="0.172" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/circle_att.xml" value="0.3675" />
@@ -20,6 +23,7 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/cirlce1.xml" value="0.196" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/drawable_lettera.xml" value="0.285" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/evidenzia_area.xml" value="0.285" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/form_carica.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home_ascolta.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home_campo.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home_corpo.xml" value="0.3675" />
@@ -31,7 +35,7 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/spinner_base.xml" value="0.366" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_ascolta.xml" value="0.33" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_campo.xml" value="0.4105102817974105" />
-        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_campo_ruoli.xml" value="0.5" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_campo_ruoli.xml" value="0.25" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_carica.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_corpo.xml" value="0.3124519600307456" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_corpo_scegli.xml" value="0.28072916666666664" />

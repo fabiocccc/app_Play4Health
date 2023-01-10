@@ -8,14 +8,18 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.CornerPathEffect;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -30,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 public class Home extends AppCompatActivity {
 
@@ -39,10 +44,8 @@ public class Home extends AppCompatActivity {
     private FrameLayout button_HomeScegli;
     private FrameLayout button_HomeCampo;
     private FrameLayout button_HomeCorpo;
-    private Button button_HomeCorpoScegli;
     private Button button_HomeCarica;
-
-    private ImageView imageViewTest;
+    private TextToSpeech textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +62,25 @@ public class Home extends AppCompatActivity {
 
     }
 
+    public void riproduci(String toSpeak, Locale locale){
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+
+                    textToSpeech.setLanguage(locale);
+                    textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+
+                }
+            }
+        });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
+
+
 
         button_HomeParla.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +101,14 @@ public class Home extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
 
-                dialogView.findViewById(R.id.button_ScrivereFacile).setOnClickListener(new View.OnClickListener() {
+                TextView text_Difficoltà = dialogView.findViewById(R.id.textDifficolta);
+                Button button_ScrivereFacile = dialogView.findViewById(R.id.button_ScrivereFacile);
+                Button button_ScrivereDifficile = dialogView.findViewById(R.id.button_ScrivereDifficile);
+                ImageView ita = dialogView.findViewById(R.id.ita);
+                ImageView fra = dialogView.findViewById(R.id.fra);
+                ImageView eng = dialogView.findViewById(R.id.eng);
+
+                button_ScrivereFacile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -91,11 +117,41 @@ public class Home extends AppCompatActivity {
                     }
                 });
 
-                dialogView.findViewById(R.id.button_ScrivereDifficile).setOnClickListener(new View.OnClickListener() {
+                button_ScrivereDifficile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(Home.this, ActivityScrivereDifficile.class);
                         startActivity(intent);
+                    }
+                });
+
+                ita.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        button_ScrivereFacile.setText("Facile");
+                        button_ScrivereDifficile.setText("Difficile");
+                        text_Difficoltà.setText("Difficoltà");
+                        riproduci("Difficoltà facile o difficile", Locale.ITALY);
+                    }
+                });
+
+                fra.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        button_ScrivereFacile.setText("Facile");
+                        button_ScrivereDifficile.setText("Difficile");
+                        text_Difficoltà.setText("Difficulté");
+                        riproduci("Difficulté facile ou difficile", Locale.FRANCE);
+                    }
+                });
+
+                eng.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        button_ScrivereFacile.setText("Easy");
+                        button_ScrivereDifficile.setText("Hard");
+                        text_Difficoltà.setText("Difficulty");
+                        riproduci("Easy or hard difficulty", Locale.ENGLISH);
                     }
                 });
 
@@ -138,7 +194,58 @@ public class Home extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
 
-                dialogView.findViewById(R.id.button_AlertCorpo).setOnClickListener(new View.OnClickListener() {
+                TextView text_Titolo= dialogView.findViewById(R.id.textAlertCorpoTitolo);
+                FrameLayout frame_Corpo = dialogView.findViewById(R.id.button_AlertCorpo);
+                FrameLayout frame_Viso = dialogView.findViewById(R.id.button_AlertViso);
+                FrameLayout frame_Mano = dialogView.findViewById(R.id.button_AlertMano);
+                FrameLayout frame_Scegli = dialogView.findViewById(R.id.button_AlertCorpoScegli);
+                TextView text_Corpo = dialogView.findViewById(R.id.textAlertCorpoCorpo);
+                TextView text_Viso = dialogView.findViewById(R.id.textAlertCorpoViso);
+                TextView text_Mano = dialogView.findViewById(R.id.textAlertCorpoMano);
+                TextView text_CorpoScegli  = dialogView.findViewById(R.id.textAlertCorpoScegli);
+                ImageView ita = dialogView.findViewById(R.id.ita);
+                ImageView fra = dialogView.findViewById(R.id.fra);
+                ImageView eng = dialogView.findViewById(R.id.eng);
+
+                ita.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        text_Titolo.setText("PARTI DEL CORPO");
+                        text_Corpo.setText("Corpo");
+                        text_Viso.setText("Viso");
+                        text_Mano.setText("Mano");
+                        text_CorpoScegli.setText("Scegli");
+                        riproduci("Parti del corpo", Locale.ITALY);
+
+                    }
+                });
+
+                fra.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        text_Titolo.setText("PARTIES DU CORPS");
+                        text_Corpo.setText("Corps");
+                        text_Viso.setText("Visage");
+                        text_Mano.setText("Main");
+                        text_CorpoScegli.setText("Choisir");
+                        riproduci("Parties du corps", Locale.FRANCE);
+
+                    }
+                });
+
+                eng.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        text_Titolo.setText("BODY PARTS");
+                        text_Corpo.setText("Body");
+                        text_Viso.setText("Face");
+                        text_Mano.setText("Hand");
+                        text_CorpoScegli.setText("Choose");
+                        riproduci("Body parts", Locale.ENGLISH);
+                    }
+                });
+
+                frame_Corpo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -147,7 +254,7 @@ public class Home extends AppCompatActivity {
                     }
                 });
 
-                dialogView.findViewById(R.id.button_AlertViso).setOnClickListener(new View.OnClickListener() {
+                frame_Viso.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(Home.this, ActivityViso.class);
@@ -155,7 +262,7 @@ public class Home extends AppCompatActivity {
                     }
                 });
 
-                dialogView.findViewById(R.id.button_AlertMano).setOnClickListener(new View.OnClickListener() {
+                frame_Mano.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -164,7 +271,7 @@ public class Home extends AppCompatActivity {
                     }
                 });
 
-                dialogView.findViewById(R.id.button_AlertCorpoScegli).setOnClickListener(new View.OnClickListener() {
+                frame_Scegli.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(Home.this, ActivityCorpoScegli.class);

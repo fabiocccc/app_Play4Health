@@ -8,6 +8,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -26,6 +27,8 @@ public class ActivityCorpoScegli extends AppCompatActivity {
     private Button button_Risp2;
     private FloatingActionButton button_Ascolta;
     private TextToSpeech textToSpeech;
+    private ImageView esito1;
+    private Boolean ascoltato;
 
     private ArrayList<String> ita;
     private String corretta;
@@ -38,6 +41,8 @@ public class ActivityCorpoScegli extends AppCompatActivity {
     private AnimationDrawable animationDrawableScelta1 = null;
     private AnimationDrawable animationDrawableScelta2 = null;
 
+    private Button button_avanti;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +52,14 @@ public class ActivityCorpoScegli extends AppCompatActivity {
         button_Risp1 = findViewById(R.id.button_Risp1);
         button_Risp2 = findViewById(R.id.button_Risp2);
         imageView = findViewById(R.id.imageView_CorpoScegli);
+        esito1 = findViewById(R.id.esito1);
 
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
         help3 = findViewById(R.id.help3);
+
+        button_avanti = findViewById(R.id.button_avanti);
 
         ita = new ArrayList<>();
         ita.add("Bocca");
@@ -93,6 +101,24 @@ public class ActivityCorpoScegli extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        ascoltato = false;
+
+        button_aiuto.setVisibility(View.VISIBLE);
+        esito1.setVisibility(View.GONE);
+        esito1.clearAnimation();
+
+        button_Risp1.setBackgroundColor(Color.parseColor("#ffff66"));
+        button_Risp2.setBackgroundColor(Color.parseColor("#ffff66"));
+
+        button_avanti.setVisibility(View.GONE);
+        button_avanti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onStart();
+
+            }
+        });
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,22 +230,42 @@ public class ActivityCorpoScegli extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if(animationDrawableScelta1 != null && animationDrawableScelta2 != null) {
-                        help2.setVisibility(View.GONE);
-                        animationDrawableScelta1.stop();
-                        animationDrawableScelta1 = null;
+                    if(ascoltato){
+                        if(animationDrawableScelta1 != null && animationDrawableScelta2 != null) {
+                            help2.setVisibility(View.GONE);
+                            animationDrawableScelta1.stop();
+                            animationDrawableScelta1 = null;
 
-                        help3.setVisibility(View.GONE);
-                        animationDrawableScelta2.stop();
-                        animationDrawableScelta2 = null;
+                            help3.setVisibility(View.GONE);
+                            animationDrawableScelta2.stop();
+                            animationDrawableScelta2 = null;
 
-                        button_aiuto.setVisibility(View.VISIBLE);
+                            button_aiuto.setVisibility(View.VISIBLE);
+                        }
+
+                        disabilitaBottoni();
+                        button_Risp1.setBackgroundColor(Color.parseColor("#50e024"));
+
+                        button_aiuto.setVisibility(View.GONE);
+                        button_avanti.setVisibility(View.VISIBLE);
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_up);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        button_Risp1.setClickable(false);
+                        button_Risp2.setClickable(false);
+
+                    } else {
+                        help1.setVisibility(View.VISIBLE);
+
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.GONE);
                     }
 
-                    disabilitaBottoni();
-                    button_Risp1.setBackgroundColor(Color.parseColor("#50e024"));
 
-                    Toast.makeText(getApplicationContext(), "Ex SVOLTO BENE", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -227,9 +273,41 @@ public class ActivityCorpoScegli extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    button_Risp2.setClickable(false);
-                    button_Risp2.setBackgroundColor(Color.parseColor("#f54518"));
-                    Toast.makeText(getApplicationContext(), "SBAGLIATO", Toast.LENGTH_SHORT).show();
+                    if(ascoltato){
+
+                        if(animationDrawableScelta1 != null && animationDrawableScelta2 != null) {
+                            help2.setVisibility(View.GONE);
+                            animationDrawableScelta1.stop();
+                            animationDrawableScelta1 = null;
+
+                            help3.setVisibility(View.GONE);
+                            animationDrawableScelta2.stop();
+                            animationDrawableScelta2 = null;
+
+                            button_aiuto.setVisibility(View.VISIBLE);
+                        }
+
+                        button_Risp2.setClickable(false);
+                        button_Risp2.setBackgroundColor(Color.parseColor("#f54518"));
+
+                        button_aiuto.setVisibility(View.GONE);
+                        button_avanti.setVisibility(View.VISIBLE);
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        button_Risp1.setClickable(false);
+                        button_Risp2.setClickable(false);
+                    } else {
+                        help1.setVisibility(View.VISIBLE);
+
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.GONE);
+                    }
+
                 }
             });
 
@@ -241,9 +319,43 @@ public class ActivityCorpoScegli extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    button_Risp1.setClickable(false);
-                    button_Risp1.setBackgroundColor(Color.parseColor("#f54518"));
-                    Toast.makeText(getApplicationContext(), "SBAGLIATO", Toast.LENGTH_SHORT).show();
+                    if(ascoltato){
+
+                        if(animationDrawableScelta1 != null && animationDrawableScelta2 != null) {
+                            help2.setVisibility(View.GONE);
+                            animationDrawableScelta1.stop();
+                            animationDrawableScelta1 = null;
+
+                            help3.setVisibility(View.GONE);
+                            animationDrawableScelta2.stop();
+                            animationDrawableScelta2 = null;
+
+                            button_aiuto.setVisibility(View.VISIBLE);
+                        }
+
+                        button_Risp1.setClickable(false);
+                        button_Risp1.setBackgroundColor(Color.parseColor("#f54518"));
+
+                        button_aiuto.setVisibility(View.GONE);
+                        button_avanti.setVisibility(View.VISIBLE);
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        button_Risp1.setClickable(false);
+                        button_Risp2.setClickable(false);
+
+                    } else {
+                        help1.setVisibility(View.VISIBLE);
+
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.GONE);
+                    }
+
+
                 }
             });
 
@@ -251,21 +363,42 @@ public class ActivityCorpoScegli extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if(animationDrawableScelta1 != null && animationDrawableScelta2 != null) {
-                        help2.setVisibility(View.GONE);
-                        animationDrawableScelta1.stop();
-                        animationDrawableScelta1 = null;
+                    if(ascoltato){
 
-                        help3.setVisibility(View.GONE);
-                        animationDrawableScelta2.stop();
-                        animationDrawableScelta2 = null;
+                        if(animationDrawableScelta1 != null && animationDrawableScelta2 != null) {
+                            help2.setVisibility(View.GONE);
+                            animationDrawableScelta1.stop();
+                            animationDrawableScelta1 = null;
 
-                        button_aiuto.setVisibility(View.VISIBLE);
+                            help3.setVisibility(View.GONE);
+                            animationDrawableScelta2.stop();
+                            animationDrawableScelta2 = null;
+
+                            button_aiuto.setVisibility(View.VISIBLE);
+                        }
+
+                        disabilitaBottoni();
+                        button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
+
+                        button_aiuto.setVisibility(View.GONE);
+                        button_avanti.setVisibility(View.VISIBLE);
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_up);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        button_Risp1.setClickable(false);
+                        button_Risp2.setClickable(false);
+                        button_avanti.setVisibility(View.VISIBLE);
+
+                    } else {
+                        help1.setVisibility(View.VISIBLE);
+
+                        animationDrawable = (AnimationDrawable) help1.getBackground();
+                        animationDrawable.start();
+                        button_aiuto.setVisibility(View.GONE);
                     }
-
-                    disabilitaBottoni();
-                    button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
-                    Toast.makeText(getApplicationContext(), "Ex SVOLTO BENE", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -280,6 +413,8 @@ public class ActivityCorpoScegli extends AppCompatActivity {
                     button_Ascolta.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
+                            ascoltato = true;
 
                             if(animationDrawable != null) {
                                 help1.setVisibility(View.GONE);

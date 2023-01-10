@@ -7,117 +7,258 @@
     android:background="#D7FFA7"
     tools:context=".ActivityCarica">
 
-    <EditText
-        android:id="@+id/edit_Ita"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:id="@+id/button_indietro"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_cancella"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="270dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="4dp"
+                android:autoSizeTextType="uniform"
+                android:paddingTop="3dp"
+                android:text="Carica dati"
+                android:textColor="#F0000000"
+                android:textSize="40sp"
+                app:layout_constraintStart_toEndOf="@+id/button_indietro"
+                tools:layout_editor_absoluteY="6dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="96dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="5dp"
+        android:text="PAROLA IN 3 LINGUE"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutIta"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutIta" />
 
-    <EditText
-        android:id="@+id/edit_Fra"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutIta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="45dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/HintTextAppearance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Ita" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout4">
 
-    <EditText
-        android:id="@+id/edit_Eng"
+        <EditText
+            android:id="@+id/edit_Ita"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Italiano"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutFra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/HintTextAppearance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Fra" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutIta">
 
-    <EditText
-        android:id="@+id/edit_Sug1"
+        <EditText
+            android:id="@+id/edit_Fra"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Francese"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutEng"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/HintTextAppearance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Eng" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFra">
 
-    <EditText
-        android:id="@+id/edit_Sug2"
+        <EditText
+            android:id="@+id/edit_Eng"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Inglese"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <TextView
+        android:id="@+id/textSug"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Sug1" />
+        android:layout_marginTop="10dp"
+        android:text="PAROLE SIMILI PER ESERCIZIO"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutSug1"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutSug1"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEng" />
 
-    <EditText
-        android:id="@+id/edit_Sug3"
+    <TextView
+        android:id="@+id/textFoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Sug2" />
+        android:layout_marginTop="10dp"
+        android:text="IMMAGINE"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button_Foto"
+        app:layout_constraintStart_toStartOf="@+id/button_Foto"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSug3"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSug1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSug">
+
+        <EditText
+            android:id="@+id/edit_Sug1"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Es: Parto (Porta)"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSug2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSug1">
+
+        <EditText
+            android:id="@+id/edit_Sug2"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Es: Pala (Palla)"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSug3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:textColorHint="@color/black"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSug2">
+
+        <EditText
+            android:id="@+id/edit_Sug3"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Es: Magla (Maglia)"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <android.widget.Button
         android:id="@+id/button_Foto"
-        android:layout_width="92dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/cirlce1"
+        android:backgroundTint="@color/teal_200"
         android:foreground="@drawable/galleria"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Sug3" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSug3" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_Salva"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="112dp"
+        android:layout_width="119dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="28dp"
+        android:background="@color/teal_200"
         android:text="Salva"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Foto"
-        app:layout_constraintVertical_bias="0.265" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/image_Carica"
-        android:layout_width="161dp"
-        android:layout_height="124dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.393"
+        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toEndOf="@+id/button_Foto"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Sug3" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSug3" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="169dp"
-        android:layout_height="666dp"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="238dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

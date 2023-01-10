@@ -3,15 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#D7FFA7"
-    android:layout_height="wrap_content">
+    android:background="#ffffff"
+    android:layout_height="320dp">
+
+    <ImageView
+        android:id="@+id/help2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="40"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/help3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="40"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="300dp"
         android:layout_height="320dp"
+        android:backgroundTint="#ffffff"
         app:cardCornerRadius="20sp"
-        android:backgroundTint="#D7FFA7"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +56,8 @@
                 android:id="@+id/imageCard"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="6" />
+                android:layout_weight="6"
+                android:scaleType="fitXY" />
 
             <Spinner
                 android:id="@+id/spinnerCard"
