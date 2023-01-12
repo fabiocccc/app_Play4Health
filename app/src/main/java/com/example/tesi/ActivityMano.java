@@ -153,8 +153,8 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                 if(fpolso){
                     ArrayList parole = new ArrayList();
                     parole.add("Polso");
-                    parole.add("Surface de but");
-                    parole.add("Goal area");
+                    parole.add("Poignet");
+                    parole.add("Wrist");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -171,8 +171,8 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                 if(fpalmo){
                     ArrayList parole = new ArrayList();
                     parole.add("Palmo");
-                    parole.add("Surface de but");
-                    parole.add("Goal area");
+                    parole.add("Paume");
+                    parole.add("Palm");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -411,49 +411,49 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
         switch (view.getId()){
             case R.id.polso:
                 parole = new ArrayList();
-                parole.add("Polso"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Polso"); parole.add("Poignet"); parole.add("Wrist");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.palmo:
                 parole = new ArrayList();
-                parole.add("Palmo"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Palmo"); parole.add("Paume"); parole.add("Palm");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.pollice:
                 parole = new ArrayList();
-                parole.add("Pollice"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Pollice"); parole.add("Pouce"); parole.add("Thumb");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.indice:
                 parole = new ArrayList();
-                parole.add("Indice"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Indice"); parole.add("Index finger"); parole.add("Index");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.medio:
                 parole = new ArrayList();
-                parole.add("Medio"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Medio"); parole.add("Majeur"); parole.add("Middle finger");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.anulare:
                 parole = new ArrayList();
-                parole.add("Anulare"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Anulare"); parole.add("Annulaire"); parole.add("Ring finger");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.mignolo:
                 parole = new ArrayList();
-                parole.add("Mignolo"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Mignolo"); parole.add("Auriculaire"); parole.add("Little finger");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);

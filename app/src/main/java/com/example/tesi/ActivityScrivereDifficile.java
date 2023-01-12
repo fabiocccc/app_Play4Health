@@ -135,7 +135,7 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, parole, true);
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, parole, false);
         spinner.setAdapter(spinnerAdapter);
         spinner.setSelection(-1);
 

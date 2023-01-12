@@ -9,8 +9,10 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.NetworkOnMainThreadException;
 import android.speech.tts.TextToSpeech;
 import android.util.AttributeSet;
 import android.util.Base64;
@@ -25,16 +27,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -48,6 +56,7 @@ public class ActivityAscolta extends AppCompatActivity {
     private AnimationDrawable animationDrawable = null;
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
+    private ArrayList<String> parole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +90,16 @@ public class ActivityAscolta extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.linear);
 
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
         String jsonString = read(this, "dati.json");
         try {
             jsonArray = new JSONArray(jsonString);
@@ -88,8 +107,7 @@ public class ActivityAscolta extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        ArrayList<String> parole = new ArrayList<>();
+        parole = new ArrayList<>();
         try {
             for(int i=0; i!= jsonArray.length(); i++){
                 parole.add(jsonArray.getJSONObject(i).getString("ita"));
@@ -218,6 +236,7 @@ public class ActivityAscolta extends AppCompatActivity {
 
 
         }
+
     }
 
     private void buildCard(String ita){
@@ -346,11 +365,6 @@ public class ActivityAscolta extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 
     private String read(Context context, String fileName) {
         try {

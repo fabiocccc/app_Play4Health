@@ -146,8 +146,8 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                 if(fcapelli){
                     ArrayList parole = new ArrayList();
                     parole.add("Capelli");
-                    parole.add("Surface de but");
-                    parole.add("Goal area");
+                    parole.add("Cheveux");
+                    parole.add("Hair");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -164,8 +164,8 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                 if(forecchie){
                     ArrayList parole = new ArrayList();
                     parole.add("Orecchie");
-                    parole.add("Surface de but");
-                    parole.add("Goal area");
+                    parole.add("Oreilles");
+                    parole.add("Ears");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -182,8 +182,8 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                 if(forecchie){
                     ArrayList parole = new ArrayList();
                     parole.add("Orecchie");
-                    parole.add("Surface de but");
-                    parole.add("Goal area");
+                    parole.add("Oreilles");
+                    parole.add("Ears");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -402,42 +402,42 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
         switch (view.getId()){
             case R.id.capelli:
                 parole = new ArrayList();
-                parole.add("Capelli"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Capelli"); parole.add("Cheveux"); parole.add("Hair");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.orecchie:
                 parole = new ArrayList();
-                parole.add("Orecchie"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Orecchie"); parole.add("Oreilles"); parole.add("Ears");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.sopracciglia:
                 parole = new ArrayList();
-                parole.add("Sopracciglia"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Sopracciglia"); parole.add("Sourcils"); parole.add("Eyebrows");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.occhi:
                 parole = new ArrayList();
-                parole.add("Occhi"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Occhi"); parole.add("Yeux"); parole.add("Eyes");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.naso:
                 parole = new ArrayList();
-                parole.add("Naso"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Naso"); parole.add("Nez"); parole.add("Nose");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.bocca:
                 parole = new ArrayList();
-                parole.add("Bocca"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Bocca"); parole.add("Bouche"); parole.add("Mouth");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);

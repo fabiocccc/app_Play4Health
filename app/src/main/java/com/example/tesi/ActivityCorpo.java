@@ -268,105 +268,105 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
         switch (view.getId()){
             case R.id.piedi:
                 parole = new ArrayList();
-                parole.add("Piedi"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Piedi"); parole.add("Pieds"); parole.add("Feet");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.caviglie:
                 parole = new ArrayList();
-                parole.add("Caviglie"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Caviglie"); parole.add("Chevilles"); parole.add("Ankles");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.stinchi:
                 parole = new ArrayList();
-                parole.add("Stinchi"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Stinchi"); parole.add("Shins"); parole.add("Shins");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.ginocchia:
                 parole = new ArrayList();
-                parole.add("Ginocchia"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Ginocchia"); parole.add("Genoux"); parole.add("Knees");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.coscie:
                 parole = new ArrayList();
-                parole.add("Coscie"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Cosce"); parole.add("Cuisses"); parole.add("Thighs");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.addome:
                 parole = new ArrayList();
-                parole.add("Addome"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Addome"); parole.add("Abdomen"); parole.add("Abdomen");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.torace:
                 parole = new ArrayList();
-                parole.add("Torace"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Torace"); parole.add("Poitrine"); parole.add("Chest");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.collo:
                 parole = new ArrayList();
-                parole.add("Collo"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Collo"); parole.add("Cou"); parole.add("Neck");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.testa:
                 parole = new ArrayList();
-                parole.add("Testa"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Testa"); parole.add("Tête"); parole.add("Head");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.braccioDestro:
                 parole = new ArrayList();
-                parole.add("Braccio"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Braccio"); parole.add("Bras"); parole.add("Arm");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.braccioSinistro:
                 parole = new ArrayList();
-                parole.add("Braccio"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Braccio"); parole.add("Bras"); parole.add("Arm");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.avambraccioDestro:
                 parole = new ArrayList();
-                parole.add("Avambraccio"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Avambraccio"); parole.add("Avant-bras"); parole.add("Forearm");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.avambraccioSinistro:
                 parole = new ArrayList();
-                parole.add("Avambraccio"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Avambraccio"); parole.add("Avant-bras"); parole.add("Forearm");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.manoDestra:
                 parole = new ArrayList();
-                parole.add("Mano"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Mano"); parole.add("Main"); parole.add("Hand");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.manoSinistra:
                 parole = new ArrayList();
-                parole.add("Mano"); parole.add("Surface de but"); parole.add("Goal area");
+                parole.add("Mano"); parole.add("Main"); parole.add("Hand");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);

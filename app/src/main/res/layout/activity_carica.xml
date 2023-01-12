@@ -7,6 +7,16 @@
     android:background="#D7FFA7"
     tools:context=".ActivityCarica">
 
+    <TextView
+        android:id="@+id/esitoserver"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="40dp"
+        android:visibility="gone"
+        android:elevation="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout4"
         android:layout_width="match_parent"
@@ -260,5 +270,18 @@
         app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toEndOf="@+id/button_Foto"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSug3" />
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:progressTint="#273CB3"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminateTint="@android:color/black"
+        app:layout_constraintVertical_bias="0.39" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

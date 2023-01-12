@@ -1,7 +1,7 @@
 package com.example.tesi;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import org.apache.commons.net.ftp.FTPClient;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,8 +10,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.NetworkOnMainThreadException;
 import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
@@ -22,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +37,9 @@ import com.google.gson.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -44,6 +51,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -62,6 +71,7 @@ public class ActivityCarica extends AppCompatActivity {
     private String image_CaricaBase64;
     private JSONArray jsonArray;
     private TextToSpeech textToSpeech;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +87,7 @@ public class ActivityCarica extends AppCompatActivity {
         button_Foto = findViewById(R.id.button_Foto);
         button_Salva = findViewById(R.id.button_Salva);
         image_Carica= findViewById(R.id.image_Carica);
+        progressBar = findViewById(R.id.progress_circular);
 
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,18 +103,34 @@ public class ActivityCarica extends AppCompatActivity {
         edit_Sug1.setText("");
         edit_Sug2.setText("");
         edit_Sug3.setText("");
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+        if(connected){
+            progressBar.setVisibility(View.VISIBLE);
+            ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
+            new ActivityCarica.DownloadFile().execute();
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        String jsonString = read(this, "dati.json");
-        try {
-            jsonArray = new JSONArray(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         button_Foto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +147,8 @@ public class ActivityCarica extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
                 if(edit_Ita.getText().toString().equals("") || edit_Fra.getText().toString().equals("") || edit_Eng.getText().toString().equals("")
                         || edit_Sug1.getText().toString().equals("") || edit_Sug2.getText().toString().equals("") || edit_Sug3.getText().toString().equals("")){
 
@@ -132,31 +161,57 @@ public class ActivityCarica extends AppCompatActivity {
                         try {
 
                             Boolean trov = false;
-                            for (int i=0; i<=jsonArray.length(); i++){
+                            for (int i=0; i<jsonArray.length(); i++){
                                 if(jsonArray.getJSONObject(i).get("ita").equals(edit_Ita.getText().toString())
                                         || jsonArray.getJSONObject(i).get("fra").equals(edit_Fra.getText().toString())
                                         || jsonArray.getJSONObject(i).get("eng").equals(edit_Eng.getText().toString()) ){
-                                    Toast.makeText(getApplicationContext(), edit_Ita.getText().toString() + "gia presente! Impossibile inserire.", Toast.LENGTH_SHORT).show();
+
+                                    Toast.makeText(getApplicationContext(), "<" + edit_Ita.getText().toString() + "> già presente! Impossibile inserire.", Toast.LENGTH_SHORT).show();
                                     trov = true;
+                                    break;
                                 }
                             }
 
                             if(!trov){
-                                jsonObject.put("ita", edit_Ita.getText().toString());
-                                jsonObject.put("fra", edit_Fra.getText().toString());
-                                jsonObject.put("eng", edit_Eng.getText().toString());
-                                jsonObject.put("sug1", edit_Sug1.getText().toString());
-                                jsonObject.put("sug2", edit_Sug2.getText().toString());
-                                jsonObject.put("sug3", edit_Sug3.getText().toString());
-                                jsonObject.put("img", image_CaricaBase64);
 
-                                jsonArray.put(jsonObject);
-                                create(getApplicationContext(), "dati.json", jsonArray.toString());
-                                buildCard(edit_Ita.getText().toString());
+                                ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                                boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+                                if(connected){
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
+
+                                    jsonObject.put("ita", edit_Ita.getText().toString());
+                                    jsonObject.put("fra", edit_Fra.getText().toString());
+                                    jsonObject.put("eng", edit_Eng.getText().toString());
+                                    jsonObject.put("sug1", edit_Sug1.getText().toString());
+                                    jsonObject.put("sug2", edit_Sug2.getText().toString());
+                                    jsonObject.put("sug3", edit_Sug3.getText().toString());
+                                    jsonObject.put("img", image_CaricaBase64);
+
+                                    jsonArray.put(jsonObject);
+                                    create(getApplicationContext(), "dati.json", jsonArray.toString());
+                                    new UploadFile().execute();
+
+
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+                                }
+
                             }
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
@@ -167,6 +222,8 @@ public class ActivityCarica extends AppCompatActivity {
         });
 
     }
+
+
 
     private void buildCard(String ita){
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCarica.this);
@@ -192,6 +249,20 @@ public class ActivityCarica extends AppCompatActivity {
                 edit_Sug3.setText("");
                 image_Carica.setImageURI(null);
 
+            }
+        });
+
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                image_CaricaBase64 = "";
+                edit_Ita.setText("");
+                edit_Fra.setText("");
+                edit_Eng.setText("");
+                edit_Sug1.setText("");
+                edit_Sug2.setText("");
+                edit_Sug3.setText("");
+                image_Carica.setImageURI(null);
             }
         });
 
@@ -272,7 +343,9 @@ public class ActivityCarica extends AppCompatActivity {
         AlertDialog alert11 = builder.create();
         alert11.show();
 
-        Toast.makeText(getApplicationContext(), "Dati caricati!", Toast.LENGTH_LONG).show();
+
+
+        Toast.makeText(getApplicationContext(), "Dati caricati con successo", Toast.LENGTH_LONG).show();
 
 
     }
@@ -322,6 +395,192 @@ public class ActivityCarica extends AppCompatActivity {
             return null;
         }
     }
+
+    class UploadFile extends AsyncTask<Void, Void, Void> {
+        String TAG = "MAIN_ACTIVITY";
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            FTPClient ftpClient = new FTPClient();
+
+            try {
+                ftpClient.connect("ftp.prenotazionetamponi.altervista.org", 21);
+                ftpClient.login( "prenotazionetamponi","wFhppBsmP588");
+                ftpClient.enterLocalPassiveMode();
+
+                String dirPath = "";
+
+                InputStream inputStream = getApplicationContext().openFileInput("dati.json");
+                ftpClient.storeFile(dirPath + "/dati.json", inputStream);
+                inputStream.close();
+
+                //END OF FILE UPLOADING
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        buildCard(edit_Ita.getText().toString());
+                    }
+                });
+
+                ftpClient.logout();
+                ftpClient.disconnect();
+
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+
+
+
+            } catch (NetworkOnMainThreadException e) {
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finish();
+                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (SocketException e) {
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finish();
+                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            } catch (FileNotFoundException e) {
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finish();
+                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (IOException e) {
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finish();
+                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+            ActivityCarica.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(true);
+                }
+            });
+
+            return null;
+
+        }
+    }
+
+    class DownloadFile extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            FTPClient ftpClient = new FTPClient();
+
+
+            try {
+                ftpClient.connect("ftp.prenotazionetamponi.altervista.org", 21);
+                ftpClient.login( "prenotazionetamponi","wFhppBsmP588");
+                ftpClient.enterLocalPassiveMode();
+
+                FileOutputStream fos = openFileOutput("dati.json",Context.MODE_PRIVATE);
+                OutputStream outputStream = null;
+                boolean success = false;
+                try {
+                    outputStream = new BufferedOutputStream(fos);
+                    success = ftpClient.retrieveFile("dati.json", outputStream);
+                } finally {
+                    if (outputStream != null) {
+                        outputStream.close();
+                    }
+                }
+
+                ftpClient.logout();
+                ftpClient.disconnect();
+
+                //Sincronizza dati in locale
+                String jsonString = read(ActivityCarica.this, "dati.json");
+                try {
+                    jsonArray = new JSONArray(jsonString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+            } catch (NetworkOnMainThreadException e) {
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finish();
+                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            } catch (SocketException e) {
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finish();
+                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            } catch (FileNotFoundException e) {
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finish();
+                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            } catch (IOException e) {
+                ActivityCarica.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finish();
+                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+
+            ActivityCarica.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(true);
+                }
+            });
+
+
+            return null;
+
+        }
+    }
+
 
     private boolean create(Context context, String fileName, String jsonString){
         String FILENAME = "dati.json";
