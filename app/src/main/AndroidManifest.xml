@@ -16,6 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tesi">
         <activity
+            android:name=".ActivityVideo"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityGalleriaVideo"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityCaricaVideo"
+            android:exported="false" />
+        <activity
             android:name=".ActivityGestioneDati"
             android:exported="false" />
         <activity

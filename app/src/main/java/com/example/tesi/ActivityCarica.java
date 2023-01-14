@@ -1,5 +1,6 @@
 package com.example.tesi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import org.apache.commons.net.ftp.FTPClient;
 import android.app.AlertDialog;
@@ -31,6 +32,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
@@ -120,6 +127,7 @@ public class ActivityCarica extends AppCompatActivity {
             ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
             ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
             ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
+            ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(false);
             new ActivityCarica.DownloadFile().execute();
 
         } else {
@@ -190,6 +198,7 @@ public class ActivityCarica extends AppCompatActivity {
                                     ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
                                     ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
                                     ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
+                                    ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(false);
 
                                     jsonObject.put("ita", edit_Ita.getText().toString());
                                     jsonObject.put("fra", edit_Fra.getText().toString());
@@ -401,7 +410,7 @@ public class ActivityCarica extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
+/*
             FTPClient ftpClient = new FTPClient();
 
             try {
@@ -463,6 +472,39 @@ public class ActivityCarica extends AppCompatActivity {
                         Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+            }*/
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference jsonFirebase = storageRef.child("dati.json");
+
+            try {
+                FileInputStream fis = ActivityCarica.this.openFileInput("dati.json");
+                jsonFirebase.putStream(fis).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ActivityCarica.this.runOnUiThread(new Runnable() {
+                            public void run() {
+
+                                ActivityCarica.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        ActivityCarica.this.findViewById(R.id.progress_circular).setVisibility(View.GONE);
+                                        buildCard(edit_Ita.getText().toString());
+
+                                    }
+                                });
+
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
 
             ActivityCarica.this.runOnUiThread(new Runnable() {
@@ -476,6 +518,7 @@ public class ActivityCarica extends AppCompatActivity {
                     ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(true);
                     ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(true);
                     ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(true);
                 }
             });
 
@@ -488,7 +531,7 @@ public class ActivityCarica extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
+/*
             FTPClient ftpClient = new FTPClient();
 
 
@@ -559,7 +602,42 @@ public class ActivityCarica extends AppCompatActivity {
                     }
                 });
 
-            }
+            }*/
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference jsonFirebase = storageRef.child("dati.json");
+
+            String path = getFilesDir().getAbsolutePath() + "/dati.json";
+            File file = new File(path);
+            jsonFirebase.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    ActivityCarica.this.runOnUiThread(new Runnable() {
+                        public void run() {
+
+                            //Sincronizza dati in locale
+                            String jsonString = read(ActivityCarica.this, "dati.json");
+                            try {
+                                jsonArray = new JSONArray(jsonString);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(ActivityCarica.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
 
             ActivityCarica.this.runOnUiThread(new Runnable() {
                 public void run() {
@@ -572,6 +650,7 @@ public class ActivityCarica extends AppCompatActivity {
                     ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(true);
                     ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(true);
                     ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(true);
                 }
             });
 

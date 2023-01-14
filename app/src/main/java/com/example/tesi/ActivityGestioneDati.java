@@ -1,5 +1,6 @@
 package com.example.tesi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +37,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.JsonArray;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -44,6 +51,7 @@ import org.json.JSONException;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -63,13 +71,15 @@ public class ActivityGestioneDati extends AppCompatActivity {
     private ArrayList<String> parole;
     private ListViewAdapter adapter;
     private TextToSpeech textToSpeech;
-    private Button button_Carica;
+    private Button button_CaricaDati;
+    private Button button_CaricaVideo;
     private FrameLayout frame_Accesso;
     private EditText edit_Accesso;
     private Button button_Accesso;
     private String password = "password";
     private SharedPreferences shared;
     private Boolean admin;
+    private FrameLayout button_indietro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +87,14 @@ public class ActivityGestioneDati extends AppCompatActivity {
         setContentView(R.layout.activity_gestione_dati);
         listView = findViewById(R.id.listaDati);
         progressBar = findViewById(R.id.progress_circular);
-        button_Carica = findViewById(R.id.button_Carica);
+        button_CaricaDati = findViewById(R.id.button_CaricaDati);
+        button_CaricaVideo = findViewById(R.id.button_CaricaVideo);
         frame_Accesso = findViewById(R.id.frame_Accesso);
         edit_Accesso = findViewById(R.id.edit_Accesso);
         button_Accesso = findViewById(R.id.button_Accesso);
+        button_indietro = findViewById(R.id.button_indietro);
 
-        findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
+        button_indietro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -101,16 +113,20 @@ public class ActivityGestioneDati extends AppCompatActivity {
         frame_Accesso.setVisibility(View.VISIBLE);
         edit_Accesso.setVisibility(View.VISIBLE);
         button_Accesso.setVisibility(View.VISIBLE);
-        button_Carica.setVisibility(View.GONE);
+        button_CaricaDati.setVisibility(View.GONE);
+        button_CaricaVideo.setVisibility(View.GONE);
 
         shared = getPreferences(MODE_PRIVATE);
         admin = shared.getBoolean("admin", false);
+
+
 
         if(admin){
             frame_Accesso.setVisibility(View.GONE);
             edit_Accesso.setVisibility(View.GONE);
             button_Accesso.setVisibility(View.GONE);
-            button_Carica.setVisibility(View.VISIBLE);
+            button_CaricaDati.setVisibility(View.VISIBLE);
+            button_CaricaVideo.setVisibility(View.VISIBLE);
 
             ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -120,7 +136,9 @@ public class ActivityGestioneDati extends AppCompatActivity {
             if(connected){
                 progressBar.setVisibility(View.VISIBLE);
                 listView.setEnabled(false);
-                button_Carica.setEnabled(false);
+                button_CaricaDati.setEnabled(false);
+                button_CaricaVideo.setEnabled(false);
+                button_indietro.setClickable(false);
                 new ActivityGestioneDati.DownloadFile().execute();
 
             } else {
@@ -135,10 +153,19 @@ public class ActivityGestioneDati extends AppCompatActivity {
                 }
             });
 
-            button_Carica.setOnClickListener(new View.OnClickListener() {
+            button_CaricaDati.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(ActivityGestioneDati.this, ActivityCarica.class);
+                    startActivity(intent);
+
+                }
+            });
+
+            button_CaricaVideo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ActivityGestioneDati.this, ActivityCaricaVideo.class);
                     startActivity(intent);
 
                 }
@@ -157,7 +184,8 @@ public class ActivityGestioneDati extends AppCompatActivity {
                         frame_Accesso.setVisibility(View.GONE);
                         edit_Accesso.setVisibility(View.GONE);
                         button_Accesso.setVisibility(View.GONE);
-                        button_Carica.setVisibility(View.VISIBLE);
+                        button_CaricaDati.setVisibility(View.VISIBLE);
+                        button_CaricaVideo.setVisibility(View.VISIBLE);
 
                         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -167,7 +195,9 @@ public class ActivityGestioneDati extends AppCompatActivity {
                         if(connected){
                             progressBar.setVisibility(View.VISIBLE);
                             listView.setEnabled(false);
-                            button_Carica.setEnabled(false);
+                            button_CaricaDati.setEnabled(false);
+                            button_CaricaVideo.setEnabled(false);
+                            ActivityGestioneDati.this.findViewById(R.id.button_indietro).setClickable(false);
                             new ActivityGestioneDati.DownloadFile().execute();
 
                         } else {
@@ -182,7 +212,7 @@ public class ActivityGestioneDati extends AppCompatActivity {
                             }
                         });
 
-                        button_Carica.setOnClickListener(new View.OnClickListener() {
+                        button_CaricaDati.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(ActivityGestioneDati.this, ActivityCarica.class);
@@ -204,7 +234,7 @@ public class ActivityGestioneDati extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
+/*
             FTPClient ftpClient = new FTPClient();
 
 
@@ -254,7 +284,8 @@ public class ActivityGestioneDati extends AppCompatActivity {
                         adapter = new ListViewAdapter(ActivityGestioneDati.this, parole);
                         listView.setAdapter(adapter);
                         ActivityGestioneDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                        ActivityGestioneDati.this.findViewById(R.id.button_Carica).setEnabled(true);
+                        ActivityGestioneDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+                        ActivityGestioneDati.this.findViewById(R.id.button_CaricaVideo).setEnabled(true);
                     }
                 });
 
@@ -290,14 +321,65 @@ public class ActivityGestioneDati extends AppCompatActivity {
                     }
                 });
 
-            }
+            }*/
 
-            ActivityGestioneDati.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    ActivityGestioneDati.this.findViewById(R.id.listaDati).setEnabled(true);
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference jsonFirebase = storageRef.child("dati.json");
+
+            String path = getFilesDir().getAbsolutePath() + "/dati.json";
+            File file = new File(path);
+            jsonFirebase.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    ActivityGestioneDati.this.runOnUiThread(new Runnable() {
+                        public void run() {
+
+                            //Sincronizza dati in locale
+                            String jsonString = read(ActivityGestioneDati.this, "dati.json");
+                            try {
+                                jsonArray = new JSONArray(jsonString);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            progressBar.setVisibility(View.GONE);
+
+                            parole = new ArrayList<>();
+                            try {
+                                for(int i=20; i!= jsonArray.length(); i++){
+                                    parole.add(jsonArray.getJSONObject(i).getString("ita"));
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            adapter = new ListViewAdapter(ActivityGestioneDati.this, parole);
+                            listView.setAdapter(adapter);
+                            ActivityGestioneDati.this.findViewById(R.id.listaDati).setEnabled(true);
+                            ActivityGestioneDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+                            ActivityGestioneDati.this.findViewById(R.id.button_CaricaVideo).setEnabled(true);
+                            ActivityGestioneDati.this.findViewById(R.id.button_indietro).setClickable(true);
+
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                    ActivityGestioneDati.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            ActivityGestioneDati.this.findViewById(R.id.listaDati).setEnabled(true);
+                            ActivityGestioneDati.this.findViewById(R.id.button_indietro).setClickable(true);
+                        }
+                    });
                 }
             });
-
 
             return null;
 
@@ -398,7 +480,7 @@ public class ActivityGestioneDati extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
+/*
             FTPClient ftpClient = new FTPClient();
 
             try {
@@ -421,7 +503,8 @@ public class ActivityGestioneDati extends AppCompatActivity {
                         ActivityGestioneDati.this.findViewById(R.id.progress_circular).setVisibility(View.GONE);
                         Toast.makeText(ActivityGestioneDati.this, "Eliminato", Toast.LENGTH_LONG).show();
                         ActivityGestioneDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                        ActivityGestioneDati.this.findViewById(R.id.button_Carica).setEnabled(true);
+                        ActivityGestioneDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+                        ActivityGestioneDati.this.findViewById(R.id.button_CaricaVideo).setEnabled(true);
                         adapter.notifyDataSetChanged();
 
 
@@ -460,12 +543,54 @@ public class ActivityGestioneDati extends AppCompatActivity {
                         Toast.makeText(ActivityGestioneDati.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+            }*/
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference jsonFirebase = storageRef.child("dati.json");
+
+            try {
+                FileInputStream fis = ActivityGestioneDati.this.openFileInput("dati.json");
+                jsonFirebase.putStream(fis).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ActivityGestioneDati.this.runOnUiThread(new Runnable() {
+                            public void run() {
+
+                                ActivityGestioneDati.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        ActivityGestioneDati.this.findViewById(R.id.progress_circular).setVisibility(View.GONE);
+                                        Toast.makeText(ActivityGestioneDati.this, "Eliminato", Toast.LENGTH_LONG).show();
+                                        ActivityGestioneDati.this.findViewById(R.id.listaDati).setEnabled(true);
+                                        ActivityGestioneDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+                                        ActivityGestioneDati.this.findViewById(R.id.button_CaricaVideo).setEnabled(true);
+                                        ActivityGestioneDati.this.findViewById(R.id.button_indietro).setClickable(true);
+                                        adapter.notifyDataSetChanged();
+
+
+                                    }
+                                });
+
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
+
 
             ActivityGestioneDati.this.runOnUiThread(new Runnable() {
                 public void run() {
                     ActivityGestioneDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                    ActivityGestioneDati.this.findViewById(R.id.button_Carica).setEnabled(true);
+                    ActivityGestioneDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+                    ActivityGestioneDati.this.findViewById(R.id.button_CaricaVideo).setEnabled(true);
+                    ActivityGestioneDati.this.findViewById(R.id.button_indietro).setClickable(true);
                 }
             });
 
@@ -518,7 +643,9 @@ public class ActivityGestioneDati extends AppCompatActivity {
                                 create(getApplicationContext(), "dati.json", jsonArray.toString());
                                 progressBar.setVisibility(View.VISIBLE);
                                 listView.setEnabled(false);
-                                button_Carica.setEnabled(false);
+                                button_CaricaDati.setEnabled(false);
+                                button_CaricaVideo.setEnabled(false);
+                                ActivityGestioneDati.this.findViewById(R.id.button_indietro).setClickable(false);
                                 new ActivityGestioneDati.UploadFile().execute();
 
                             }else{

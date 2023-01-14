@@ -58,8 +58,6 @@ public class SpinnerAdapter extends BaseAdapter {
                     .inflate(R.layout.spinner_base, viewGroup, false);
         }
 
-
-
         TextView textView = (TextView) rootView.findViewById(R.id.textView_SB);
         String text = getItem(i);
 

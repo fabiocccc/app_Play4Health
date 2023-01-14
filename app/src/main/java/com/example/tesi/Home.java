@@ -1,31 +1,37 @@
 package com.example.tesi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.CornerPathEffect;
-import android.graphics.drawable.AnimationDrawable;
-import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.NetworkOnMainThreadException;
 import android.speech.tts.TextToSpeech;
-import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,6 +40,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.SocketException;
 import java.util.Locale;
 
 public class Home extends AppCompatActivity {
@@ -44,8 +52,11 @@ public class Home extends AppCompatActivity {
     private FrameLayout button_HomeScegli;
     private FrameLayout button_HomeCampo;
     private FrameLayout button_HomeCorpo;
-    private Button button_HomeCarica;
+    private FrameLayout button_HomeDati;
+    private FrameLayout button_Aggiorna;
+    private FrameLayout button_Galleria;
     private TextToSpeech textToSpeech;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +69,31 @@ public class Home extends AppCompatActivity {
         button_HomeScegli = findViewById(R.id.button_HomeScegli);
         button_HomeCampo = findViewById(R.id.button_HomeCampo);
         button_HomeCorpo = findViewById(R.id.button_HomeCorpo);
-        button_HomeCarica = findViewById(R.id.button_HomeCarica);
+        button_HomeDati = findViewById(R.id.button_HomeDati);
+        button_Aggiorna = findViewById(R.id.button_HomeAggiorna);
+        progressBar = findViewById(R.id.progress_circular);
+        button_Galleria = findViewById(R.id.button_HomeVideo);
+
+        /*ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+        if(connected){
+            progressBar.setVisibility(View.VISIBLE);
+            button_HomeParla.setEnabled(false);
+            button_HomeScrivere.setEnabled(false);
+            button_HomeAscolta.setEnabled(false);
+            button_HomeScegli.setEnabled(false);
+            button_HomeCampo.setEnabled(false);
+            button_HomeCorpo.setEnabled(false);
+            button_HomeDati.setEnabled(false);
+            button_Aggiorna.setEnabled(false);
+            new Home.DownloadFile().execute();
+
+        } else {
+            //Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+        }*/
 
     }
 
@@ -76,10 +111,166 @@ public class Home extends AppCompatActivity {
         });
     }
 
+    class DownloadFile extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            /*FTPClient ftpClient = new FTPClient();
+
+
+            try {
+                ftpClient.connect("ftp.prenotazionetamponi.altervista.org", 21);
+                ftpClient.login( "prenotazionetamponi","wFhppBsmP588");
+                ftpClient.enterLocalPassiveMode();
+
+                FileOutputStream fos = openFileOutput("dati.json",Context.MODE_PRIVATE);
+                OutputStream outputStream = null;
+                boolean success = false;
+                try {
+                    outputStream = new BufferedOutputStream(fos);
+                    success = ftpClient.retrieveFile("dati.json", outputStream);
+                } finally {
+                    if (outputStream != null) {
+                        outputStream.close();
+                    }
+                }
+
+                ftpClient.logout();
+                ftpClient.disconnect();
+
+
+                Home.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(Home.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+            } catch (NetworkOnMainThreadException e) {
+                Home.this.runOnUiThread(new Runnable() {
+                    public void run() {
+
+                        Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            } catch (SocketException e) {
+                Home.this.runOnUiThread(new Runnable() {
+                    public void run() {
+
+                        Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            } catch (FileNotFoundException e) {
+                Home.this.runOnUiThread(new Runnable() {
+                public void run() {
+
+                    Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            } catch (IOException e) {
+                Home.this.runOnUiThread(new Runnable() {
+                    public void run() {
+
+                        Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }*/
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference jsonFirebase = storageRef.child("dati.json");
+
+            String path = getFilesDir().getAbsolutePath() + "/dati.json";
+            File file = new File(path);
+            jsonFirebase.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Home.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(Home.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
+                            Home.this.findViewById(R.id.button_HomeAscolta).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeParla).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeScegli).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeScrivere).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeCampo).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeCorpo).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeDati).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeAggiorna).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeVideo).setClickable(true);
+
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Home.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(Home.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
+                            Home.this.findViewById(R.id.button_HomeAscolta).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeParla).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeScegli).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeScrivere).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeCampo).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeCorpo).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeDati).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeAggiorna).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeVideo).setClickable(true);
+
+                        }
+                    });
+                }
+            });
+
+
+            return null;
+
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
 
+        button_Aggiorna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+                if(connected){
+                    progressBar.setVisibility(View.VISIBLE);
+                    button_HomeParla.setClickable(false);
+                    button_HomeScrivere.setClickable(false);
+                    button_HomeAscolta.setClickable(false);
+                    button_HomeScegli.setClickable(false);
+                    button_HomeCampo.setClickable(false);
+                    button_HomeCorpo.setClickable(false);
+                    button_HomeDati.setClickable(false);
+                    button_Aggiorna.setClickable(false);
+                    button_Galleria.setClickable(false);
+
+                    new Home.DownloadFile().execute();
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+                }
+
+            }
+            });
 
 
         button_HomeParla.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +347,75 @@ public class Home extends AppCompatActivity {
                 });
 
 
+            }
+        });
+
+
+        button_Galleria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+                builder.setCancelable(true);
+
+                View dialogView = getLayoutInflater().inflate(R.layout.alertdialog_video, null);
+                builder.setView(dialogView);
+                AlertDialog alert = builder.create();
+                alert.show();
+
+                TextView textView = dialogView.findViewById(R.id.textAlertVideo);
+                Button button_VideoCommento = dialogView.findViewById(R.id.button_VideoCommento);
+                Button button_VideoGesti = dialogView.findViewById(R.id.button_VideoGesti);
+                ImageView ita = dialogView.findViewById(R.id.ita);
+                ImageView fra = dialogView.findViewById(R.id.fra);
+                ImageView eng = dialogView.findViewById(R.id.eng);
+
+                button_VideoCommento.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Home.this, ActivityGalleriaVideo.class);
+                        intent.putExtra("tipo", "commento");
+                        startActivity(intent);
+                    }
+                });
+
+                button_VideoGesti.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Home.this, ActivityGalleriaVideo.class);
+                        intent.putExtra("tipo", "gesti");
+                        startActivity(intent);
+                    }
+                });
+
+                ita.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        button_VideoCommento.setText("Commento");
+                        button_VideoGesti.setText("Gesti");
+                        textView.setText("Galleria video");
+                        riproduci("Video commento o gesti", Locale.ITALY);
+                    }
+                });
+
+                fra.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        button_VideoCommento.setText("Commentaire");
+                        button_VideoGesti.setText("Gestes");
+                        textView.setText("Galerie vidéo");
+                        riproduci("Vidéos de commentaires ou de gestes", Locale.FRANCE);
+                    }
+                });
+
+                eng.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        button_VideoCommento.setText("Commentary");
+                        button_VideoGesti.setText("Gestures");
+                        textView.setText("Video Gallery");
+                        riproduci("Commentary or gestures videos", Locale.ENGLISH);
+                    }
+                });
             }
         });
 
@@ -282,10 +542,10 @@ public class Home extends AppCompatActivity {
         });
 
 
-        button_HomeCarica.setOnClickListener(new View.OnClickListener() {
+        button_HomeDati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityCarica.class);
+                Intent intent = new Intent(Home.this, ActivityGestioneDati.class);
                 startActivity(intent);
             }
         });
@@ -328,7 +588,7 @@ public class Home extends AppCompatActivity {
         } else {
             boolean isFileCreated = create(this, "dati.json", jsonString);
             if(isFileCreated) {
-                Toast.makeText(this,"file creato", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,"file creato", Toast.LENGTH_LONG).show();
                 //proceed with storing the first todo  or show ui
             } else {
                 //show error or try again.

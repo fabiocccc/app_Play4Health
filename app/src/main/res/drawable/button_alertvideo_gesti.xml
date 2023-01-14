@@ -22,7 +22,7 @@
         </shape>
     </item>
 
-    <item android:drawable="@drawable/icon_mano" android:width="70dp"
+    <item android:drawable="@drawable/gesti" android:width="60dp"
         android:left="5dp"
         android:height="60dp" android:gravity="left" android:top="5dp"/>
 </layer-list>
