@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D7FFA7"
+    tools:context=".ActivityMedico">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:id="@+id/button_indietro"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_cancella"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:layout_width="270dp"
+                android:layout_height="56dp"
+                android:autoSizeTextType="uniform"
+                android:layout_marginStart="4dp"
+                android:paddingTop="3dp"
+                android:text="Il medico consiglia"
+                android:textColor="#F0000000"
+                android:textSize="40sp"
+                app:layout_constraintStart_toEndOf="@+id/button_indietro"
+                tools:layout_editor_absoluteY="6dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="159dp"
+        android:layout_height="228dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_medico_colorato"
+        app:layout_constraintEnd_toStartOf="@+id/imageBalloon"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ita" />
+
+    <ImageView
+        android:id="@+id/imageBalloon"
+        android:layout_width="243dp"
+        android:layout_height="217dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_baloon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eng" />
+
+    <ImageView
+        android:id="@+id/ita"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ita"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/fra"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="186dp"
+        android:layout_height="116dp"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/imageBalloon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@+id/imageBalloon"
+        app:layout_constraintTop_toTopOf="@+id/imageBalloon"
+        app:layout_constraintVertical_bias="0.227" />
+
+    <ImageView
+        android:id="@+id/fra"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/fra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/ita"
+        app:layout_constraintRight_toLeftOf="@+id/eng"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout5"
+        app:layout_constraintVertical_bias="0.003"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <ImageView
+        android:id="@+id/eng"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/eng"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/fra"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout5"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/button_letto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="112dp"
+        android:backgroundTint="#80dfff"
+        android:backgroundTintMode="src_over"
+        app:layout_constraintEnd_toStartOf="@+id/button_freddo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+    <ImageView
+        android:id="@+id/letto"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        android:src="@drawable/medico_letto"
+        app:layout_constraintBottom_toBottomOf="@+id/button_letto"
+        app:layout_constraintEnd_toEndOf="@+id/button_letto"
+        app:layout_constraintStart_toStartOf="@+id/button_letto"
+        app:layout_constraintTop_toTopOf="@+id/button_letto" />
+
+
+
+    <Button
+        android:id="@+id/button_freddo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="112dp"
+        android:backgroundTint="#80dfff"
+
+        app:layout_constraintEnd_toStartOf="@+id/button_sci"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_letto"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+    <ImageView
+        android:id="@+id/freddo"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        android:src="@drawable/medico_freddo"
+        app:layout_constraintBottom_toBottomOf="@+id/button_freddo"
+        app:layout_constraintEnd_toEndOf="@+id/button_freddo"
+        app:layout_constraintStart_toStartOf="@+id/button_freddo"
+        app:layout_constraintTop_toTopOf="@+id/button_freddo" />
+
+
+
+    <Button
+        android:id="@+id/button_sci"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="112dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_freddo"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+    <ImageView
+        android:id="@+id/sci"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        android:src="@drawable/medico_sci"
+        app:layout_constraintBottom_toBottomOf="@+id/button_sci"
+        app:layout_constraintEnd_toEndOf="@+id/button_sci"
+        app:layout_constraintStart_toStartOf="@+id/button_sci"
+        app:layout_constraintTop_toTopOf="@+id/button_sci" />
+
+
+
+
+    <Button
+        android:id="@+id/button_zuccheri"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toStartOf="@+id/button_pomata"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_letto" />
+    <ImageView
+        android:id="@+id/zuccheri"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        android:src="@drawable/medico_zuccheri"
+        app:layout_constraintBottom_toBottomOf="@+id/button_zuccheri"
+        app:layout_constraintEnd_toEndOf="@+id/button_zuccheri"
+        app:layout_constraintStart_toStartOf="@+id/button_zuccheri"
+        app:layout_constraintTop_toTopOf="@+id/button_zuccheri" />
+
+
+
+
+    <Button
+        android:id="@+id/button_pomata"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toStartOf="@+id/button_compresse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_zuccheri"
+        app:layout_constraintTop_toBottomOf="@+id/button_freddo" />
+    <ImageView
+        android:id="@+id/pomata"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        android:src="@drawable/medico_pomata"
+        app:layout_constraintBottom_toBottomOf="@+id/button_pomata"
+        app:layout_constraintEnd_toEndOf="@+id/button_pomata"
+        app:layout_constraintStart_toStartOf="@+id/button_pomata"
+        app:layout_constraintTop_toTopOf="@+id/button_pomata" />
+
+
+
+
+    <Button
+        android:id="@+id/button_compresse"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_pomata"
+        app:layout_constraintTop_toBottomOf="@+id/button_sci" />
+    <ImageView
+        android:id="@+id/compresse"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        android:src="@drawable/medico_compresse"
+        app:layout_constraintBottom_toBottomOf="@+id/button_compresse"
+        app:layout_constraintEnd_toEndOf="@+id/button_compresse"
+        app:layout_constraintStart_toStartOf="@+id/button_compresse"
+        app:layout_constraintTop_toTopOf="@+id/button_compresse" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

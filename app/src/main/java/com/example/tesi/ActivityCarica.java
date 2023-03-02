@@ -72,6 +72,7 @@ public class ActivityCarica extends AppCompatActivity {
     private EditText edit_Sug1;
     private EditText edit_Sug2;
     private EditText edit_Sug3;
+    private TextView text_Sug;
     private Button button_Foto;
     private Button button_Salva;
     private ImageView image_Carica;
@@ -79,6 +80,7 @@ public class ActivityCarica extends AppCompatActivity {
     private JSONArray jsonArray;
     private TextToSpeech textToSpeech;
     private ProgressBar progressBar;
+    private String tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class ActivityCarica extends AppCompatActivity {
         edit_Sug1 = findViewById(R.id.edit_Sug1);
         edit_Sug2 = findViewById(R.id.edit_Sug2);
         edit_Sug3 = findViewById(R.id.edit_Sug3);
+        text_Sug = findViewById(R.id.textSug);
         button_Foto = findViewById(R.id.button_Foto);
         button_Salva = findViewById(R.id.button_Salva);
         image_Carica= findViewById(R.id.image_Carica);
@@ -116,23 +119,218 @@ public class ActivityCarica extends AppCompatActivity {
         boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
 
-        if(connected){
-            progressBar.setVisibility(View.VISIBLE);
-            ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
-            ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(false);
-            new ActivityCarica.DownloadFile().execute();
+        if(getIntent().getStringExtra("tipo").equals("calcio")){
+            tipo = "calcio";
+        } else if(getIntent().getStringExtra("tipo").equals("corpo")) {
+            tipo = "corpo";
+        } else if(getIntent().getStringExtra("tipo").equals("salute")) {
+            tipo = "salute";
+        }
+
+
+
+        if(tipo.equals("calcio")){
+
+
+            //// CALCIO
+
+            if(connected){
+                progressBar.setVisibility(View.VISIBLE);
+                ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(false);
+                new ActivityCarica.DownloadFile().execute();
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+                finish();
+            }
+
+            button_Salva.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+
+                    if(edit_Ita.getText().toString().equals("") || edit_Fra.getText().toString().equals("") || edit_Eng.getText().toString().equals("")
+                            || edit_Sug1.getText().toString().equals("") || edit_Sug2.getText().toString().equals("") || edit_Sug3.getText().toString().equals("")){
+
+                        Toast.makeText(getApplicationContext(), "Inserisci tutti i dati!", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        if(!image_CaricaBase64.equals("")){
+
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+
+                                Boolean trov = false;
+                                for (int i=0; i<jsonArray.length(); i++){
+                                    if(jsonArray.getJSONObject(i).get("ita").equals(edit_Ita.getText().toString())
+                                            || jsonArray.getJSONObject(i).get("fra").equals(edit_Fra.getText().toString())
+                                            || jsonArray.getJSONObject(i).get("eng").equals(edit_Eng.getText().toString()) ){
+
+                                        Toast.makeText(getApplicationContext(), "<" + edit_Ita.getText().toString() + "> già presente! Impossibile inserire.", Toast.LENGTH_SHORT).show();
+                                        trov = true;
+                                        break;
+                                    }
+                                }
+
+                                if(!trov){
+
+                                    ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                                    boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                                            connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+                                    if(connected){
+                                        progressBar.setVisibility(View.VISIBLE);
+                                        ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(false);
+
+                                        jsonObject.put("ita", edit_Ita.getText().toString());
+                                        jsonObject.put("fra", edit_Fra.getText().toString());
+                                        jsonObject.put("eng", edit_Eng.getText().toString());
+                                        jsonObject.put("sug1", edit_Sug1.getText().toString());
+                                        jsonObject.put("sug2", edit_Sug2.getText().toString());
+                                        jsonObject.put("sug3", edit_Sug3.getText().toString());
+                                        jsonObject.put("img", image_CaricaBase64);
+
+                                        jsonArray.put(jsonObject);
+                                        create(getApplicationContext(), "dati.json", jsonArray.toString());
+                                        new UploadFile().execute();
+
+
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Inserisci l'immagine!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
 
         } else {
-            Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
-            finish();
+
+            //// CORPO E SALUTE
+
+            if(connected){
+                progressBar.setVisibility(View.VISIBLE);
+                ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
+                ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(false);
+                new ActivityCarica.DownloadFileSecondo().execute();
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+                finish();
+            }
+
+            edit_Sug1.setVisibility(View.GONE);
+            edit_Sug2.setVisibility(View.GONE);
+            edit_Sug3.setVisibility(View.GONE);
+            text_Sug.setVisibility(View.GONE);
+
+            button_Salva.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if(edit_Ita.getText().toString().equals("") || edit_Fra.getText().toString().equals("") || edit_Eng.getText().toString().equals("") ){
+
+                        Toast.makeText(getApplicationContext(), "Inserisci tutti i dati!", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        if(!image_CaricaBase64.equals("")){
+
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+
+                                Boolean trov = false;
+                                for (int i=0; i<jsonArray.length(); i++){
+                                    if(jsonArray.getJSONObject(i).get("ita").equals(edit_Ita.getText().toString())
+                                            || jsonArray.getJSONObject(i).get("fra").equals(edit_Fra.getText().toString())
+                                            || jsonArray.getJSONObject(i).get("eng").equals(edit_Eng.getText().toString()) ){
+
+                                        Toast.makeText(getApplicationContext(), "<" + edit_Ita.getText().toString() + "> già presente! Impossibile inserire.", Toast.LENGTH_SHORT).show();
+                                        trov = true;
+                                        break;
+                                    }
+                                }
+
+                                if(!trov){
+
+                                    ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                                    boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                                            connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+                                    if(connected){
+                                        progressBar.setVisibility(View.VISIBLE);
+                                        ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
+                                        ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(false);
+
+                                        jsonObject.put("ita", edit_Ita.getText().toString());
+                                        jsonObject.put("fra", edit_Fra.getText().toString());
+                                        jsonObject.put("eng", edit_Eng.getText().toString());
+                                        jsonObject.put("tipo", tipo);
+                                        jsonObject.put("img", image_CaricaBase64);
+
+                                        jsonArray.put(jsonObject);
+                                        create(getApplicationContext(), "datisecondo.json", jsonArray.toString());
+                                        new UploadFileSecondo().execute();
+
+
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Inserisci l'immagine!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
+
         }
     }
 
@@ -151,84 +349,7 @@ public class ActivityCarica extends AppCompatActivity {
             }
         });
 
-        button_Salva.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-
-
-                if(edit_Ita.getText().toString().equals("") || edit_Fra.getText().toString().equals("") || edit_Eng.getText().toString().equals("")
-                        || edit_Sug1.getText().toString().equals("") || edit_Sug2.getText().toString().equals("") || edit_Sug3.getText().toString().equals("")){
-
-                    Toast.makeText(getApplicationContext(), "Inserisci tutti i dati!", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    if(!image_CaricaBase64.equals("")){
-
-                        JSONObject jsonObject = new JSONObject();
-                        try {
-
-                            Boolean trov = false;
-                            for (int i=0; i<jsonArray.length(); i++){
-                                if(jsonArray.getJSONObject(i).get("ita").equals(edit_Ita.getText().toString())
-                                        || jsonArray.getJSONObject(i).get("fra").equals(edit_Fra.getText().toString())
-                                        || jsonArray.getJSONObject(i).get("eng").equals(edit_Eng.getText().toString()) ){
-
-                                    Toast.makeText(getApplicationContext(), "<" + edit_Ita.getText().toString() + "> già presente! Impossibile inserire.", Toast.LENGTH_SHORT).show();
-                                    trov = true;
-                                    break;
-                                }
-                            }
-
-                            if(!trov){
-
-                                ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                                boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
-
-                                if(connected){
-                                    progressBar.setVisibility(View.VISIBLE);
-                                    ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(false);
-                                    ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(false);
-
-                                    jsonObject.put("ita", edit_Ita.getText().toString());
-                                    jsonObject.put("fra", edit_Fra.getText().toString());
-                                    jsonObject.put("eng", edit_Eng.getText().toString());
-                                    jsonObject.put("sug1", edit_Sug1.getText().toString());
-                                    jsonObject.put("sug2", edit_Sug2.getText().toString());
-                                    jsonObject.put("sug3", edit_Sug3.getText().toString());
-                                    jsonObject.put("img", image_CaricaBase64);
-
-                                    jsonArray.put(jsonObject);
-                                    create(getApplicationContext(), "dati.json", jsonArray.toString());
-                                    new UploadFile().execute();
-
-
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-
-                        } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Inserisci l'immagine!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
 
     }
 
@@ -410,69 +531,6 @@ public class ActivityCarica extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-/*
-            FTPClient ftpClient = new FTPClient();
-
-            try {
-                ftpClient.connect("ftp.prenotazionetamponi.altervista.org", 21);
-                ftpClient.login( "prenotazionetamponi","wFhppBsmP588");
-                ftpClient.enterLocalPassiveMode();
-
-                String dirPath = "";
-
-                InputStream inputStream = getApplicationContext().openFileInput("dati.json");
-                ftpClient.storeFile(dirPath + "/dati.json", inputStream);
-                inputStream.close();
-
-                //END OF FILE UPLOADING
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        buildCard(edit_Ita.getText().toString());
-                    }
-                });
-
-                ftpClient.logout();
-                ftpClient.disconnect();
-
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-
-
-
-
-            } catch (NetworkOnMainThreadException e) {
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (SocketException e) {
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            } catch (FileNotFoundException e) {
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (IOException e) {
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }*/
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
@@ -527,82 +585,66 @@ public class ActivityCarica extends AppCompatActivity {
         }
     }
 
+    class UploadFileSecondo extends AsyncTask<Void, Void, Void> {
+        String TAG = "MAIN_ACTIVITY";
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference jsonFirebase = storageRef.child("datisecondo.json");
+
+            try {
+                FileInputStream fis = ActivityCarica.this.openFileInput("datisecondo.json");
+                jsonFirebase.putStream(fis).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ActivityCarica.this.runOnUiThread(new Runnable() {
+                            public void run() {
+
+                                ActivityCarica.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        ActivityCarica.this.findViewById(R.id.progress_circular).setVisibility(View.GONE);
+                                        buildCard(edit_Ita.getText().toString());
+
+                                    }
+                                });
+
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            ActivityCarica.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(true);
+                }
+            });
+
+            return null;
+
+        }
+    }
+
     class DownloadFile extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
-/*
-            FTPClient ftpClient = new FTPClient();
-
-
-            try {
-                ftpClient.connect("ftp.prenotazionetamponi.altervista.org", 21);
-                ftpClient.login( "prenotazionetamponi","wFhppBsmP588");
-                ftpClient.enterLocalPassiveMode();
-
-                FileOutputStream fos = openFileOutput("dati.json",Context.MODE_PRIVATE);
-                OutputStream outputStream = null;
-                boolean success = false;
-                try {
-                    outputStream = new BufferedOutputStream(fos);
-                    success = ftpClient.retrieveFile("dati.json", outputStream);
-                } finally {
-                    if (outputStream != null) {
-                        outputStream.close();
-                    }
-                }
-
-                ftpClient.logout();
-                ftpClient.disconnect();
-
-                //Sincronizza dati in locale
-                String jsonString = read(ActivityCarica.this, "dati.json");
-                try {
-                    jsonArray = new JSONArray(jsonString);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-
-            } catch (NetworkOnMainThreadException e) {
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            } catch (SocketException e) {
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            } catch (FileNotFoundException e) {
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            } catch (IOException e) {
-                ActivityCarica.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityCarica.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }*/
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
@@ -625,7 +667,7 @@ public class ActivityCarica extends AppCompatActivity {
                             }
 
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(ActivityCarica.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(ActivityCarica.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
 
                         }
                     });
@@ -654,6 +696,66 @@ public class ActivityCarica extends AppCompatActivity {
                 }
             });
 
+
+            return null;
+
+        }
+    }
+
+    class DownloadFileSecondo extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference jsonFirebase = storageRef.child("datisecondo.json");
+
+            String path = getFilesDir().getAbsolutePath() + "/datisecondo.json";
+            File file = new File(path);
+            jsonFirebase.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    ActivityCarica.this.runOnUiThread(new Runnable() {
+                        public void run() {
+
+                            //Sincronizza dati in locale
+                            String jsonString = read(ActivityCarica.this, "datisecondo.json");
+                            try {
+                                jsonArray = new JSONArray(jsonString);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            progressBar.setVisibility(View.GONE);
+                            //Toast.makeText(ActivityCarica.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            ActivityCarica.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    ActivityCarica.this.findViewById(R.id.edit_Ita).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Fra).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Eng).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug1).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug2).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.edit_Sug3).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_Foto).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.image_Carica).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_Salva).setEnabled(true);
+                    ActivityCarica.this.findViewById(R.id.button_indietro).setClickable(true);
+                }
+            });
 
             return null;
 

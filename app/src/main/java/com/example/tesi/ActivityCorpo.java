@@ -282,7 +282,7 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
                 break;
             case R.id.stinchi:
                 parole = new ArrayList();
-                parole.add("Stinchi"); parole.add("Shins"); parole.add("Shins");
+                parole.add("Stinchi"); parole.add("Tibias"); parole.add("Shins");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -303,7 +303,7 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
                 break;
             case R.id.addome:
                 parole = new ArrayList();
-                parole.add("Addome"); parole.add("Abdomen"); parole.add("Abdomen");
+                parole.add("Addome"); parole.add("Ventre"); parole.add("Abdomen");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);

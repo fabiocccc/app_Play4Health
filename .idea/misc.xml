@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/luigi/.gradle/caches/transforms-3/94b1a22786b4af754982b5dfdcc10c3c/transformed/exoplayer-ui-2.18.2/res/layout/exo_player_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/allenati_allenamento.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/allenati_corpo.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/allenati_dialogo.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/allenati_medico.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/allenati_salute.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/animation_drag.xml" value="0.263" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/animation_pointing.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/bg_spinner.xml" value="0.3675" />
@@ -27,6 +32,9 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/drawable_lettera.xml" value="0.285" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/evidenzia_area.xml" value="0.285" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/form_carica.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home1.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home2.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home3.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home_ascolta.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home_campo.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/home_corpo.xml" value="0.3675" />
@@ -41,6 +49,8 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/shape.xml" value="0.268" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/shape_droptarget.xml" value="0.268" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/spinner_base.xml" value="0.366" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/tabdialogo.xml" value="0.3675" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/drawable/tabdialogoscelto.xml" value="0.3675" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_ascolta.xml" value="0.33" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_campo.xml" value="0.4105102817974105" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_campo_ruoli.xml" value="0.25" />
@@ -48,11 +58,16 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_carica_video.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_corpo.xml" value="0.3124519600307456" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_corpo_scegli.xml" value="0.28072916666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_dialogo.xml" value="0.33" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_galleria_video.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_gestione_dati.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_home_allenati.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_home_prima.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_lista_dati.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_mano.xml" value="0.33" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_medico.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_parla.xml" value="0.33" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_scegli.xml" value="0.25" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/activity_scrivere.xml" value="0.36666666666666664" />

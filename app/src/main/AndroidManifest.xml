@@ -10,69 +10,104 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/log"
+        android:label="Calcio a parole"
+        android:roundIcon="@drawable/log"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tesi">
         <activity
-            android:name=".ActivityVideo"
-            android:configChanges="orientation|screenSize|screenLayout"
+            android:name=".ActivityDialogo"
             android:exported="false" />
         <activity
-            android:name=".ActivityGalleriaVideo"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityCaricaVideo"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityGestioneDati"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityScrivereDifficile"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityAscolta"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityCorpoScegli"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityMano"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityViso"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityCorpo"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityCarica"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityCampoRuoli"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityCampo"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityScegli"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityScrivere"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityParla"
-            android:exported="false" />
-        <activity
-            android:name=".Home"
-            android:exported="true">
+            android:name=".HomePrima"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ActivityMedico"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityListaDati"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeAllenati"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityVideo"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityGalleriaVideo"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityCaricaVideo"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityGestioneDati"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityScrivereDifficile"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityAscolta"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityCorpoScegli"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityMano"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityViso"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityCorpo"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityCarica"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityCampoRuoli"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityCampo"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityScegli"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityScrivere"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityParla"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home"
+            android:exported="false"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

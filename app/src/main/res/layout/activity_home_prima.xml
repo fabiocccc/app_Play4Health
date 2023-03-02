@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D7FFA7"
+    tools:context=".HomePrima">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/button_HomeDati"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/ic_baseline_admin_panel_settings_24"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="65dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout5">
+
+        <FrameLayout
+            android:id="@+id/button_GiocaImpara"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/home1">
+
+            <ImageView
+                android:id="@+id/stella1_1"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="80dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+            <ImageView
+                android:id="@+id/stella1_2"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="160dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+            <ImageView
+                android:id="@+id/stella1_3"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="240dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="110dp"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="40dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="GIOCA E IMPARA"
+                android:textColor="#000000" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/button_GiocaAllenati"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/home2">
+
+            <ImageView
+                android:id="@+id/stella2_1"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="80dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+            <ImageView
+                android:id="@+id/stella2_2"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="160dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+            <ImageView
+                android:id="@+id/stella2_3"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="240dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="110dp"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="40dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="GIOCA E ALLENATI"
+                android:textColor="#000000" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/button_AzioniSalienti"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/home3">
+
+
+
+            <ImageView
+                android:id="@+id/stella3_1"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="80dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+            <ImageView
+                android:id="@+id/stella3_2"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="160dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+            <ImageView
+                android:id="@+id/stella3_3"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="240dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/stella_vuota"
+                />
+
+
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="110dp"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="40dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="AZIONI SALIENTI"
+                android:textColor="#000000" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

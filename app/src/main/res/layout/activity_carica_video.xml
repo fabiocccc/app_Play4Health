@@ -74,6 +74,78 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutDomanda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:textColorHint="@color/black"
+        android:visibility="gone"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNomeVideo">
+
+        <EditText
+            android:id="@+id/edit_Domanda"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Domanda"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutCorretta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:textColorHint="@color/black"
+        android:visibility="gone"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDomanda">
+
+        <EditText
+            android:id="@+id/edit_Corretta"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Risposta corretta"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSbagliata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="40dp"
+        android:textColorHint="@color/black"
+        android:visibility="gone"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCorretta">
+
+        <EditText
+            android:id="@+id/edit_Sbagliata"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/form_carica"
+            android:ems="10"
+            android:hint="Risposta sbagliata"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutIta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,18 +220,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="300dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="192dp"
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/player"
+        android:layout_width="280dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="250dp"
         android:visibility="invisible"
+        app:controller_layout_id="@layout/custom_controller"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card">
-
-    </VideoView>
+        app:layout_constraintTop_toBottomOf="@+id/card"
+        app:player_layout_id="@layout/exo_player_view"
+        app:use_controller="true" />
 
     <ProgressBar
         android:id="@+id/progress_circular"
@@ -178,14 +251,14 @@
         android:id="@+id/textView2"
         android:layout_width="186dp"
         android:layout_height="53dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:autoSizeTextType="uniform"
         android:text="Seleziona video dalla galleria"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/card"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout4" />
 
     <android.widget.Button

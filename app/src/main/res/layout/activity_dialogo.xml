@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D7FFA7"
+    tools:context=".ActivityDialogo">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:id="@+id/button_indietro"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_cancella"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="270dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="4dp"
+                android:autoSizeTextType="uniform"
+                android:paddingTop="3dp"
+                android:text="Parla con il medico"
+                android:textColor="#F0000000"
+                android:textSize="40sp"
+                app:layout_constraintStart_toEndOf="@+id/button_indietro"
+                tools:layout_editor_absoluteY="6dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout4">
+
+        <FrameLayout
+            android:id="@+id/tab1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tabdialogo">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:autoSizeTextType="uniform"
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:text="Dialogo 1"
+                android:textAlignment="center" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/tab2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/tabdialogo">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:autoSizeTextType="uniform"
+                android:textColor="@color/black"
+                android:padding="4dp"
+                android:text="Dialogo 2"
+                android:textAlignment="center" />
+
+        </FrameLayout>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/ita"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ita"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/fra"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/fra"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/fra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/ita"
+        app:layout_constraintRight_toLeftOf="@+id/eng"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout4"
+        app:layout_constraintVertical_bias="0.081"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/eng"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/eng"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/fra"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout4"
+        app:layout_constraintVertical_bias="0.081"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/imageMedico"
+        android:layout_width="125dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="36dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_medico_colorato"
+        app:layout_constraintEnd_toStartOf="@+id/imageBalloonMedico"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ita" />
+
+    <ImageView
+        android:id="@+id/imageBalloonMedico"
+        android:layout_width="250dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_baloon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fra" />
+
+    <TextView
+        android:id="@+id/textMedico"
+        android:layout_width="192dp"
+        android:layout_height="77dp"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/black"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/imageBalloonMedico"
+        app:layout_constraintEnd_toEndOf="@+id/imageBalloonMedico"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="@+id/imageBalloonMedico"
+        app:layout_constraintTop_toTopOf="@+id/imageBalloonMedico"
+        app:layout_constraintVertical_bias="0.228" />
+
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="323dp"
+        android:layout_height="147dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageBalloonPaziente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_risp1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toStartOf="@+id/button_risp2"
+        app:layout_constraintStart_toStartOf="@+id/frame"
+        app:layout_constraintTop_toTopOf="@+id/frame" />
+    <ImageView
+        android:id="@+id/risp1"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_risp1"
+        app:layout_constraintEnd_toEndOf="@+id/button_risp1"
+        app:layout_constraintStart_toStartOf="@+id/button_risp1"
+        app:layout_constraintTop_toTopOf="@+id/button_risp1" />
+
+
+
+    <Button
+        android:id="@+id/button_risp2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toStartOf="@+id/button_risp3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_risp1"
+        app:layout_constraintTop_toTopOf="@+id/frame" />
+    <ImageView
+        android:id="@+id/risp2"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_risp2"
+        app:layout_constraintEnd_toEndOf="@+id/button_risp2"
+        app:layout_constraintStart_toStartOf="@+id/button_risp2"
+        app:layout_constraintTop_toTopOf="@+id/button_risp2" />
+
+
+    <Button
+        android:id="@+id/button_risp3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toEndOf="@+id/frame"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_risp2"
+        app:layout_constraintTop_toTopOf="@+id/frame" />
+    <ImageView
+        android:id="@+id/risp3"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_risp3"
+        app:layout_constraintEnd_toEndOf="@+id/button_risp3"
+        app:layout_constraintStart_toStartOf="@+id/button_risp3"
+        app:layout_constraintTop_toTopOf="@+id/button_risp3" />
+
+
+    <Button
+        android:id="@+id/button_risp4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="1dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toStartOf="@+id/button_risp5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/frame"
+        app:layout_constraintTop_toBottomOf="@+id/button_risp1" />
+    <ImageView
+        android:id="@+id/risp4"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_risp4"
+        app:layout_constraintEnd_toEndOf="@+id/button_risp4"
+        app:layout_constraintStart_toStartOf="@+id/button_risp4"
+        app:layout_constraintTop_toTopOf="@+id/button_risp4" />
+
+
+
+
+    <Button
+        android:id="@+id/button_risp5"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="1dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toStartOf="@+id/button_risp6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_risp4"
+        app:layout_constraintTop_toBottomOf="@+id/button_risp2" />
+    <ImageView
+        android:id="@+id/risp5"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_risp5"
+        app:layout_constraintEnd_toEndOf="@+id/button_risp5"
+        app:layout_constraintStart_toStartOf="@+id/button_risp5"
+        app:layout_constraintTop_toTopOf="@+id/button_risp5" />
+
+
+
+
+    <Button
+        android:id="@+id/button_risp6"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="1dp"
+        android:backgroundTint="#80dfff"
+        app:layout_constraintEnd_toEndOf="@+id/frame"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_risp5"
+        app:layout_constraintTop_toBottomOf="@+id/button_risp3" />
+    <ImageView
+        android:id="@+id/risp6"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_risp6"
+        app:layout_constraintEnd_toEndOf="@+id/button_risp6"
+        app:layout_constraintStart_toStartOf="@+id/button_risp6"
+        app:layout_constraintTop_toTopOf="@+id/button_risp6" />
+
+    <ImageView
+        android:id="@+id/imagePaziente"
+        android:layout_width="125dp"
+        android:layout_height="140dp"
+        android:layout_marginBottom="44dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_paziente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageBalloonPaziente"
+        android:layout_width="250dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="68dp"
+        android:scaleType="fitXY"
+        android:scaleX="-1"
+        android:src="@drawable/image_baloon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textPaziente"
+        android:layout_width="192dp"
+        android:layout_height="77dp"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/black"
+
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/imageBalloonPaziente"
+        app:layout_constraintEnd_toEndOf="@+id/imageBalloonPaziente"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="@+id/imageBalloonPaziente"
+        app:layout_constraintTop_toTopOf="@+id/imageBalloonPaziente"
+        app:layout_constraintVertical_bias="0.228" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

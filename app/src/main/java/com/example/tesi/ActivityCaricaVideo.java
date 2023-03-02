@@ -38,6 +38,11 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SeekParameters;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,11 +65,18 @@ public class ActivityCaricaVideo extends AppCompatActivity {
     private static final int PICK_VIDEO = 200;
     private Button button_Salva;
     private Button button_ScegliVideo;
-    private VideoView videoView;
+    private PlayerView playerView;
+    private SimpleExoPlayer exoPlayer;
     private Uri videoUri;
     private EditText edit_NomeVideo;
+    private EditText edit_Domanda;
+    private EditText edit_Corretta;
+    private EditText edit_Sbagliata;
     private ProgressBar progressBar;
     private TextInputLayout textInputLayoutNomeVideo;
+    private TextInputLayout textInputLayoutDomanda;
+    private TextInputLayout textInputLayoutCorretta;
+    private TextInputLayout textInputLayoutSbagliata;
     private TextInputLayout textInputLayoutIta;
     private TextInputLayout textInputLayoutFra;
     private TextInputLayout textInputLayoutEng;
@@ -72,6 +84,7 @@ public class ActivityCaricaVideo extends AppCompatActivity {
     private EditText edit_Ita;
     private EditText edit_Fra;
     private EditText edit_Eng;
+
 
     private int tipo;
 
@@ -87,14 +100,20 @@ public class ActivityCaricaVideo extends AppCompatActivity {
 
         button_Salva = findViewById(R.id.button_Salva);
         button_ScegliVideo = findViewById(R.id.button_ScegliVideo);
-        videoView = findViewById(R.id.videoView);
+        playerView = findViewById(R.id.player);
 
         textInputLayoutNomeVideo = findViewById(R.id.textInputLayoutNomeVideo);
+        textInputLayoutDomanda = findViewById(R.id.textInputLayoutDomanda);
+        textInputLayoutCorretta = findViewById(R.id.textInputLayoutCorretta);
+        textInputLayoutSbagliata = findViewById(R.id.textInputLayoutSbagliata);
         textInputLayoutIta = findViewById(R.id.textInputLayoutIta);
         textInputLayoutFra = findViewById(R.id.textInputLayoutFra);
         textInputLayoutEng = findViewById(R.id.textInputLayoutEng);
 
         edit_NomeVideo = findViewById(R.id.edit_NomeVideo);
+        edit_Domanda = findViewById(R.id.edit_Domanda);
+        edit_Corretta = findViewById(R.id.edit_Corretta);
+        edit_Sbagliata = findViewById(R.id.edit_Sbagliata);
         edit_Ita = findViewById(R.id.edit_Ita);
         edit_Fra = findViewById(R.id.edit_Fra);
         edit_Eng = findViewById(R.id.edit_Eng);
@@ -143,7 +162,13 @@ public class ActivityCaricaVideo extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i == 0){
-
+                    textInputLayoutIta.setVisibility(View.GONE);
+                    textInputLayoutFra.setVisibility(View.GONE);
+                    textInputLayoutEng.setVisibility(View.GONE);
+                    textInputLayoutNomeVideo.setVisibility(View.GONE);
+                    textInputLayoutDomanda.setVisibility(View.GONE);
+                    textInputLayoutCorretta.setVisibility(View.GONE);
+                    textInputLayoutSbagliata.setVisibility(View.GONE);
                 } else if(i == 1){
                     //Commento
                     tipo = 1;
@@ -151,11 +176,17 @@ public class ActivityCaricaVideo extends AppCompatActivity {
                     textInputLayoutFra.setVisibility(View.GONE);
                     textInputLayoutEng.setVisibility(View.GONE);
                     textInputLayoutNomeVideo.setVisibility(View.VISIBLE);
+                    textInputLayoutDomanda.setVisibility(View.VISIBLE);
+                    textInputLayoutCorretta.setVisibility(View.VISIBLE);
+                    textInputLayoutSbagliata.setVisibility(View.VISIBLE);
 
                 } else if(i == 2){
                     //Gesto
                     tipo = 2;
-                    //textInputLayoutNomeVideo.setVisibility(View.GONE);
+                    textInputLayoutNomeVideo.setVisibility(View.GONE);
+                    textInputLayoutDomanda.setVisibility(View.GONE);
+                    textInputLayoutCorretta.setVisibility(View.GONE);
+                    textInputLayoutSbagliata.setVisibility(View.GONE);
                     textInputLayoutIta.setVisibility(View.VISIBLE);
                     textInputLayoutFra.setVisibility(View.VISIBLE);
                     textInputLayoutEng.setVisibility(View.VISIBLE);
@@ -190,9 +221,12 @@ public class ActivityCaricaVideo extends AppCompatActivity {
                 } else if(tipo == 1){
                     //Commento
 
-                    if(!edit_NomeVideo.getText().toString().equals("")) {
+                    if(!edit_NomeVideo.getText().toString().equals("") || !edit_Domanda.getText().toString().equals("")
+                            || !edit_Corretta.getText().toString().equals("") || !edit_Sbagliata.getText().toString().equals("")) {
                         storageReference = storage.getReference();
-                        String filename = edit_NomeVideo.getText().toString(); //prendi da editext
+                        //String filename = edit_NomeVideo.getText().toString();
+                        String filename = edit_NomeVideo.getText().toString() + "$" + edit_Domanda.getText().toString()
+                                + "$" + edit_Corretta.getText().toString() + "$" + edit_Sbagliata.getText().toString() ; //prendi da editext
                         StorageReference videoRef = storageReference.child("/videos/commenti/" + filename);
 
                         if (videoUri != null) {
@@ -216,7 +250,9 @@ public class ActivityCaricaVideo extends AppCompatActivity {
                                     ActivityCaricaVideo.this.findViewById(R.id.button_indietro).setClickable(true);
                                     edit_NomeVideo.setText("");
                                     spinner.setSelection(0);
-                                    videoView.setVideoURI(null);
+                                    //videoView.setVideoURI(null);
+                                    playerView.setVisibility(View.INVISIBLE);
+                                    exoPlayer.release();
                                 }
                             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -232,7 +268,9 @@ public class ActivityCaricaVideo extends AppCompatActivity {
                                     ActivityCaricaVideo.this.findViewById(R.id.button_indietro).setClickable(true);
                                     edit_NomeVideo.setText("");
                                     spinner.setSelection(0);
-                                    videoView.setVideoURI(null);
+                                    //videoView.setVideoURI(null);
+                                    playerView.setVisibility(View.INVISIBLE);
+                                    exoPlayer.release();
                                 }
                             });
                         } else {
@@ -281,7 +319,9 @@ public class ActivityCaricaVideo extends AppCompatActivity {
                                     edit_Fra.setText("");
                                     edit_Eng.setText("");
                                     spinner.setSelection(0);
-                                    videoView.setVideoURI(null);
+                                    //videoView.setVideoURI(null);
+                                    playerView.setVisibility(View.INVISIBLE);
+                                    exoPlayer.release();
                                 }
                             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -301,7 +341,9 @@ public class ActivityCaricaVideo extends AppCompatActivity {
                                     edit_Fra.setText("");
                                     edit_Eng.setText("");
                                     spinner.setSelection(0);
-                                    videoView.setVideoURI(null);
+                                    //videoView.setVideoURI(null);
+                                    playerView.setVisibility(View.INVISIBLE);
+                                    exoPlayer.release();
                                 }
                             });
                         } else {
@@ -323,27 +365,31 @@ public class ActivityCaricaVideo extends AppCompatActivity {
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == PICK_VIDEO) {
                 videoUri = data.getData();
-                videoView.setVideoURI(videoUri);
+                /*videoView.setVideoURI(videoUri);
                 videoView.setVisibility(View.VISIBLE);
-                videoView.start();
+                videoView.start();*/
+
+                Long inc = Long.valueOf(5000);
+                exoPlayer = new SimpleExoPlayer.Builder(getApplicationContext()).setSeekParameters(new SeekParameters(inc,inc)).build();
+
+                playerView.setPlayer(exoPlayer);
+                playerView.setKeepScreenOn(true);
+                playerView.setVisibility(View.VISIBLE);
 
 
-                /*if(tipo == 0){
+                exoPlayer.addListener(new Player.Listener() {
+                    @Override
+                    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                        Player.Listener.super.onPlayerStateChanged(playWhenReady, playbackState);
+                    }
+                });
 
-                } else if(tipo == 1){
-                    //Commento
-                    tipo = 1;
-                    textInputLayoutNomeVideo.setVisibility(View.VISIBLE);
+                exoPlayer.setMediaItem( MediaItem.fromUri(videoUri));
+                exoPlayer.prepare();
+                exoPlayer.play();
 
-                } else if(tipo == 2){
-                    //Gesto
-                    tipo = 2;
-                    textInputLayoutIta.setVisibility(View.VISIBLE);
-                    textInputLayoutFra.setVisibility(View.VISIBLE);
-                    textInputLayoutEng.setVisibility(View.VISIBLE);
-
-
-                }*/
+                ActivityCaricaVideo.this.findViewById(R.id.exo_fullscreen).setVisibility(View.INVISIBLE);
+                ActivityCaricaVideo.this.findViewById(R.id.exo_lock).setVisibility(View.INVISIBLE);
 
 
             }

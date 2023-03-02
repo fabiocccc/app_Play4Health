@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +15,7 @@ import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -54,6 +56,11 @@ public class ActivityVideo extends AppCompatActivity {
     private TextToSpeech textToSpeech;
     private FloatingActionButton button_Ascolta;
 
+    private TextView textDomanda;
+    private Button risp1;
+    private Button risp2;
+    private ImageView esito1;
+
     private Boolean isFullscreen = false;
     private Boolean isLock = false;
 
@@ -84,6 +91,11 @@ public class ActivityVideo extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         spinner = findViewById(R.id.spinner);
         button_Ascolta = findViewById(R.id.button_Ascolta);
+
+        textDomanda = findViewById(R.id.textDomanda);
+        risp1 = findViewById(R.id.button_Risp1);
+        risp2 = findViewById(R.id.button_Risp2);
+        esito1 = findViewById(R.id.esito1);
 
         params = (ConstraintLayout.LayoutParams) playerView.getLayoutParams();
 
@@ -122,15 +134,104 @@ public class ActivityVideo extends AppCompatActivity {
 
         if(getIntent().getStringExtra("tipo").equals("commento")){
 
+            parole = new ArrayList<>();
+            String[] parts = getIntent().getStringExtra("nome").split("\\$");
+            parole.add(parts[0]);
+            parole.add(parts[1]);
+            parole.add(parts[2]); //corretta
+            parole.add(parts[3]);
+
             spinner.setVisibility(View.GONE);
-            button_Ascolta.setVisibility(View.GONE);
-            nomeVideo = getIntent().getStringExtra("nome");
+            button_Ascolta.setVisibility(View.VISIBLE);
+            //nomeVideo = getIntent().getStringExtra("nome");
+            nomeVideo = parole.get(0);
             textView.setText(nomeVideo);
+            textDomanda.setText(parole.get(1));
+
+            button_Ascolta.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    textToSpeech.setLanguage(Locale.ITALY);
+                    textToSpeech.speak(parole.get(1), TextToSpeech.QUEUE_FLUSH, null);
+                }
+            });
+
+            int random = (int)(Math.random() * 2+1);
+
+            if(random == 1){
+                risp1.setText(parole.get(2));
+                risp2.setText(parole.get(3));
+
+                risp1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        risp1.setBackgroundColor(Color.parseColor("#50e024"));
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_up);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        risp1.setClickable(false);
+                        risp2.setClickable(false);
+                    }
+                });
+
+                risp2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        risp2.setBackgroundColor(Color.parseColor("#f54518"));
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        risp1.setClickable(false);
+                        risp2.setClickable(false);
+                    }
+                });
+
+
+            } else {
+                risp1.setText(parole.get(3));
+                risp2.setText(parole.get(2));
+
+                risp1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        risp1.setBackgroundColor(Color.parseColor("#f54518"));
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        risp1.setClickable(false);
+                        risp2.setClickable(false);
+                    }
+                });
+
+                risp2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        risp2.setBackgroundColor(Color.parseColor("#50e024"));
+
+                        esito1.setVisibility(View.VISIBLE);
+                        esito1.setImageResource(R.drawable.thumbs_up);
+
+                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                        risp1.setClickable(false);
+                        risp2.setClickable(false);
+                    }
+                });
+            }
 
 
             //VIDEO COMMENTO
             StorageReference refVideo = storage.getReference();
-            refVideo.child("/videos/commenti/" + nomeVideo).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            refVideo.child("/videos/commenti/" + getIntent().getStringExtra("nome")).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     exoPlayer.setMediaItem( MediaItem.fromUri(uri));

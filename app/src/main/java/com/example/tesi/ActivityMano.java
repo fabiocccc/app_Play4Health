@@ -418,7 +418,7 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                 break;
             case R.id.palmo:
                 parole = new ArrayList();
-                parole.add("Palmo"); parole.add("Paume"); parole.add("Palm");
+                parole.add("Palmo"); parole.add("Creux de la main"); parole.add("Palm");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -432,14 +432,14 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                 break;
             case R.id.indice:
                 parole = new ArrayList();
-                parole.add("Indice"); parole.add("Index finger"); parole.add("Index");
+                parole.add("Indice"); parole.add("Index"); parole.add("Index finger");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
             case R.id.medio:
                 parole = new ArrayList();
-                parole.add("Medio"); parole.add("Majeur"); parole.add("Middle finger");
+                parole.add("Medio"); parole.add("Doigt du milieu"); parole.add("Middle finger");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -453,7 +453,7 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                 break;
             case R.id.mignolo:
                 parole = new ArrayList();
-                parole.add("Mignolo"); parole.add("Auriculaire"); parole.add("Little finger");
+                parole.add("Mignolo"); parole.add("Petit doigt"); parole.add("Little finger");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);

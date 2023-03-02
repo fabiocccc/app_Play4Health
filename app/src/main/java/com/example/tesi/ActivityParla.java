@@ -296,7 +296,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     speechRecognizer.startListening(recognizerIntent);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Permission Denied!", Toast .LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Accetta il permessi per registrare", Toast.LENGTH_LONG).show();
                 }
         }
     }

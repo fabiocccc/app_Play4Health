@@ -121,6 +121,16 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
         ArrayList<String> parole = new ArrayList<>();
 
         try {
+
+            String s = jsonArray.getJSONObject(random).getString("ita");
+            while(s.contains(" ")){
+                random = (int) (Math.random() * jsonArray.length());
+                s = jsonArray.getJSONObject(random).getString("ita");
+            }
+
+
+
+
             corretta = jsonArray.getJSONObject(random).getString("ita");
             parole.add(jsonArray.getJSONObject(random).getString("fra"));
             parole.add(jsonArray.getJSONObject(random).getString("eng"));

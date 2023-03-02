@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D7FFA7"
+    tools:context=".HomeAllenati">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/button_indietro"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_cancella"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <FrameLayout
+                android:id="@+id/button_HomeAggiorna"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+
+                android:background="@drawable/ic_baseline_sincro_24"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout5">
+
+
+        <FrameLayout
+            android:id="@+id/button_AllenatiCorpo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/allenati_corpo">
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="PARTI DEL CORPO"
+                android:textColor="#000000" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/button_AllenatiAllenamento"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/allenati_allenamento">
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="ALLENATI"
+                android:textColor="#000000" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/button_AllenatiSalute"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/allenati_salute">
+
+            <TextView
+                android:layout_width="178dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="SALUTE E \nBENESSERE"
+                android:textColor="#000000" />
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/button_AllenatiMedico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/allenati_medico">
+
+            <TextView
+                android:layout_width="178dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="IL MEDICO\nCONSIGLIA"
+                android:textColor="#000000" />
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/button_AllenatiParla"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/allenati_dialogo">
+
+            <TextView
+                android:layout_width="178dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="160dp"
+                android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="PARLA CON\nIL MEDICO"
+                android:textColor="#000000" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:progressTint="#273CB3"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminateTint="@android:color/black"
+        app:layout_constraintVertical_bias="0.39" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

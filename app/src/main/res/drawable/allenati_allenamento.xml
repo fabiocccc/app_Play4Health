@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape
+            xmlns:android="http://schemas.android.com/apk/res/android"
+>
+
+            <solid
+                android:color="#b3e6ff"/>
+
+            <stroke
+                android:width="3dp"
+                android:color="#80d4ff"
+            />
+
+            <size
+                android:width="400sp"
+                android:height="400sp"/>
+
+
+
+        </shape>
+
+    </item>
+    <item android:drawable="@drawable/image_allenati"
+        android:top="5dp"
+        android:left="20dp"
+        android:height="120dp"
+        android:width="120dp" android:gravity="left"/>
+</layer-list>

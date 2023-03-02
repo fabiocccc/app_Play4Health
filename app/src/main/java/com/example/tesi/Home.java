@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -52,11 +53,11 @@ public class Home extends AppCompatActivity {
     private FrameLayout button_HomeScegli;
     private FrameLayout button_HomeCampo;
     private FrameLayout button_HomeCorpo;
-    private FrameLayout button_HomeDati;
     private FrameLayout button_Aggiorna;
-    private FrameLayout button_Galleria;
     private TextToSpeech textToSpeech;
     private ProgressBar progressBar;
+    private FrameLayout button_indietro;
+    private SharedPreferences shared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +70,11 @@ public class Home extends AppCompatActivity {
         button_HomeScegli = findViewById(R.id.button_HomeScegli);
         button_HomeCampo = findViewById(R.id.button_HomeCampo);
         button_HomeCorpo = findViewById(R.id.button_HomeCorpo);
-        button_HomeDati = findViewById(R.id.button_HomeDati);
         button_Aggiorna = findViewById(R.id.button_HomeAggiorna);
         progressBar = findViewById(R.id.progress_circular);
-        button_Galleria = findViewById(R.id.button_HomeVideo);
+        button_indietro = findViewById(R.id.button_indietro);
 
-        /*ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
         boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
@@ -87,13 +87,13 @@ public class Home extends AppCompatActivity {
             button_HomeScegli.setEnabled(false);
             button_HomeCampo.setEnabled(false);
             button_HomeCorpo.setEnabled(false);
-            button_HomeDati.setEnabled(false);
             button_Aggiorna.setEnabled(false);
+            button_indietro.setEnabled(false);
             new Home.DownloadFile().execute();
 
         } else {
             //Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
-        }*/
+        }
 
     }
 
@@ -116,72 +116,6 @@ public class Home extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            /*FTPClient ftpClient = new FTPClient();
-
-
-            try {
-                ftpClient.connect("ftp.prenotazionetamponi.altervista.org", 21);
-                ftpClient.login( "prenotazionetamponi","wFhppBsmP588");
-                ftpClient.enterLocalPassiveMode();
-
-                FileOutputStream fos = openFileOutput("dati.json",Context.MODE_PRIVATE);
-                OutputStream outputStream = null;
-                boolean success = false;
-                try {
-                    outputStream = new BufferedOutputStream(fos);
-                    success = ftpClient.retrieveFile("dati.json", outputStream);
-                } finally {
-                    if (outputStream != null) {
-                        outputStream.close();
-                    }
-                }
-
-                ftpClient.logout();
-                ftpClient.disconnect();
-
-
-                Home.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(Home.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
-
-                    }
-                });
-
-            } catch (NetworkOnMainThreadException e) {
-                Home.this.runOnUiThread(new Runnable() {
-                    public void run() {
-
-                        Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            } catch (SocketException e) {
-                Home.this.runOnUiThread(new Runnable() {
-                    public void run() {
-
-                        Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            } catch (FileNotFoundException e) {
-                Home.this.runOnUiThread(new Runnable() {
-                public void run() {
-
-                    Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-
-            } catch (IOException e) {
-                Home.this.runOnUiThread(new Runnable() {
-                    public void run() {
-
-                        Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }*/
-
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
             StorageReference jsonFirebase = storageRef.child("dati.json");
@@ -195,15 +129,15 @@ public class Home extends AppCompatActivity {
                         public void run() {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(Home.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
-                            Home.this.findViewById(R.id.button_HomeAscolta).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeParla).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeScegli).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeScrivere).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeCampo).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeCorpo).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeDati).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeAggiorna).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeVideo).setClickable(true);
+                            Home.this.findViewById(R.id.button_HomeAscolta).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeParla).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeScegli).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeScrivere).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeCampo).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeCorpo).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeAggiorna).setEnabled(true);
+                            Home.this.findViewById(R.id.button_indietro).setEnabled(true);
+
 
                         }
                     });
@@ -216,16 +150,16 @@ public class Home extends AppCompatActivity {
                     Home.this.runOnUiThread(new Runnable() {
                         public void run() {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Home.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
-                            Home.this.findViewById(R.id.button_HomeAscolta).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeParla).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeScegli).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeScrivere).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeCampo).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeCorpo).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeDati).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeAggiorna).setClickable(true);
-                            Home.this.findViewById(R.id.button_HomeVideo).setClickable(true);
+                            Toast.makeText(Home.this, "Aggiornamento non riuscito.", Toast.LENGTH_LONG).show();
+                            Home.this.findViewById(R.id.button_HomeAscolta).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeParla).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeScegli).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeScrivere).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeCampo).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeCorpo).setEnabled(true);
+                            Home.this.findViewById(R.id.button_HomeAggiorna).setEnabled(true);
+                            Home.this.findViewById(R.id.button_indietro).setEnabled(true);
+
 
                         }
                     });
@@ -238,9 +172,39 @@ public class Home extends AppCompatActivity {
         }
     }
 
+    private void aggiornaStelle(){
+
+        shared =  getSharedPreferences("stelle", MODE_PRIVATE);
+
+        if(shared.getString("stelle1", "").equals("")){
+            SharedPreferences.Editor editor = shared.edit();
+            editor.putString("stelle1", "1");
+            editor.commit();
+
+        } else if(shared.getString("stelle1", "").equals("1")){
+            SharedPreferences.Editor editor = shared.edit();
+            editor.putString("stelle1", "2");
+            editor.commit();
+
+        } else if(shared.getString("stelle1", "").equals("2")){
+            SharedPreferences.Editor editor = shared.edit();
+            editor.putString("stelle1", "3");
+            editor.commit();
+
+        }
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
+
+        button_indietro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         button_Aggiorna.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,15 +217,14 @@ public class Home extends AppCompatActivity {
 
                 if(connected){
                     progressBar.setVisibility(View.VISIBLE);
-                    button_HomeParla.setClickable(false);
-                    button_HomeScrivere.setClickable(false);
-                    button_HomeAscolta.setClickable(false);
-                    button_HomeScegli.setClickable(false);
-                    button_HomeCampo.setClickable(false);
-                    button_HomeCorpo.setClickable(false);
-                    button_HomeDati.setClickable(false);
-                    button_Aggiorna.setClickable(false);
-                    button_Galleria.setClickable(false);
+                    button_HomeParla.setEnabled(false);
+                    button_HomeScrivere.setEnabled(false);
+                    button_HomeAscolta.setEnabled(false);
+                    button_HomeScegli.setEnabled(false);
+                    button_HomeCampo.setEnabled(false);
+                    button_HomeCorpo.setEnabled(false);
+                    button_Aggiorna.setEnabled(false);
+                    button_indietro.setEnabled(true);
 
                     new Home.DownloadFile().execute();
 
@@ -276,6 +239,7 @@ public class Home extends AppCompatActivity {
         button_HomeParla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                aggiornaStelle();
                 Intent intent = new Intent(Home.this, ActivityParla.class);
                 startActivity(intent);
             }
@@ -303,6 +267,7 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
+                        aggiornaStelle();
                         Intent intent = new Intent(Home.this, ActivityScrivere.class);
                         startActivity(intent);
                     }
@@ -311,6 +276,7 @@ public class Home extends AppCompatActivity {
                 button_ScrivereDifficile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        aggiornaStelle();
                         Intent intent = new Intent(Home.this, ActivityScrivereDifficile.class);
                         startActivity(intent);
                     }
@@ -350,78 +316,10 @@ public class Home extends AppCompatActivity {
             }
         });
 
-
-        button_Galleria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
-                builder.setCancelable(true);
-
-                View dialogView = getLayoutInflater().inflate(R.layout.alertdialog_video, null);
-                builder.setView(dialogView);
-                AlertDialog alert = builder.create();
-                alert.show();
-
-                TextView textView = dialogView.findViewById(R.id.textAlertVideo);
-                Button button_VideoCommento = dialogView.findViewById(R.id.button_VideoCommento);
-                Button button_VideoGesti = dialogView.findViewById(R.id.button_VideoGesti);
-                ImageView ita = dialogView.findViewById(R.id.ita);
-                ImageView fra = dialogView.findViewById(R.id.fra);
-                ImageView eng = dialogView.findViewById(R.id.eng);
-
-                button_VideoCommento.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Home.this, ActivityGalleriaVideo.class);
-                        intent.putExtra("tipo", "commento");
-                        startActivity(intent);
-                    }
-                });
-
-                button_VideoGesti.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Home.this, ActivityGalleriaVideo.class);
-                        intent.putExtra("tipo", "gesti");
-                        startActivity(intent);
-                    }
-                });
-
-                ita.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        button_VideoCommento.setText("Commento");
-                        button_VideoGesti.setText("Gesti");
-                        textView.setText("Galleria video");
-                        riproduci("Video commento o gesti", Locale.ITALY);
-                    }
-                });
-
-                fra.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        button_VideoCommento.setText("Commentaire");
-                        button_VideoGesti.setText("Gestes");
-                        textView.setText("Galerie vidéo");
-                        riproduci("Vidéos de commentaires ou de gestes", Locale.FRANCE);
-                    }
-                });
-
-                eng.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        button_VideoCommento.setText("Commentary");
-                        button_VideoGesti.setText("Gestures");
-                        textView.setText("Video Gallery");
-                        riproduci("Commentary or gestures videos", Locale.ENGLISH);
-                    }
-                });
-            }
-        });
-
         button_HomeScegli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                aggiornaStelle();
                 Intent intent = new Intent(Home.this, ActivityScegli.class);
                 startActivity(intent);
             }
@@ -430,7 +328,9 @@ public class Home extends AppCompatActivity {
         button_HomeAscolta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                aggiornaStelle();
                 Intent intent = new Intent(Home.this, ActivityAscolta.class);
+                intent.putExtra("tipo", "calcio");
                 startActivity(intent);
             }
         });
@@ -438,6 +338,7 @@ public class Home extends AppCompatActivity {
         button_HomeCampo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                aggiornaStelle();
                 Intent intent = new Intent(Home.this, ActivityCampo.class);
                 startActivity(intent);
             }
@@ -446,6 +347,7 @@ public class Home extends AppCompatActivity {
         button_HomeCorpo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                aggiornaStelle();
                 AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
                 builder.setCancelable(true);
 
@@ -538,15 +440,6 @@ public class Home extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-            }
-        });
-
-
-        button_HomeDati.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, ActivityGestioneDati.class);
-                startActivity(intent);
             }
         });
 

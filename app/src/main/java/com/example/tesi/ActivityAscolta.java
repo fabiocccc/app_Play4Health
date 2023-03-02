@@ -57,6 +57,7 @@ public class ActivityAscolta extends AppCompatActivity {
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
     private ArrayList<String> parole;
+    private String tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,31 +91,51 @@ public class ActivityAscolta extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.linear);
 
-
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-        String jsonString = read(this, "dati.json");
-        try {
-            jsonArray = new JSONArray(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(getIntent().getStringExtra("tipo").equals("calcio")){
+            tipo = "calcio";
+        } else if(getIntent().getStringExtra("tipo").equals("corpo")) {
+            tipo = "corpo";
+        } else if(getIntent().getStringExtra("tipo").equals("salute")) {
+            tipo = "salute";
         }
 
-        parole = new ArrayList<>();
-        try {
-            for(int i=0; i!= jsonArray.length(); i++){
-                parole.add(jsonArray.getJSONObject(i).getString("ita"));
+        if(tipo.equals("calcio")){
+            String jsonString = read(this, "dati.json");
+            try {
+                jsonArray = new JSONArray(jsonString);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            parole = new ArrayList<>();
+            try {
+                for(int i=0; i!= jsonArray.length(); i++){
+                    parole.add(jsonArray.getJSONObject(i).getString("ita"));
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+
+            String jsonString = read(this, "datisecondo.json");
+            try {
+                jsonArray = new JSONArray(jsonString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            parole = new ArrayList<>();
+            try {
+                for(int i=0; i!= jsonArray.length(); i++){
+                    if(jsonArray.getJSONObject(i).getString("tipo").equals(tipo)){
+                        parole.add(jsonArray.getJSONObject(i).getString("ita"));
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         int i = 0;
@@ -151,7 +172,6 @@ public class ActivityAscolta extends AppCompatActivity {
                         help1.setVisibility(View.GONE);
                         animationDrawable.stop();
                     }
-
                     buildCard(parole.get(finalI1));
                 }
             });
@@ -184,7 +204,6 @@ public class ActivityAscolta extends AppCompatActivity {
                             help1.setVisibility(View.GONE);
                             animationDrawable.stop();
                         }
-
                         buildCard(parole.get(finalI));
                     }
                 });
@@ -223,7 +242,6 @@ public class ActivityAscolta extends AppCompatActivity {
                             help1.setVisibility(View.GONE);
                             animationDrawable.stop();
                         }
-
                         buildCard(parole.get(finalI));
                     }
                 });
@@ -233,9 +251,15 @@ public class ActivityAscolta extends AppCompatActivity {
                 linear.getChildAt(2).setVisibility(View.INVISIBLE);
                 break;
             }
-
-
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
 
     }
 
@@ -329,7 +353,7 @@ public class ActivityAscolta extends AppCompatActivity {
                                     break;
                                 case 1:
 
-                                    textToSpeech.setLanguage(Locale.FRANCE);
+                                    textToSpeech.setLanguage(Locale.FRENCH);
                                     String toSpeakFr = spinner.getSelectedItem().toString();
 
                                     textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);

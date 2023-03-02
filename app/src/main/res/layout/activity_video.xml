@@ -79,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintTop_toBottomOf="@+id/player">
 
         <Spinner
@@ -90,17 +90,62 @@
             tools:layout_editor_absoluteX="60dp" />
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/textDomanda"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        android:background="@drawable/form_carica"
+        android:layout_marginTop="20dp"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/black"
+        android:autoSizeMaxTextSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_Ascolta"
         android:layout_width="120dp"
         android:layout_height="115dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="130dp"
         android:foreground="@drawable/audio"
         android:foregroundGravity="fill_horizontal|clip_horizontal|center|fill_vertical"
         android:foregroundTint="#A91F70"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card" />
+        app:layout_constraintTop_toBottomOf="@+id/player" />
+
+    <Button
+        android:id="@+id/button_Risp1"
+        android:layout_width="165dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#ffff66"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Ascolta" />
+
+    <Button
+        android:id="@+id/button_Risp2"
+        android:layout_width="165dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#ffff66"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Ascolta" />
+
+    <ImageView
+        android:id="@+id/esito1"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Risp1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

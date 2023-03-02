@@ -23,7 +23,7 @@
 
     </item>
     <item android:drawable="@drawable/image_ascolta"
-        android:top="20dp"
+        android:top="40dp"
         android:left="20dp"
         android:height="100dp"
         android:width="100dp" android:gravity="center_horizontal"/>

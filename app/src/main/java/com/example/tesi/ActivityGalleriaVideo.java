@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -28,10 +29,11 @@ import java.util.ArrayList;
 public class ActivityGalleriaVideo extends AppCompatActivity {
 
     private LinearLayout linearLayout;
+    private ArrayList<String> lista;
     private ArrayList<String> listaVideo;
     private ArrayList<String> listaVideoFra;
     private ArrayList<String> listaVideoEng;
-
+    private TextView textView;
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
@@ -51,9 +53,11 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         });
 
         linearLayout = findViewById(R.id.linear);
+        lista = new ArrayList<>();
         listaVideo = new ArrayList<>();
         listaVideoFra = new ArrayList<>();
         listaVideoEng = new ArrayList<>();
+        textView = findViewById(R.id.textView);
 
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -71,6 +75,12 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
             //GALLERIA VIDEO COMMENTI
             StorageReference listRef = storageReference.child("/videos/commenti/");
 
+
+            SharedPreferences shared =  getSharedPreferences("stelle", MODE_PRIVATE);
+            SharedPreferences.Editor editor = shared.edit();
+            editor.putString("stelle3", "3");
+
+            textView.setText("Azioni salienti");
             listRef.listAll()
                     .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                         @Override
@@ -82,7 +92,9 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
                             for (StorageReference item : listResult.getItems()) {
                                 // All the items under listRef.
-                                listaVideo.add(item.getName());
+                                lista.add(item.getName());
+                                String[] parts = item.getName().split("\\$");
+                                listaVideo.add(parts[0]);
                             }
 
                             int j = 0;
@@ -114,7 +126,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                     @Override
                                     public void onClick(View view) {
                                         Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                        intent.putExtra("nome", listaVideo.get(finalI));
+                                        intent.putExtra("nome", lista.get(finalI));
                                         intent.putExtra("tipo", "commento");
                                         startActivity(intent);
                                     }
@@ -144,7 +156,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                         @Override
                                         public void onClick(View view) {
                                             Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                            intent.putExtra("nome", listaVideo.get(finalI1));
+                                            intent.putExtra("nome", listaVideo.get(finalI1) );
                                             intent.putExtra("tipo", "commento");
                                             startActivity(intent);
                                         }
@@ -172,7 +184,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         } else {
             //GALLERIA VIDEO GESTI
             StorageReference listRef = storageReference.child("/videos/gesti/");
-
+            textView.setText("Allenamento");
             listRef.listAll()
                     .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                         @Override

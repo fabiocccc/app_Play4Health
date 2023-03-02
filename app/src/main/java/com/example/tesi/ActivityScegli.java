@@ -304,6 +304,8 @@ public class ActivityScegli extends AppCompatActivity {
                         esito1.setVisibility(View.VISIBLE);
                         esito1.setImageResource(R.drawable.thumbs_up);
 
+                        esito2.clearAnimation();
+                        esito2.setVisibility(View.INVISIBLE);
                         esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 
                         imageView1.setClickable(false);
@@ -319,7 +321,7 @@ public class ActivityScegli extends AppCompatActivity {
                         esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 
                         imageView1.setClickable(false);
-                        imageView2.setClickable(false);
+                        //imageView2.setClickable(false);
                     }
                 }else{
                     help1.setVisibility(View.VISIBLE);
@@ -355,6 +357,8 @@ public class ActivityScegli extends AppCompatActivity {
                         esito2.setVisibility(View.VISIBLE);
                         esito2.setImageResource(R.drawable.thumbs_up);
 
+                        esito1.clearAnimation();
+                        esito1.setVisibility(View.INVISIBLE);
                         esito2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 
                         imageView1.setClickable(false);
@@ -368,7 +372,7 @@ public class ActivityScegli extends AppCompatActivity {
 
                         esito2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 
-                        imageView1.setClickable(false);
+                        //imageView1.setClickable(false);
                         imageView2.setClickable(false);
                     }
                 }else{

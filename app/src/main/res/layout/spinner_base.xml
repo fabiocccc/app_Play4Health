@@ -16,7 +16,7 @@
                 android:paddingLeft="9dp"
                 android:paddingRight="2dp"
                 android:text="TextView"
-                android:textColor="#0342FF"
+                android:textColor="@color/black"
                 android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

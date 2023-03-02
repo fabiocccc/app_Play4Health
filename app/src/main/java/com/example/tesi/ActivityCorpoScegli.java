@@ -289,6 +289,7 @@ public class ActivityCorpoScegli extends AppCompatActivity {
 
                         button_Risp2.setClickable(false);
                         button_Risp2.setBackgroundColor(Color.parseColor("#f54518"));
+                        button_Risp1.setBackgroundColor(Color.parseColor("#50e024"));
 
                         button_aiuto.setVisibility(View.GONE);
                         button_avanti.setVisibility(View.VISIBLE);
@@ -335,6 +336,7 @@ public class ActivityCorpoScegli extends AppCompatActivity {
 
                         button_Risp1.setClickable(false);
                         button_Risp1.setBackgroundColor(Color.parseColor("#f54518"));
+                        button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
 
                         button_aiuto.setVisibility(View.GONE);
                         button_avanti.setVisibility(View.VISIBLE);
