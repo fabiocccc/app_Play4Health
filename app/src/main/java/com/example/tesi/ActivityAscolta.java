@@ -58,12 +58,14 @@ public class ActivityAscolta extends AppCompatActivity {
     private AnimationDrawable animationDrawable2 = null;
     private ArrayList<String> parole;
     private String tipo;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ascolta);
 
+        textView = findViewById(R.id.textView);
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
 
@@ -93,13 +95,17 @@ public class ActivityAscolta extends AppCompatActivity {
 
         if(getIntent().getStringExtra("tipo").equals("calcio")){
             tipo = "calcio";
+
         } else if(getIntent().getStringExtra("tipo").equals("corpo")) {
             tipo = "corpo";
+
         } else if(getIntent().getStringExtra("tipo").equals("salute")) {
             tipo = "salute";
+
         }
 
         if(tipo.equals("calcio")){
+            textView.setText("Ascolta");
             String jsonString = read(this, "dati.json");
             try {
                 jsonArray = new JSONArray(jsonString);
@@ -118,6 +124,13 @@ public class ActivityAscolta extends AppCompatActivity {
             }
 
         } else {
+
+            if(tipo.equals("corpo")){
+                textView.setText("Parti del corpo");
+            } else {
+                textView.setText("Salute e benessere");
+            }
+
 
             String jsonString = read(this, "datisecondo.json");
             try {

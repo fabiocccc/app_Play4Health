@@ -184,7 +184,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         } else {
             //GALLERIA VIDEO GESTI
             StorageReference listRef = storageReference.child("/videos/gesti/");
-            textView.setText("Allenamento");
+            textView.setText("Allenati");
             listRef.listAll()
                     .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                         @Override

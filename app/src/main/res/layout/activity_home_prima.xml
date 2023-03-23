@@ -85,7 +85,8 @@
                 android:layout_marginTop="40dp"
                 android:autoSizeTextType="uniform"
                 android:gravity="center"
-                android:text="GIOCA E IMPARA"
+                android:text="IMPARA"
+                android:autoSizeMaxTextSize="50dp"
                 android:textColor="#000000" />
         </FrameLayout>
 
@@ -130,7 +131,8 @@
                 android:layout_marginTop="40dp"
                 android:autoSizeTextType="uniform"
                 android:gravity="center"
-                android:text="GIOCA E ALLENATI"
+                android:text="GIOCA"
+                android:autoSizeMaxTextSize="55dp"
                 android:textColor="#000000" />
         </FrameLayout>
 
@@ -179,7 +181,8 @@
                 android:layout_marginTop="40dp"
                 android:autoSizeTextType="uniform"
                 android:gravity="center"
-                android:text="AZIONI SALIENTI"
+                android:text="VIDEO"
+                android:autoSizeMaxTextSize="55dp"
                 android:textColor="#000000" />
         </FrameLayout>
 

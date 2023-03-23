@@ -40,7 +40,7 @@
                 android:layout_marginStart="4dp"
                 android:autoSizeTextType="uniform"
                 android:paddingTop="3dp"
-                android:text="Ascolta e impara"
+                android:text="Ascolta"
                 android:textColor="#F0000000"
                 app:layout_constraintStart_toEndOf="@+id/button_indietro"
                 tools:layout_editor_absoluteY="6dp" />

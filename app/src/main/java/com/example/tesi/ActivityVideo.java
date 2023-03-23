@@ -134,6 +134,9 @@ public class ActivityVideo extends AppCompatActivity {
 
         if(getIntent().getStringExtra("tipo").equals("commento")){
 
+            textDomanda.setVisibility(View.VISIBLE);
+            risp1.setVisibility(View.VISIBLE);
+            risp2.setVisibility(View.VISIBLE);
             parole = new ArrayList<>();
             String[] parts = getIntent().getStringExtra("nome").split("\\$");
             parole.add(parts[0]);

@@ -154,7 +154,7 @@
                 android:autoSizeTextType="uniform"
                 android:layout_marginStart="4dp"
                 android:paddingTop="3dp"
-                android:text="Ascolta e ripeti"
+                android:text="Ripeti"
                 android:textColor="#F0000000"
                 android:textSize="40sp"
                 app:layout_constraintStart_toEndOf="@+id/button_indietro"

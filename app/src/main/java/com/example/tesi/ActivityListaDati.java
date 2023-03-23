@@ -371,70 +371,6 @@ public class ActivityListaDati extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-/*
-            FTPClient ftpClient = new FTPClient();
-
-            try {
-                ftpClient.connect("ftp.prenotazionetamponi.altervista.org", 21);
-                ftpClient.login( "prenotazionetamponi","wFhppBsmP588");
-                ftpClient.enterLocalPassiveMode();
-
-
-                String dirPath = "";
-
-                InputStream inputStream = getApplicationContext().openFileInput("dati.json");
-                ftpClient.storeFile(dirPath + "/dati.json", inputStream);
-                inputStream.close();
-
-                ftpClient.logout();
-                ftpClient.disconnect();
-
-                ActivityGestioneDati.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        ActivityGestioneDati.this.findViewById(R.id.progress_circular).setVisibility(View.GONE);
-                        Toast.makeText(ActivityGestioneDati.this, "Eliminato", Toast.LENGTH_LONG).show();
-                        ActivityGestioneDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                        ActivityGestioneDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-                        ActivityGestioneDati.this.findViewById(R.id.button_CaricaVideo).setEnabled(true);
-                        adapter.notifyDataSetChanged();
-
-
-                    }
-                });
-
-
-
-
-            } catch (NetworkOnMainThreadException e) {
-                ActivityGestioneDati.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityGestioneDati.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (SocketException e) {
-                ActivityGestioneDati.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityGestioneDati.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            } catch (FileNotFoundException e) {
-                ActivityGestioneDati.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityGestioneDati.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (IOException e) {
-                ActivityGestioneDati.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        finish();
-                        Toast.makeText(ActivityGestioneDati.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }*/
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
@@ -454,7 +390,7 @@ public class ActivityListaDati extends AppCompatActivity {
                                         Toast.makeText(ActivityListaDati.this, "Eliminato", Toast.LENGTH_LONG).show();
                                         ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
                                         ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-                                        ActivityListaDati.this.findViewById(R.id.button_CaricaVideo).setEnabled(true);
+
                                         ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
                                         adapter.notifyDataSetChanged();
 
@@ -480,7 +416,67 @@ public class ActivityListaDati extends AppCompatActivity {
                 public void run() {
                     ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
                     ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-                    ActivityListaDati.this.findViewById(R.id.button_CaricaVideo).setEnabled(true);
+
+                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
+                }
+            });
+
+            return null;
+
+        }
+    }
+
+    class UploadFileSecondo extends AsyncTask<Void, Void, Void> {
+        String TAG = "MAIN_ACTIVITY";
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            StorageReference jsonFirebase = storageRef.child("datisecondo.json");
+
+            try {
+                FileInputStream fis = ActivityListaDati.this.openFileInput("datisecondo.json");
+                jsonFirebase.putStream(fis).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ActivityListaDati.this.runOnUiThread(new Runnable() {
+                            public void run() {
+
+                                ActivityListaDati.this.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        ActivityListaDati.this.findViewById(R.id.progress_circular).setVisibility(View.GONE);
+                                        Toast.makeText(ActivityListaDati.this, "Eliminato", Toast.LENGTH_LONG).show();
+                                        ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
+                                        ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+
+                                        ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
+                                        adapter.notifyDataSetChanged();
+
+
+                                    }
+                                });
+
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+            ActivityListaDati.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
+                    ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+
                     ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
                 }
             });
@@ -531,12 +527,23 @@ public class ActivityListaDati extends AppCompatActivity {
                                 parole.remove(ita);
                                 jsonArray.remove(j);
 
-                                create(getApplicationContext(), "dati.json", jsonArray.toString());
-                                progressBar.setVisibility(View.VISIBLE);
-                                listView.setEnabled(false);
-                                button_CaricaDati.setEnabled(false);
-                                ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(false);
-                                new ActivityListaDati.UploadFile().execute();
+                                if(tipo.equals("calcio")){
+                                    create(getApplicationContext(), "dati.json", jsonArray.toString());
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    listView.setEnabled(false);
+                                    button_CaricaDati.setEnabled(false);
+                                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(false);
+                                    new ActivityListaDati.UploadFile().execute();
+                                } else {
+                                    create(getApplicationContext(), "datisecondo.json", jsonArray.toString());
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    listView.setEnabled(false);
+                                    button_CaricaDati.setEnabled(false);
+                                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(false);
+                                    new ActivityListaDati.UploadFileSecondo().execute();
+                                }
+
+
 
                             }else{
                                 j++;
