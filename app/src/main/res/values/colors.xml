@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    sfumature di viola-->
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red"> #ff0000</color>
+
+    <!--    sfumature di verde-->
+
+    <color name="teal_100">#D7FFA7</color>
+    <color name="teal_300">	#ADDFAD</color>
+    <color name="verdepistacchio">#93C572</color>
+    <color name="teal_400">#66FF00</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="teal_800">#0d730d</color>
+
+
+    <!--    sfumature di giallo-->
+    <color name="yellow">#FFFF00</color>
+    <color name="cream">#FFEFD5</color>
 </resources>

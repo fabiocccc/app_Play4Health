@@ -1,217 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D7FFA7"
-    tools:context=".AppPavone.Home">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout5"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="?attr/colorSecondary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:id="@+id/button_indietro"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/button_cancella"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <FrameLayout
-                android:id="@+id/button_HomeAggiorna"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-
-                android:background="@drawable/ic_baseline_sincro_24"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="65dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout5">
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout5">
+    android:background="@drawable/campo2">
 
 
-            <FrameLayout
-                android:id="@+id/button_HomeAscolta"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/home_ascolta">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="150dp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:text="ASCOLTA"
-                    android:textColor="#000000" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/button_HomeParla"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/home_parla">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="150dp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:text="RIPETI"
-                    android:textColor="#000000" />
-            </FrameLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-
-            <FrameLayout
-                android:id="@+id/button_HomeScegli"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/home_scegli"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="SCEGLI"
-                    android:textColor="#000000"
-                    android:gravity="center"
-                    android:autoSizeTextType="uniform"
-                    android:layout_marginTop="150dp"/>
-
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/button_HomeScrivere"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/home_scrivere"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="SCRIVI"
-                    android:textColor="#000000"
-                    android:gravity="center"
-                    android:autoSizeTextType="uniform"
-                    android:layout_marginTop="150dp"/>
-
-            </FrameLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-
-            <FrameLayout
-                android:id="@+id/button_HomeCampo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/home_campo">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="150dp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:text="CAMPO"
-                    android:textColor="#000000" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/button_HomeCorpo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/home_corpo">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="150dp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:text="CORPO"
-                    android:textColor="#000000" />
-
-
-            </FrameLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-
-    <ProgressBar
-        android:id="@+id/progress_circular"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:progressTint="#273CB3"
-        android:visibility="gone"
+    <ImageView
+        android:id="@+id/ball"
+        android:layout_width="130dp"
+        android:layout_height="153dp"
+        android:onClick="StartStory"
+        android:src="@drawable/palla"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.854"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:indeterminateTint="@android:color/black"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintVertical_bias="0.16"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/book"
+        android:layout_width="167dp"
+        android:layout_height="178dp"
+        android:onClick="StartExercise"
+        android:src="@drawable/libro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.731"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,7 +41,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Locale;
 
-public class Home extends AppCompatActivity {
+public class ActivityImpara extends AppCompatActivity {
 
     private FrameLayout button_HomeAscolta;
     private FrameLayout button_HomeParla;
@@ -58,7 +58,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_impara);
 
         button_HomeParla = findViewById(R.id.button_HomeParla);
         button_HomeScrivere = findViewById(R.id.button_HomeScrivere);
@@ -85,7 +85,7 @@ public class Home extends AppCompatActivity {
             button_HomeCorpo.setEnabled(false);
             button_Aggiorna.setEnabled(false);
             button_indietro.setEnabled(false);
-            new Home.DownloadFile().execute();
+            new ActivityImpara.DownloadFile().execute();
 
         } else {
             //Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
@@ -121,18 +121,18 @@ public class Home extends AppCompatActivity {
             jsonFirebase.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Home.this.runOnUiThread(new Runnable() {
+                    ActivityImpara.this.runOnUiThread(new Runnable() {
                         public void run() {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Home.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
-                            Home.this.findViewById(R.id.button_HomeAscolta).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeParla).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeScegli).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeScrivere).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeCampo).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeCorpo).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeAggiorna).setEnabled(true);
-                            Home.this.findViewById(R.id.button_indietro).setEnabled(true);
+                            Toast.makeText(ActivityImpara.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
+                            ActivityImpara.this.findViewById(R.id.button_HomeAscolta).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeParla).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeScegli).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeScrivere).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeCampo).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeCorpo).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeAggiorna).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_indietro).setEnabled(true);
 
 
                         }
@@ -143,18 +143,18 @@ public class Home extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle any errors
-                    Home.this.runOnUiThread(new Runnable() {
+                    ActivityImpara.this.runOnUiThread(new Runnable() {
                         public void run() {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Home.this, "Aggiornamento non riuscito.", Toast.LENGTH_LONG).show();
-                            Home.this.findViewById(R.id.button_HomeAscolta).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeParla).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeScegli).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeScrivere).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeCampo).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeCorpo).setEnabled(true);
-                            Home.this.findViewById(R.id.button_HomeAggiorna).setEnabled(true);
-                            Home.this.findViewById(R.id.button_indietro).setEnabled(true);
+                            Toast.makeText(ActivityImpara.this, "Aggiornamento non riuscito.", Toast.LENGTH_LONG).show();
+                            ActivityImpara.this.findViewById(R.id.button_HomeAscolta).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeParla).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeScegli).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeScrivere).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeCampo).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeCorpo).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_HomeAggiorna).setEnabled(true);
+                            ActivityImpara.this.findViewById(R.id.button_indietro).setEnabled(true);
 
 
                         }
@@ -222,7 +222,7 @@ public class Home extends AppCompatActivity {
                     button_Aggiorna.setEnabled(false);
                     button_indietro.setEnabled(true);
 
-                    new Home.DownloadFile().execute();
+                    new ActivityImpara.DownloadFile().execute();
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
@@ -236,7 +236,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 aggiornaStelle();
-                Intent intent = new Intent(Home.this, ActivityParla.class);
+                Intent intent = new Intent(ActivityImpara.this, ActivityParla.class);
                 startActivity(intent);
             }
         });
@@ -244,7 +244,7 @@ public class Home extends AppCompatActivity {
         button_HomeScrivere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityImpara.this);
                 builder.setCancelable(true);
 
                 View dialogView = getLayoutInflater().inflate(R.layout.alertdialog_scrivere, null);
@@ -264,7 +264,7 @@ public class Home extends AppCompatActivity {
                     public void onClick(View view) {
 
                         aggiornaStelle();
-                        Intent intent = new Intent(Home.this, ActivityScrivere.class);
+                        Intent intent = new Intent(ActivityImpara.this, ActivityScrivere.class);
                         startActivity(intent);
                     }
                 });
@@ -273,7 +273,7 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         aggiornaStelle();
-                        Intent intent = new Intent(Home.this, ActivityScrivereDifficile.class);
+                        Intent intent = new Intent(ActivityImpara.this, ActivityScrivereDifficile.class);
                         startActivity(intent);
                     }
                 });
@@ -316,7 +316,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 aggiornaStelle();
-                Intent intent = new Intent(Home.this, ActivityScegli.class);
+                Intent intent = new Intent(ActivityImpara.this, ActivityScegli.class);
                 startActivity(intent);
             }
         });
@@ -325,7 +325,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 aggiornaStelle();
-                Intent intent = new Intent(Home.this, ActivityAscolta.class);
+                Intent intent = new Intent(ActivityImpara.this, ActivityAscolta.class);
                 intent.putExtra("tipo", "calcio");
                 startActivity(intent);
             }
@@ -335,7 +335,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 aggiornaStelle();
-                Intent intent = new Intent(Home.this, ActivityCampo.class);
+                Intent intent = new Intent(ActivityImpara.this, ActivityCampo.class);
                 startActivity(intent);
             }
         });
@@ -344,7 +344,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 aggiornaStelle();
-                AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityImpara.this);
                 builder.setCancelable(true);
 
                 View dialogView = getLayoutInflater().inflate(R.layout.alertdialog_corpo, null);
@@ -407,7 +407,7 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        Intent intent = new Intent(Home.this, ActivityCorpo.class);
+                        Intent intent = new Intent(ActivityImpara.this, ActivityCorpo.class);
                         startActivity(intent);
                     }
                 });
@@ -415,7 +415,7 @@ public class Home extends AppCompatActivity {
                 frame_Viso.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(Home.this, ActivityViso.class);
+                        Intent intent = new Intent(ActivityImpara.this, ActivityViso.class);
                         startActivity(intent);
                     }
                 });
@@ -424,7 +424,7 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        Intent intent = new Intent(Home.this, ActivityMano.class);
+                        Intent intent = new Intent(ActivityImpara.this, ActivityMano.class);
                         startActivity(intent);
                     }
                 });
@@ -432,7 +432,7 @@ public class Home extends AppCompatActivity {
                 frame_Scegli.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(Home.this, ActivityCorpoScegli.class);
+                        Intent intent = new Intent(ActivityImpara.this, ActivityCorpoScegli.class);
                         startActivity(intent);
                     }
                 });

@@ -73,7 +73,7 @@ public class HomePrima extends AppCompatActivity {
         button_GiocaImpara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomePrima.this, Home.class);
+                Intent intent = new Intent(HomePrima.this, ActivityImpara.class);
                 startActivity(intent);
             }
         });
