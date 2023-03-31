@@ -1,4 +1,4 @@
-package com.example.tesi;
+package com.example.tesi.AppPavone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,17 +10,14 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.example.tesi.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;

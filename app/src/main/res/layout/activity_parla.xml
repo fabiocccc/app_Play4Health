@@ -7,7 +7,7 @@
     android:foregroundGravity="center_vertical"
     android:hapticFeedbackEnabled="true"
     android:background="#D7FFA7"
-    tools:context=".ActivityParla">
+    tools:context=".AppPavone.ActivityParla">
 
 
     <ImageView

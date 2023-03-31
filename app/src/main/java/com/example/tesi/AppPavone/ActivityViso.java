@@ -1,4 +1,4 @@
-package com.example.tesi;
+package com.example.tesi.AppPavone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,23 +19,22 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import org.w3c.dom.Text;
+import com.example.tesi.R;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ActivityMano extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener, View.OnClickListener {
+public class ActivityViso extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener, View.OnClickListener {
 
-    private Boolean fpolso = false;
-    private Boolean fpalmo = false;
-    private Boolean fpollice = false;
-    private Boolean findice = false;
-    private Boolean fmedio = false;
-    private Boolean fanulare = false;
-    private Boolean fmignolo = false;
-
-    private TextToSpeech textToSpeech;
+    private Boolean fbocca = false;
+    private Boolean fcapelli = false;
+    private Boolean forecchie = false;
+    private Boolean focchi = false;
+    private Boolean fsopracc = false;
+    private Boolean fnaso = false;
     private Spinner spinner;
+    private TextToSpeech textToSpeech;
+
     private Drawable enterShape;
     private Drawable normalShape;
 
@@ -46,21 +45,21 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mano);
+        setContentView(R.layout.activity_viso);
 
         enterShape = getResources().getDrawable(
                 R.drawable.shape_droptarget);
         normalShape = getResources().getDrawable(R.drawable.shape);
 
-        spinner = findViewById(R.id.spinner_Mano);
+        spinner = findViewById(R.id.spinner_Viso);
 
-        findViewById(R.id.framepalmo).setOnDragListener(this);
-        findViewById(R.id.framepolso).setOnDragListener(this);
-        findViewById(R.id.framepollice).setOnDragListener(this);
-        findViewById(R.id.frameindice).setOnDragListener(this);
-        findViewById(R.id.framemedio).setOnDragListener(this);
-        findViewById(R.id.frameanulare).setOnDragListener(this);
-        findViewById(R.id.framemignolo).setOnDragListener(this);
+        findViewById(R.id.framecapelli).setOnDragListener(this);
+        findViewById(R.id.frameorecchio1).setOnDragListener(this);
+        findViewById(R.id.frameorecchio2).setOnDragListener(this);
+        findViewById(R.id.framenaso).setOnDragListener(this);
+        findViewById(R.id.frameocchi).setOnDragListener(this);
+        findViewById(R.id.framesopracciglia).setOnDragListener(this);
+        findViewById(R.id.framebocca).setOnDragListener(this);
 
         findViewById(R.id.frame1).setOnDragListener(this);
         findViewById(R.id.frame2).setOnDragListener(this);
@@ -68,15 +67,13 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
         findViewById(R.id.frame4).setOnDragListener(this);
         findViewById(R.id.frame5).setOnDragListener(this);
         findViewById(R.id.frame6).setOnDragListener(this);
-        findViewById(R.id.frame7).setOnDragListener(this);
 
-        findViewById(R.id.polso).setOnLongClickListener(this);
-        findViewById(R.id.palmo).setOnLongClickListener(this);
-        findViewById(R.id.pollice).setOnLongClickListener(this);
-        findViewById(R.id.indice).setOnLongClickListener(this);
-        findViewById(R.id.medio).setOnLongClickListener(this);
-        findViewById(R.id.anulare).setOnLongClickListener(this);
-        findViewById(R.id.mignolo).setOnLongClickListener(this);
+        findViewById(R.id.bocca).setOnLongClickListener(this);
+        findViewById(R.id.naso).setOnLongClickListener(this);
+        findViewById(R.id.occhi).setOnLongClickListener(this);
+        findViewById(R.id.sopracciglia).setOnLongClickListener(this);
+        findViewById(R.id.capelli).setOnLongClickListener(this);
+        findViewById(R.id.orecchie).setOnLongClickListener(this);
 
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
@@ -91,11 +88,9 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
 
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
-
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +105,7 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
 
                 //ObjectAnimator animation = ObjectAnimator.ofFloat(help1, "translationY", -700f);
                 Path path = new Path();
-                path.lineTo(-430f, 300f);
+                path.lineTo(-520f, 700f);
                 ObjectAnimator animation = ObjectAnimator.ofFloat(help1, "translationY", "translationX", path);
                 animation.setStartDelay(500);
                 animation.setDuration(1000);
@@ -147,14 +142,14 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
             }
         });
 
-        findViewById(R.id.framepolso).setOnTouchListener(new View.OnTouchListener() {
+        findViewById(R.id.framecapelli).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(fpolso){
+                if(fcapelli){
                     ArrayList parole = new ArrayList();
-                    parole.add("Polso");
-                    parole.add("Poignet");
-                    parole.add("Wrist");
+                    parole.add("Capelli");
+                    parole.add("Cheveux");
+                    parole.add("Hair");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -165,14 +160,14 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
             }
         });
 
-        findViewById(R.id.framepalmo).setOnTouchListener(new View.OnTouchListener() {
+        findViewById(R.id.frameorecchio1).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(fpalmo){
+                if(forecchie){
                     ArrayList parole = new ArrayList();
-                    parole.add("Palmo");
-                    parole.add("Paume");
-                    parole.add("Palm");
+                    parole.add("Orecchie");
+                    parole.add("Oreilles");
+                    parole.add("Ears");
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -183,6 +178,23 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
             }
         });
 
+        findViewById(R.id.frameorecchio2).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(forecchie){
+                    ArrayList parole = new ArrayList();
+                    parole.add("Orecchie");
+                    parole.add("Oreilles");
+                    parole.add("Ears");
+                    SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                    spinner.setAdapter(adapter);
+                    spinner.setSelection(0);
+
+                }
+
+                return true;
+            }
+        });
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -244,55 +256,56 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                 ViewGroup owner = (ViewGroup) view.getParent();
 
                 switch (getResources().getResourceEntryName(view.getId())) {
-                    case "polso":
+                    case "capelli":
 
-                        if (getResources().getResourceEntryName(v.getId()).equals("framepolso") && !fpolso) {
+                        if (getResources().getResourceEntryName(v.getId()).equals("framecapelli") && !fcapelli) {
                             //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                            fpolso = true;
+                            fcapelli = true;
                             owner.removeView(view);
                             owner.setVisibility(View.GONE);
 
-                            if(fpalmo){
-                                findViewById(R.id.image_mano_polso_palmo).setVisibility(View.VISIBLE);
-                                findViewById(R.id.image_mano_palmo).setVisibility(View.GONE);
+                            if(forecchie){
+                                findViewById(R.id.image_face_capelli_orecchie).setVisibility(View.VISIBLE);
+                                findViewById(R.id.image_face_orecchie).setVisibility(View.GONE);
                             }else{
-                                findViewById(R.id.image_mano_polso).setVisibility(View.VISIBLE);
-                                findViewById(R.id.image_mano_vuota).setVisibility(View.GONE);
+                                findViewById(R.id.image_face_capelli).setVisibility(View.VISIBLE);
+                                findViewById(R.id.image_face).setVisibility(View.GONE);
                             }
 
                             ImageView img = (ImageView) view;
-                            img.setOnClickListener(ActivityMano.this);
+                            img.setOnClickListener(ActivityViso.this);
                             img.performClick();
 
                         }
                         break;
-                    case "palmo":
+                    case "orecchie":
 
-                        if (getResources().getResourceEntryName(v.getId()).equals("framepalmo") && !fpalmo) {
+                        if (getResources().getResourceEntryName(v.getId()).equals("frameorecchio1") ||
+                                getResources().getResourceEntryName(v.getId()).equals("frameorecchio2") && !forecchie) {
                             //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                            fpalmo = true;
+                            forecchie = true;
                             owner.removeView(view);
                             owner.setVisibility(View.GONE);
 
-                            if(fpolso){
-                                findViewById(R.id.image_mano_polso_palmo).setVisibility(View.VISIBLE);
-                                findViewById(R.id.image_mano_polso).setVisibility(View.GONE);
+                            if(fcapelli){
+                                findViewById(R.id.image_face_capelli_orecchie).setVisibility(View.VISIBLE);
+                                findViewById(R.id.image_face_capelli).setVisibility(View.GONE);
                             }else{
-                                findViewById(R.id.image_mano_palmo).setVisibility(View.VISIBLE);
-                                findViewById(R.id.image_mano_vuota).setVisibility(View.GONE);
+                                findViewById(R.id.image_face_orecchie).setVisibility(View.VISIBLE);
+                                findViewById(R.id.image_face).setVisibility(View.GONE);
                             }
 
-
                             ImageView img = (ImageView) view;
-                            img.setOnClickListener(ActivityMano.this);
+                            img.setOnClickListener(ActivityViso.this);
                             img.performClick();
+
                         }
                         break;
-                    case "pollice":
+                    case "bocca":
 
-                        if (getResources().getResourceEntryName(v.getId()).equals("framepollice") && !fpollice) {
+                        if (getResources().getResourceEntryName(v.getId()).equals("framebocca") && !fbocca) {
                             //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                            fpollice = true;
+                            fbocca = true;
                             owner.removeView(view);
                             owner.setVisibility(View.GONE);
                             FrameLayout container = (FrameLayout) v;
@@ -302,16 +315,15 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                             img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                             img.setVisibility(View.VISIBLE);
 
-                            img.setOnClickListener(ActivityMano.this);
+                            img.setOnClickListener(ActivityViso.this);
                             img.performClick();
-
                         }
                         break;
-                    case "indice":
+                    case "naso":
 
-                        if (getResources().getResourceEntryName(v.getId()).equals("frameindice") && !findice) {
+                        if (getResources().getResourceEntryName(v.getId()).equals("framenaso") && !fnaso) {
                             //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                            findice = true;
+                            fnaso = true;
                             owner.removeView(view);
                             owner.setVisibility(View.GONE);
                             FrameLayout container = (FrameLayout) v;
@@ -321,16 +333,16 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                             img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                             img.setVisibility(View.VISIBLE);
 
-                            img.setOnClickListener(ActivityMano.this);
+                            img.setOnClickListener(ActivityViso.this);
                             img.performClick();
 
                         }
                         break;
-                    case "medio":
+                    case "occhi":
 
-                        if (getResources().getResourceEntryName(v.getId()).equals("framemedio") && !fmedio) {
+                        if (getResources().getResourceEntryName(v.getId()).equals("frameocchi") && !focchi) {
                             //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                            fmedio = true;
+                            focchi = true;
                             owner.removeView(view);
                             owner.setVisibility(View.GONE);
                             FrameLayout container = (FrameLayout) v;
@@ -340,15 +352,15 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                             img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                             img.setVisibility(View.VISIBLE);
 
-                            img.setOnClickListener(ActivityMano.this);
+                            img.setOnClickListener(ActivityViso.this);
                             img.performClick();
                         }
                         break;
-                    case "anulare":
+                    case "sopracciglia":
 
-                        if (getResources().getResourceEntryName(v.getId()).equals("frameanulare") && !fanulare) {
+                        if (getResources().getResourceEntryName(v.getId()).equals("framesopracciglia") && !fsopracc) {
                             //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                            fanulare = true;
+                            fsopracc = true;
                             owner.removeView(view);
                             owner.setVisibility(View.GONE);
                             FrameLayout container = (FrameLayout) v;
@@ -358,26 +370,7 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                             img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                             img.setVisibility(View.VISIBLE);
 
-                            img.setOnClickListener(ActivityMano.this);
-                            img.performClick();
-
-                        }
-                        break;
-                    case "mignolo":
-
-                        if (getResources().getResourceEntryName(v.getId()).equals("framemignolo") && !fmignolo) {
-                            //Toast.makeText(getApplicationContext(), ":", Toast.LENGTH_SHORT).show();
-                            fmignolo = true;
-                            owner.removeView(view);
-                            owner.setVisibility(View.GONE);
-                            FrameLayout container = (FrameLayout) v;
-                            ImageView img = (ImageView) view;
-                            container.addView(img);
-                            img.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                            img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                            img.setVisibility(View.VISIBLE);
-
-                            img.setOnClickListener(ActivityMano.this);
+                            img.setOnClickListener(ActivityViso.this);
                             img.performClick();
                         }
                         break;
@@ -395,7 +388,7 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
 
         ClipData data = ClipData.newPlainText(getResources().getResourceEntryName(view.getId()), "");
         View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
-                view);
+        view);
         view.startDrag(data, shadowBuilder, view, 0);
         //view.setVisibility(View.INVISIBLE);
         return true;
@@ -409,51 +402,44 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
         SpinnerAdapter adapter;
 
         switch (view.getId()){
-            case R.id.polso:
+            case R.id.capelli:
                 parole = new ArrayList();
-                parole.add("Polso"); parole.add("Poignet"); parole.add("Wrist");
+                parole.add("Capelli"); parole.add("Cheveux"); parole.add("Hair");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
-            case R.id.palmo:
+            case R.id.orecchie:
                 parole = new ArrayList();
-                parole.add("Palmo"); parole.add("Creux de la main"); parole.add("Palm");
+                parole.add("Orecchie"); parole.add("Oreilles"); parole.add("Ears");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
-            case R.id.pollice:
+            case R.id.sopracciglia:
                 parole = new ArrayList();
-                parole.add("Pollice"); parole.add("Pouce"); parole.add("Thumb");
+                parole.add("Sopracciglia"); parole.add("Sourcils"); parole.add("Eyebrows");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
-            case R.id.indice:
+            case R.id.occhi:
                 parole = new ArrayList();
-                parole.add("Indice"); parole.add("Index"); parole.add("Index finger");
+                parole.add("Occhi"); parole.add("Yeux"); parole.add("Eyes");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
-            case R.id.medio:
+            case R.id.naso:
                 parole = new ArrayList();
-                parole.add("Medio"); parole.add("Doigt du milieu"); parole.add("Middle finger");
+                parole.add("Naso"); parole.add("Nez"); parole.add("Nose");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
                 break;
-            case R.id.anulare:
+            case R.id.bocca:
                 parole = new ArrayList();
-                parole.add("Anulare"); parole.add("Annulaire"); parole.add("Ring finger");
-                adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                spinner.setAdapter(adapter);
-                spinner.setSelection(0);
-                break;
-            case R.id.mignolo:
-                parole = new ArrayList();
-                parole.add("Mignolo"); parole.add("Petit doigt"); parole.add("Little finger");
+                parole.add("Bocca"); parole.add("Bouche"); parole.add("Mouth");
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -461,5 +447,4 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
         }
 
     }
-
 }

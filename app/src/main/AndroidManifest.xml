@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tesi">
         <activity
-            android:name=".ActivityDialogo"
+            android:name=".AppPavone.ActivityDialogo"
             android:exported="false" />
         <activity
-            android:name=".HomePrima"
+            android:name=".AppPavone.HomePrima"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -29,83 +29,83 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityMedico"
+            android:name=".AppPavone.ActivityMedico"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityListaDati"
+            android:name=".AppPavone.ActivityListaDati"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HomeAllenati"
+            android:name=".AppPavone.HomeAllenati"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityVideo"
+            android:name=".AppPavone.ActivityVideo"
             android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false" />
         <activity
-            android:name=".ActivityGalleriaVideo"
+            android:name=".AppPavone.ActivityGalleriaVideo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityCaricaVideo"
+            android:name=".AppPavone.ActivityCaricaVideo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityGestioneDati"
+            android:name=".AppPavone.ActivityGestioneDati"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityScrivereDifficile"
+            android:name=".AppPavone.ActivityScrivereDifficile"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityAscolta"
+            android:name=".AppPavone.ActivityAscolta"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityCorpoScegli"
+            android:name=".AppPavone.ActivityCorpoScegli"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityMano"
+            android:name=".AppPavone.ActivityMano"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityViso"
+            android:name=".AppPavone.ActivityViso"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityCorpo"
+            android:name=".AppPavone.ActivityCorpo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityCarica"
+            android:name=".AppPavone.ActivityCarica"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityCampoRuoli"
+            android:name=".AppPavone.ActivityCampoRuoli"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityCampo"
+            android:name=".AppPavone.ActivityCampo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityScegli"
+            android:name=".AppPavone.ActivityScegli"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityScrivere"
+            android:name=".AppPavone.ActivityScrivere"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityParla"
+            android:name=".AppPavone.ActivityParla"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Home"
+            android:name=".AppPavone.Home"
             android:exported="false"
             android:screenOrientation="portrait"></activity>
     </application>

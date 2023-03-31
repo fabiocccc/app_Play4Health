@@ -1,4 +1,4 @@
-package com.example.tesi;
+package com.example.tesi.AppPavone;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

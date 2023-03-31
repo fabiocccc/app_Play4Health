@@ -1,40 +1,39 @@
-package com.example.tesi;
+package com.example.tesi.AppPavone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.speech.tts.TextToSpeech;
-import android.view.FrameMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import com.example.tesi.R;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ActivityCampoRuoli extends AppCompatActivity {
+public class ActivityCampo extends AppCompatActivity {
 
-    private FrameLayout button_portiere;
-    private FrameLayout button_difensore1;
-    private FrameLayout button_difensore2;
-    private FrameLayout button_terzinod;
-    private FrameLayout button_terzinos;
-    private FrameLayout button_centro1;
-    private FrameLayout button_centro2;
-    private FrameLayout button_esternod;
-    private FrameLayout button_esternos;
-    private FrameLayout button_att1;
-    private FrameLayout button_att2;
-    private Button button_campo;
-    private TextToSpeech textToSpeech;
+    private FrameLayout button_Porta1;
+    private FrameLayout button_Rigore1;
+    private FrameLayout button_Porta2;
+    private FrameLayout button_Rigore2;
+    private FrameLayout button_Angolo1;
+    private FrameLayout button_Angolo2;
+    private FrameLayout button_Angolo3;
+    private FrameLayout button_Angolo4;
+    private FrameLayout button_Centro;
+    private FrameLayout button_Linea1;
+    private FrameLayout button_Linea2;
+    private Button button_Ruoli;
     private Spinner spinner;
+    private TextToSpeech textToSpeech;
     private FrameLayout button_aiuto;
     private ImageView help1;
     private AnimationDrawable animationDrawable = null;
@@ -42,24 +41,23 @@ public class ActivityCampoRuoli extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_campo_ruoli);
+        setContentView(R.layout.activity_campo);
 
-        button_portiere = findViewById(R.id.button_Rigore2);
-        button_difensore1 = findViewById(R.id.button_Difensore1);
-        button_difensore2 = findViewById(R.id.button_Difensore2);
-        button_terzinod = findViewById(R.id.button_TerzinoD);
-        button_terzinos = findViewById(R.id.button_TerzinoS);
-        button_centro1 = findViewById(R.id.button_Centro1);
-        button_centro2 = findViewById(R.id.button_Centro2);
-        button_esternod = findViewById(R.id.button_EsternoD);
-        button_esternos = findViewById(R.id.button_EsternoS);
-        button_att1 = findViewById(R.id.button_Att1);
-        button_att2 = findViewById(R.id.button_Att2);
-        button_campo = findViewById(R.id.button_Campo);
+        button_Porta1 = findViewById(R.id.button_Porta1);
+        button_Porta2 = findViewById(R.id.button_Porta2);
+        button_Rigore1 = findViewById(R.id.button_Rigore1);
+        button_Rigore2 = findViewById(R.id.button_Rigore2);
+        button_Angolo1 = findViewById(R.id.button_Angolo1);
+        button_Angolo2 = findViewById(R.id.button_Angolo2);
+        button_Angolo3 = findViewById(R.id.button_Angolo3);
+        button_Angolo4 = findViewById(R.id.button_Angolo4);
+        button_Centro = findViewById(R.id.button_Centro);
+        button_Linea1 = findViewById(R.id.button_Linea1);
+        button_Linea2 = findViewById(R.id.button_Linea2);
+        button_Ruoli = findViewById(R.id.button_Ruoli);
+        spinner = findViewById(R.id.spinner_Corpo);
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
-
-        spinner = findViewById(R.id.spinner_Corpo);
 
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,28 +68,7 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
     }
 
-    boolean abort;
-    int count = 0;
 
-    private void changeBackground(){
-        if (abort)
-            return;
-        new Handler().postDelayed(new Runnable() {
-
-            public void run() {
-
-                Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
-                count++;
-                if(count % 2 == 0){
-                    button_portiere.setBackground(getDrawable(R.drawable.circle_att));
-                }else{
-                    button_portiere.setBackground(getDrawable(R.drawable.circle_portiere));
-                }
-                changeBackground();
-
-            }
-        }, 500);
-    }
 
     @Override
     protected void onStart() {
@@ -113,33 +90,48 @@ public class ActivityCampoRuoli extends AppCompatActivity {
             }
         });
 
-        button_portiere.setOnClickListener(new View.OnClickListener() {
+        button_Porta1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Portiere"); parole.add("Gardien de but"); parole.add("Goalkeeper");
+                parole.add("Area di porta"); parole.add("Surface de but"); parole.add("Goal area");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
+                button_Porta1.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
 
             }
         });
 
-        button_difensore1.setOnClickListener(new View.OnClickListener() {
+        button_Porta2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Difensore"); parole.add("Défenseur"); parole.add("Defender");
+                parole.add("Area di porta"); parole.add("Surface de but"); parole.add("Goal area");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
+                button_Porta2.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
-        button_difensore2.setOnClickListener(new View.OnClickListener() {
+        button_Rigore1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resettaEvidenzia();
+                ArrayList parole = new ArrayList();
+                parole.add("Area di rigore"); parole.add("Zone de penalty"); parole.add("Penalty area");
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+                button_Rigore1.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
+            }
+        });
+
+        button_Rigore2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -150,126 +142,104 @@ public class ActivityCampoRuoli extends AppCompatActivity {
                     button_aiuto.setVisibility(View.VISIBLE);
                 }
 
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Difensore"); parole.add("Défenseur"); parole.add("Defender");
+                parole.add("Area di rigore"); parole.add("Zone de penalty"); parole.add("Penalty area");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
+                button_Rigore2.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
-        button_terzinod.setOnClickListener(new View.OnClickListener() {
+        button_Angolo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Terzino destro"); parole.add("Arrière droit"); parole.add("Right-back");
+                parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
+                button_Angolo1.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
-        button_terzinos.setOnClickListener(new View.OnClickListener() {
+        button_Angolo2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Terzino sinistro"); parole.add("Arrière gauche"); parole.add("Left-back");
+                parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
+                button_Angolo2.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
-        button_centro1.setOnClickListener(new View.OnClickListener() {
+        button_Angolo3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Centrocampista"); parole.add("Milieu de terrain"); parole.add("Midfielder");
+                parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
+                button_Angolo3.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
-        button_centro2.setOnClickListener(new View.OnClickListener() {
+        button_Angolo4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Centrocampista"); parole.add("Milieu de terrain"); parole.add("Midfielder");
+                parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
+                button_Angolo4.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
-        button_esternod.setOnClickListener(new View.OnClickListener() {
+        button_Linea1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Esterno destro"); parole.add("Champ droit"); parole.add("Right winger");
+                parole.add("Linea mediana"); parole.add("Ligne médiane"); parole.add("Half-way line");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
+                button_Linea1.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
-        button_esternos.setOnClickListener(new View.OnClickListener() {
+        button_Linea2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Esterno sinistro"); parole.add("Champ gauche"); parole.add("Left winger");
+                parole.add("Linea mediana"); parole.add("Ligne médiane"); parole.add("Half-way line");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
+                button_Linea2.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
-        button_att1.setOnClickListener(new View.OnClickListener() {
+        button_Centro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resettaEvidenzia();
                 ArrayList parole = new ArrayList();
-                parole.add("Attaccante"); parole.add("Attaquant"); parole.add("Striker");
+                parole.add("Cerchio di centrocampo"); parole.add("Rond central"); parole.add("Centre circle");
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-
-            }
-        });
-
-        button_att2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                ArrayList parole = new ArrayList();
-                parole.add("Attaccante"); parole.add("Attaquant"); parole.add("Striker");
-                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
-                spinner.setAdapter(adapter);
-                spinner.setSelection(0);
-
-            }
-        });
-
-
-        button_campo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ActivityCampo.class);
-                finish();
-                startActivity(intent);
+                button_Centro.setBackground(getResources().getDrawable(R.drawable.evidenzia_area));
             }
         });
 
@@ -282,18 +252,21 @@ public class ActivityCampoRuoli extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             switch (i){
                                 case 0:
+                                    //Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
                                     textToSpeech.setLanguage(Locale.ITALIAN);
                                     String toSpeakIt = spinner.getSelectedItem().toString();
 
                                     textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
                                     break;
                                 case 1:
+                                    //Toast.makeText(getApplicationContext(), "ENGLISH",Toast.LENGTH_SHORT).show();
                                     textToSpeech.setLanguage(Locale.FRANCE);
                                     String toSpeakFr = spinner.getSelectedItem().toString();
 
                                     textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
                                     break;
                                 case 2:
+                                    //Toast.makeText(getApplicationContext(), "BAGUETA",Toast.LENGTH_SHORT).show();
                                     textToSpeech.setLanguage(Locale.ENGLISH);
                                     String toSpeakEn = spinner.getSelectedItem().toString();
 
@@ -309,5 +282,28 @@ public class ActivityCampoRuoli extends AppCompatActivity {
                 }
             }
         });
+
+        button_Ruoli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ActivityCampoRuoli.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void resettaEvidenzia(){
+        button_Porta1.setBackgroundColor(0x0FFFFFF);
+        button_Porta2.setBackgroundColor(0x0FFFFFF);
+        button_Rigore1.setBackgroundColor(0x0FFFFFF);
+        button_Rigore2.setBackgroundColor(0x0FFFFFF);
+        button_Angolo1.setBackgroundColor(0x0FFFFFF);
+        button_Angolo2.setBackgroundColor(0x0FFFFFF);
+        button_Angolo3.setBackgroundColor(0x0FFFFFF);
+        button_Angolo4.setBackgroundColor(0x0FFFFFF);
+        button_Centro.setBackgroundColor(0x0FFFFFF);
+        button_Linea1.setBackgroundColor(0x0FFFFFF);
+        button_Linea2.setBackgroundColor(0x0FFFFFF);
     }
 }
