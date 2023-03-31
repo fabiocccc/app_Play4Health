@@ -37,6 +37,9 @@
         <activity
             android:name=".AppTravisani.StoryCard"
             android:exported="false" />
+        <activity
+            android:name=".AppTravisani.EpisodiActivity"
+            android:exported="false" />
 
         <!--        Definizione Activity Pavone-->
 
