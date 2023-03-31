@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "11906669751",
+    "project_id": "appplay4health",
+    "storage_bucket": "appplay4health.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11906669751:android:7acbfc8bcd2172d8178132",
+        "android_client_info": {
+          "package_name": "com.example.tesi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11906669751-15nkgdeucoe8jv7v9crms4h2ksvkm81h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tesi",
+            "certificate_hash": "f3718e01dd2c8382681956912c9fb1bc9799ce7b"
+          }
+        },
+        {
+          "client_id": "11906669751-tdo21100u444vg1oq3hp8demhmjaoosu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuvqE77m5SXh5VOk3NTSGJQh3wtVNyPac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11906669751-tdo21100u444vg1oq3hp8demhmjaoosu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
