@@ -50,9 +50,9 @@ public class Home extends AppCompatActivity {
     public void StartStory(View view) {
 
         //aprire Sezione CardView
-//        Intent i = new Intent(getApplicationContext(), StoryCard.class);
-//        startActivity(i);
-//        finish();
+        Intent i = new Intent(getApplicationContext(), StoryCard.class);
+        startActivity(i);
+        finish();
 
     }
 

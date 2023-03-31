@@ -29,7 +29,7 @@
         android:fontFamily="casual"
         android:text="Play4Health"
         android:textAlignment="center"
-        android:textSize="60sp"
+        android:textSize="58sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
