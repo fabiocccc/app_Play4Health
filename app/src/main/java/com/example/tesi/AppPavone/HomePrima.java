@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.tesi.AppTravisani.Home;
 import com.example.tesi.R;
 
 public class HomePrima extends AppCompatActivity {
@@ -160,5 +161,13 @@ public class HomePrima extends AppCompatActivity {
         super.onResume();
 
         aggiornaStelle();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //aprire Home
+        Intent i = new Intent(getApplicationContext(), Home.class);
+        startActivity(i);
+        finish();
     }
 }

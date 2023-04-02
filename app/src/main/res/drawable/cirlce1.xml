@@ -6,12 +6,12 @@
             android:shape="rectangle">
 
             <solid
-                android:color="#c5f2fc"
+                android:color="@color/teal_300"
                 />
 
             <stroke
                 android:width="2dp"
-                android:color="#F44336"
+                android:color="@color/teal_800"
             />
 
             <size

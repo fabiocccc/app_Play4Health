@@ -44,7 +44,8 @@
                 android:textColor="#F0000000"
                 android:textSize="40sp"
                 app:layout_constraintStart_toEndOf="@+id/button_indietro"
-                tools:layout_editor_absoluteY="6dp" />
+                tools:layout_editor_absoluteY="6dp"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -88,7 +89,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="4dp"
         android:foreground="@drawable/audio"
-        android:foregroundTint="#A91F70"
+        android:foregroundTint="@color/verdepistacchio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

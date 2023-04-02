@@ -63,7 +63,8 @@
             <Spinner
                 android:id="@+id/spinner_Corpo"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -75,11 +76,12 @@
         android:layout_marginTop="8dp"
         android:foreground="@drawable/audio"
         android:foregroundGravity="fill_horizontal|clip_horizontal|center|fill_vertical"
-        android:foregroundTint="#A91F70"
+        android:foregroundTint="@color/verdepistacchio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_Parla" />
+        app:layout_constraintTop_toBottomOf="@+id/card_Parla"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <android.widget.Button
         android:id="@+id/button_Parla"
@@ -87,13 +89,14 @@
         android:layout_height="109dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/cirlce1"
-        android:backgroundTint="#03DAC5"
+        android:backgroundTint="@color/teal_800"
         android:foreground="@drawable/mic_off"
         android:foregroundTint="#A91F70"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.798"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_Parla" />
+        app:layout_constraintTop_toBottomOf="@+id/card_Parla"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/TextRiconosciuto"
@@ -158,7 +161,8 @@
                 android:textColor="#F0000000"
                 android:textSize="40sp"
                 app:layout_constraintStart_toEndOf="@+id/button_indietro"
-                tools:layout_editor_absoluteY="6dp" />
+                tools:layout_editor_absoluteY="6dp"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>

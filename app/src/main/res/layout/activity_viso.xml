@@ -42,7 +42,8 @@
                 android:textColor="#F0000000"
                 android:textSize="40sp"
                 app:layout_constraintStart_toEndOf="@+id/button_indietro"
-                tools:layout_editor_absoluteY="6dp" />
+                tools:layout_editor_absoluteY="6dp"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -61,7 +62,8 @@
         <Spinner
             android:id="@+id/spinner_Viso"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.cardview.widget.CardView>
 
@@ -73,7 +75,8 @@
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
             android:layout_width="wrap_content"

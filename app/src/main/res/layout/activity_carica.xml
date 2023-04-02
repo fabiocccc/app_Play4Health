@@ -54,7 +54,8 @@
                 android:textColor="#F0000000"
                 android:textSize="40sp"
                 app:layout_constraintStart_toEndOf="@+id/button_indietro"
-                tools:layout_editor_absoluteY="6dp" />
+                tools:layout_editor_absoluteY="6dp"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -89,7 +90,8 @@
             android:ems="10"
             android:hint="Italiano"
             android:inputType="textPersonName"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +114,8 @@
             android:ems="10"
             android:hint="Francese"
             android:inputType="textPersonName"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +138,8 @@
             android:ems="10"
             android:hint="Inglese"
             android:inputType="textPersonName"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -186,7 +190,8 @@
             android:ems="10"
             android:hint="Es: Parto (Porta)"
             android:inputType="textPersonName"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,7 +214,8 @@
             android:ems="10"
             android:hint="Es: Pala (Palla)"
             android:inputType="textPersonName"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -232,7 +238,8 @@
             android:ems="10"
             android:hint="Es: Magla (Maglia)"
             android:inputType="textPersonName"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,7 +254,8 @@
         android:backgroundTint="@color/teal_200"
         android:foreground="@drawable/galleria"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSug3" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSug3"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <android.widget.Button
         android:id="@+id/button_Salva"

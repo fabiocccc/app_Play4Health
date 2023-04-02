@@ -1,6 +1,7 @@
 package com.example.tesi.AppTravisani;
 
 import android.animation.ArgbEvaluator;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,5 +76,13 @@ public class StoryCard extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //aprire Home
+        Intent i = new Intent(getApplicationContext(), Home.class);
+        startActivity(i);
+        finish();
     }
 }

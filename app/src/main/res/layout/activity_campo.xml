@@ -44,7 +44,8 @@
           android:textColor="#F0000000"
           android:textSize="40sp"
           app:layout_constraintStart_toEndOf="@+id/button_indietro"
-          tools:layout_editor_absoluteY="6dp" />
+          tools:layout_editor_absoluteY="6dp"
+          tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
   </com.google.android.material.appbar.AppBarLayout>

@@ -87,20 +87,90 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/spinner_doppia_scelta.xml" value="0.1" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/spinner_gestione.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/allenati_allenamento.xml" value="0.206" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/animation_pointing.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/audio.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/bg_spinner.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/button_alertvideo_commento.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/button_alertvideo_gesti.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/button_avanti.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/button_cancella.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/button_scrivere_difficile.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/button_viso.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/circle.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/circle_att.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/circle_centr.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/circle_dif.xml" value="0.2205" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/circle_portiere.xml" value="0.206" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/cirlce1.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/drawable_lettera.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/evidenzia_area.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/form_carica.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/galleria.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/home1.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/home2.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/home_ascolta.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_admin_panel_settings_24.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_cancel_presentation_24.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_forward.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_fullscreen.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_fullscreen_exit.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_help_outline_24.xml" value="0.2205" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_lock.xml" value="0.206" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_lock_open.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_pause.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_play_arrow.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_replay.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_sincro_24.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_baseline_video_library_24.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/mic_off.xml" value="0.2205" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/mic_on.xml" value="0.2305" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/round.xml" value="0.206" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/shape.xml" value="0.2185" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/shape_droptarget.xml" value="0.2185" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/tabdialogo.xml" value="0.2185" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/tabdialogoscelto.xml" value="0.2185" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_ascolta.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_campo.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_campo_ruoli.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_carica.xml" value="0.23809523809523808" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_carica_video.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_corpo.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_corpo_scegli.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_dialogo.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_episodi.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_galleria_video.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_gestione_dati.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_home_allenati.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_home_esercitazioni.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_home_prima.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_impara.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_lista_dati.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_mano.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_medico.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_parla.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_scegli.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_scrivere.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_scrivere_difficile.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_story_card.xml" value="0.25" />
-        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/item.xml" value="1.7142857142857142" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_video.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_viso.xml" value="0.20408163265306123" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/alertdialog_card.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/alertdialog_corpo.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/alertdialog_scrivere.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/alertdialog_video.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/custom_controller.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/item.xml" value="0.264" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/lettera.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/linear_ascolta.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/linear_galleria.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/spinner_base.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/spinner_doppia_scelta.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/spinner_gestione.xml" value="0.25" />
       </map>
     </option>
   </component>
