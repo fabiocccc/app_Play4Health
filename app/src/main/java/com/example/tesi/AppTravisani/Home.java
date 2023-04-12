@@ -3,8 +3,10 @@ package com.example.tesi.AppTravisani;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -15,6 +17,10 @@ import com.example.tesi.R;
 public class Home extends AppCompatActivity {
 
     private ImageView ball, book;
+    private FrameLayout button_aiuto;
+    private AnimationDrawable animationDrawable1 = null;
+    private AnimationDrawable animationDrawable2 = null;
+    private ImageView help1, help2;
 
 
     @Override
@@ -24,6 +30,26 @@ public class Home extends AppCompatActivity {
 
         ball = findViewById(R.id.ball);
         book = findViewById(R.id.book);
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+        help2 = findViewById(R.id.help2);
+
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+                help2.setVisibility(View.VISIBLE);
+
+                animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                animationDrawable2 = (AnimationDrawable) help2.getBackground();
+                animationDrawable1.start();
+                animationDrawable2.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
 
         //setta animazione lampeggiante
         //sulla palla

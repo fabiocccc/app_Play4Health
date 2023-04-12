@@ -19,6 +19,7 @@ public class HomePrima extends AppCompatActivity {
     private FrameLayout button_GiocaAllenati;
     private FrameLayout button_AzioniSalienti;
     private FrameLayout button_HomeDati;
+    private FrameLayout button_back;
     private SharedPreferences shared;
     private String stelle1;
     private String stelle2;
@@ -43,6 +44,7 @@ public class HomePrima extends AppCompatActivity {
         button_GiocaImpara = findViewById(R.id.button_GiocaImpara);
         button_GiocaAllenati = findViewById(R.id.button_GiocaAllenati);
         button_AzioniSalienti = findViewById(R.id.button_AzioniSalienti);
+        button_back= findViewById(R.id.button_back);
         stella1_1 = findViewById(R.id.stella1_1);
         stella1_2 = findViewById(R.id.stella1_2);
         stella1_3 = findViewById(R.id.stella1_3);
@@ -62,6 +64,13 @@ public class HomePrima extends AppCompatActivity {
         aggiornaStelle();
 
 
+
+        button_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         button_HomeDati.setOnClickListener(new View.OnClickListener() {
             @Override

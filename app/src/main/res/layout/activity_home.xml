@@ -7,6 +7,29 @@
     android:layout_height="match_parent"
     android:background="@drawable/campo2">
 
+    <FrameLayout
+        android:id="@+id/button_aiuto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        android:backgroundTint="@color/white"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/help1"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="40"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/ball"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
 
     <ImageView
         android:id="@+id/ball"
@@ -22,6 +45,22 @@
         app:layout_constraintVertical_bias="0.16"
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
+
+    <ImageView
+        android:id="@+id/help2"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="40"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <ImageView
         android:id="@+id/book"
         android:layout_width="167dp"
@@ -33,7 +72,7 @@
         app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.731"
+        app:layout_constraintVertical_bias="0.735"
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
 
