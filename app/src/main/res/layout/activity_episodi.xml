@@ -8,16 +8,18 @@
     android:background="@drawable/bg_episodi"
     tools:context=".AppTravisani.EpisodiActivity">
 
+    <include layout="@layout/toolbar"/>
+
     <TextView
         android:id="@+id/titoloEpisodi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
         android:text="EPISODI"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp"/>
+        android:textStyle="bold" />
 
     <GridLayout
         android:layout_width="match_parent"
