@@ -7,10 +7,12 @@
     android:layout_height="match_parent"
     tools:context="AppTravisani.StoryCard">
 
+    <include layout="@layout/toolbar"/>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:layout_centerInParent="true"
         android:clipToPadding="false"
         android:foregroundGravity="center"

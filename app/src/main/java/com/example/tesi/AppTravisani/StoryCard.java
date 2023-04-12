@@ -3,11 +3,17 @@ package com.example.tesi.AppTravisani;
 import android.animation.ArgbEvaluator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.tesi.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +26,28 @@ public class StoryCard extends AppCompatActivity {
     Integer[] colors = null;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator(); //animazione
 
+    ImageView backIcon;
+    ImageView badgeIcon;
+    TextView title_toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_card);
+
+        backIcon = findViewById(R.id.back_icon);
+        badgeIcon = findViewById(R.id.badge_icon);
+        title_toolbar= findViewById(R.id.toolbar_title);
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        badgeIcon.setVisibility(View.INVISIBLE);
+        title_toolbar.setText("Storie");
 
         models = new ArrayList<>();
         models.add(new Model(R.drawable.storyportiere, "STORIA 1", "TED IL PORTIERE"));

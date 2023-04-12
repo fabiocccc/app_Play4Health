@@ -19,7 +19,8 @@
         android:text="EPISODI"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="invisible"/>
 
     <GridLayout
         android:layout_width="match_parent"
