@@ -224,12 +224,12 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
 
     private void deleseziona(){
         textMedico.setText((String) domande.get(dialogoScelto).get(0));
-        button_risp1.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_risp2.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_risp3.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_risp4.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_risp5.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_risp6.setBackgroundColor(Color.parseColor("#80dfff"));
+        button_risp1.setBackgroundColor(Color.parseColor("#ffffff"));
+        button_risp2.setBackgroundColor(Color.parseColor("#ffffff"));
+        button_risp3.setBackgroundColor(Color.parseColor("#ffffff"));
+        button_risp4.setBackgroundColor(Color.parseColor("#ffffff"));
+        button_risp5.setBackgroundColor(Color.parseColor("#ffffff"));
+        button_risp6.setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
     @Override

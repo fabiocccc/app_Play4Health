@@ -23,15 +23,15 @@
 
             <FrameLayout
                 android:id="@+id/button_indietro"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/button_cancella"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/ic_baseline_arrow_back_ios_24"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.578" />
 
             <TextView
                 android:id="@+id/textView"
@@ -41,7 +41,7 @@
                 android:autoSizeTextType="uniform"
                 android:paddingTop="3dp"
                 android:text="Ascolta"
-                android:textColor="#F0000000"
+                android:textColor="#FFFFFF"
                 app:layout_constraintStart_toEndOf="@+id/button_indietro"
                 tools:layout_editor_absoluteY="6dp"
                 tools:ignore="MissingConstraints" />
@@ -55,7 +55,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_baseline_help_outline_24"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/teal_800"
         android:visibility="visible"
 
         app:layout_constraintEnd_toEndOf="parent"

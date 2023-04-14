@@ -95,12 +95,12 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
         ita.setVisibility(View.VISIBLE);
         fra.setVisibility(View.VISIBLE);
         eng.setVisibility(View.VISIBLE);
-        button_letto.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_freddo.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_sci.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_zuccheri.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_pomata.setBackgroundColor(Color.parseColor("#80dfff"));
-        button_compresse.setBackgroundColor(Color.parseColor("#80dfff"));
+        button_letto.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        button_freddo.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        button_sci.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        button_zuccheri.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        button_pomata.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        button_compresse.setBackgroundColor(Color.parseColor("#FFFFFF"));
     }
 
     private void riproduci(){
