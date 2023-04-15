@@ -6,11 +6,11 @@
 >
 
             <solid
-                android:color="#b3ffff"/>
+                android:color="#D7FFA7"/>
 
             <stroke
                 android:width="3dp"
-                android:color="#80ffff"
+                android:color="@color/teal_100"
             />
 
             <size

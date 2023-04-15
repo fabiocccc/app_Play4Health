@@ -92,6 +92,7 @@
         android:background="@drawable/button_avanti"
         android:paddingLeft="15dp"
         android:text="Carica dati"
+        android:textColor="@color/white"
         android:textAlignment="viewStart"
         android:textSize="19dp"
         android:visibility="visible"

@@ -322,7 +322,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
     @Override
     public void onEndOfSpeech() {
-        button_Parla.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#A91F70")));
+        button_Parla.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#93C572")));
     }
 
     @Override

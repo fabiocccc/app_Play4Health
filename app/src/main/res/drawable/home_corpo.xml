@@ -10,7 +10,7 @@
 
             <stroke
                 android:width="3dp"
-                android:color="#ffe066"
+                android:color="@color/teal_100"
             />
 
             <size

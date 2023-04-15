@@ -229,6 +229,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_avanti"
         android:text="Avanti"
+        android:textColor="@color/white"
         android:textAlignment="viewStart"
         android:paddingLeft="15dp"
         android:textSize="24dp"

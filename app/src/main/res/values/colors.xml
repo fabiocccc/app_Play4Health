@@ -14,8 +14,13 @@
 
     <color name="teal_100">#D7FFA7</color>
     <color name="teal_300">	#ADDFAD</color>
+    <color name="teal_1000">#D1E231</color>
+    <color name="teal_900">#B5D01F</color>
     <color name="verdepistacchio">#93C572</color>
     <color name="teal_400">#66FF00</color>
+
+
+
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="teal_800">#0d730d</color>
