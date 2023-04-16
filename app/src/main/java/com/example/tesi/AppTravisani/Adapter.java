@@ -67,7 +67,7 @@ public class Adapter extends PagerAdapter {
                 // al click sulla card apre la pagina corretta
                 switch (position + 1){
                     case 1:
-                        i = new Intent(context, EpisodiActivity.class);
+                        i = new Intent(context, PassiP1Activity.class);
                         context.startActivity(i);
                         break;
                     case 2:

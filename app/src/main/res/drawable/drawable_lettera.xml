@@ -19,7 +19,7 @@
                 android:height="45dp"/>
 
             <corners
-                android:radius="1sp"/>
+                android:radius="50sp"/>
         </shape>
     </item>
 </layer-list>

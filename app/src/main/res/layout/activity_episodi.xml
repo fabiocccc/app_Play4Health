@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_episodi"
-    tools:context=".AppTravisani.EpisodiActivity">
+    tools:context=".AppTravisani.PassiP1Activity">
 
     <include layout="@layout/toolbar" />
 
@@ -35,6 +35,7 @@
 
         <!--        card episodio1-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardPasso1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -62,7 +63,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="EPISODIO 1"
+                    android:text="PASSO 1"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -74,6 +75,7 @@
 
         <!--        card episodio2-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardPasso2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -101,7 +103,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="EPISODIO 2"
+                    android:text="PASSO 2"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -112,6 +114,7 @@
 
         <!--        card episodio3-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardPasso3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="1"
@@ -138,7 +141,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="EPISODIO 3"
+                    android:text="PASSO 3"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -149,6 +152,7 @@
 
         <!--        card episodio4-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardPasso4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="1"
@@ -175,7 +179,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="EPISODIO 4"
+                    android:text="PASSO 4"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -186,6 +190,7 @@
 
         <!--        card episodio5-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardPasso5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="2"
@@ -212,7 +217,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="EPISODIO 5"
+                    android:text="PASSO 5"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -223,6 +228,7 @@
 
         <!--        card episodio6-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardPasso6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="2"
@@ -249,7 +255,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="EPISODIO 6"
+                    android:text="PASSO 6"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
