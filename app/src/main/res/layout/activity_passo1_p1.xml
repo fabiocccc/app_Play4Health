@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewBenvenuto"
+        android:id="@+id/cardViewMedico"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
@@ -56,7 +56,7 @@
         android:layout_height="125dp"
         android:visibility="visible"
         android:layout_marginTop="25dp"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewBenvenuto">
+        app:layout_constraintTop_toBottomOf="@+id/cardViewMedico">
 
         <LinearLayout
             android:id="@+id/Linearlayout"

@@ -12,49 +12,51 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.example.tesi.AppTravisani.Home;
 import com.example.tesi.R;
 
-public class Passo1P1 extends AppCompatActivity {
+public class Passo3P1 extends AppCompatActivity {
 
     private FrameLayout btn_pause, btn_ripeti;
-    private String urlVoice;
     private MediaPlayer player;
-    private RelativeLayout layoutrisp;
     private Dialog dialog; //finestra di dialogo
+    private GridLayout layoutRispMedico;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo1_p1);
+        setContentView(R.layout.activity_passo3_p1);
         btn_pause = findViewById(R.id.button_pause);
-        layoutrisp = findViewById(R.id.LayoutRisposta);
+        btn_ripeti = findViewById(R.id.button_ripeti);
+        layoutRispMedico = findViewById(R.id.RispMedico);
 
         dialog= new Dialog(this);
 
+//        layoutRispMedico.setVisibility(View.VISIBLE);
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-              //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
             }
         });
 
-
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenvenuto.mp3?alt=media&token=822072f9-ac1d-4b87-8007-c39bbe5a33c7";
-        playsound(urlVoice);
-
+        btn_ripeti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String urlVoice3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FQuante%20ore%20dormi%20.mp3?alt=media&token=5b711682-931c-4f00-94e3-432fc3a72b30";
+                playsound(urlVoice3);
+            }
+        });
 
     }
-
-
 
     private void playsound(String urlVoice)  {
 
@@ -64,7 +66,7 @@ public class Passo1P1 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
-                    layoutrisp.setVisibility(View.VISIBLE);
+//                    layoutRispMedico.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -80,17 +82,6 @@ public class Passo1P1 extends AppCompatActivity {
             player = null;
             // Toast.makeText(context, "MediaPlayer releases", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void manoOk(View view) {
-
-        Intent i = new Intent(getApplicationContext(), Passo2P1.class);
-        startActivity(i);
-        finish();
-    }
-
-    public void ripeti(View view) {
-        playsound(urlVoice);
     }
 
     private void openCustomWindow() {
@@ -129,10 +120,4 @@ public class Passo1P1 extends AppCompatActivity {
 
         dialog.show();
     }
-
-
-
-
-
-
 }
