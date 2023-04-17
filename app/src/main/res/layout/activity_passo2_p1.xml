@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AppTravisani.P1Passi.Passo2P1"
-    android:background="@drawable/medico">
+    android:background="@drawable/dottore1">
 
     <FrameLayout
         android:id="@+id/button_pause"
