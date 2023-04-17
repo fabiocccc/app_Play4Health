@@ -12,34 +12,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import com.example.tesi.AppTravisani.Home;
 import com.example.tesi.R;
 
-public class Passo3P1 extends AppCompatActivity {
-
+public class Passo4P1 extends AppCompatActivity {
     private FrameLayout btn_pause, btn_ripeti;
-    private MediaPlayer player;
     private Dialog dialog; //finestra di dialogo
-    private ImageView ore5, ore7;
-    private Button btn_gioca;
-
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo3_p1);
+        setContentView(R.layout.activity_passo4_p1);
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
-        btn_gioca = findViewById(R.id.btnGioca);
-
-        ore5 = findViewById(R.id.ore5);
-        ore7 = findViewById(R.id.ore7);
-
 
         dialog= new Dialog(this);
+
+        String urlVoice3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FHai%20superato%20il%20primo%20percorso.mp3?alt=media&token=2bc4cf79-90db-43de-9bad-787c56d73bf2";
+        playsound(urlVoice3);
+
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,37 +48,11 @@ public class Passo3P1 extends AppCompatActivity {
         btn_ripeti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String urlVoice3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FQuante%20ore%20dormi%20.mp3?alt=media&token=5b711682-931c-4f00-94e3-432fc3a72b30";
+                String urlVoice3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FHai%20superato%20il%20primo%20percorso.mp3?alt=media&token=2bc4cf79-90db-43de-9bad-787c56d73bf2";
                 playsound(urlVoice3);
             }
         });
 
-        ore5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDormi%20poco.mp3?alt=media&token=120a69e4-232d-485a-b31e-50ea5a46180b" ;
-                playsound(urlVoiceRisp);
-                btn_gioca.setVisibility(View.VISIBLE);
-            }
-        });
-
-        ore7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenissimo%20sei%20in%20forma.mp3?alt=media&token=aebe1192-7523-4236-86e2-5eb801de2c07" ;
-                playsound(urlVoiceRisp);
-                btn_gioca.setVisibility(View.VISIBLE);
-            }
-        });
-
-        btn_gioca.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Passo4P1.class);
-                startActivity(i);
-                finish();
-            }
-        });
 
 
     }
@@ -97,7 +65,6 @@ public class Passo3P1 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
-//                    layoutRispMedico.setVisibility(View.VISIBLE);
                 }
             });
         }

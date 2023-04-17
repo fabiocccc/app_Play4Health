@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tesi">
         <activity
+            android:name=".AppTravisani.P1Passi.Passo4P1"
+            android:exported="false" />
+        <activity
             android:name=".AppTravisani.P1Passi.Passo3P1"
             android:exported="false" />
         <activity

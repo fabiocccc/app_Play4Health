@@ -65,7 +65,7 @@ public class Passo2P1 extends AppCompatActivity {
             public void onClick(View v) {
 
               String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMale%20non%20mangi%20sano%20.mp3?alt=media&token=e84fd4fb-25ff-454e-8523-693fbc99456a" ;
-                playsound(urlVoiceRisp, 1);
+              playsound(urlVoiceRisp, 1);
 
             }
         });
