@@ -37,7 +37,7 @@ public class PassiP1Activity extends AppCompatActivity {
 
         backIcon = findViewById(R.id.back_icon);
         badgeIcon = findViewById(R.id.badge_icon);
-
+        badgeIcon.setVisibility(View.INVISIBLE);
 
         //flag per capire se ha fatto già tutti i passi del primo percorso
         int flag = getIntent().getExtras().getInt("flagDo");
@@ -59,17 +59,7 @@ public class PassiP1Activity extends AppCompatActivity {
             }
         });
 
-        badgeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "Si aprirà la sezione dei badge", Toast.LENGTH_SHORT).show();
-                //Aprire activity con la lista dei premi
-                Intent i = new Intent(getApplicationContext(), ListaPremi.class);
-                startActivity(i);
-                finish();
 
-            }
-        });
 
 
        ///PASSO 1 PERCORSO 1

@@ -47,6 +47,7 @@ public class Passo4P1 extends AppCompatActivity {
             public void onClick(View v) {
                 //programmare popup fine percorso con custom dialog
                 openCustomWindow();
+
                 //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
             }
@@ -111,6 +112,8 @@ public class Passo4P1 extends AppCompatActivity {
     }
 
     private void openCustomWindow() {
+
+        stopPlayer();
 
         dialog.setContentView(R.layout.pausa_dialoglayout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

@@ -23,7 +23,7 @@ import com.example.tesi.R;
 
 public class Passo1P1 extends AppCompatActivity {
 
-    private FrameLayout btn_pause;
+    private FrameLayout btn_pause, btn_ripeti;
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
@@ -41,6 +41,7 @@ public class Passo1P1 extends AppCompatActivity {
         setContentView(R.layout.activity_passo1_p1);
         btn_pause = findViewById(R.id.button_pause);
         button_aiuto = findViewById(R.id.button_aiuto);
+        btn_ripeti = findViewById(R.id.button_ripeti);
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
         layoutrisp1 = findViewById(R.id.RispMedico1);
@@ -57,6 +58,14 @@ public class Passo1P1 extends AppCompatActivity {
                 openCustomWindow();
               //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        btn_ripeti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                playsound(urlVoice);
             }
         });
 

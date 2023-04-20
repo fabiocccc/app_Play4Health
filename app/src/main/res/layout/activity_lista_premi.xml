@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/verdepistacchio"
     tools:context=".AppTravisani.ListaPremi">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/included"
+        layout="@layout/toolbar" />
 
     <ListView
         android:id="@+id/PremiListView"
+        android:layout_below="@+id/included"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/teal_800"
         android:dividerHeight="2dp"
         android:listSelector="@color/teal_400"
-        android:layout_marginTop="74dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

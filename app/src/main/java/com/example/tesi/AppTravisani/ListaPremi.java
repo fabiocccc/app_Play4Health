@@ -2,6 +2,7 @@ package com.example.tesi.AppTravisani;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tesi.AppTravisani.P1Passi.Passo1P1;
 import com.example.tesi.R;
 
 public class ListaPremi extends AppCompatActivity {
@@ -37,7 +39,10 @@ public class ListaPremi extends AppCompatActivity {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+
+                Intent i = new Intent(getApplicationContext(), StoryCard.class);
+                startActivity(i);
+                finish();
             }
         });
 
