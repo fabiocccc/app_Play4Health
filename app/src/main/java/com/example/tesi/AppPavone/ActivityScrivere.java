@@ -108,10 +108,10 @@ public class ActivityScrivere extends AppCompatActivity {
 
         errori = 0;
 
-        button_Risp1.setBackgroundColor(Color.parseColor("#ffff66"));
-        button_Risp2.setBackgroundColor(Color.parseColor("#ffff66"));
-        button_Risp3.setBackgroundColor(Color.parseColor("#ffff66"));
-        button_Risp4.setBackgroundColor(Color.parseColor("#ffff66"));
+        button_Risp1.setBackgroundColor(Color.parseColor("#93C572"));
+        button_Risp2.setBackgroundColor(Color.parseColor("#93C572"));
+        button_Risp3.setBackgroundColor(Color.parseColor("#93C572"));
+        button_Risp4.setBackgroundColor(Color.parseColor("#93C572"));
         button_avanti.setVisibility(View.GONE);
 
         button_avanti.setOnClickListener(new View.OnClickListener() {

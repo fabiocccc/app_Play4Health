@@ -302,7 +302,5 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
     }
 }

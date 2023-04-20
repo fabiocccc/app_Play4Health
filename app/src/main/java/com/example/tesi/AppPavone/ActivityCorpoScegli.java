@@ -109,8 +109,8 @@ public class ActivityCorpoScegli extends AppCompatActivity {
         esito1.setVisibility(View.GONE);
         esito1.clearAnimation();
 
-        button_Risp1.setBackgroundColor(Color.parseColor("#ffff66"));
-        button_Risp2.setBackgroundColor(Color.parseColor("#ffff66"));
+        button_Risp1.setBackgroundColor(Color.parseColor("#93C572"));
+        button_Risp2.setBackgroundColor(Color.parseColor("#93C572"));
 
         button_avanti.setVisibility(View.GONE);
         button_avanti.setOnClickListener(new View.OnClickListener() {
