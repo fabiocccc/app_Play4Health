@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -24,6 +25,10 @@ public class Passo2P1 extends AppCompatActivity {
     private MediaPlayer player;
     private GridLayout layoutRispMedico,layoutRispMedico2 ;
     private FrameLayout btn_pause, btn_ripeti;
+    private ImageView help1, help2;
+    private FrameLayout button_aiuto;
+    private AnimationDrawable animationDrawable1 = null;
+    private AnimationDrawable animationDrawable2 = null;
     private Dialog dialog; //finestra di dialogo
     private String urlVoice2;
     private ImageView dolci, carne;
@@ -37,6 +42,9 @@ public class Passo2P1 extends AppCompatActivity {
         carne= findViewById(R.id.carne);
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+        help2 = findViewById(R.id.help2);
         layoutRispMedico = findViewById(R.id.RispMedico);
         layoutRispMedico2 = findViewById(R.id.RispMedico3);
         rispDolcicard = findViewById(R.id.cardDolci);
@@ -60,6 +68,23 @@ public class Passo2P1 extends AppCompatActivity {
             public void onClick(View v) {
 
                 playsound(urlVoice2);
+            }
+        });
+
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+                help2.setVisibility(View.VISIBLE);
+
+                animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                animationDrawable2 = (AnimationDrawable) help2.getBackground();
+                animationDrawable1.start();
+                animationDrawable2.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
             }
         });
 
@@ -99,6 +124,7 @@ public class Passo2P1 extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
                     layoutRispMedico.setVisibility(View.VISIBLE);
+                    button_aiuto.setVisibility(View.VISIBLE);
 
                 }
             });

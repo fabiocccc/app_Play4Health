@@ -86,6 +86,7 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/spinner_doppiaScelta.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/spinner_doppia_scelta.xml" value="0.1" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Tesi/app/src/main/res/layout/spinner_gestione.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/travi/.gradle/caches/transforms-3/9cf75723e7a24037f149255e6e674b8c/transformed/exoplayer-ui-2.15.0/res/drawable-anydpi-v21/exo_ic_rewind.xml" value="0.2455" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/allenati_allenamento.xml" value="0.206" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/allenati_corpo.xml" value="0.2235" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/drawable/allenati_dialogo.xml" value="0.2235" />
@@ -164,6 +165,7 @@
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_home_prima.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_impara.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_lista_dati.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_lista_premi.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_mano.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_medico.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/activity_parla.xml" value="0.25" />
@@ -184,6 +186,7 @@
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/alertdialog_scrivere.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/alertdialog_video.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/custom_controller.xml" value="0.25" />
+        <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/custom_list_view.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/fine_livellolayout.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/finepisodio_dialoglayout.xml" value="0.25" />
         <entry key="..\:/Users/travi/OneDrive/Desktop/App_Play4Health forked/app_Play4Health/app/src/main/res/layout/item.xml" value="0.264" />

@@ -1,6 +1,7 @@
 package com.example.tesi.AppTravisani.P1Passi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -29,7 +30,12 @@ public class Passo3P1 extends AppCompatActivity {
     private Dialog dialog; //finestra di dialogo
     private ImageView ore5, ore7;
     private Button btn_gioca;
+    private ImageView help1, help2;
+    private FrameLayout button_aiuto;
+    private AnimationDrawable animationDrawable1 = null;
+    private AnimationDrawable animationDrawable2 = null;
     private GridLayout layoutrisp3;
+    private CardView risp5orecard, risp7orecard;
 
 
     @Override
@@ -39,7 +45,12 @@ public class Passo3P1 extends AppCompatActivity {
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
         btn_gioca = findViewById(R.id.btnGioca);
+        button_aiuto = findViewById(R.id.button_aiuto);
+        help1 = findViewById(R.id.help1);
+        help2 = findViewById(R.id.help2);
         layoutrisp3 = findViewById(R.id.RispMedico3);
+        risp5orecard = findViewById(R.id.card5ore);
+        risp7orecard = findViewById(R.id.card7ore);
 
         ore5 = findViewById(R.id.ore5);
         ore7 = findViewById(R.id.ore7);
@@ -77,9 +88,27 @@ public class Passo3P1 extends AppCompatActivity {
             }
         });
 
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+                help2.setVisibility(View.VISIBLE);
+
+                animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                animationDrawable2 = (AnimationDrawable) help2.getBackground();
+                animationDrawable1.start();
+                animationDrawable2.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
+
         ore5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                risp5orecard.setBackgroundColor(Color.RED);
                 String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDormi%20poco.mp3?alt=media&token=120a69e4-232d-485a-b31e-50ea5a46180b" ;
                 playsound(urlVoiceRisp, 1);
             }
@@ -88,6 +117,7 @@ public class Passo3P1 extends AppCompatActivity {
         ore7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                risp7orecard.setBackgroundColor(Color.GREEN);
                 String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenissimo%20sei%20in%20forma.mp3?alt=media&token=aebe1192-7523-4236-86e2-5eb801de2c07" ;
                 playsound(urlVoiceRisp, 1);
 
@@ -127,10 +157,13 @@ public class Passo3P1 extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
                     layoutrisp3.setVisibility(View.VISIBLE);
+                    button_aiuto.setVisibility(View.VISIBLE);
 
                     if(flag == 1)
                     {
                         active_btngioco();
+                        button_aiuto.setVisibility(View.GONE);
+
                     }
                 }
             });

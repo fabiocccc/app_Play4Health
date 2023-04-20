@@ -22,6 +22,20 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <FrameLayout
+        android:id="@+id/button_aiuto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="364dp"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        android:backgroundTint="@color/teal_800"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_pause"
+        app:layout_constraintVertical_bias="0.996"
+        tools:ignore="MissingConstraints" />
+
+    <FrameLayout
         android:id="@+id/button_ripeti"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -35,6 +49,37 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/help1"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="40"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/help2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/RispMedico"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/help2"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="220"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/RispMedico"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewMedico"
+        tools:ignore="MissingConstraints" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewMedico"
