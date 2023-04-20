@@ -80,9 +80,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewMedico">
 
-        <!--        card episodio1-->
+        <!--        card dolci-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardPasso1"
+            android:id="@+id/cardDolci"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -120,9 +120,9 @@
         </androidx.cardview.widget.CardView>
 
 
-        <!--        card episodio2-->
+        <!--        card carne-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardPasso2"
+            android:id="@+id/cardCarne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"

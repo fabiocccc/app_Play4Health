@@ -50,7 +50,7 @@ public class StoryCard extends AppCompatActivity {
         title_toolbar.setText("La Storia");
 
         models = new ArrayList<>();
-        models.add(new Model(R.drawable.storyportiere, "PERCORSO 1", "TED IL PORTIERE"));
+        models.add(new Model(R.drawable.image_medico_colorato, "PERCORSO 1", "VISITA MEDICA"));
         models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 2", "titolo 2"));
         models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 3", "titolo 3"));
         models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 4", "titolo 4"));

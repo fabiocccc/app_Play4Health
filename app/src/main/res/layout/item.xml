@@ -18,35 +18,33 @@
 
             <ImageView
                 android:id="@+id/image"
-                android:src="@drawable/storyportiere"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"/>
+                android:layout_height="220dp"
+                android:src="@drawable/image_medico_colorato" />
 
             <TextView
                 android:id="@+id/title"
-                android:textColor="#262626"
-                android:layout_below="@id/image"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="16dp"
-                android:text="STORIA 1"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:text="PERCORSO 1"
+                android:textColor="#262626"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/desc"
-                android:layout_below="@id/title"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:maxLines="3"
-                android:drawablePadding="10dp"
-                android:ellipsize="end"
-                android:text="TED IL PORTIERE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_below="@id/title"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="16dp"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="LA VISITA MEDICA" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

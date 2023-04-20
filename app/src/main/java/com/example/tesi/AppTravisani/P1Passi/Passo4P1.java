@@ -13,14 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppTravisani.Home;
+import com.example.tesi.AppTravisani.PassiP1Activity;
 import com.example.tesi.R;
 
 public class Passo4P1 extends AppCompatActivity {
     private FrameLayout btn_pause, btn_ripeti;
-    private Dialog dialog; //finestra di dialogo
+    private Dialog dialog, findialog; //finestra di dialogo
     private MediaPlayer player;
+    private ImageView premio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +33,10 @@ public class Passo4P1 extends AppCompatActivity {
         setContentView(R.layout.activity_passo4_p1);
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
+        premio = findViewById(R.id.imagePremio);
 
         dialog= new Dialog(this);
+        findialog = new Dialog(this);
 
         String urlVoice3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FHai%20superato%20il%20primo%20percorso.mp3?alt=media&token=2bc4cf79-90db-43de-9bad-787c56d73bf2";
         playsound(urlVoice3);
@@ -53,6 +60,13 @@ public class Passo4P1 extends AppCompatActivity {
             }
         });
 
+        premio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopUPFinePercorso();
+            }
+        });
+
 
 
     }
@@ -64,12 +78,26 @@ public class Passo4P1 extends AppCompatActivity {
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
+
                     stopPlayer();
+                    active_premio();
                 }
             });
         }
 
         player.start();
+
+    }
+
+    private void active_premio() {
+
+        premio.setVisibility(View.VISIBLE);
+        //setta animazione lampeggiante
+        //sul pulsante gioca
+        YoYo.with(Techniques.Pulse)
+                .duration(700)
+                .repeat(10)
+                .playOn(premio);
 
     }
 
@@ -117,5 +145,54 @@ public class Passo4P1 extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+    private void PopUPFinePercorso() {
+
+        findialog.setContentView(R.layout.fine_livellolayout);
+        findialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView imageViewClose = findialog.findViewById(R.id.ClosPoPUp);
+        Button btnRipetiLivello = findialog.findViewById(R.id.btnRipetiLivello);
+        Button btnAvanti = findialog.findViewById(R.id.btnAvanti);
+        TextView popUpTitle = findialog.findViewById(R.id.titlePoPUP);
+        TextView popUpMessage = findialog.findViewById(R.id.MessagePopUP);
+
+        popUpTitle.setText("Hai superato il percorso 1");
+        popUpMessage.setText("Hai guadagnato 1 stella");
+
+
+        imageViewClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findialog.dismiss();
+                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
+                i.putExtra("flagDo",4);
+                startActivity(i);
+                finish();
+            }
+        });
+
+
+        btnRipetiLivello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findialog.dismiss();
+                Intent i = new Intent(getApplicationContext(), Passo1P1.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        btnAvanti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                findialog.dismiss();
+
+                //continua con il percorso 2
+            }
+        });
+
+        findialog.show();
     }
 }

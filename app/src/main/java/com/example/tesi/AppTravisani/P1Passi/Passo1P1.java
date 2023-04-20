@@ -95,6 +95,8 @@ public class Passo1P1 extends AppCompatActivity {
 
     private void openCustomWindow() {
 
+        stopPlayer();
+
         dialog.setContentView(R.layout.pausa_dialoglayout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 

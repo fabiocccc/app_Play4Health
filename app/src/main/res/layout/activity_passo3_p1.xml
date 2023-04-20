@@ -67,11 +67,11 @@
 
 
     <GridLayout
-        android:id="@+id/RispMedico2"
+        android:id="@+id/RispMedico3"
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_below="@id/cardViewMedico"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:columnCount="2"
         android:rowCount="3"
         android:layout_marginTop="20dp"
@@ -81,7 +81,7 @@
 
         <!--        card episodio1-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardPasso1"
+            android:id="@+id/cardDolci"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -121,7 +121,7 @@
 
         <!--        card episodio2-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardPasso2"
+            android:id="@+id/cardCarne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -176,7 +176,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RispMedico2" />
+        app:layout_constraintTop_toBottomOf="@+id/RispMedico3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

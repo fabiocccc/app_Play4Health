@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,7 +15,10 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppTravisani.Home;
 import com.example.tesi.R;
 
@@ -25,6 +29,7 @@ public class Passo3P1 extends AppCompatActivity {
     private Dialog dialog; //finestra di dialogo
     private ImageView ore5, ore7;
     private Button btn_gioca;
+    private GridLayout layoutrisp3;
 
 
     @Override
@@ -34,9 +39,26 @@ public class Passo3P1 extends AppCompatActivity {
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
         btn_gioca = findViewById(R.id.btnGioca);
+        layoutrisp3 = findViewById(R.id.RispMedico3);
 
         ore5 = findViewById(R.id.ore5);
         ore7 = findViewById(R.id.ore7);
+
+        //flag per capire se ha cliccato dolci-1 o carne-2
+        int flag = getIntent().getExtras().getInt("flag");
+
+        String urlVoiceRisp;
+
+        if (flag == 1)
+        {
+               //ha cliccato dolci
+               urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMale%20non%20mangi%20sano%20.mp3?alt=media&token=e84fd4fb-25ff-454e-8523-693fbc99456a" ;
+               playsound(urlVoiceRisp, 0);
+        }else
+        {      //ha cliccato carne
+               urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBene%20mangi%20sano.mp3?alt=media&token=2788805f-8e39-4573-815d-ccd6bae89224";
+               playsound(urlVoiceRisp, 0);
+        }
 
 
         dialog= new Dialog(this);
@@ -44,18 +66,14 @@ public class Passo3P1 extends AppCompatActivity {
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
-
             }
         });
 
         btn_ripeti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String urlVoice3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FQuante%20ore%20dormi%20.mp3?alt=media&token=5b711682-931c-4f00-94e3-432fc3a72b30";
-                playsound(urlVoice3);
+                playsound(urlVoiceRisp, 0);
             }
         });
 
@@ -63,8 +81,7 @@ public class Passo3P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDormi%20poco.mp3?alt=media&token=120a69e4-232d-485a-b31e-50ea5a46180b" ;
-                playsound(urlVoiceRisp);
-                btn_gioca.setVisibility(View.VISIBLE);
+                playsound(urlVoiceRisp, 1);
             }
         });
 
@@ -72,8 +89,8 @@ public class Passo3P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenissimo%20sei%20in%20forma.mp3?alt=media&token=aebe1192-7523-4236-86e2-5eb801de2c07" ;
-                playsound(urlVoiceRisp);
-                btn_gioca.setVisibility(View.VISIBLE);
+                playsound(urlVoiceRisp, 1);
+
             }
         });
 
@@ -89,7 +106,19 @@ public class Passo3P1 extends AppCompatActivity {
 
     }
 
-    private void playsound(String urlVoice)  {
+    private void active_btngioco() {
+
+        btn_gioca.setVisibility(View.VISIBLE);
+        //setta animazione lampeggiante
+        //sul pulsante gioca
+        YoYo.with(Techniques.Pulse)
+                .duration(700)
+                .repeat(10)
+                .playOn(btn_gioca);
+
+    }
+
+    private void playsound(String urlVoice, int flag)  {
 
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), Uri.parse(urlVoice)) ;
@@ -97,7 +126,12 @@ public class Passo3P1 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
-//                    layoutRispMedico.setVisibility(View.VISIBLE);
+                    layoutrisp3.setVisibility(View.VISIBLE);
+
+                    if(flag == 1)
+                    {
+                        active_btngioco();
+                    }
                 }
             });
         }
@@ -116,6 +150,8 @@ public class Passo3P1 extends AppCompatActivity {
     }
 
     private void openCustomWindow() {
+
+        stopPlayer();
 
         dialog.setContentView(R.layout.pausa_dialoglayout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -151,4 +187,8 @@ public class Passo3P1 extends AppCompatActivity {
 
         dialog.show();
     }
+
+
+
+
 }

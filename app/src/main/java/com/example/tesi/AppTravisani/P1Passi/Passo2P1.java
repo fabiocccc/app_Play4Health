@@ -1,6 +1,7 @@
 package com.example.tesi.AppTravisani.P1Passi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -26,6 +27,7 @@ public class Passo2P1 extends AppCompatActivity {
     private Dialog dialog; //finestra di dialogo
     private String urlVoice2;
     private ImageView dolci, carne;
+    private CardView rispDolcicard, rispCarnecard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +38,20 @@ public class Passo2P1 extends AppCompatActivity {
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
         layoutRispMedico = findViewById(R.id.RispMedico);
-        layoutRispMedico2 = findViewById(R.id.RispMedico2);
+        layoutRispMedico2 = findViewById(R.id.RispMedico3);
+        rispDolcicard = findViewById(R.id.cardDolci);
+        rispCarnecard = findViewById(R.id.cardCarne);
+
         dialog= new Dialog(this);
 
         urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20dolci%20o%20carne.mp3?alt=media&token=7a74e88b-4d4c-4d4c-b672-2be292f3bc30";
-        playsound(urlVoice2, 0);
+        playsound(urlVoice2);
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -56,7 +59,7 @@ public class Passo2P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                playsound(urlVoice2,0);
+                playsound(urlVoice2);
             }
         });
 
@@ -64,8 +67,11 @@ public class Passo2P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-              String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMale%20non%20mangi%20sano%20.mp3?alt=media&token=e84fd4fb-25ff-454e-8523-693fbc99456a" ;
-              playsound(urlVoiceRisp, 1);
+                rispDolcicard.setBackgroundColor(Color.RED);
+                Intent i = new Intent(getApplicationContext(), Passo3P1.class);
+                i.putExtra("flag",1);
+                startActivity(i);
+                finish();
 
             }
         });
@@ -73,16 +79,18 @@ public class Passo2P1 extends AppCompatActivity {
         carne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBene%20mangi%20sano.mp3?alt=media&token=2788805f-8e39-4573-815d-ccd6bae89224";
-                playsound(urlVoiceRisp, 1);
-
+                rispCarnecard.setBackgroundColor(Color.GREEN);
+                Intent i = new Intent(getApplicationContext(), Passo3P1.class);
+                i.putExtra("flag",2);
+                startActivity(i);
+                finish();
 
             }
         });
 
     }
 
-    private void playsound(String urlVoice, int flag)  {
+    private void playsound(String urlVoice)  {
 
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), Uri.parse(urlVoice)) ;
@@ -91,12 +99,6 @@ public class Passo2P1 extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
                     layoutRispMedico.setVisibility(View.VISIBLE);
-                    if(flag == 1)
-                    {
-                        Intent i = new Intent(getApplicationContext(), Passo3P1.class);
-                        startActivity(i);
-                        finish();
-                    }
 
                 }
             });
@@ -116,6 +118,8 @@ public class Passo2P1 extends AppCompatActivity {
     }
 
     private void openCustomWindow() {
+
+        stopPlayer();
 
         dialog.setContentView(R.layout.pausa_dialoglayout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -145,6 +149,7 @@ public class Passo2P1 extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dialog.dismiss();
             }
         });

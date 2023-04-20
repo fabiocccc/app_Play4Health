@@ -68,6 +68,7 @@ public class Adapter extends PagerAdapter {
                 switch (position + 1){
                     case 1:
                         i = new Intent(context, PassiP1Activity.class);
+                        i.putExtra("flagDo", 0);
                         context.startActivity(i);
                         break;
                     case 2:
