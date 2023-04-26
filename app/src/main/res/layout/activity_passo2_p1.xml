@@ -77,12 +77,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/RispMedico"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewMedico"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAllenatore"
         tools:ignore="MissingConstraints" />
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewMedico"
+        android:id="@+id/cardViewAllenatore"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
@@ -116,14 +116,14 @@
         android:id="@+id/RispMedico"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_below="@id/cardViewMedico"
+        android:layout_below="@id/cardViewAllenatore"
         android:visibility="invisible"
         android:columnCount="2"
         android:rowCount="3"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewMedico">
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAllenatore">
 
         <!--        card dolci-->
         <androidx.cardview.widget.CardView

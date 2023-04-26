@@ -16,6 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tesi">
         <activity
+            android:name=".AppTravisani.P2Passi.Passo2P2"
+            android:exported="false" />
+        <activity
+            android:name=".AppTravisani.P2Passi.Passo1P2"
+            android:exported="false" />
+        <activity
+            android:name=".AppTravisani.P2Passi.PassiP2Activity"
+            android:exported="false" />
+        <activity
             android:name=".AppTravisani.ListaPremi"
             android:exported="false" />
         <activity
@@ -48,7 +57,7 @@
             android:name=".AppTravisani.StoryCard"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.PassiP1Activity"
+            android:name=".AppTravisani.P1Passi.PassiP1Activity"
             android:exported="false" /> <!-- Definizione Activity Pavone -->
         <activity
             android:name=".AppPavone.ActivityDialogo"

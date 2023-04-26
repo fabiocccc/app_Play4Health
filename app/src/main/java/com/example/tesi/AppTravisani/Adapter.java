@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.example.tesi.AppTravisani.P1Passi.PassiP1Activity;
+import com.example.tesi.AppTravisani.P2Passi.PassiP2Activity;
 import com.example.tesi.R;
 
 import java.util.List;
@@ -72,7 +74,10 @@ public class Adapter extends PagerAdapter {
                         context.startActivity(i);
                         break;
                     case 2:
-                        Toast.makeText(context, "Si apriranno gli episodi della storia 2", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(context, "Si apriranno gli episodi della storia 2", Toast.LENGTH_SHORT).show();
+                        i = new Intent(context, PassiP2Activity.class);
+//                        i.putExtra("flagDo", 0);
+                        context.startActivity(i);
                         break;
                     case 3:
                         Toast.makeText(context, "Si apriranno gli episodi della storia 3", Toast.LENGTH_SHORT).show();

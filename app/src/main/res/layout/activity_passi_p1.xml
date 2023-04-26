@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_episodi"
-    tools:context=".AppTravisani.PassiP1Activity">
+    tools:context=".AppTravisani.P1Passi.PassiP1Activity">
 
     <include layout="@layout/toolbar" />
 
@@ -33,7 +33,7 @@
         android:columnCount="2"
         android:rowCount="3">
 
-        <!--        card episodio1-->
+        <!--        card passo1-->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardDolci"
             android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
         </androidx.cardview.widget.CardView>
 
 
-        <!--        card episodio2-->
+        <!--        card passo2-->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardCarne"
             android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!--        card episodio3-->
+        <!--        card passo3-->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardPasso3"
             android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!--        card episodio4-->
+        <!--        card passo4-->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardPasso4"
             android:layout_width="wrap_content"

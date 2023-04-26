@@ -36,7 +36,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewMedico"
+        android:id="@+id/cardViewAllenatore"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
-            android:id="@+id/LayoutBenvenuto"
+            android:id="@+id/LayoutSceltaSquadra"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewMedico"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAllenatore"
         app:layout_constraintVertical_bias="0.237"
         app:srcCompat="@drawable/stella" />
 

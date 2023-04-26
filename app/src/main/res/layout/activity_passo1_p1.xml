@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toStartOf="@+id/help2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/RispMedico1"
+        app:layout_constraintTop_toTopOf="@+id/RispGiocatore1"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -76,12 +76,12 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/RispMedico1"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewMedico"
+        app:layout_constraintStart_toStartOf="@+id/RispGiocatore1"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewGiocatore"
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewMedico"
+        android:id="@+id/cardViewGiocatore"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
@@ -95,7 +95,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
-            android:id="@+id/LayoutBenvenuto"
+            android:id="@+id/LayouBenvenuto"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -111,17 +111,17 @@
     </androidx.cardview.widget.CardView>
 
     <GridLayout
-        android:id="@+id/RispMedico1"
+        android:id="@+id/RispGiocatore1"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_below="@id/cardViewMedico"
+        android:layout_below="@id/cardViewGiocatore"
         android:visibility="invisible"
         android:columnCount="2"
         android:rowCount="3"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewMedico">
+        app:layout_constraintTop_toBottomOf="@+id/cardViewGiocatore">
 
         <!--        card ripeti -->
         <androidx.cardview.widget.CardView
@@ -145,7 +145,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/repeate"
+                    android:id="@+id/imgRipeti"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:onClick="ripeti"
@@ -166,7 +166,7 @@
 
         <!--        card ok-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardok"
+            android:id="@+id/cardOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -186,7 +186,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/manoOk"
+                    android:id="@+id/imgOk"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:onClick="manoOk"

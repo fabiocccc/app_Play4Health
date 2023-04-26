@@ -39,6 +39,8 @@ public class StoryCard extends AppCompatActivity {
         badgeIcon = findViewById(R.id.badge_icon);
         title_toolbar= findViewById(R.id.toolbar_title);
 
+        title_toolbar.setText("La Storia");
+
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,11 +60,11 @@ public class StoryCard extends AppCompatActivity {
             }
         });
 
-        title_toolbar.setText("La Storia");
+
 
         models = new ArrayList<>();
         models.add(new Model(R.drawable.image_medico_colorato, "PERCORSO 1", "VISITA MEDICA"));
-        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 2", "titolo 2"));
+        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 2", "SCELTA RUOLO"));
         models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 3", "titolo 3"));
         models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 4", "titolo 4"));
 

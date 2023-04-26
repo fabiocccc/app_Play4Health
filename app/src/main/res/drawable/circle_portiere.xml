@@ -6,11 +6,11 @@
             android:shape="oval">
 
             <solid
-                android:color="#009900"/>
+                android:color="@color/teal_200"/>
 
             <stroke
                 android:width="3dp"
-                android:color="#336600"
+                android:color="@color/teal_700"
             />
 
             <size

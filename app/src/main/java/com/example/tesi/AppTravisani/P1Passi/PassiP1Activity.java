@@ -1,15 +1,14 @@
-package com.example.tesi.AppTravisani;
+package com.example.tesi.AppTravisani.P1Passi;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.example.tesi.AppTravisani.P1Passi.Passo1P1;
 import com.example.tesi.R;
 
 public class PassiP1Activity extends AppCompatActivity {
@@ -18,11 +17,14 @@ public class PassiP1Activity extends AppCompatActivity {
     private ImageView backIcon;
     private ImageView badgeIcon;
     private ImageView imgCardP2,imgCardP3,imgCardP4;
+    private TextView title_toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_episodi);
+        setContentView(R.layout.activity_passi_p1);
 
+        title_toolbar= findViewById(R.id.toolbar_title);
+        title_toolbar.setText("Passi P1");
 
         passo1 = findViewById(R.id.cardDolci);
         passo2 = findViewById(R.id.cardCarne);
