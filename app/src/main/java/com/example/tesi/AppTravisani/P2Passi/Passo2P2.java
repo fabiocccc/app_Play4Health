@@ -72,7 +72,7 @@ public class Passo2P2 extends AppCompatActivity {
         dialog= new Dialog(this);
 
         urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FScelta%20ruolo.mp3?alt=media&token=d526e4dd-b1bf-4445-8dba-d4f68347c10f";
-        playsound(urlVoice);
+        playsound(urlVoice, 0);
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +91,6 @@ public class Passo2P2 extends AppCompatActivity {
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
                 //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
@@ -103,7 +102,17 @@ public class Passo2P2 extends AppCompatActivity {
             public void onClick(View v) {
 
                 txtRuolo.setText("Scegli il ruolo");
-                playsound(urlVoice);
+                playsound(urlVoice, 0);
+            }
+        });
+
+        btn_alleniamoci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Passo3P2.class);
+                startActivity(i);
+                finish();
+
             }
         });
 
@@ -124,7 +133,7 @@ public class Passo2P2 extends AppCompatActivity {
 
     }
 
-    private void playsound(String urlVoice)  {
+    private void playsound(String urlVoice, int flag)  {
 
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), Uri.parse(urlVoice)) ;
@@ -132,8 +141,15 @@ public class Passo2P2 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
-                  //  layoutrispAllenatore.setVisibility(View.VISIBLE);
                     button_aiuto.setVisibility(View.VISIBLE);
+
+                    if(flag == 1)
+                    {
+                        active_btnalleniamoci();
+                        button_aiuto.setVisibility(View.GONE);
+
+                    }
+
                 }
             });
         }
@@ -194,7 +210,7 @@ public class Passo2P2 extends AppCompatActivity {
     public void btn_attaccante2(View view) {
         txtRuolo.setText("Attaccante");
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAttaccante.mp3?alt=media&token=c88603d2-271a-48ab-bd25-a0a43b81d629";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
 
 
     }
@@ -202,13 +218,13 @@ public class Passo2P2 extends AppCompatActivity {
     public void btn_attaccante1(View view) {
         txtRuolo.setText("Attaccante");
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAttaccante.mp3?alt=media&token=c88603d2-271a-48ab-bd25-a0a43b81d629";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
 
 
     }
     public void btn_esternoS(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FEsternoSX.mp3?alt=media&token=2a88ccf5-0646-43bd-8943-720fb3caccad";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Esterno Sinistro");
         txtRuolo.setTextSize(30);
 
@@ -216,21 +232,21 @@ public class Passo2P2 extends AppCompatActivity {
 
     public void btn_centro1(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FCentrocampista.mp3?alt=media&token=56e9beb1-b5dd-4542-81fa-19d45b40e15e";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Centrocampista");
 
     }
 
     public void btn_centro2(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FCentrocampista.mp3?alt=media&token=56e9beb1-b5dd-4542-81fa-19d45b40e15e";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Centrocampista");
 
     }
 
     public void btn_esternoD(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FEsternoDX.mp3?alt=media&token=c7f612e2-59dd-43f8-8635-5d70b0f2725e";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Esterno Destro");
         txtRuolo.setTextSize(30);
 
@@ -238,7 +254,7 @@ public class Passo2P2 extends AppCompatActivity {
 
     public void btn_terzinoS(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FTerzinoSX.mp3?alt=media&token=b8f3e131-b449-45dd-a373-4d2ac4abf394";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Terzino sinistro");
         txtRuolo.setTextSize(30);
 
@@ -246,21 +262,21 @@ public class Passo2P2 extends AppCompatActivity {
 
     public void btn_difensore2(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDifensore.mp3?alt=media&token=9065be57-84fd-4515-894a-c2b548e484b6";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Difensore");
 
     }
 
     public void btn_difensore1(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDifensore.mp3?alt=media&token=9065be57-84fd-4515-894a-c2b548e484b6";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Difensore");
 
 
     }
     public void btn_terzinoD(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FTerzinoDX.mp3?alt=media&token=18c227ec-5abc-4b35-822f-89ec7c883714";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Terzino destro");
         txtRuolo.setTextSize(30);
 
@@ -268,7 +284,7 @@ public class Passo2P2 extends AppCompatActivity {
 
     public void btn_portiere(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FPortiere.mp3?alt=media&token=78332c1e-89d1-4dd6-b6be-95926ea8271a";
-        playsound(urlVoiceRuolo);
+        playsound(urlVoiceRuolo, 1);
         txtRuolo.setText("Portiere");
 
     }

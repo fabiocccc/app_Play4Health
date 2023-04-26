@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AppTravisani.P2Passi.Passo3P2"
+    android:background="@color/teal_100">
+
+    <FrameLayout
+        android:id="@+id/button_pause"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/exo_controls_pause"
+        android:backgroundTint="@color/teal_800"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <FrameLayout
+        android:id="@+id/button_ripeti"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_baseline_refresh_24"
+        android:backgroundTint="@color/teal_800"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toEndOf="@+id/button_pause"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_Campo"
+        android:layout_width="320dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:cardCornerRadius="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCampo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtRuoloScelto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="ALLENA LE BRACCIA E LE GAMBE"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/imageViewCampo"
+        android:layout_width="414dp"
+        android:layout_height="496dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/allenamento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496"
+        tools:srcCompat="@drawable/campo2" />
+
+    <FrameLayout
+        android:id="@+id/button_aiuto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="364dp"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        android:backgroundTint="@color/teal_800"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_pause"
+        app:layout_constraintVertical_bias="0.996"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/help1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="50"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/btnPronto"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCampo" />
+
+    <Button
+        android:id="@+id/btnPronto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/drawable_lettera"
+        android:clickable="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="SONO PRONTO"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCampo" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
