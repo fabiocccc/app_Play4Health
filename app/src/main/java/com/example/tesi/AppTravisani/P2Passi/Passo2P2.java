@@ -212,7 +212,6 @@ public class Passo2P2 extends AppCompatActivity {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAttaccante.mp3?alt=media&token=c88603d2-271a-48ab-bd25-a0a43b81d629";
         playsound(urlVoiceRuolo, 1);
 
-
     }
 
     public void btn_attaccante1(View view) {
@@ -220,8 +219,8 @@ public class Passo2P2 extends AppCompatActivity {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAttaccante.mp3?alt=media&token=c88603d2-271a-48ab-bd25-a0a43b81d629";
         playsound(urlVoiceRuolo, 1);
 
-
     }
+
     public void btn_esternoS(View view) {
         String urlVoiceRuolo="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FEsternoSX.mp3?alt=media&token=2a88ccf5-0646-43bd-8943-720fb3caccad";
         playsound(urlVoiceRuolo, 1);

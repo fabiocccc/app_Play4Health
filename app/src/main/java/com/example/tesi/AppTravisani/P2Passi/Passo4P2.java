@@ -1,6 +1,7 @@
 package com.example.tesi.AppTravisani.P2Passi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -26,6 +27,7 @@ public class Passo4P2 extends AppCompatActivity {
     private String urlVoice;
     private MediaPlayer player;
     private ImageView help1, help2;
+    private CardView malore, tosse;
     private Dialog dialog; //finestra di dialogo
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
@@ -44,9 +46,33 @@ public class Passo4P2 extends AppCompatActivity {
         help2 = findViewById(R.id.help2);
         dialog= new Dialog(this);
         layoutrispAllenatoreSalute = findViewById(R.id.RispAllenatoreSalute);
+        malore = findViewById(R.id.cardMalore);
+        tosse = findViewById(R.id.cardTosse);
 
         urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FTosseMalore.mp3?alt=media&token=b74ac528-0820-4442-add1-fd2a53566c0c";
         playsound(urlVoice);
+
+        malore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                malore.setBackgroundColor(Color.RED);
+                Intent i = new Intent(getApplicationContext(), Passo5P2.class);
+                startActivity(i);
+                finish();
+
+            }
+        });
+
+        tosse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tosse.setBackgroundColor(Color.RED);
+                Intent i = new Intent(getApplicationContext(), Passo5P2.class);
+                startActivity(i);
+                finish();
+
+            }
+        });
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AppTravisani.P1Passi.Passo4P1"
-    android:background="@drawable/calciatore_uomo2">
+    android:background="@drawable/calciatore_uomo2"
+    tools:context=".AppTravisani.P2Passi.Passo6P2">
 
     <FrameLayout
         android:id="@+id/button_pause"
@@ -36,11 +36,12 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewGiocatoreF"
+        android:id="@+id/cardViewAllenatore"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginTop="270dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,25 +59,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Hai superato il primo percorso!"
+                android:text="Hai superato il secondo percorso,
+                però curati e resta a letto!"
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/imagePremio"
-        android:visibility="invisible"
         android:layout_width="90dp"
         android:layout_height="90dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.704"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewGiocatoreF"
-        app:layout_constraintVertical_bias="0.237"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393"
         app:srcCompat="@drawable/stella" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
