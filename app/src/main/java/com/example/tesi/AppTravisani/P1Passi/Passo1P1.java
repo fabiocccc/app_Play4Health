@@ -44,7 +44,7 @@ public class Passo1P1 extends AppCompatActivity {
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
         layoutrisp1 = findViewById(R.id.RispGiocatore1);
-        rispRipeti = findViewById(R.id.cardRipeti);
+       // rispRipeti = findViewById(R.id.cardRipeti);
         rispOk = findViewById(R.id.cardOk);
 
         dialog= new Dialog(this);

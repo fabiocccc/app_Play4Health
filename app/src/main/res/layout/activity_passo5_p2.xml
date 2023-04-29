@@ -13,7 +13,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="4dp"
-        android:background="@drawable/exo_controls_pause"
+        android:background="@drawable/exo_icon_stop"
         android:backgroundTint="@color/teal_800"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,8 +68,8 @@
 
     <ImageView
         android:id="@+id/compresse"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
         android:background="@drawable/compresse"
         android:elevation="7dp"
         android:visibility="invisible"
@@ -78,22 +78,22 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292"
+        app:layout_constraintVertical_bias="0.397"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/sciroppo"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
         android:background="@drawable/sciroppo"
         android:elevation="7dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.353"
+        app:layout_constraintHorizontal_bias="0.427"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.293"
+        app:layout_constraintVertical_bias="0.397"
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView

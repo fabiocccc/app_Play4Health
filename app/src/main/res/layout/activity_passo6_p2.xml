@@ -12,7 +12,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="4dp"
-        android:background="@drawable/exo_controls_pause"
+        android:background="@drawable/exo_icon_stop"
         android:backgroundTint="@color/teal_800"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,6 +31,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.996"
         app:layout_constraintStart_toEndOf="@+id/button_pause"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+    <FrameLayout
+        android:id="@+id/button_aiuto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="364dp"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        android:backgroundTint="@color/teal_800"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_pause"
+        app:layout_constraintVertical_bias="0.996"
+        tools:ignore="MissingConstraints" />
+
+
+    <ImageView
+        android:id="@+id/help1"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="100"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imagePremio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -26,6 +27,9 @@ public class Passo4P1 extends AppCompatActivity {
     private Dialog dialog, findialog; //finestra di dialogo
     private MediaPlayer player;
     private ImageView premio;
+    private ImageView help1;
+    private FrameLayout button_aiuto;
+    private AnimationDrawable animationDrawable1 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,10 @@ public class Passo4P1 extends AppCompatActivity {
         setContentView(R.layout.activity_passo4_p1);
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
+        button_aiuto = findViewById(R.id.button_aiuto);
         premio = findViewById(R.id.imagePremio);
+        help1 = findViewById(R.id.help1);
+
 
         dialog= new Dialog(this);
         findialog = new Dialog(this);
@@ -61,6 +68,20 @@ public class Passo4P1 extends AppCompatActivity {
             }
         });
 
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                animationDrawable1.start();
+
+                button_aiuto.setVisibility(View.GONE);
+
+            }
+        });
+
         premio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +103,7 @@ public class Passo4P1 extends AppCompatActivity {
 
                     stopPlayer();
                     active_premio();
+                    button_aiuto.setVisibility(View.VISIBLE);
                 }
             });
         }
