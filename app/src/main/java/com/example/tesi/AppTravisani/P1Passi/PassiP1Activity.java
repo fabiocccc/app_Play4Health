@@ -24,7 +24,7 @@ public class PassiP1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_passi_p1);
 
         title_toolbar= findViewById(R.id.toolbar_title);
-        title_toolbar.setText("Passi P1");
+        title_toolbar.setText("PERCORSO 1");
 
         passo1 = findViewById(R.id.cardDolci);
         passo2 = findViewById(R.id.cardCarne);

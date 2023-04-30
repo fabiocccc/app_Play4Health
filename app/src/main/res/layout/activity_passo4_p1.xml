@@ -58,9 +58,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Hai superato il primo percorso!"
+                android:text="Hai superato il primo percorso guadagnando una stella, ora giochiamo!"
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

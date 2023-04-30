@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Hai superato il secondo percorso,
-                però curati e resta a letto!"
+                però prendi la medicina e resta a letto!"
                 android:textAlignment="center"
                 android:textSize="20dp" />
         </RelativeLayout>

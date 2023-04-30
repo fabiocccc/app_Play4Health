@@ -25,7 +25,7 @@ public class PassiP2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_passi_p2);
 
         title_toolbar= findViewById(R.id.toolbar_title);
-        title_toolbar.setText("Passi P2");
+        title_toolbar.setText("PERCORSO 2");
 
         backIcon = findViewById(R.id.back_icon);
         badgeIcon = findViewById(R.id.badge_icon);

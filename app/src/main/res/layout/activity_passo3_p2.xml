@@ -38,7 +38,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_Campo"
         android:layout_width="320dp"
-        android:layout_height="30dp"
+        android:layout_height="58dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         app:cardCornerRadius="15sp"
@@ -57,9 +57,9 @@
                 android:id="@+id/txtRuoloScelto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="ALZA LE BRACCIA E LE GAMBE"
+                android:text="Alza le braccia e le gambe così per 10 minuti"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>

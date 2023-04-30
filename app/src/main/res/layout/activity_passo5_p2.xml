@@ -120,10 +120,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Scegli la medicina
-                                         a compresse o a sciroppo?"
+                android:text="Ti consiglio questa medicina:
+                formato compresse o sciroppo?"
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

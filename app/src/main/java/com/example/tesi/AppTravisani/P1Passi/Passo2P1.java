@@ -31,15 +31,15 @@ public class Passo2P1 extends AppCompatActivity {
     private AnimationDrawable animationDrawable2 = null;
     private Dialog dialog; //finestra di dialogo
     private String urlVoice2;
-    private ImageView dolci, carne;
-    private CardView rispDolcicard, rispCarnecard;
+    private ImageView dolci, frutta;
+    private CardView rispDolcicard, rispFruttacard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passo2_p1);
         dolci= findViewById(R.id.dolci);
-        carne= findViewById(R.id.carne);
+        frutta= findViewById(R.id.frutta);
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
         button_aiuto = findViewById(R.id.button_aiuto);
@@ -48,7 +48,7 @@ public class Passo2P1 extends AppCompatActivity {
         layoutRispMedico = findViewById(R.id.RispMedico);
         layoutRispMedico2 = findViewById(R.id.RispMedico3);
         rispDolcicard = findViewById(R.id.cardDolci);
-        rispCarnecard = findViewById(R.id.cardCarne);
+        rispFruttacard = findViewById(R.id.cardFrutta);
 
         dialog= new Dialog(this);
 
@@ -101,10 +101,10 @@ public class Passo2P1 extends AppCompatActivity {
             }
         });
 
-        carne.setOnClickListener(new View.OnClickListener() {
+        frutta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rispCarnecard.setBackgroundColor(Color.GREEN);
+                rispFruttacard.setBackgroundColor(Color.GREEN);
                 Intent i = new Intent(getApplicationContext(), Passo3P1.class);
                 i.putExtra("flag",2);
                 startActivity(i);

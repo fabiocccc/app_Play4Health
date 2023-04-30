@@ -49,9 +49,43 @@
         app:layout_constraintVertical_bias="0.996"
         tools:ignore="MissingConstraints" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_FraseRuolo"
+        android:layout_width="320dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:cardCornerRadius="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/card_Ruolo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtFraseRuolo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scegli il ruolo che
+                               ti piace in campo!"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_Campo"
+        android:id="@+id/card_Ruolo"
         android:layout_width="320dp"
         android:layout_height="56dp"
         android:layout_marginStart="15dp"
@@ -72,7 +106,7 @@
                 android:id="@+id/txtRuoloScelto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Scegli il ruolo"
+                android:text=""
                 android:textAlignment="center"
                 android:textSize="40dp"
                 tools:ignore="SpeakableTextPresentCheck" />
