@@ -147,7 +147,9 @@ public class Passo1P1 extends AppCompatActivity {
         imageViewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dialog.dismiss();
+                playsound(urlVoice);
             }
         });
 
@@ -156,7 +158,7 @@ public class Passo1P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Home.class);
+                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -165,7 +167,10 @@ public class Passo1P1 extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dialog.dismiss();
+                playsound(urlVoice);
+
             }
         });
 

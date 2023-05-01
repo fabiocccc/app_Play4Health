@@ -41,16 +41,16 @@ public class PassiP1Activity extends AppCompatActivity {
         badgeIcon = findViewById(R.id.badge_icon);
         badgeIcon.setVisibility(View.INVISIBLE);
 
-        //flag per capire se ha fatto già tutti i passi del primo percorso
-        int flag = getIntent().getExtras().getInt("flagDo");
-
-        //6-->ha fatto i passi del primo percorso
-        if(flag == 4)
-        {
-            imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
-            imgCardP3.setImageResource(R.drawable.ic_baseline_lock_open);
-            imgCardP4.setImageResource(R.drawable.ic_baseline_lock_open);
-        }
+//        //flag per capire se ha fatto già tutti i passi del primo percorso
+//        int flag = getIntent().getExtras().getInt("flagDo");
+//
+//        //6-->ha fatto i passi del primo percorso
+//        if(flag == 4)
+//        {
+//            imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
+//            imgCardP3.setImageResource(R.drawable.ic_baseline_lock_open);
+//            imgCardP4.setImageResource(R.drawable.ic_baseline_lock_open);
+//        }
 
 
 

@@ -168,6 +168,7 @@ public class Passo5P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                playsound(urlVoice);
             }
         });
 
@@ -176,7 +177,7 @@ public class Passo5P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Home.class);
+                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -186,6 +187,7 @@ public class Passo5P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                playsound(urlVoice);
             }
         });
 

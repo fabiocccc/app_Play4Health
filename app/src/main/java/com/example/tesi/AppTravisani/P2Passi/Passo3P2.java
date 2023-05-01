@@ -81,6 +81,7 @@ public class Passo3P2 extends AppCompatActivity {
         btn_sonoPronto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopPlayer();
                 Intent i = new Intent(getApplicationContext(), Passo4P2.class);
                 startActivity(i);
                 finish();
@@ -152,6 +153,7 @@ public class Passo3P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                playsound(urlVoice, 1);
             }
         });
 
@@ -160,7 +162,7 @@ public class Passo3P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Home.class);
+                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -170,6 +172,7 @@ public class Passo3P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                playsound(urlVoice, 1);
             }
         });
 

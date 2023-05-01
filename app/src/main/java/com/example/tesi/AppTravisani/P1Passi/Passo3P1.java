@@ -38,6 +38,8 @@ public class Passo3P1 extends AppCompatActivity {
     private GridLayout layoutrisp3;
     private CardView risp5orecard, risp7orecard;
     private TextView domandaMedicoDormire;
+    private String urlVoiceRisp1, urlVoiceRisp2, urlVoiceRisp3, urlVoiceRisp4;
+    private int contatore = 0;
 
 
     @Override
@@ -58,22 +60,24 @@ public class Passo3P1 extends AppCompatActivity {
         ore5 = findViewById(R.id.ore5);
         ore7 = findViewById(R.id.ore7);
 
-        //flag per capire se ha cliccato dolci-1 o carne-2
+        //flag per capire se ha cliccato dolci-1 o frutta-2
         int flag = getIntent().getExtras().getInt("flag");
 
-        String urlVoiceRisp;
+
 
         if (flag == 1)
         {
                //ha cliccato dolci
                domandaMedicoDormire.setText("Male non mangi sano.      Quante ore dormi?");
-               urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMale%20non%20mangi%20sano%20.mp3?alt=media&token=9a6bc1be-b299-49cd-94a5-256c571b99fd" ;
-               playsound(urlVoiceRisp, 0);
+               urlVoiceRisp1 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMale%20non%20mangi%20sano%20.mp3?alt=media&token=9a6bc1be-b299-49cd-94a5-256c571b99fd" ;
+               playsound(urlVoiceRisp1, 0);
+               contatore = 1;
         }else
         {      //ha cliccato frutta
                 domandaMedicoDormire.setText("Bene mangi sano.                  Quante ore dormi?");
-               urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBene%20mangi%20sano.mp3?alt=media&token=92cac089-c9a2-4147-b4e1-24811710be60";
-               playsound(urlVoiceRisp, 0);
+               urlVoiceRisp2 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBene%20mangi%20sano.mp3?alt=media&token=92cac089-c9a2-4147-b4e1-24811710be60";
+               playsound(urlVoiceRisp2, 0);
+               contatore = 2;
         }
 
 
@@ -89,7 +93,9 @@ public class Passo3P1 extends AppCompatActivity {
         btn_ripeti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playsound(urlVoiceRisp, 0);
+
+                ripeti_frase();
+
             }
         });
 
@@ -116,8 +122,9 @@ public class Passo3P1 extends AppCompatActivity {
                 risp5orecard.setBackgroundColor(Color.RED);
                 btn_gioca.setText("Giochiamo lo stesso");
                 domandaMedicoDormire.setText("Dormi poco devi riposarti di più!");
-                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDormi%20poco.mp3?alt=media&token=9c5fdac9-1b6c-400f-ac64-f27266e21176" ;
-                playsound(urlVoiceRisp, 1);
+                urlVoiceRisp3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDormi%20poco.mp3?alt=media&token=9c5fdac9-1b6c-400f-ac64-f27266e21176" ;
+                playsound(urlVoiceRisp3, 1);
+                contatore = 3;
             }
         });
 
@@ -127,8 +134,9 @@ public class Passo3P1 extends AppCompatActivity {
                 risp7orecard.setBackgroundColor(Color.GREEN);
                 btn_gioca.setText("Giochiamo");
                 domandaMedicoDormire.setText("Benissimo sei in forma!");
-                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenissimo%20sei%20in%20forma.mp3?alt=media&token=3881805e-901a-4a79-aa7f-0fc04a1df282" ;
-                playsound(urlVoiceRisp, 1);
+                urlVoiceRisp4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenissimo%20sei%20in%20forma.mp3?alt=media&token=3881805e-901a-4a79-aa7f-0fc04a1df282" ;
+                playsound(urlVoiceRisp4, 1);
+                contatore = 4;
 
             }
         });
@@ -136,6 +144,7 @@ public class Passo3P1 extends AppCompatActivity {
         btn_gioca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopPlayer();
                 Intent i = new Intent(getApplicationContext(), Passo4P1.class);
                 startActivity(i);
                 finish();
@@ -143,6 +152,27 @@ public class Passo3P1 extends AppCompatActivity {
         });
 
 
+    }
+
+    private void ripeti_frase() {
+
+        switch (contatore)
+        {
+            case 1:
+                playsound(urlVoiceRisp1, 0);
+                break;
+            case 2:
+                playsound(urlVoiceRisp2, 0);
+                break;
+            case 3:
+                playsound(urlVoiceRisp3, 1);
+                break;
+            case 4:
+                playsound(urlVoiceRisp4, 1);
+                break;
+            default:
+                playsound(urlVoiceRisp1, 0);
+        }
     }
 
     private void active_btngioco() {
@@ -206,6 +236,7 @@ public class Passo3P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                ripeti_frase();
             }
         });
 
@@ -214,7 +245,7 @@ public class Passo3P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Home.class);
+                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -224,6 +255,7 @@ public class Passo3P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                ripeti_frase();
             }
         });
 

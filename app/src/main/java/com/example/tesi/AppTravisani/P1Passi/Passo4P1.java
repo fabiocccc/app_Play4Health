@@ -149,6 +149,7 @@ public class Passo4P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                playsound(urlVoice4);
             }
         });
 
@@ -157,7 +158,7 @@ public class Passo4P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Home.class);
+                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -167,6 +168,7 @@ public class Passo4P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                playsound(urlVoice4);
             }
         });
 
