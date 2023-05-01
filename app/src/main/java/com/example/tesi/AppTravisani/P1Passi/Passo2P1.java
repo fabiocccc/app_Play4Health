@@ -52,7 +52,7 @@ public class Passo2P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
-        urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20dolci%20o%20carne.mp3?alt=media&token=7a74e88b-4d4c-4d4c-b672-2be292f3bc30";
+        urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20dolci%20o%20frutta.mp3?alt=media&token=068eb268-a14d-4c22-a3e7-96a5830ad090";
         playsound(urlVoice2);
 
         btn_pause.setOnClickListener(new View.OnClickListener() {

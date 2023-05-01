@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -36,6 +37,7 @@ public class Passo3P1 extends AppCompatActivity {
     private AnimationDrawable animationDrawable2 = null;
     private GridLayout layoutrisp3;
     private CardView risp5orecard, risp7orecard;
+    private TextView domandaMedicoDormire;
 
 
     @Override
@@ -51,6 +53,7 @@ public class Passo3P1 extends AppCompatActivity {
         layoutrisp3 = findViewById(R.id.RispMedico3);
         risp5orecard = findViewById(R.id.card5ore);
         risp7orecard = findViewById(R.id.card7ore);
+        domandaMedicoDormire = findViewById(R.id.txtMedicoDormire);
 
         ore5 = findViewById(R.id.ore5);
         ore7 = findViewById(R.id.ore7);
@@ -63,11 +66,13 @@ public class Passo3P1 extends AppCompatActivity {
         if (flag == 1)
         {
                //ha cliccato dolci
-               urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMale%20non%20mangi%20sano%20.mp3?alt=media&token=e84fd4fb-25ff-454e-8523-693fbc99456a" ;
+               domandaMedicoDormire.setText("Male non mangi sano.      Quante ore dormi?");
+               urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMale%20non%20mangi%20sano%20.mp3?alt=media&token=9a6bc1be-b299-49cd-94a5-256c571b99fd" ;
                playsound(urlVoiceRisp, 0);
         }else
-        {      //ha cliccato carne
-               urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBene%20mangi%20sano.mp3?alt=media&token=2788805f-8e39-4573-815d-ccd6bae89224";
+        {      //ha cliccato frutta
+                domandaMedicoDormire.setText("Bene mangi sano.                  Quante ore dormi?");
+               urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBene%20mangi%20sano.mp3?alt=media&token=92cac089-c9a2-4147-b4e1-24811710be60";
                playsound(urlVoiceRisp, 0);
         }
 
@@ -109,7 +114,9 @@ public class Passo3P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 risp5orecard.setBackgroundColor(Color.RED);
-                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDormi%20poco.mp3?alt=media&token=120a69e4-232d-485a-b31e-50ea5a46180b" ;
+                btn_gioca.setText("Giochiamo lo stesso");
+                domandaMedicoDormire.setText("Dormi poco devi riposarti di più!");
+                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FDormi%20poco.mp3?alt=media&token=9c5fdac9-1b6c-400f-ac64-f27266e21176" ;
                 playsound(urlVoiceRisp, 1);
             }
         });
@@ -118,7 +125,9 @@ public class Passo3P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 risp7orecard.setBackgroundColor(Color.GREEN);
-                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenissimo%20sei%20in%20forma.mp3?alt=media&token=aebe1192-7523-4236-86e2-5eb801de2c07" ;
+                btn_gioca.setText("Giochiamo");
+                domandaMedicoDormire.setText("Benissimo sei in forma!");
+                String  urlVoiceRisp = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenissimo%20sei%20in%20forma.mp3?alt=media&token=3881805e-901a-4a79-aa7f-0fc04a1df282" ;
                 playsound(urlVoiceRisp, 1);
 
             }

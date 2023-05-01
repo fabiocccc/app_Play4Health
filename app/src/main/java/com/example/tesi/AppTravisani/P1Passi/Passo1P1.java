@@ -86,7 +86,7 @@ public class Passo1P1 extends AppCompatActivity {
         });
 
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenvenuto.mp3?alt=media&token=822072f9-ac1d-4b87-8007-c39bbe5a33c7";
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenvenuto.mp3?alt=media&token=257452bb-9193-4115-810c-ffb29e91cd6b";
         playsound(urlVoice);
 
 

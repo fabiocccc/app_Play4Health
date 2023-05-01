@@ -46,7 +46,7 @@ public class Passo5P2 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FScelta%20medicina.mp3?alt=media&token=8e9896ad-911b-4c08-8699-6acfbfd828a1";
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20scelta%20medicina.mp3?alt=media&token=ae8c293b-d8d7-4737-a2fd-4e2ce6e7e2a2";
         playsound(urlVoice);
 
         compresseimg.setOnClickListener(new View.OnClickListener() {

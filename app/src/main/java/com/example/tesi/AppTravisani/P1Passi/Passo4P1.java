@@ -30,6 +30,7 @@ public class Passo4P1 extends AppCompatActivity {
     private ImageView help1;
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
+    private String urlVoice4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,8 @@ public class Passo4P1 extends AppCompatActivity {
         dialog= new Dialog(this);
         findialog = new Dialog(this);
 
-        String urlVoice3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FHai%20superato%20il%20primo%20percorso.mp3?alt=media&token=2bc4cf79-90db-43de-9bad-787c56d73bf2";
-        playsound(urlVoice3);
+        urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FHai%20superato%20il%20primo%20percorso.mp3?alt=media&token=59c96e0c-88f0-4201-a8bd-4a5b57d2a462";
+        playsound(urlVoice4);
 
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +64,8 @@ public class Passo4P1 extends AppCompatActivity {
         btn_ripeti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String urlVoice3 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FHai%20superato%20il%20primo%20percorso.mp3?alt=media&token=2bc4cf79-90db-43de-9bad-787c56d73bf2";
-                playsound(urlVoice3);
+
+                playsound(urlVoice4);
             }
         });
 

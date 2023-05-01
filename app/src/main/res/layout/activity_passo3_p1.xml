@@ -99,10 +99,11 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/txtMedicoDormire"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Quante ore dormi?"
+                android:text=""
                 android:textAlignment="center"
                 android:textSize="25dp" />
         </RelativeLayout>

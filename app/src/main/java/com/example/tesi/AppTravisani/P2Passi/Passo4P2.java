@@ -49,7 +49,7 @@ public class Passo4P2 extends AppCompatActivity {
         malore = findViewById(R.id.cardMalore);
         tosse = findViewById(R.id.cardTosse);
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FTosseMalore.mp3?alt=media&token=b74ac528-0820-4442-add1-fd2a53566c0c";
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FTosseMalore.mp3?alt=media&token=2510cc62-6964-4526-94d1-271af39748dd";
         playsound(urlVoice);
 
         malore.setOnClickListener(new View.OnClickListener() {
