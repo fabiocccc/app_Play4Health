@@ -44,7 +44,7 @@ public class Passo3P2 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAllenamento.mp3?alt=media&token=17b87245-5b24-4b22-b8f1-f999e79e2e19";
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAllenamento.mp3?alt=media&token=80df5205-9d4e-45df-a60e-c0e23ec7192f";
         playsound(urlVoice, 1);
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
