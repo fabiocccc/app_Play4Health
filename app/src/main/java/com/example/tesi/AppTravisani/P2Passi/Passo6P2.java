@@ -101,7 +101,9 @@ public class Passo6P2 extends AppCompatActivity {
 
                     stopPlayer();
                     active_premio();
-
+                    help1.setVisibility(View.VISIBLE);
+                    animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                    animationDrawable1.start();
                     button_aiuto.setVisibility(View.VISIBLE);
                 }
             });

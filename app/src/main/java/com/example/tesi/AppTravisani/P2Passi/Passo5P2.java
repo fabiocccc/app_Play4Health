@@ -46,7 +46,7 @@ public class Passo5P2 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20scelta%20medicina.mp3?alt=media&token=ae8c293b-d8d7-4737-a2fd-4e2ce6e7e2a2";
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20scelta%20medicina.mp3?alt=media&token=f5c2414a-91d0-45d9-aad2-3e81984c8e7c";
         playsound(urlVoice);
 
         compresseimg.setOnClickListener(new View.OnClickListener() {
@@ -73,9 +73,7 @@ public class Passo5P2 extends AppCompatActivity {
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
             }
         });

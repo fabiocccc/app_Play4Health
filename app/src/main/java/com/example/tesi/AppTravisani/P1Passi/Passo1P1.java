@@ -25,8 +25,7 @@ public class Passo1P1 extends AppCompatActivity {
     private FrameLayout btn_pause, btn_ripeti;
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
-    private AnimationDrawable animationDrawable2 = null;
-    private ImageView help1, help2;
+    private ImageView help1;
     private String urlVoice;
     private MediaPlayer player;
     private GridLayout layoutrisp1;
@@ -42,7 +41,6 @@ public class Passo1P1 extends AppCompatActivity {
         button_aiuto = findViewById(R.id.button_aiuto);
         btn_ripeti = findViewById(R.id.button_ripeti);
         help1 = findViewById(R.id.help1);
-        help2 = findViewById(R.id.help2);
         layoutrisp1 = findViewById(R.id.RispGiocatore1);
        // rispRipeti = findViewById(R.id.cardRipeti);
         rispOk = findViewById(R.id.cardOk);
@@ -73,12 +71,9 @@ public class Passo1P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 help1.setVisibility(View.VISIBLE);
-                help2.setVisibility(View.VISIBLE);
 
                 animationDrawable1 = (AnimationDrawable) help1.getBackground();
-                animationDrawable2 = (AnimationDrawable) help2.getBackground();
                 animationDrawable1.start();
-                animationDrawable2.start();
 
                 button_aiuto.setVisibility(View.GONE);
 

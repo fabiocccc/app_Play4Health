@@ -50,34 +50,21 @@
         app:layout_constraintVertical_bias="0.996"
         tools:ignore="MissingConstraints" />
 
+
     <ImageView
         android:id="@+id/help1"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
         android:background="@drawable/animation_pointing"
         android:elevation="7dp"
         android:rotation="40"
         android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/help2"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/RispGiocatore1"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/RispGiocatore1"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/help2"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/animation_pointing"
-        android:elevation="7dp"
-        android:rotation="220"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/RispGiocatore1"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewGiocatore"
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView

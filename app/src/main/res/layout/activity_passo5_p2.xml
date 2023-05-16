@@ -120,8 +120,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Ti consiglio questa medicina:
-                formato compresse o sciroppo?"
+                android:text="Ti consiglio questa medicina.
+                Vuoi il formato compresse o sciroppo?"
                 android:textAlignment="center"
                 android:textSize="20dp" />
         </RelativeLayout>

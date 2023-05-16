@@ -63,10 +63,10 @@ public class StoryCard extends AppCompatActivity {
 
 
         models = new ArrayList<>();
-        models.add(new Model(R.drawable.image_medico_colorato, "PERCORSO 1", "VISITA MEDICA"));
-        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 2", "SCELTA RUOLO"));
-        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 3", "titolo 3"));
-        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 4", "titolo 4"));
+        models.add(new Model(R.drawable.image_medico_colorato, "PERCORSO 1", "LA VISITA MEDICA"));
+        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 2", "L'ALLENAMENTO"));
+        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 3", "LA PARTITA"));
+        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 4", "LA PREMIAZIONE"));
 
         adapter = new Adapter(models, this);
 
