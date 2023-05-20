@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AppTravisani.Percorso2.Passo1P2"
-    android:background="@drawable/allenatore1">
+    tools:context=".AppTravisani.Percorso1.Episodio1.Passo2E1P1">
+
 
     <FrameLayout
         android:id="@+id/button_pause"
@@ -36,75 +36,31 @@
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
-    <FrameLayout
-        android:id="@+id/button_aiuto"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="364dp"
-        android:background="@drawable/ic_baseline_help_outline_24"
-        android:backgroundTint="@color/teal_800"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_pause"
-        app:layout_constraintVertical_bias="0.996"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/help1"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/animation_pointing"
-        android:elevation="7dp"
-        android:rotation="40"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/help2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/RispAllenatore1"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/help2"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/animation_pointing"
-        android:elevation="7dp"
-        android:rotation="220"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/RispAllenatore1"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewAllenatore"
-        tools:ignore="MissingConstraints" />
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewAllenatore"
+        android:id="@+id/cardViewAllenatoreNGioc"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
-            android:id="@+id/LayoutSceltaSquadra"
+            android:id="@+id/LayoutNGioc"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/txt_allenatoreB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Ciao sono l'allenatore,
-                quale squadra scegli?"
+                android:text="Quanti giocatori ci sono
+                               in una squadra di calcio?"
                 android:textAlignment="center"
                 android:textSize="25dp" />
         </RelativeLayout>
@@ -112,21 +68,21 @@
     </androidx.cardview.widget.CardView>
 
     <GridLayout
-        android:id="@+id/RispAllenatore1"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_below="@id/cardViewAllenatore"
-        android:visibility="invisible"
-        android:columnCount="2"
-        android:rowCount="3"
+        android:id="@+id/RispGiocatore2"
+        android:layout_width="331dp"
+        android:layout_height="442dp"
+        android:layout_below="@id/cardViewAllenatoreNGioc"
         android:layout_marginTop="20dp"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewAllenatore">
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAllenatoreNGioc">
 
-        <!--        card rosso -->
+        <!--        card 15-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardRosso"
+            android:id="@+id/card15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -146,17 +102,15 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imgRosso"
+                    android:id="@+id/img15"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/scudetto_rosso" />
+                    android:src="@drawable/pollice" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ROSSA"
-                    android:textSize="20dp"
-                    android:textColor="@color/black"
+                    android:text="QUINDICI"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -166,9 +120,9 @@
         </androidx.cardview.widget.CardView>
 
 
-        <!--        card blu-->
+        <!--        card 11-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardBlu"
+            android:id="@+id/card11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -188,17 +142,16 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imgBlu"
+                    android:id="@+id/img11"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/scudetto_blu" />
+                    android:layout_height="70dp"
+                    android:src="@drawable/mano_ok" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BLU"
-                    android:textSize="20dp"
-                    android:textColor="@color/black"
+                    android:layout_marginTop="30dp"
+                    android:text="UNDICI"
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -207,6 +160,85 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!--        card 13-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img13"
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/pollice" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="TREDICI"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <!--        card 5-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img5"
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/pollice" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="CINQUE"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
 
     </GridLayout>
 

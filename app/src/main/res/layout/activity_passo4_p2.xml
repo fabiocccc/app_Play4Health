@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/allenatore2"
-    tools:context=".AppTravisani.P2Passi.Passo4P2">
+    tools:context=".AppTravisani.Percorso2.Passo4P2">
 
     <FrameLayout
         android:id="@+id/button_pause"

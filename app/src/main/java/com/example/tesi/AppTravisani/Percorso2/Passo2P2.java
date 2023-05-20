@@ -1,4 +1,4 @@
-package com.example.tesi.AppTravisani.P2Passi;
+package com.example.tesi.AppTravisani.Percorso2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.example.tesi.AppTravisani.Home;
 import com.example.tesi.R;
 
 public class Passo2P2 extends AppCompatActivity {

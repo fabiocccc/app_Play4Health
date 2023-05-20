@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AppTravisani.P1Passi.Passo1P1"
+    tools:context=".AppTravisani.Percorso1.Passo1P1"
     android:background="@drawable/calciatore_uomo1">
 
     <FrameLayout

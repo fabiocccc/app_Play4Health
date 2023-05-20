@@ -1,4 +1,4 @@
-package com.example.tesi.AppTravisani.P1Passi;
+package com.example.tesi.AppTravisani.Percorso1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -16,12 +16,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.example.tesi.AppTravisani.Home;
+import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.R;
 
 public class Passo3P1 extends AppCompatActivity {
@@ -245,7 +244,7 @@ public class Passo3P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
                 startActivity(i);
                 finish();
             }

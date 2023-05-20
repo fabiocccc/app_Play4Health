@@ -1,6 +1,7 @@
-package com.example.tesi.AppTravisani.P1Passi;
+package com.example.tesi.AppTravisani.Percorso1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,51 +14,52 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.example.tesi.AppTravisani.Home;
-import com.example.tesi.AppTravisani.P2Passi.PassiP2Activity;
+import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.R;
 
-public class Passo4P1 extends AppCompatActivity {
-    private FrameLayout btn_pause, btn_ripeti;
-    private Dialog dialog, findialog; //finestra di dialogo
+public class Passo2P1 extends AppCompatActivity {
+
     private MediaPlayer player;
-    private ImageView premio;
-    private ImageView help1;
+    private GridLayout layoutRispMedico,layoutRispMedico2 ;
+    private FrameLayout btn_pause, btn_ripeti;
+    private ImageView help1, help2;
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
-    private String urlVoice4;
+    private AnimationDrawable animationDrawable2 = null;
+    private Dialog dialog; //finestra di dialogo
+    private String urlVoice2;
+    private ImageView dolci, frutta;
+    private CardView rispDolcicard, rispFruttacard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo4_p1);
+        setContentView(R.layout.activity_passo2_p1);
+        dolci= findViewById(R.id.dolci);
+        frutta= findViewById(R.id.frutta);
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
         button_aiuto = findViewById(R.id.button_aiuto);
-        premio = findViewById(R.id.imagePremio);
         help1 = findViewById(R.id.help1);
-
+        help2 = findViewById(R.id.help2);
+        layoutRispMedico = findViewById(R.id.RispMedico);
+        layoutRispMedico2 = findViewById(R.id.RispMedico3);
+        rispDolcicard = findViewById(R.id.cardDolci);
+        rispFruttacard = findViewById(R.id.cardFrutta);
 
         dialog= new Dialog(this);
-        findialog = new Dialog(this);
 
-        urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FHai%20superato%20il%20primo%20percorso.mp3?alt=media&token=59c96e0c-88f0-4201-a8bd-4a5b57d2a462";
-        playsound(urlVoice4);
-
+        urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20dolci%20o%20frutta.mp3?alt=media&token=068eb268-a14d-4c22-a3e7-96a5830ad090";
+        playsound(urlVoice2);
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -65,7 +67,7 @@ public class Passo4P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                playsound(urlVoice4);
+                playsound(urlVoice2);
             }
         });
 
@@ -74,23 +76,42 @@ public class Passo4P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 help1.setVisibility(View.VISIBLE);
+                help2.setVisibility(View.VISIBLE);
 
                 animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                animationDrawable2 = (AnimationDrawable) help2.getBackground();
                 animationDrawable1.start();
+                animationDrawable2.start();
 
                 button_aiuto.setVisibility(View.GONE);
 
             }
         });
 
-        premio.setOnClickListener(new View.OnClickListener() {
+        dolci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopUPFinePercorso();
+
+                rispDolcicard.setBackgroundColor(Color.RED);
+                Intent i = new Intent(getApplicationContext(), Passo3P1.class);
+                i.putExtra("flag",1);
+                startActivity(i);
+                finish();
+
             }
         });
 
+        frutta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rispFruttacard.setBackgroundColor(Color.GREEN);
+                Intent i = new Intent(getApplicationContext(), Passo3P1.class);
+                i.putExtra("flag",2);
+                startActivity(i);
+                finish();
 
+            }
+        });
 
     }
 
@@ -101,30 +122,15 @@ public class Passo4P1 extends AppCompatActivity {
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
-
                     stopPlayer();
-                    active_premio();
-                    help1.setVisibility(View.VISIBLE);
-                    animationDrawable1 = (AnimationDrawable) help1.getBackground();
-                    animationDrawable1.start();
+                    layoutRispMedico.setVisibility(View.VISIBLE);
                     button_aiuto.setVisibility(View.VISIBLE);
+
                 }
             });
         }
 
         player.start();
-
-    }
-
-    private void active_premio() {
-
-        premio.setVisibility(View.VISIBLE);
-        //setta animazione lampeggiante
-        //sul pulsante gioca
-        YoYo.with(Techniques.Pulse)
-                .duration(700)
-                .repeat(10)
-                .playOn(premio);
 
     }
 
@@ -152,7 +158,7 @@ public class Passo4P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                playsound(urlVoice4);
+                playsound(urlVoice2);
             }
         });
 
@@ -161,7 +167,7 @@ public class Passo4P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -170,64 +176,15 @@ public class Passo4P1 extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dialog.dismiss();
-                playsound(urlVoice4);
+                playsound(urlVoice2);
             }
         });
 
         dialog.show();
     }
-    private void PopUPFinePercorso() {
-
-        findialog.setContentView(R.layout.fine_livellolayout);
-        findialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        ImageView imageViewClose = findialog.findViewById(R.id.ClosPoPUp);
-        Button btnRipetiLivello = findialog.findViewById(R.id.btnRipetiLivello);
-        Button btnAvanti = findialog.findViewById(R.id.btnAvanti);
-        TextView popUpTitle = findialog.findViewById(R.id.titlePoPUP);
-        TextView popUpMessage = findialog.findViewById(R.id.MessagePopUP);
-
-        popUpTitle.setText("Hai superato il percorso 1");
-        popUpMessage.setText("Hai guadagnato 1 stella");
 
 
-        imageViewClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                findialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
-                i.putExtra("flagDo",4);
-                startActivity(i);
-                finish();
-            }
-        });
 
-
-        btnRipetiLivello.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                findialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Passo1P1.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
-        btnAvanti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                findialog.dismiss();
-
-                //continua con il percorso 2
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
-                startActivity(i);
-                finish();
-
-            }
-        });
-
-        findialog.show();
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.tesi.AppTravisani.P2Passi;
+package com.example.tesi.AppTravisani.Percorso2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tesi.AppTravisani.P1Passi.Passo1P1;
 import com.example.tesi.R;
 
 public class PassiP2Activity extends AppCompatActivity {

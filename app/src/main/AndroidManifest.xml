@@ -16,40 +16,49 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tesi">
         <activity
-            android:name=".AppTravisani.P2Passi.Passo6P2"
+            android:name=".AppTravisani.Percorso1.Episodio1.Passo2E1P1"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P2Passi.Passo5P2"
+            android:name=".AppTravisani.Percorso1.Episodio1.Passo1E1P1"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P2Passi.Passo4P2"
+            android:name=".AppTravisani.Percorso1.P1EpisodiActivity"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P2Passi.Passo3P2"
+            android:name=".AppTravisani.Percorso2.Passo6P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P2Passi.Passo2P2"
+            android:name=".AppTravisani.Percorso2.Passo5P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P2Passi.Passo1P2"
+            android:name=".AppTravisani.Percorso2.Passo4P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P2Passi.PassiP2Activity"
+            android:name=".AppTravisani.Percorso2.Passo3P2"
+            android:exported="false" />
+        <activity
+            android:name=".AppTravisani.Percorso2.Passo2P2"
+            android:exported="false" />
+        <activity
+            android:name=".AppTravisani.Percorso2.Passo1P2"
+            android:exported="false" />
+        <activity
+            android:name=".AppTravisani.Percorso2.PassiP2Activity"
             android:exported="false" />
         <activity
             android:name=".AppTravisani.ListaPremi"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P1Passi.Passo4P1"
+            android:name=".AppTravisani.Percorso1.Passo4P1"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P1Passi.Passo3P1"
+            android:name=".AppTravisani.Percorso1.Passo3P1"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P1Passi.Passo2P1"
+            android:name=".AppTravisani.Percorso1.Passo2P1"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P1Passi.Passo1P1"
+            android:name=".AppTravisani.Percorso1.Passo1P1"
             android:exported="false" /> <!-- Definizione Activity Travisani -->
         <activity
             android:name=".AppTravisani.SplashScreen"
@@ -69,7 +78,7 @@
             android:name=".AppTravisani.StoryCard"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.P1Passi.PassiP1Activity"
+            android:name=".AppTravisani.Percorso1.Episodio1.PassiE1P1Activity"
             android:exported="false" /> <!-- Definizione Activity Pavone -->
         <activity
             android:name=".AppPavone.ActivityDialogo"

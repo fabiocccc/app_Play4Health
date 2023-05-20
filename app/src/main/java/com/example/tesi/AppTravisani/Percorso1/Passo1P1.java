@@ -1,6 +1,7 @@
-package com.example.tesi.AppTravisani.P2Passi;
+package com.example.tesi.AppTravisani.Percorso1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,59 +14,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.example.tesi.AppTravisani.Home;
+import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.R;
 
-public class Passo3P2 extends AppCompatActivity {
+public class Passo1P1 extends AppCompatActivity {
 
-    private ImageView help1;
-    private FrameLayout button_aiuto;
     private FrameLayout btn_pause, btn_ripeti;
-    private Button btn_sonoPronto;
-    private AnimationDrawable animationDrawable = null;
-    private Dialog dialog; //finestra di dialogo
+    private FrameLayout button_aiuto;
+    private AnimationDrawable animationDrawable1 = null;
+    private ImageView help1;
     private String urlVoice;
     private MediaPlayer player;
+    private GridLayout layoutrisp1;
+    private Dialog dialog; //finestra di dialogo
+    private CardView rispRipeti, rispOk;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo3_p2);
+        setContentView(R.layout.activity_passo1_p1);
+
 
         btn_pause = findViewById(R.id.button_pause);
         button_aiuto = findViewById(R.id.button_aiuto);
         btn_ripeti = findViewById(R.id.button_ripeti);
-        btn_sonoPronto = findViewById(R.id.btnPronto);
         help1 = findViewById(R.id.help1);
+        layoutrisp1 = findViewById(R.id.RispGiocatore1);
+       // rispRipeti = findViewById(R.id.cardRipeti);
+        rispOk = findViewById(R.id.cardOk);
 
         dialog= new Dialog(this);
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAllenamento.mp3?alt=media&token=80df5205-9d4e-45df-a60e-c0e23ec7192f";
-        playsound(urlVoice, 1);
-
-        button_aiuto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                help1.setVisibility(View.VISIBLE);
-
-                animationDrawable = (AnimationDrawable) help1.getBackground();
-                animationDrawable.start();
-
-                button_aiuto.setVisibility(View.GONE);
-
-            }
-        });
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -74,25 +64,34 @@ public class Passo3P2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                playsound(urlVoice, 1);
+                playsound(urlVoice);
             }
         });
 
-        btn_sonoPronto.setOnClickListener(new View.OnClickListener() {
+        button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                stopPlayer();
-                Intent i = new Intent(getApplicationContext(), Passo4P2.class);
-                startActivity(i);
-                finish();
+            public void onClick(View view) {
+
+                help1.setVisibility(View.VISIBLE);
+
+                animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                animationDrawable1.start();
+
+                button_aiuto.setVisibility(View.GONE);
 
             }
         });
+
+
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenvenuto.mp3?alt=media&token=257452bb-9193-4115-810c-ffb29e91cd6b";
+        playsound(urlVoice);
 
 
     }
 
-    private void playsound(String urlVoice, int flag)  {
+
+
+    private void playsound(String urlVoice)  {
 
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), Uri.parse(urlVoice)) ;
@@ -100,15 +99,8 @@ public class Passo3P2 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
+                    layoutrisp1.setVisibility(View.VISIBLE);
                     button_aiuto.setVisibility(View.VISIBLE);
-
-                    if(flag == 1)
-                    {
-                        active_btnSonoPronto();
-                        button_aiuto.setVisibility(View.VISIBLE);
-
-                    }
-
                 }
             });
         }
@@ -126,16 +118,16 @@ public class Passo3P2 extends AppCompatActivity {
         }
     }
 
-    private void active_btnSonoPronto() {
+    public void manoOk(View view) {
+        rispOk.setBackgroundColor(Color.GREEN);
+        Intent i = new Intent(getApplicationContext(), Passo2P1.class);
+        startActivity(i);
+        finish();
+    }
 
-        btn_sonoPronto.setVisibility(View.VISIBLE);
-        //setta animazione lampeggiante
-        //sul pulsante gioca
-        YoYo.with(Techniques.Pulse)
-                .duration(700)
-                .repeat(10)
-                .playOn(btn_sonoPronto);
-
+    public void ripeti(View view) {
+        rispRipeti.setBackgroundColor(Color.GREEN);
+        playsound(urlVoice);
     }
 
     private void openCustomWindow() {
@@ -152,8 +144,9 @@ public class Passo3P2 extends AppCompatActivity {
         imageViewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dialog.dismiss();
-                playsound(urlVoice, 1);
+                playsound(urlVoice);
             }
         });
 
@@ -162,7 +155,7 @@ public class Passo3P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -171,12 +164,19 @@ public class Passo3P2 extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dialog.dismiss();
-                playsound(urlVoice, 1);
+                playsound(urlVoice);
+
             }
         });
 
         dialog.show();
     }
+
+
+
+
+
 
 }

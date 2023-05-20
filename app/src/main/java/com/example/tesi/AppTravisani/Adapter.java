@@ -13,8 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.tesi.AppTravisani.P1Passi.PassiP1Activity;
-import com.example.tesi.AppTravisani.P2Passi.PassiP2Activity;
+import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
+import com.example.tesi.AppTravisani.Percorso2.PassiP2Activity;
 import com.example.tesi.R;
 
 import java.util.List;
@@ -69,7 +69,7 @@ public class Adapter extends PagerAdapter {
                 // al click sulla card apre la pagina corretta
                 switch (position + 1){
                     case 1:
-                        i = new Intent(context, PassiP1Activity.class);
+                        i = new Intent(context, P1EpisodiActivity.class);
                         i.putExtra("flagDo", 0);
                         context.startActivity(i);
                         break;

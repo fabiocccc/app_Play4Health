@@ -1,4 +1,4 @@
-package com.example.tesi.AppTravisani.P2Passi;
+package com.example.tesi.AppTravisani.Percorso2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,9 +18,6 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.example.tesi.AppTravisani.Home;
-import com.example.tesi.AppTravisani.P1Passi.PassiP1Activity;
-import com.example.tesi.AppTravisani.P1Passi.Passo1P1;
 import com.example.tesi.R;
 
 public class Passo6P2 extends AppCompatActivity {

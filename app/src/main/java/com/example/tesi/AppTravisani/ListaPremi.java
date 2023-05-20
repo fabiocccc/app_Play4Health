@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tesi.AppTravisani.P1Passi.Passo1P1;
 import com.example.tesi.R;
 
 public class ListaPremi extends AppCompatActivity {

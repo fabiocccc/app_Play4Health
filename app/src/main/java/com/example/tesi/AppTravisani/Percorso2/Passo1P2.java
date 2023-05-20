@@ -1,4 +1,4 @@
-package com.example.tesi.AppTravisani.P1Passi;
+package com.example.tesi.AppTravisani.Percorso2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -17,43 +17,47 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 
-import com.example.tesi.AppTravisani.Home;
 import com.example.tesi.R;
 
-public class Passo1P1 extends AppCompatActivity {
+public class Passo1P2 extends AppCompatActivity {
 
     private FrameLayout btn_pause, btn_ripeti;
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
-    private ImageView help1;
+    private AnimationDrawable animationDrawable2 = null;
+    private ImageView help1, help2;
     private String urlVoice;
     private MediaPlayer player;
-    private GridLayout layoutrisp1;
+    private GridLayout layoutrispAllenatore;
     private Dialog dialog; //finestra di dialogo
-    private CardView rispRipeti, rispOk;
-
+    private CardView rispRosso, rispBlu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo1_p1);
+        setContentView(R.layout.activity_passo1_p2);
+
         btn_pause = findViewById(R.id.button_pause);
         button_aiuto = findViewById(R.id.button_aiuto);
         btn_ripeti = findViewById(R.id.button_ripeti);
         help1 = findViewById(R.id.help1);
-        layoutrisp1 = findViewById(R.id.RispGiocatore1);
-       // rispRipeti = findViewById(R.id.cardRipeti);
-        rispOk = findViewById(R.id.cardOk);
+        help2 = findViewById(R.id.help2);
+        layoutrispAllenatore = findViewById(R.id.RispAllenatore1);
+        rispRosso = findViewById(R.id.cardRosso);
+        rispBlu = findViewById(R.id.cardBlu);
 
         dialog= new Dialog(this);
 
+
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAllenatore%20scelta%20squadra.mp3?alt=media&token=fa1e9f19-18bd-4dc6-a63f-5ff191f6081f";
+        playsound(urlVoice);
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-              //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -71,23 +75,43 @@ public class Passo1P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 help1.setVisibility(View.VISIBLE);
+                help2.setVisibility(View.VISIBLE);
 
                 animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                animationDrawable2 = (AnimationDrawable) help2.getBackground();
                 animationDrawable1.start();
+                animationDrawable2.start();
 
                 button_aiuto.setVisibility(View.GONE);
 
             }
         });
 
+        rispRosso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rispRosso.setBackgroundColor(Color.RED);
+                Intent i = new Intent(getApplicationContext(), Passo2P2.class);
+                startActivity(i);
+                finish();
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FBenvenuto.mp3?alt=media&token=257452bb-9193-4115-810c-ffb29e91cd6b";
-        playsound(urlVoice);
+
+            }
+        });
+
+        rispBlu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rispBlu.setBackgroundColor(Color.BLUE);
+                Intent i = new Intent(getApplicationContext(), Passo2P2.class);
+                startActivity(i);
+                finish();
+
+            }
+        });
 
 
     }
-
-
 
     private void playsound(String urlVoice)  {
 
@@ -97,7 +121,7 @@ public class Passo1P1 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
-                    layoutrisp1.setVisibility(View.VISIBLE);
+                    layoutrispAllenatore.setVisibility(View.VISIBLE);
                     button_aiuto.setVisibility(View.VISIBLE);
                 }
             });
@@ -116,18 +140,6 @@ public class Passo1P1 extends AppCompatActivity {
         }
     }
 
-    public void manoOk(View view) {
-        rispOk.setBackgroundColor(Color.GREEN);
-        Intent i = new Intent(getApplicationContext(), Passo2P1.class);
-        startActivity(i);
-        finish();
-    }
-
-    public void ripeti(View view) {
-        rispRipeti.setBackgroundColor(Color.GREEN);
-        playsound(urlVoice);
-    }
-
     private void openCustomWindow() {
 
         stopPlayer();
@@ -142,7 +154,6 @@ public class Passo1P1 extends AppCompatActivity {
         imageViewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialog.dismiss();
                 playsound(urlVoice);
             }
@@ -153,7 +164,7 @@ public class Passo1P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -165,16 +176,10 @@ public class Passo1P1 extends AppCompatActivity {
 
                 dialog.dismiss();
                 playsound(urlVoice);
-
             }
         });
 
         dialog.show();
     }
-
-
-
-
-
 
 }

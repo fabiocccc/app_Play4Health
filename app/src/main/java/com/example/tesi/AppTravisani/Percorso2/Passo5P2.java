@@ -1,7 +1,6 @@
-package com.example.tesi.AppTravisani.P1Passi;
+package com.example.tesi.AppTravisani.Percorso2;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,52 +13,67 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 
-import com.example.tesi.AppTravisani.Home;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.R;
 
-public class Passo2P1 extends AppCompatActivity {
+public class Passo5P2 extends AppCompatActivity {
 
-    private MediaPlayer player;
-    private GridLayout layoutRispMedico,layoutRispMedico2 ;
     private FrameLayout btn_pause, btn_ripeti;
-    private ImageView help1, help2;
     private FrameLayout button_aiuto;
-    private AnimationDrawable animationDrawable1 = null;
-    private AnimationDrawable animationDrawable2 = null;
+    private String urlVoice;
+    private MediaPlayer player;
+    private ImageView help1;
+    private ImageView compresseimg, sciroppoimg;
     private Dialog dialog; //finestra di dialogo
-    private String urlVoice2;
-    private ImageView dolci, frutta;
-    private CardView rispDolcicard, rispFruttacard;
+    private AnimationDrawable animationDrawable1 = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo2_p1);
-        dolci= findViewById(R.id.dolci);
-        frutta= findViewById(R.id.frutta);
+        setContentView(R.layout.activity_passo5_p2);
+
         btn_pause = findViewById(R.id.button_pause);
-        btn_ripeti = findViewById(R.id.button_ripeti);
         button_aiuto = findViewById(R.id.button_aiuto);
+        btn_ripeti = findViewById(R.id.button_ripeti);
         help1 = findViewById(R.id.help1);
-        help2 = findViewById(R.id.help2);
-        layoutRispMedico = findViewById(R.id.RispMedico);
-        layoutRispMedico2 = findViewById(R.id.RispMedico3);
-        rispDolcicard = findViewById(R.id.cardDolci);
-        rispFruttacard = findViewById(R.id.cardFrutta);
+        compresseimg = findViewById(R.id.compresse);
+        sciroppoimg = findViewById(R.id.sciroppo);
 
         dialog= new Dialog(this);
 
-        urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20dolci%20o%20frutta.mp3?alt=media&token=068eb268-a14d-4c22-a3e7-96a5830ad090";
-        playsound(urlVoice2);
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20scelta%20medicina.mp3?alt=media&token=f5c2414a-91d0-45d9-aad2-3e81984c8e7c";
+        playsound(urlVoice);
+
+        compresseimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Passo6P2.class);
+                startActivity(i);
+                finish();
+
+
+            }
+        });
+
+        sciroppoimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Passo6P2.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
+
             }
         });
 
@@ -67,7 +81,7 @@ public class Passo2P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                playsound(urlVoice2);
+                playsound(urlVoice);
             }
         });
 
@@ -76,44 +90,18 @@ public class Passo2P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 help1.setVisibility(View.VISIBLE);
-                help2.setVisibility(View.VISIBLE);
 
                 animationDrawable1 = (AnimationDrawable) help1.getBackground();
-                animationDrawable2 = (AnimationDrawable) help2.getBackground();
                 animationDrawable1.start();
-                animationDrawable2.start();
 
                 button_aiuto.setVisibility(View.GONE);
 
             }
         });
 
-        dolci.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                rispDolcicard.setBackgroundColor(Color.RED);
-                Intent i = new Intent(getApplicationContext(), Passo3P1.class);
-                i.putExtra("flag",1);
-                startActivity(i);
-                finish();
-
-            }
-        });
-
-        frutta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rispFruttacard.setBackgroundColor(Color.GREEN);
-                Intent i = new Intent(getApplicationContext(), Passo3P1.class);
-                i.putExtra("flag",2);
-                startActivity(i);
-                finish();
-
-            }
-        });
 
     }
+
 
     private void playsound(String urlVoice)  {
 
@@ -123,15 +111,34 @@ public class Passo2P1 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
-                    layoutRispMedico.setVisibility(View.VISIBLE);
-                    button_aiuto.setVisibility(View.VISIBLE);
 
+                    attiva_medicine();
+
+                    button_aiuto.setVisibility(View.VISIBLE);
                 }
             });
         }
 
         player.start();
 
+    }
+
+    private void attiva_medicine() {
+
+        compresseimg.setVisibility(View.VISIBLE);
+        sciroppoimg.setVisibility(View.VISIBLE);
+
+        //setta animazione lampeggiante
+        //sulle immagini delle medicine
+        YoYo.with(Techniques.Pulse)
+                .duration(700)
+                .repeat(10)
+                .playOn(compresseimg);
+
+        YoYo.with(Techniques.Pulse)
+                .duration(700)
+                .repeat(10)
+                .playOn(sciroppoimg);
     }
 
     private void stopPlayer() {
@@ -158,7 +165,7 @@ public class Passo2P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                playsound(urlVoice2);
+                playsound(urlVoice);
             }
         });
 
@@ -167,7 +174,7 @@ public class Passo2P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP1Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -176,15 +183,11 @@ public class Passo2P1 extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialog.dismiss();
-                playsound(urlVoice2);
+                playsound(urlVoice);
             }
         });
 
         dialog.show();
     }
-
-
-
 }
