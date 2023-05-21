@@ -10,16 +10,23 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.tesi.AppTravisani.Percorso1.Passo2P1;
+import com.example.tesi.AppTravisani.CodeTimer;
 import com.example.tesi.R;
+
+import java.util.Timer;
+
 
 public class Passo1E1P1 extends AppCompatActivity {
 
@@ -35,6 +42,7 @@ public class Passo1E1P1 extends AppCompatActivity {
     private TextView txtAllenatore;
     private int contatore = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +54,6 @@ public class Passo1E1P1 extends AppCompatActivity {
         layoutrisp1 = findViewById(R.id.RispGiocatore1);
         rispPollice = findViewById(R.id.cardPollice);
         rispOk = findViewById(R.id.cardOK);
-
         txtAllenatore = findViewById(R.id.txt_allenatoreB);
 
         dialog= new Dialog(this);
@@ -55,6 +62,8 @@ public class Passo1E1P1 extends AppCompatActivity {
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                
                 //programmare popup fine percorso con custom dialog
                 openCustomWindow();
                 //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
@@ -103,6 +112,8 @@ public class Passo1E1P1 extends AppCompatActivity {
 
                 layoutrisp1.setVisibility(View.GONE);
                 txtAllenatore.setText("Molto bene! Ma, prima di cominciare, rispondi a qualche domanda.");
+                button_aiuto.setVisibility(View.GONE);
+                help1.setVisibility(View.GONE);
                 urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FPrima%20di%20cominciare.mp3?alt=media&token=1cc6e8a2-8a6b-445e-a0d6-d3ab95a0a2d8";
                 contatore=2;
                 playsound(urlVoice2, 2);
@@ -124,6 +135,7 @@ public class Passo1E1P1 extends AppCompatActivity {
 
 
     }
+
 
 
 

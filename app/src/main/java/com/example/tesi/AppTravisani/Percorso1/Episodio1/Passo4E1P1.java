@@ -10,11 +10,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -47,6 +50,7 @@ public class Passo4E1P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
         findialog = new Dialog(this);
+
 
         urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E1P1.mp3?alt=media&token=bc0d2d4a-d0f5-4488-bd7e-80841c3975a9";
         playsound(urlVoice4);
@@ -93,6 +97,7 @@ public class Passo4E1P1 extends AppCompatActivity {
         });
 
     }
+
 
     private void playsound(String urlVoice)  {
 
@@ -208,7 +213,7 @@ public class Passo4E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 findialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Passo1P1.class);
+                Intent i = new Intent(getApplicationContext(), Passo1E1P1.class);
                 startActivity(i);
                 finish();
             }
@@ -220,10 +225,10 @@ public class Passo4E1P1 extends AppCompatActivity {
 
                 findialog.dismiss();
 
-                //continua con il percorso 2
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
-                startActivity(i);
-                finish();
+                //continua con il percorso 2 --> CAMBIARE
+//                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+//                startActivity(i);
+//                finish();
 
             }
         });

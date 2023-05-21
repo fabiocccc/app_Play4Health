@@ -67,7 +67,7 @@ public class Passo3E1P1 extends AppCompatActivity {
         dialog= new Dialog(this);
 
         urlVoice1="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FPosizione%20portiere.mp3?alt=media&token=05ab4ebd-3a87-4ddc-8863-3ce6e7693a2f";
-        playsound(urlVoice1, 0);
+        playsound(urlVoice1);
 
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +97,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                playsound(urlVoice1);
 
             }
         });
@@ -188,7 +188,7 @@ public class Passo3E1P1 extends AppCompatActivity {
     }
 
 
-    private void playsound(String urlVoice, int flag)  {
+    private void playsound(String urlVoice)  {
 
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), Uri.parse(urlVoice)) ;
@@ -197,12 +197,6 @@ public class Passo3E1P1 extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
                     button_aiuto.setVisibility(View.VISIBLE);
-
-                    if(flag == 1)
-                    {
-                        button_aiuto.setVisibility(View.GONE);
-
-                    }
 
                 }
             });
@@ -236,6 +230,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                playsound(urlVoice1);
             }
         });
 
@@ -244,7 +239,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -254,6 +249,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                playsound(urlVoice1);
             }
         });
 
