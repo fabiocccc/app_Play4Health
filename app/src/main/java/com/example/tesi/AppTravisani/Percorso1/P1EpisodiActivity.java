@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.Passo1E1P1;
+import com.example.tesi.AppTravisani.Percorso1.Episodio2.PassiE2P1Activity;
 import com.example.tesi.R;
 
 public class P1EpisodiActivity extends AppCompatActivity {
@@ -53,8 +54,19 @@ public class P1EpisodiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //aprire passo 1 dell'episodio 1 del percorso 1
+                //aprire passi dell'episodio 1 del percorso 1
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        cv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //aprire passi dell'episodio 2 del percorso 1
+                Intent i = new Intent(getApplicationContext(), PassiE2P1Activity.class);
                 startActivity(i);
                 finish();
             }

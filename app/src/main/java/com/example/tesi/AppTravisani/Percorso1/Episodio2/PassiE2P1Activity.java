@@ -1,4 +1,7 @@
-package com.example.tesi.AppTravisani.Percorso1.Episodio1;
+package com.example.tesi.AppTravisani.Percorso1.Episodio2;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,33 +9,32 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
-import com.example.tesi.AppTravisani.Percorso1.Passo1P1;
 import com.example.tesi.R;
 
-public class PassiE1P1Activity extends AppCompatActivity {
+public class PassiE2P1Activity extends AppCompatActivity {
 
-    private CardView passo1, passo2, passo3, passo4;
+    private CardView passo1, passo2, passo3, passo4, passo5;
     private ImageView backIcon;
     private ImageView badgeIcon;
     private ImageView imgCardP2,imgCardP3,imgCardP4;
     private TextView title_toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passi_e1_p1);
+        setContentView(R.layout.activity_passi_e2_p2);
 
         title_toolbar= findViewById(R.id.toolbar_title);
-        title_toolbar.setText("EPISODIO 1 - P1");
+        title_toolbar.setText("EPISODIO 2 - P1");
         title_toolbar.setTextSize(25);
 
         passo1 = findViewById(R.id.cardPasso1);
         passo2 = findViewById(R.id.cardPasso2);
         passo3 = findViewById(R.id.cardPasso3);
         passo4 = findViewById(R.id.cardPasso4);
+        passo5 = findViewById(R.id.cardPasso5);
+
 
         imgCardP2= findViewById(R.id.passo2img);
         imgCardP3= findViewById(R.id.passo3img);
@@ -69,13 +71,13 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
 
 
-       ///PASSO 1 PERCORSO 1
+        ///PASSO 1 PERCORSO 1
         passo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //aprire passo 1 del percorso 1
-                Intent i = new Intent(getApplicationContext(), Passo1E1P1.class);
+                Intent i = new Intent(getApplicationContext(), Passo1E2P1.class);
                 startActivity(i);
                 finish();
             }
@@ -109,27 +111,15 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
             }
         });
-//        ///PASSO 5 PERCORSO 1
-//        passo5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 5 del percorso 1
-//
-//            }
-//        });
-//        ///PASSO 6 PERCORSO 1
-//        passo6.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 6 del percorso 1
-//
-//            }
-//        });
 
+        ///PASSO 5 PERCORSO 1
+        passo5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                //aprire passo 5 del percorso 1
 
-
+            }
+        });
     }
 }
