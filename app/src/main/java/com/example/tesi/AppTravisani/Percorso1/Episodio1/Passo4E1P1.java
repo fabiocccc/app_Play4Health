@@ -1,7 +1,6 @@
 package com.example.tesi.AppTravisani.Percorso1.Episodio1;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,42 +13,43 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tesi.AppTravisani.Percorso1.Passo2P1;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.example.tesi.AppTravisani.Percorso1.Passo1P1;
+import com.example.tesi.AppTravisani.Percorso2.PassiP2Activity;
 import com.example.tesi.R;
 
-public class Passo1E1P1 extends AppCompatActivity {
+public class Passo4E1P1 extends AppCompatActivity {
 
     private FrameLayout btn_pause, btn_ripeti;
+    private Dialog dialog, findialog; //finestra di dialogo
+    private MediaPlayer player;
+    private ImageView premio;
+    private ImageView help1;
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
-    private ImageView help1;
-    private String urlVoice1, urlVoice2;
-    private MediaPlayer player;
-    private GridLayout layoutrisp1;
-    private Dialog dialog; //finestra di dialogo
-    private CardView rispOk, rispPollice;
-    private TextView txtAllenatore;
-    private int contatore = 0;
+    private String urlVoice4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo1_e1_p1);
-        btn_pause = findViewById(R.id.button_pause);
-        button_aiuto = findViewById(R.id.button_aiuto);
-        btn_ripeti = findViewById(R.id.button_ripeti);
-        help1 = findViewById(R.id.help1);
-        layoutrisp1 = findViewById(R.id.RispGiocatore1);
-        rispPollice = findViewById(R.id.cardPollice);
-        rispOk = findViewById(R.id.cardOK);
+        setContentView(R.layout.activity_passo4_e1_p1);
 
-        txtAllenatore = findViewById(R.id.txt_allenatoreB);
+        btn_pause = findViewById(R.id.button_pause);
+        btn_ripeti = findViewById(R.id.button_ripeti);
+        button_aiuto = findViewById(R.id.button_aiuto);
+        premio = findViewById(R.id.imagePremio);
+        help1 = findViewById(R.id.help1);
+
 
         dialog= new Dialog(this);
+        findialog = new Dialog(this);
+
+        urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E1P1.mp3?alt=media&token=bc0d2d4a-d0f5-4488-bd7e-80841c3975a9";
+        playsound(urlVoice4);
 
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +57,7 @@ public class Passo1E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 //programmare popup fine percorso con custom dialog
                 openCustomWindow();
+
                 //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
             }
@@ -66,14 +67,7 @@ public class Passo1E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(contatore == 1)
-                {
-                    playsound(urlVoice1, 1);
-                }
-                else
-                {
-                    playsound(urlVoice2, 2);
-                }
+                playsound(urlVoice4);
             }
         });
 
@@ -91,72 +85,46 @@ public class Passo1E1P1 extends AppCompatActivity {
             }
         });
 
-
-        urlVoice1="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FBenvenuto.mp3?alt=media&token=73d40da7-dccc-4359-9b5f-9b88e4e0fff6";
-        playsound(urlVoice1, 1);
-        contatore = 1;
-
-
-        rispOk.setOnClickListener(new View.OnClickListener() {
+        premio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                layoutrisp1.setVisibility(View.GONE);
-                txtAllenatore.setText("Molto bene! Ma, prima di cominciare, rispondi a qualche domanda.");
-                urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FPrima%20di%20cominciare.mp3?alt=media&token=1cc6e8a2-8a6b-445e-a0d6-d3ab95a0a2d8";
-                contatore=2;
-                playsound(urlVoice2, 2);
-
-
-
+                PopUPFinePercorso();
             }
         });
-
-        rispPollice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //PASSO 2 EPISODIO 1 P1
-                Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
 
     }
 
-
-
-    private void playsound(String urlVoice, int flag)  {
+    private void playsound(String urlVoice)  {
 
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), Uri.parse(urlVoice)) ;
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
+
                     stopPlayer();
-
-                    if(flag == 1)
-                    {
-                        layoutrisp1.setVisibility(View.VISIBLE);
-                        rispOk.setVisibility(View.VISIBLE);
-                        rispPollice.setVisibility(View.GONE);
-                        button_aiuto.setVisibility(View.VISIBLE);
-
-                    }
-                    else
-                    {
-                        layoutrisp1.setVisibility(View.VISIBLE);
-                        rispOk.setVisibility(View.GONE);
-                        rispPollice.setVisibility(View.VISIBLE);
-                        button_aiuto.setVisibility(View.VISIBLE);
-                    }
-
+                    active_premio();
+                    help1.setVisibility(View.VISIBLE);
+                    animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                    animationDrawable1.start();
+                    button_aiuto.setVisibility(View.VISIBLE);
                 }
             });
         }
 
         player.start();
+
+    }
+
+    private void active_premio() {
+
+        premio.setVisibility(View.VISIBLE);
+        //setta animazione lampeggiante
+        //sul pulsante gioca
+        YoYo.with(Techniques.Pulse)
+                .duration(700)
+                .repeat(10)
+                .playOn(premio);
 
     }
 
@@ -168,8 +136,6 @@ public class Passo1E1P1 extends AppCompatActivity {
             // Toast.makeText(context, "MediaPlayer releases", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
     private void openCustomWindow() {
 
@@ -185,18 +151,8 @@ public class Passo1E1P1 extends AppCompatActivity {
         imageViewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialog.dismiss();
-
-                if(contatore == 1)
-                {
-                    playsound(urlVoice1, 1);
-                }
-                else
-                {
-                    playsound(urlVoice2, 2);
-                }
-
+                playsound(urlVoice4);
             }
         });
 
@@ -214,20 +170,64 @@ public class Passo1E1P1 extends AppCompatActivity {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialog.dismiss();
-                if(contatore == 1)
-                {
-                    playsound(urlVoice1, 1);
-                }
-                else
-                {
-                    playsound(urlVoice2, 2);
-                }
-
+                playsound(urlVoice4);
             }
         });
 
         dialog.show();
+    }
+    private void PopUPFinePercorso() {
+
+        findialog.setContentView(R.layout.fine_livellolayout);
+        findialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView imageViewClose = findialog.findViewById(R.id.ClosPoPUp);
+        Button btnRipetiLivello = findialog.findViewById(R.id.btnRipetiLivello);
+        Button btnAvanti = findialog.findViewById(R.id.btnAvanti);
+        TextView popUpTitle = findialog.findViewById(R.id.titlePoPUP);
+        TextView popUpMessage = findialog.findViewById(R.id.MessagePopUP);
+
+        popUpTitle.setText("Hai superato l'episodio 1");
+        popUpMessage.setText("Hai guadagnato 2 punti");
+
+
+        imageViewClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findialog.dismiss();
+                Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
+                i.putExtra("flagDo",4);
+                startActivity(i);
+                finish();
+            }
+        });
+
+
+        btnRipetiLivello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findialog.dismiss();
+                Intent i = new Intent(getApplicationContext(), Passo1P1.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        btnAvanti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                findialog.dismiss();
+
+                //continua con il percorso 2
+                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+                startActivity(i);
+                finish();
+
+            }
+        });
+
+        findialog.show();
     }
 }

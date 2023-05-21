@@ -44,8 +44,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/image_campo" />
+                        android:src="@drawable/media" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -80,8 +79,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/image_campo" />
+                        android:src="@drawable/media" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -116,8 +114,9 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/image_campo" />
+                        android:src="@drawable/media" />
+<!--                        android:scaleType="centerCrop"-->
+
 
                     <TextView
                         android:layout_width="match_parent"

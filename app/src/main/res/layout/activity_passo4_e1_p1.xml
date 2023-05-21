@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AppTravisani.Percorso1.Passo4P1"
-    android:background="@drawable/calciatore_uomo2">
+    android:background="@drawable/calciatore_uomo2"
+    tools:context=".AppTravisani.Percorso1.Episodio1.Passo4E1P1">
 
     <FrameLayout
         android:id="@+id/button_pause"
@@ -56,10 +56,43 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/txtpunti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Hai superato il primo percorso guadagnando una stella, ora giochiamo!"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:text="Bravo! Hai guadagnato 2 punti."
+                android:textAlignment="center"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/txtiniziopartita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="49dp"
+                android:text="La partita può cominciare! "
+                android:textAlignment="center"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/txtscore"
+                android:layout_width="99dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="133dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="131dp"
+                android:layout_marginBottom="3dp"
+                android:text="SCORE"
                 android:textAlignment="center"
                 android:textSize="20dp" />
         </RelativeLayout>
@@ -108,6 +141,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.657"
         tools:ignore="MissingConstraints" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

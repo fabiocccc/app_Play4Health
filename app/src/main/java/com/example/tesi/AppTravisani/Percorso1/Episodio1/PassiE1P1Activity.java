@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.AppTravisani.Percorso1.Passo1P1;
 import com.example.tesi.R;
 
@@ -25,7 +26,8 @@ public class PassiE1P1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_passi_e1_p1);
 
         title_toolbar= findViewById(R.id.toolbar_title);
-        title_toolbar.setText("EPISODIO 1");
+        title_toolbar.setText("EPISODIO 1 - P1");
+        title_toolbar.setTextSize(25);
 
         passo1 = findViewById(R.id.cardDolci);
         passo2 = findViewById(R.id.cardCarne);
@@ -58,7 +60,11 @@ public class PassiE1P1Activity extends AppCompatActivity {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+
+                Intent i = new Intent(getApplicationContext(), P1EpisodiActivity.class);
+                startActivity(i);
+                finish();
+
             }
         });
 

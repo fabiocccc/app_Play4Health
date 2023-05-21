@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -55,7 +56,12 @@ public class Passo2E1P1 extends AppCompatActivity {
         risp11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 risp11.setBackgroundColor(Color.GREEN);
+                //PASSO 3 EPISODIO 1 P1
+                Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);
+                startActivity(i);
+                finish();
             }
         });
 

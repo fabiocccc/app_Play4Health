@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
@@ -14,8 +15,12 @@ import com.example.tesi.R;
 
 public class P1EpisodiActivity extends AppCompatActivity {
 
-    private TextView title_toolbar;
+    private ImageView premi_toolbar;
     private CardView cv1, cv2 , cv3;
+
+    private ImageView backIcon;
+    private ImageView badgeIcon;
+    private TextView title_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +28,20 @@ public class P1EpisodiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_p1_episodi);
 
         title_toolbar= findViewById(R.id.toolbar_title);
+        badgeIcon= findViewById(R.id.badge_icon);
+        backIcon = findViewById(R.id.back_icon);
+
+
+        badgeIcon.setVisibility(View.GONE);
         title_toolbar.setText("EPISODI Percorso 1");
+        title_toolbar.setTextSize(25);
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
         cv1 = findViewById(R.id.cv1);

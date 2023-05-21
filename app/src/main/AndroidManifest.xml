@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tesi">
         <activity
+            android:name=".AppTravisani.Percorso1.Episodio1.Passo4E1P1"
+            android:exported="false" />
+        <activity
+            android:name=".AppTravisani.Percorso1.Episodio1.Passo3E1P1"
+            android:exported="false" />
+        <activity
             android:name=".AppTravisani.Percorso1.Episodio1.Passo2E1P1"
             android:exported="false" />
         <activity
