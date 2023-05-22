@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.Passo3E1P1;
+import com.example.tesi.AppTravisani.Percorso1.Episodio1.Passo4E1P1;
 import com.example.tesi.R;
 
 public class Passo3E2P1 extends AppCompatActivity {
@@ -92,9 +93,9 @@ public class Passo3E2P1 extends AppCompatActivity {
             public void onClick(View v) {
                 rispPortiere.setBackgroundColor(Color.GREEN);
                 //PASSO 4 EPISODIO 2 P1
-//                Intent i = new Intent(getApplicationContext(), Passo4E1P1.class);
-//                startActivity(i);
-//                finish()
+                Intent i = new Intent(getApplicationContext(), Passo4E2P1.class);
+                startActivity(i);
+                finish();
             }
         });
 

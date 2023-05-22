@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/calciatore_uomo2"
-    tools:context=".AppTravisani.Percorso1.Episodio1.Passo4E1P1">
+    tools:context=".AppTravisani.Percorso1.Episodio2.Passo5E2P1">
 
     <FrameLayout
         android:id="@+id/button_pause"
@@ -63,21 +63,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
-                android:text="Bravo! Hai guadagnato 2 punti."
-                android:textAlignment="center"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/txtiniziopartita"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="49dp"
-                android:text="La partita può cominciare! "
+                android:text="Bravo! Hai guadagnato 3 punti."
                 android:textAlignment="center"
                 android:textSize="20dp" />
 
@@ -85,13 +71,14 @@
                 android:id="@+id/chronometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/txtpunti"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="133dp"
-                android:layout_marginTop="34dp"
-                android:layout_marginEnd="131dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginStart="123dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="141dp"
+                android:layout_marginBottom="27dp"
                 android:textAlignment="center"
                 android:textSize="20dp" />
 
@@ -142,5 +129,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.657"
         tools:ignore="MissingConstraints" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
