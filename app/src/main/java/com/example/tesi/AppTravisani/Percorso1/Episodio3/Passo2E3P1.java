@@ -11,18 +11,23 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class Passo2E3P1 extends AppCompatActivity {
 
@@ -36,8 +41,8 @@ public class Passo2E3P1 extends AppCompatActivity {
     private ImageView help2;
     private String urlVoice1, urlVoice2;
     private MediaPlayer player;
-    private GridLayout layoutrisp1;
     private Dialog dialog; //finestra di dialogo
+    private String fraseRegistrata;
     private int contatore = 0;
 
     @Override
@@ -52,7 +57,9 @@ public class Passo2E3P1 extends AppCompatActivity {
         button_aiuto = findViewById(R.id.button_aiuto);
         btn_ripeti = findViewById(R.id.button_ripeti);
         help1 = findViewById(R.id.help1);
-        help1 = findViewById(R.id.help2);
+        help2 = findViewById(R.id.help2);
+
+        dialog= new Dialog(this);
 
         urlVoice1 ="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FChe%20cosa%20sta%20facendo.mp3?alt=media&token=d0cff0d5-7832-439d-9036-f32cf616f8a9";
         playsound(urlVoice1, 1);
@@ -75,14 +82,9 @@ public class Passo2E3P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(contatore == 1)
-                {
+
                     playsound(urlVoice1, 1);
-                }
-                else if (contatore == 2)
-                {
-                    playsound(urlVoice2, 2);
-                }
+
             }
         });
 
@@ -129,9 +131,49 @@ public class Passo2E3P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, 10);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 10:
+                if (resultCode == RESULT_OK && data != null) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    txtTestoRegistrato.setText(result.get(0));
+                    fraseRegistrata = result.get(0);
+                    String fraseprova = "tocca i piedi";
+
+                    if(fraseRegistrata.equals(fraseprova))
+                    {
+                        Toast.makeText(this, "Risposta corretta", Toast.LENGTH_SHORT).show();
+                        //passo 3 episodio3 P1
+                        Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
+                        startActivity(i);
+                        finish();
+
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "Riprova", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+        }
     }
 
     private void playsound(String urlVoice, int flag)  {
@@ -152,7 +194,12 @@ public class Passo2E3P1 extends AppCompatActivity {
                     else if (flag == 2)
                     {
                         btnRegistra.setVisibility(View.VISIBLE);
+                        txtTestoRegistrato.setVisibility(View.VISIBLE);
                         button_aiuto.setVisibility(View.VISIBLE);
+///////////////////////////PROVA PROSSIMO PASSSO
+//                        Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
+//                        startActivity(i);
+//                        finish();
                     }
 
                 }
@@ -191,14 +238,14 @@ public class Passo2E3P1 extends AppCompatActivity {
 
                 dialog.dismiss();
 
-//                if(contatore == 1)
-//                {
-//                    playsound(urlVoice1, 1);
-//                }
-//                else
-//                {
-//                    playsound(urlVoice2, 2);
-//                }
+                if(contatore == 1)
+                {
+                    playsound(urlVoice1, 1);
+                }
+                else
+                {
+                    playsound(urlVoice2, 2);
+                }
 
             }
         });
@@ -219,14 +266,14 @@ public class Passo2E3P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 dialog.dismiss();
-//                if(contatore == 1)
-//                {
-//                    playsound(urlVoice1, 1);
-//                }
-//                else
-//                {
-//                    playsound(urlVoice2, 2);
-//                }
+                if(contatore == 1)
+                {
+                    playsound(urlVoice1, 1);
+                }
+                else
+                {
+                    playsound(urlVoice2, 2);
+                }
 
             }
         });

@@ -50,8 +50,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     implementation 'com.google.firebase:firebase-auth:21.0.1'
 
-    //libreria per le animazioni
+    //libreria per le animazioni home
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
     implementation 'com.daimajia.easing:library:2.0@aar'
+
+    //libreria per animazione portiere
+    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 
 }
