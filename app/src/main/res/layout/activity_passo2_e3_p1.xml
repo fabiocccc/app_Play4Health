@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_100"
+    tools:context=".AppTravisani.Percorso1.Episodio3.Passo2E3P1">
+
+
+    <FrameLayout
+        android:id="@+id/button_pause"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/exo_icon_stop"
+        android:backgroundTint="@color/teal_800"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <FrameLayout
+        android:id="@+id/button_ripeti"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_baseline_refresh_24"
+        android:backgroundTint="@color/teal_800"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toEndOf="@+id/button_pause"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+    <FrameLayout
+        android:id="@+id/button_aiuto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="364dp"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        android:backgroundTint="@color/teal_800"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_pause"
+        app:layout_constraintVertical_bias="0.996"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAllenatoreAllenamento"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/Layoutrelative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/txt_allenatore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Che cosa sta facendo?"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/imageViewAllenamento"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/uomo_piegamenti"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewAllenatoreAllenamento"
+        app:layout_constraintVertical_bias="0.038"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_Ascolta"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="8dp"
+        android:foreground="@drawable/audio"
+        android:foregroundGravity="fill_horizontal|clip_horizontal|center|fill_vertical"
+        android:foregroundTint="@color/verdepistacchio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.263"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAllenamento"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <android.widget.Button
+        android:id="@+id/button_Parla"
+        android:layout_width="108dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/cirlce1"
+        android:backgroundTint="@color/teal_800"
+        android:foreground="@drawable/mic_off"
+        android:foregroundTint="@color/verdepistacchio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.709"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAllenamento"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/TextRiconosciuto"
+        android:layout_width="340dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/cirlce1"
+        android:paddingLeft="10sp"
+        android:textAlignment="center"
+        android:textSize="44sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Parla" />
+
+
+    <ImageView
+        android:id="@+id/help1"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="50"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/button_Ascolta"
+        app:layout_constraintEnd_toStartOf="@+id/button_Ascolta"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_Ascolta"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/help2"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/animation_pointing"
+        android:elevation="7dp"
+        android:rotation="200"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAllenamento"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
