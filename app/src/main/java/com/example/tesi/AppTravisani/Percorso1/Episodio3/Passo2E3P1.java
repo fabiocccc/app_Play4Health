@@ -29,6 +29,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 public class Passo2E3P1 extends AppCompatActivity {
 
     private FloatingActionButton btnRiproduci;
@@ -121,6 +123,7 @@ public class Passo2E3P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                stopPlayer();
                 urlVoice2 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FTocca%20i%20piedi.mp3?alt=media&token=4f4ab025-cbff-4110-b67b-226683893a4e";
                 playsound(urlVoice2, 2);
                 contatore = 2;
@@ -130,6 +133,8 @@ public class Passo2E3P1 extends AppCompatActivity {
         btnRegistra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                stopPlayer();
 
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -160,7 +165,8 @@ public class Passo2E3P1 extends AppCompatActivity {
 
                     if(fraseRegistrata.equals(fraseprova))
                     {
-                        Toast.makeText(this, "Risposta corretta", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(), "Risposta corretta", R.style.rightToast).show();
+                        stopPlayer();
                         //passo 3 episodio3 P1
                         Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
                         startActivity(i);
@@ -169,7 +175,7 @@ public class Passo2E3P1 extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(this, "Riprova", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                     }
                 }
                 break;

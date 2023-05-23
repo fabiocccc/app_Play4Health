@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.example.tesi.R;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 public class Passo4E2P1 extends AppCompatActivity {
 
     private FrameLayout btn_pause, btn_ripeti;
@@ -255,11 +257,14 @@ public class Passo4E2P1 extends AppCompatActivity {
 
                 if (flag < 4)
                 {
-                    Toast.makeText(getApplicationContext(), "Componi correttamente la frase", Toast.LENGTH_SHORT).show();
+
+                    StyleableToast.makeText(getApplicationContext(), "Componi correttamente la frase", R.style.warningToast).show();
                 }
                 else if ( s1.equals(s2))
                 {
-                    Toast.makeText(getApplicationContext(), "Risposta corretta", Toast.LENGTH_SHORT).show();
+
+                    StyleableToast.makeText(getApplicationContext(), "Risposta corretta", R.style.rightToast).show();
+                    stopPlayer();
                     //Aprire passo 5 episodio 2 P1
                     Intent i = new Intent(getApplicationContext(), Passo5E2P1.class);
                     startActivity(i);
@@ -268,7 +273,8 @@ public class Passo4E2P1 extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "Risposta sbagliata", Toast.LENGTH_SHORT).show();
+
+                    StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
 
                     linearRisposta.removeAllViews();
                     linearParoleRandom.addView(parola2);

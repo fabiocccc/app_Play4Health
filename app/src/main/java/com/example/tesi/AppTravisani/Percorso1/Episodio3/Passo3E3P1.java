@@ -77,6 +77,7 @@ public class Passo3E3P1 extends AppCompatActivity {
 
                 if(click == 11)
                 {
+                    stopPlayer();
                     ///aprire passo4 episodio 3 P1
                     Intent i = new Intent(getApplicationContext(), Passo4E3P1.class);
                     startActivity(i);
@@ -92,10 +93,7 @@ public class Passo3E3P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
             }
         });

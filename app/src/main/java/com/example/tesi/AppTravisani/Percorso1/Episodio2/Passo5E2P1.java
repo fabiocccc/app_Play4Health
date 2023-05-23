@@ -181,6 +181,8 @@ public class Passo5E2P1 extends AppCompatActivity {
     }
     private void PopUPFinePercorso() {
 
+        stopPlayer();
+
         findialog.setContentView(R.layout.fine_livellolayout);
         findialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 

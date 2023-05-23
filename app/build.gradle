@@ -57,4 +57,7 @@ dependencies {
     //libreria per animazione portiere
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 
+    //libreria per custom Toast
+    implementation 'io.github.muddz:styleabletoast:2.4.0'
+
 }

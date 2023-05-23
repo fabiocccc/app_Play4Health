@@ -98,6 +98,7 @@ public class Passo1E2P1 extends AppCompatActivity {
         risp90m.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopPlayer();
                 risp90m.setBackgroundColor(Color.GREEN);
                 Intent i = new Intent(getApplicationContext(), Passo2E2P1.class);
                 startActivity(i);

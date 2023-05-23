@@ -98,6 +98,7 @@ public class Passo2E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                stopPlayer();
                 risp11.setBackgroundColor(Color.GREEN);
                 //PASSO 3 EPISODIO 1 P1
                 Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);

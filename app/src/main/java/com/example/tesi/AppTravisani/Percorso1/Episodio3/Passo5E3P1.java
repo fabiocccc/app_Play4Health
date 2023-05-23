@@ -51,7 +51,7 @@ public class Passo5E3P1 extends AppCompatActivity {
         findialog = new Dialog(this);
 
 
-        urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E3P1.mp3?alt=media&token=cdf9b041-1ea2-42a6-beb8-a7d69631dd8d";
+        urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E3P1.mp3?alt=media&token=36e50be5-703d-4b82-afa0-fc5a2d7c7af3";
         playsound(urlVoice4);
 
 
@@ -181,6 +181,8 @@ public class Passo5E3P1 extends AppCompatActivity {
     }
     private void PopUPFinePercorso() {
 
+        stopPlayer();
+
         findialog.setContentView(R.layout.fine_livellolayout);
         findialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -191,8 +193,8 @@ public class Passo5E3P1 extends AppCompatActivity {
         TextView popUpTitle = findialog.findViewById(R.id.titlePoPUP);
         TextView popUpMessage = findialog.findViewById(R.id.MessagePopUP);
 
-        popUpTitle.setText("Hai superato l'episodio 3");
-        popUpMessage.setText("Hai guadagnato 5 punti e concluso il Percorso 1");
+        popUpTitle.setText("Hai superato il Percorso 1");
+        popUpMessage.setText("Hai guadagnato 5 punti e concluso l'episodio 3");
 
         imageViewStar.setImageDrawable(getDrawable(R.drawable.stella));
 

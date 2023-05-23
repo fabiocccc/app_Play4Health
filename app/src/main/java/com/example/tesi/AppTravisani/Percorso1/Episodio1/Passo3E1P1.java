@@ -106,6 +106,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                stopPlayer();
                 button_portiere.setBackground(getDrawable(R.drawable.circle_portiere));
                 Intent i = new Intent(getApplicationContext(), Passo4E1P1.class);
                 startActivity(i);

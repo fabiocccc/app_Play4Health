@@ -91,6 +91,7 @@ public class Passo2E2P1 extends AppCompatActivity {
         rispUno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopPlayer();
                 rispUno.setBackgroundColor(Color.GREEN);
                 Intent i = new Intent(getApplicationContext(), Passo3E2P1.class);
                 startActivity(i);
@@ -103,6 +104,7 @@ public class Passo2E2P1 extends AppCompatActivity {
         rispDue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopPlayer();
                 rispDue.setBackgroundColor(Color.GREEN);
                 Intent i = new Intent(getApplicationContext(), Passo3E2P1.class);
                 startActivity(i);

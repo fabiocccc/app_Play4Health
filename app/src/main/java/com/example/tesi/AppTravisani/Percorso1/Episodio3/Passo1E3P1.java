@@ -93,6 +93,8 @@ public class Passo1E3P1 extends AppCompatActivity {
         rispOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rispOk.setBackgroundColor(Color.GREEN);
+                stopPlayer();
                 //PASSO 2 EPISODIO 3 P1
                 Intent i = new Intent(getApplicationContext(), Passo2E3P1.class);
                 startActivity(i);

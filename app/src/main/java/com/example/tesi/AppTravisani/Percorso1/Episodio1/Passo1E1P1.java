@@ -110,6 +110,8 @@ public class Passo1E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+                rispOk.setBackgroundColor(Color.GREEN);
                 layoutrisp1.setVisibility(View.GONE);
                 txtAllenatore.setText("Molto bene! Ma, prima di cominciare, rispondi a qualche domanda.");
                 button_aiuto.setVisibility(View.GONE);
@@ -126,6 +128,8 @@ public class Passo1E1P1 extends AppCompatActivity {
         rispPollice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rispPollice.setBackgroundColor(Color.GREEN);
+                stopPlayer();
                 //PASSO 2 EPISODIO 1 P1
                 Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
                 startActivity(i);

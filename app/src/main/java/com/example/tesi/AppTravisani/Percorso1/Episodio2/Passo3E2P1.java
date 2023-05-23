@@ -91,6 +91,7 @@ public class Passo3E2P1 extends AppCompatActivity {
         rispPortiere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stopPlayer();
                 rispPortiere.setBackgroundColor(Color.GREEN);
                 //PASSO 4 EPISODIO 2 P1
                 Intent i = new Intent(getApplicationContext(), Passo4E2P1.class);

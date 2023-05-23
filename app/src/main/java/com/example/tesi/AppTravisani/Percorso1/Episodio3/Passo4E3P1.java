@@ -84,13 +84,11 @@ public class Passo4E3P1 extends AppCompatActivity {
         });
 
 
-
-
-
         btnPolso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnPolso.setBackgroundColor(Color.GREEN);
+                stopPlayer();
                 //PASSO 5 EPISODIO 3 P1
                 Intent i = new Intent(getApplicationContext(), Passo5E3P1.class);
                 startActivity(i);
