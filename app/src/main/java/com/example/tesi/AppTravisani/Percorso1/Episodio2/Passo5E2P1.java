@@ -34,6 +34,10 @@ public class Passo5E2P1 extends AppCompatActivity {
     private AnimationDrawable animationDrawable1 = null;
     private String urlVoice4;
 
+    private TextView txtTimeFinal;
+    private int timeback;
+    private String timeScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +48,16 @@ public class Passo5E2P1 extends AppCompatActivity {
         button_aiuto = findViewById(R.id.button_aiuto);
         premio = findViewById(R.id.imagePremio);
         help1 = findViewById(R.id.help1);
-
+        txtTimeFinal = findViewById(R.id.txtTimeEP1P1);
 
         dialog= new Dialog(this);
         findialog = new Dialog(this);
 
+
+        //gestione tempo
+        timeback = getIntent().getExtras().getInt("time");
+        timeScore = "Tempo 00:" + timeback; // tempo da salvare su Firebase
+        txtTimeFinal.setText(timeScore);
 
         urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E2P1.mp3?alt=media&token=63d33c7a-a3dc-4b2f-bb80-e3ab3239f213";
         playsound(urlVoice4);
@@ -57,10 +66,7 @@ public class Passo5E2P1 extends AppCompatActivity {
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
 
             }
         });

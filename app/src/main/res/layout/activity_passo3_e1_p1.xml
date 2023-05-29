@@ -241,21 +241,20 @@
         app:layout_constraintStart_toStartOf="@+id/imageViewCampo"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <Button
-        android:id="@+id/btnAlleniamoci"
+    <Chronometer
+        android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/drawable_lettera"
-        android:clickable="true"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:text="ALLENAMENTO"
-        android:visibility="invisible"
-        android:textColor="@color/white"
+        android:layout_marginTop="508dp"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCampo" />
-
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toEndOf="@+id/button_aiuto"
+        app:layout_constraintTop_toBottomOf="@+id/button_ripeti"
+        app:layout_constraintVertical_bias="0.964" />
 </androidx.constraintlayout.widget.ConstraintLayout>

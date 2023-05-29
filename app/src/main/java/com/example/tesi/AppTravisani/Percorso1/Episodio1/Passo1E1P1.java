@@ -42,6 +42,12 @@ public class Passo1E1P1 extends AppCompatActivity {
     private TextView txtAllenatore;
     private int contatore = 0;
 
+    private Chronometer chronometer;
+    private long pauseOffset;
+    private boolean running;
+    private String chronoText;
+    private int score;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +64,21 @@ public class Passo1E1P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
+        //cronometro
+        chronometer = findViewById(R.id.chronometer);
+        resetChronometer();
+        chronometer.setFormat("%s");
+        chronometer.setBase(SystemClock.elapsedRealtime());
+
+        chronometerstart();
+
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                
-                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
+                stopChronometer();
 
             }
         });
@@ -130,8 +142,10 @@ public class Passo1E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 rispPollice.setBackgroundColor(Color.GREEN);
                 stopPlayer();
+                pauseChronometer();
                 //PASSO 2 EPISODIO 1 P1
                 Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
+                i.putExtra("time", score);
                 startActivity(i);
                 finish();
             }
@@ -140,7 +154,42 @@ public class Passo1E1P1 extends AppCompatActivity {
 
     }
 
+    private void stopChronometer() {
+        if(running)
+        {
+            chronometer.stop();
+            String chronoText = chronometer.getText().toString();
+           // Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
 
+    public void chronometerstart() {
+
+        if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
+    }
+
+    public void pauseChronometer() {
+        if (running) {
+            chronometer.stop();
+            chronoText = chronometer.getText().toString(); // string tempo da salvare su Firebase
+            String [] splits1 = chronoText.split("\\:");
+            score = Integer.parseInt(splits1[1]);
+            //Toast.makeText(getApplicationContext(), "milliseconds: "+chronoText, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void resetChronometer() {
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
+    }
 
 
     private void playsound(String urlVoice, int flag)  {
@@ -203,7 +252,7 @@ public class Passo1E1P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 dialog.dismiss();
-
+                chronometerstart();
                 if(contatore == 1)
                 {
                     playsound(urlVoice1, 1);
@@ -221,6 +270,7 @@ public class Passo1E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                resetChronometer();
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
                 startActivity(i);
                 finish();
@@ -232,6 +282,7 @@ public class Passo1E1P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 dialog.dismiss();
+                chronometerstart();
                 if(contatore == 1)
                 {
                     playsound(urlVoice1, 1);

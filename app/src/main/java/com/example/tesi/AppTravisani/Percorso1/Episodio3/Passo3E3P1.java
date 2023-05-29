@@ -14,11 +14,14 @@ import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.R;
@@ -39,6 +42,12 @@ public class Passo3E3P1 extends AppCompatActivity {
     private ImageView ivPortiere, ivpalla;
     private int click = 0;
 
+    private Chronometer chronometer;
+    private long pauseOffset;
+    private boolean running;
+    private String chronoText;
+    private int score, timeback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +62,14 @@ public class Passo3E3P1 extends AppCompatActivity {
         ivpalla = findViewById(R.id.imgPallone);
 
         dialog= new Dialog(this);
+
+        //cronometro
+        chronometer = findViewById(R.id.chronometer);
+        resetChronometer();
+        chronometer.setFormat("%s");
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        timeback = getIntent().getExtras().getInt("time");
+        chronometerstart();
 
         urlVoice1 ="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFai%20goal.mp3?alt=media&token=b3b7d5fb-a38d-488d-bdeb-929efb20ebec";
         playsound(urlVoice1);
@@ -78,8 +95,10 @@ public class Passo3E3P1 extends AppCompatActivity {
                 if(click == 11)
                 {
                     stopPlayer();
+                    pauseChronometer();
                     ///aprire passo4 episodio 3 P1
                     Intent i = new Intent(getApplicationContext(), Passo4E3P1.class);
+                    i.putExtra("time", score);
                     startActivity(i);
                     finish();
                 }
@@ -94,6 +113,7 @@ public class Passo3E3P1 extends AppCompatActivity {
             public void onClick(View v) {
 
                 openCustomWindow();
+                stopChronometer();
 
             }
         });
@@ -148,7 +168,45 @@ public class Passo3E3P1 extends AppCompatActivity {
         springAnimation.start();
     }
 
-    private void playsound(String urlVoice)  {
+    private void stopChronometer() {
+        if(running)
+        {
+            chronometer.stop();
+            String chronoText = chronometer.getText().toString();
+            Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    private void chronometerstart() {
+
+        if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
+    }
+
+    public void pauseChronometer() {
+        if (running) {
+            chronometer.stop();
+            chronoText = chronometer.getText().toString(); // string tempo da salvare su Firebase
+            String [] splits1 = chronoText.split("\\:");
+            int time1 = Integer.parseInt(splits1[1]);
+            score = time1 + timeback;
+            //Toast.makeText(getApplicationContext(), "milliseconds: "+ score, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void resetChronometer() {
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
+    }
+
+        private void playsound(String urlVoice)  {
 
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), Uri.parse(urlVoice)) ;
@@ -190,6 +248,7 @@ public class Passo3E3P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 dialog.dismiss();
+                chronometerstart();
                 playsound(urlVoice1);
             }
         });
@@ -199,6 +258,7 @@ public class Passo3E3P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                resetChronometer();
                 Intent i = new Intent(getApplicationContext(), PassiE3P1Activity.class);
                 startActivity(i);
                 finish();
@@ -210,6 +270,7 @@ public class Passo3E3P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 dialog.dismiss();
+                chronometerstart();
                 playsound(urlVoice1);
 
             }

@@ -11,9 +11,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -47,6 +49,12 @@ public class Passo2E3P1 extends AppCompatActivity {
     private String fraseRegistrata;
     private int contatore = 0;
 
+    private Chronometer chronometer;
+    private long pauseOffset;
+    private boolean running;
+    private String chronoText;
+    private int score, timeback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +71,14 @@ public class Passo2E3P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
+        //cronometro
+        chronometer = findViewById(R.id.chronometer);
+        resetChronometer();
+        chronometer.setFormat("%s");
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        timeback = getIntent().getExtras().getInt("time");
+        chronometerstart();
+
         urlVoice1 ="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FChe%20cosa%20sta%20facendo.mp3?alt=media&token=d0cff0d5-7832-439d-9036-f32cf616f8a9";
         playsound(urlVoice1, 1);
         contatore = 1;
@@ -71,12 +87,8 @@ public class Passo2E3P1 extends AppCompatActivity {
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                //programmare popup fine percorso con custom dialog
                 openCustomWindow();
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
-
+                stopChronometer();
             }
         });
 
@@ -167,8 +179,10 @@ public class Passo2E3P1 extends AppCompatActivity {
                     {
                         StyleableToast.makeText(getApplicationContext(), "Risposta corretta", R.style.rightToast).show();
                         stopPlayer();
+                        pauseChronometer();
                         //passo 3 episodio3 P1
                         Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
+                        i.putExtra("time", score);
                         startActivity(i);
                         finish();
 
@@ -180,6 +194,44 @@ public class Passo2E3P1 extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    private void stopChronometer() {
+        if(running)
+        {
+            chronometer.stop();
+            String chronoText = chronometer.getText().toString();
+            Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    private void chronometerstart() {
+
+        if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
+    }
+
+    public void pauseChronometer() {
+        if (running) {
+            chronometer.stop();
+            chronoText = chronometer.getText().toString(); // string tempo da salvare su Firebase
+            String [] splits1 = chronoText.split("\\:");
+            int time1 = Integer.parseInt(splits1[1]);
+            score = time1 + timeback;
+            //Toast.makeText(getApplicationContext(), "milliseconds: "+ score, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void resetChronometer() {
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
     }
 
     private void playsound(String urlVoice, int flag)  {
@@ -204,6 +256,8 @@ public class Passo2E3P1 extends AppCompatActivity {
                         button_aiuto.setVisibility(View.VISIBLE);
 ///////////////////////////PROVA PROSSIMO PASSSO
 //                        Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
+//                        pauseChronometer();
+//                        i.putExtra("time", score);
 //                        startActivity(i);
 //                        finish();
                     }
@@ -243,6 +297,7 @@ public class Passo2E3P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 dialog.dismiss();
+                chronometerstart();
 
                 if(contatore == 1)
                 {
@@ -261,6 +316,7 @@ public class Passo2E3P1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+                resetChronometer();
                 Intent i = new Intent(getApplicationContext(), PassiE3P1Activity.class);
                 startActivity(i);
                 finish();
@@ -272,6 +328,7 @@ public class Passo2E3P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 dialog.dismiss();
+                chronometerstart();
                 if(contatore == 1)
                 {
                     playsound(urlVoice1, 1);
