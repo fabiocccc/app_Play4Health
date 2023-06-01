@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.AppTravisani.Percorso2.PassiP2Activity;
 import com.example.tesi.R;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.List;
 

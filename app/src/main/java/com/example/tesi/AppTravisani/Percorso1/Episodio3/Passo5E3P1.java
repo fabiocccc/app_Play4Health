@@ -21,7 +21,11 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio2.PassiE2P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio2.Passo1E2P1;
+import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Random;
 
 public class Passo5E3P1 extends AppCompatActivity {
 
@@ -37,6 +41,8 @@ public class Passo5E3P1 extends AppCompatActivity {
     private TextView txtTimeFinal;
     private int timeback;
     private String timeScore;
+    private String user;
+    private Random codutente;
 
 
     @Override
@@ -56,8 +62,12 @@ public class Passo5E3P1 extends AppCompatActivity {
         findialog = new Dialog(this);
 
         //gestione tempo
+        codutente = new Random();
+        user = String.valueOf(codutente.nextInt()); // genera un cod utente casuale
         timeback = getIntent().getExtras().getInt("time");
         timeScore = "Tempo 00:" + timeback; // tempo da salvare su Firebase
+        //salvataggio su Firebase del tempo
+        FirebaseDatabase.getInstance().getReference().child("TimeP1").child("P1E3").child(user).setValue(timeScore);
         txtTimeFinal.setText(timeScore);
 
         urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E3P1.mp3?alt=media&token=36e50be5-703d-4b82-afa0-fc5a2d7c7af3";
@@ -69,7 +79,6 @@ public class Passo5E3P1 extends AppCompatActivity {
             public void onClick(View v) {
 
                 openCustomWindow();
-
 
             }
         });
@@ -234,7 +243,7 @@ public class Passo5E3P1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 findialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiE3P1Activity.class);
+                Intent i = new Intent(getApplicationContext(), StoryCard.class);
                 startActivity(i);
                 finish();
 
@@ -242,5 +251,10 @@ public class Passo5E3P1 extends AppCompatActivity {
         });
 
         findialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
     }
 }

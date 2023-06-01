@@ -26,6 +26,9 @@ import com.example.tesi.AppTravisani.Percorso1.Episodio2.PassiE2P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Passo1P1;
 import com.example.tesi.AppTravisani.Percorso2.PassiP2Activity;
 import com.example.tesi.R;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Random;
 
 public class Passo4E1P1 extends AppCompatActivity {
 
@@ -41,6 +44,8 @@ public class Passo4E1P1 extends AppCompatActivity {
     private TextView txtTimeFinal;
     private int timeback;
     private String timeScore;
+    private String user;
+    private Random codutente;
 
 
     @Override
@@ -60,8 +65,12 @@ public class Passo4E1P1 extends AppCompatActivity {
 
 
         //gestione tempo
+        codutente = new Random();
+        user = String.valueOf(codutente.nextInt()); // genera un cod utente casuale
         timeback = getIntent().getExtras().getInt("time");
         timeScore = "Tempo 00:" + timeback; // tempo da salvare su Firebase
+        //salvataggio su Firebase del tempo
+        FirebaseDatabase.getInstance().getReference().child("TimeP1").child("P1E1").child(user).setValue(timeScore);
         txtTimeFinal.setText(timeScore);
 
         urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E1P1.mp3?alt=media&token=bc0d2d4a-d0f5-4488-bd7e-80841c3975a9";
@@ -247,5 +256,10 @@ public class Passo4E1P1 extends AppCompatActivity {
         });
 
         findialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
     }
 }

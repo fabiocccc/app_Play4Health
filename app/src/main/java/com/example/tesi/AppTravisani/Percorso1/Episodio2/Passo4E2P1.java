@@ -280,7 +280,7 @@ public class Passo4E2P1 extends AppCompatActivity {
                 else if ( s1.equals(s2))
                 {
 
-                    StyleableToast.makeText(getApplicationContext(), "Risposta corretta", R.style.rightToast).show();
+                    //StyleableToast.makeText(getApplicationContext(), "Risposta corretta", R.style.rightToast).show();
                     stopPlayer();
                     pauseChronometer();
                     //Aprire passo 5 episodio 2 P1
@@ -420,5 +420,11 @@ public class Passo4E2P1 extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
+        stopChronometer();
     }
 }

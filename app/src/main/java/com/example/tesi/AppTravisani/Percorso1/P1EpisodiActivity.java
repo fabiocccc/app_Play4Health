@@ -13,6 +13,7 @@ import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.Passo1E1P1;
 import com.example.tesi.AppTravisani.Percorso1.Episodio2.PassiE2P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio3.PassiE3P1Activity;
+import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
 
 public class P1EpisodiActivity extends AppCompatActivity {
@@ -84,5 +85,12 @@ public class P1EpisodiActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), StoryCard.class);
+        startActivity(i);
+        finish();
     }
 }

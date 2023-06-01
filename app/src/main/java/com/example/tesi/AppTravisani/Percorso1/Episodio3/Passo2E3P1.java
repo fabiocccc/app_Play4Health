@@ -201,7 +201,7 @@ public class Passo2E3P1 extends AppCompatActivity {
         {
             chronometer.stop();
             String chronoText = chronometer.getText().toString();
-            Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
         }
@@ -251,15 +251,15 @@ public class Passo2E3P1 extends AppCompatActivity {
                     }
                     else if (flag == 2)
                     {
-                        btnRegistra.setVisibility(View.VISIBLE);
-                        txtTestoRegistrato.setVisibility(View.VISIBLE);
-                        button_aiuto.setVisibility(View.VISIBLE);
+//                        btnRegistra.setVisibility(View.VISIBLE);
+//                        txtTestoRegistrato.setVisibility(View.VISIBLE);
+//                        button_aiuto.setVisibility(View.VISIBLE);
 ///////////////////////////PROVA PROSSIMO PASSSO
-//                        Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
-//                        pauseChronometer();
-//                        i.putExtra("time", score);
-//                        startActivity(i);
-//                        finish();
+                        Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
+                        pauseChronometer();
+                        i.putExtra("time", score);
+                        startActivity(i);
+                        finish();
                     }
 
                 }
@@ -342,5 +342,11 @@ public class Passo2E3P1 extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
+        stopChronometer();
     }
 }

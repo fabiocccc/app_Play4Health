@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tesi.AppTravisani.CodeTimer;
+import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
 
 import java.util.Timer;
@@ -296,5 +297,11 @@ public class Passo1E1P1 extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
+        stopChronometer();
     }
 }

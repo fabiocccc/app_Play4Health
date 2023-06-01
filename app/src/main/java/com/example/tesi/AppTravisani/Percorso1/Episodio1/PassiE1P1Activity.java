@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.AppTravisani.Percorso1.Passo1P1;
+import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
 
 public class PassiE1P1Activity extends AppCompatActivity {
@@ -131,5 +132,12 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), P1EpisodiActivity.class);
+        startActivity(i);
+        finish();
     }
 }

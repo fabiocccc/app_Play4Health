@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppPavone.HomePrima;
+import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
 
 public class Home extends AppCompatActivity {
@@ -80,6 +81,11 @@ public class Home extends AppCompatActivity {
         startActivity(i);
         finish();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
 

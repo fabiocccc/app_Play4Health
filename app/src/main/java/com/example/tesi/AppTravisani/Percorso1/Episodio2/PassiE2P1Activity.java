@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
+import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
 
 public class PassiE2P1Activity extends AppCompatActivity {
@@ -121,5 +122,12 @@ public class PassiE2P1Activity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), P1EpisodiActivity.class);
+        startActivity(i);
+        finish();
     }
 }

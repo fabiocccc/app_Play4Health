@@ -140,7 +140,7 @@ public class Passo2E2P1 extends AppCompatActivity {
         {
             chronometer.stop();
             String chronoText = chronometer.getText().toString();
-            Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
         }
@@ -243,5 +243,11 @@ public class Passo2E2P1 extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
+        stopChronometer();
     }
 }

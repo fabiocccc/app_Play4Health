@@ -252,4 +252,10 @@ public class Passo3E2P1 extends AppCompatActivity {
 
         dialog.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
+        stopChronometer();
+    }
 }
