@@ -41,7 +41,7 @@ public class Passo3E1P1 extends AppCompatActivity {
     private FrameLayout button_att2;
     private AnimationDrawable animationDrawable = null;
     private Dialog dialog; //finestra di dialogo
-    private String urlVoice1, urlVoiceRuolo;
+    private String urlVoice1, urlclick;
     private MediaPlayer player;
 
     private Chronometer chronometer;
@@ -121,7 +121,6 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_portiere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 stopPlayer();
                 button_portiere.setBackground(getDrawable(R.drawable.circle_portiere));
                 pauseChronometer();
@@ -135,7 +134,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_difensore1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_difensore1.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -143,6 +143,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_difensore2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_difensore2.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -150,6 +152,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_terzinod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_terzinod.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -157,6 +161,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_terzinos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_terzinos.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -164,6 +170,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_centro1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_centro1.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -171,6 +179,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_centro2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_centro2.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -178,6 +188,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_esternod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_esternod.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -185,12 +197,16 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_esternos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_esternos.setBackground(getDrawable(R.drawable.circle_att));
             }
         });
         button_att1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_att1.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -198,6 +214,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_att2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
+                playsound(urlclick);
                 button_att2.setBackground(getDrawable(R.drawable.circle_att));
             }
         });
@@ -211,7 +229,7 @@ public class Passo3E1P1 extends AppCompatActivity {
         {
             chronometer.stop();
             String chronoText = chronometer.getText().toString();
-            Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
         }

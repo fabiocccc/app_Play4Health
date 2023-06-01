@@ -1,10 +1,17 @@
 package com.example.tesi.AppTravisani;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -14,6 +21,8 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppPavone.HomePrima;
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
+
+import java.net.NetworkInterface;
 
 public class Home extends AppCompatActivity {
 
@@ -34,6 +43,7 @@ public class Home extends AppCompatActivity {
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
+
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,21 +75,83 @@ public class Home extends AppCompatActivity {
                 .playOn(book);
     }
 
+    private boolean controlConnection() {
+
+        if(!isConnected(getApplicationContext()))
+        {
+            return true;
+        }else
+        {
+            return false;}
+    }
+
+    private void showCustomDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Connsessione assente!");
+        builder.setMessage("Collega il tuo dispositivo a Internet");
+        builder.setIcon(R.drawable.ic_baseline_signal_wifi_connected_no_internet_4_24);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Connetti", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+                         startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                     }});
+        builder.setNegativeButton("Chiudi", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.create().show();
+
+    }
+
+    private boolean isConnected(Context context) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if( (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected()))
+        {
+                return true;
+        }else
+        {
+            return false;
+        }
+
+    }
+
     public void StartExercise(View view) {
 
         //aprire APP PAVONE
-        Intent i = new Intent(getApplicationContext(), HomePrima.class);
-        startActivity(i);
-        finish();
 
+        if(controlConnection())
+        {
+            showCustomDialog();
+
+        }else
+        {
+            Intent i = new Intent(getApplicationContext(), HomePrima.class);
+            startActivity(i);
+            finish();
+        }
 
     }
     public void StartStory(View view) {
 
         //aprire Sezione CardView
-        Intent i = new Intent(getApplicationContext(), StoryCard.class);
-        startActivity(i);
-        finish();
+        if(controlConnection())
+        {
+            showCustomDialog();
+        }
+        else
+        {
+            Intent i = new Intent(getApplicationContext(), StoryCard.class);
+            startActivity(i);
+            finish();
+        }
+
 
     }
 

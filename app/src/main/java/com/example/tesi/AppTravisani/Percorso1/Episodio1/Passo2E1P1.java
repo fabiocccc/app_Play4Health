@@ -29,7 +29,7 @@ public class Passo2E1P1 extends AppCompatActivity {
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
     private ImageView help1;
-    private String urlVoice1, urlVoice2;
+    private String urlVoice1, urlClick;
     private MediaPlayer player;
     private GridLayout layoutrisp2;
     private Dialog dialog; //finestra di dialogo
@@ -106,6 +106,8 @@ public class Passo2E1P1 extends AppCompatActivity {
         risp5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlClick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d";
+                playsound(urlClick);
                 risp5.setBackgroundColor(Color.RED);
             }
         });
@@ -113,7 +115,6 @@ public class Passo2E1P1 extends AppCompatActivity {
         risp11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 stopPlayer();
                 pauseChronometer();
                 risp11.setBackgroundColor(Color.GREEN);
@@ -129,6 +130,8 @@ public class Passo2E1P1 extends AppCompatActivity {
         risp13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlClick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d";
+                playsound(urlClick);
                 risp13.setBackgroundColor(Color.RED);
             }
         });
@@ -136,6 +139,8 @@ public class Passo2E1P1 extends AppCompatActivity {
         risp15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlClick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d";
+                playsound(urlClick);
                 risp15.setBackgroundColor(Color.RED);
             }
         });
@@ -181,6 +186,8 @@ public class Passo2E1P1 extends AppCompatActivity {
         chronometer.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
     }
+
+
 
     private void playsound(String urlVoice)  {
 

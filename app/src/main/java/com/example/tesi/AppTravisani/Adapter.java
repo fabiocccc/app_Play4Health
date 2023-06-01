@@ -113,7 +113,6 @@ public class Adapter extends PagerAdapter {
 
         player.start();
 
-
     }
 
     private void stopPlayer(){

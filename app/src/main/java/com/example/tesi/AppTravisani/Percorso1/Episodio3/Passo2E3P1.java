@@ -43,7 +43,7 @@ public class Passo2E3P1 extends AppCompatActivity {
     private AnimationDrawable animationDrawable1 = null;
     private ImageView help1;
     private ImageView help2;
-    private String urlVoice1, urlVoice2;
+    private String urlVoice1, urlVoice2, urlclick;
     private MediaPlayer player;
     private Dialog dialog; //finestra di dialogo
     private String fraseRegistrata;
@@ -190,6 +190,8 @@ public class Passo2E3P1 extends AppCompatActivity {
                     else
                     {
                         StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
+                        urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d";
+                        playsound(urlclick,0);
                     }
                 }
                 break;

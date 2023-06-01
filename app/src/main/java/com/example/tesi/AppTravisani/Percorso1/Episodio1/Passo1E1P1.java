@@ -36,7 +36,7 @@ public class Passo1E1P1 extends AppCompatActivity {
     private AnimationDrawable animationDrawable1 = null;
     private ImageView help1;
     private String urlVoice1, urlVoice2;
-    private MediaPlayer player;
+    private MediaPlayer player, playerclick;
     private GridLayout layoutrisp1;
     private Dialog dialog; //finestra di dialogo
     private CardView rispOk, rispPollice;
@@ -123,8 +123,8 @@ public class Passo1E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 rispOk.setBackgroundColor(Color.GREEN);
+                playsoundClick(R.raw.soundclick);
                 layoutrisp1.setVisibility(View.GONE);
                 txtAllenatore.setText("Molto bene! Ma, prima di cominciare, rispondi a qualche domanda.");
                 button_aiuto.setVisibility(View.GONE);
@@ -142,6 +142,7 @@ public class Passo1E1P1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 rispPollice.setBackgroundColor(Color.GREEN);
+                playsoundClick(R.raw.soundclick);
                 stopPlayer();
                 pauseChronometer();
                 //PASSO 2 EPISODIO 1 P1
@@ -154,6 +155,32 @@ public class Passo1E1P1 extends AppCompatActivity {
 
 
     }
+
+    private void playsoundClick(int soundclick) {
+        if(playerclick == null)
+        {
+            playerclick = MediaPlayer.create(getApplicationContext(), soundclick);
+            playerclick.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    stopPlayerClick();
+                }
+            });
+        }
+
+        playerclick.start();
+    }
+
+    private void stopPlayerClick() {
+
+        if (playerclick != null) {
+            playerclick.release();
+            playerclick = null;
+            // Toast.makeText(context, "MediaPlayer releases", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
     private void stopChronometer() {
         if(running)
@@ -191,6 +218,8 @@ public class Passo1E1P1 extends AppCompatActivity {
         chronometer.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
     }
+
+
 
 
     private void playsound(String urlVoice, int flag)  {

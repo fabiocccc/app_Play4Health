@@ -33,7 +33,7 @@ public class Passo4E2P1 extends AppCompatActivity {
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
     private ImageView help1;
-    private String urlVoice1;
+    private String urlVoice1, urlclick;
     private MediaPlayer player;
     private GridLayout layoutrisp2;
     private Dialog dialog; //finestra di dialogo
@@ -294,6 +294,9 @@ public class Passo4E2P1 extends AppCompatActivity {
                 {
 
                     StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
+
+                    urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d";
+                    playsound(urlclick);
 
                     linearRisposta.removeAllViews();
                     linearParoleRandom.addView(parola2);

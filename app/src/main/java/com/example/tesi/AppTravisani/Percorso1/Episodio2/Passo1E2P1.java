@@ -30,7 +30,7 @@ public class Passo1E2P1 extends AppCompatActivity {
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
     private ImageView help1, help2;
-    private String urlVoice;
+    private String urlVoice, urlclick;
     private MediaPlayer player;
     private GridLayout layoutrispAllenatore;
     private Dialog dialog; //finestra di dialogo
@@ -105,6 +105,8 @@ public class Passo1E2P1 extends AppCompatActivity {
         risp45m.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d";
+                playsound(urlclick);
                 risp45m.setBackgroundColor(Color.RED);
            }
         });
