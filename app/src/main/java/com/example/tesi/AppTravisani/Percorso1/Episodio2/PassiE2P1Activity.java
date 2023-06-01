@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
-import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
 
 public class PassiE2P1Activity extends AppCompatActivity {
@@ -24,7 +23,7 @@ public class PassiE2P1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passi_e2_p2);
+        setContentView(R.layout.activity_passi_e2_p1);
 
         title_toolbar= findViewById(R.id.toolbar_title);
         title_toolbar.setText("EPISODIO 2 - P1");

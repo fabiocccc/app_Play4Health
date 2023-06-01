@@ -18,9 +18,7 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.tesi.AppTravisani.Percorso2.Passo2P2;
 import com.example.tesi.R;
 
 public class Passo1E2P1 extends AppCompatActivity {

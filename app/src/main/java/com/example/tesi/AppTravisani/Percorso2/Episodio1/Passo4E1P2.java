@@ -1,6 +1,7 @@
-package com.example.tesi.AppTravisani.Percorso2;
+package com.example.tesi.AppTravisani.Percorso2.Episodio1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -10,69 +11,91 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.R;
 
-public class Passo5P2 extends AppCompatActivity {
+public class Passo4E1P2 extends AppCompatActivity {
 
     private FrameLayout btn_pause, btn_ripeti;
     private FrameLayout button_aiuto;
     private String urlVoice;
     private MediaPlayer player;
-    private ImageView help1;
-    private ImageView compresseimg, sciroppoimg;
+    private ImageView help1, help2;
+    private CardView malore, tosse;
     private Dialog dialog; //finestra di dialogo
     private AnimationDrawable animationDrawable1 = null;
+    private AnimationDrawable animationDrawable2 = null;
+    private GridLayout layoutrispAllenatoreSalute;
 
+    private Chronometer chronometer;
+    private long pauseOffset;
+    private boolean running;
+    private String chronoText;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo5_p2);
-
+        setContentView(R.layout.activity_passo4_e1_p2);
         btn_pause = findViewById(R.id.button_pause);
         button_aiuto = findViewById(R.id.button_aiuto);
         btn_ripeti = findViewById(R.id.button_ripeti);
         help1 = findViewById(R.id.help1);
-        compresseimg = findViewById(R.id.compresse);
-        sciroppoimg = findViewById(R.id.sciroppo);
-
+        help2 = findViewById(R.id.help2);
         dialog= new Dialog(this);
+        layoutrispAllenatoreSalute = findViewById(R.id.RispAllenatoreSalute);
+        malore = findViewById(R.id.cardMalore);
+        tosse = findViewById(R.id.cardTosse);
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FMedico%20scelta%20medicina.mp3?alt=media&token=f5c2414a-91d0-45d9-aad2-3e81984c8e7c";
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FTosseMalore.mp3?alt=media&token=2510cc62-6964-4526-94d1-271af39748dd";
         playsound(urlVoice);
 
-        compresseimg.setOnClickListener(new View.OnClickListener() {
+        //cronometro
+        chronometer = findViewById(R.id.chronometer);
+        resetChronometer();
+        chronometer.setFormat("%s");
+        chronometer.setBase(SystemClock.elapsedRealtime());
+
+        chronometerstart();
+
+        malore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Passo6P2.class);
+                malore.setBackgroundColor(Color.RED);
+                pauseChronometer();
+                Intent i = new Intent(getApplicationContext(), Passo5E1P2.class);
+                i.putExtra("time", score);
                 startActivity(i);
                 finish();
-
 
             }
         });
 
-        sciroppoimg.setOnClickListener(new View.OnClickListener() {
+        tosse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Passo6P2.class);
+                tosse.setBackgroundColor(Color.RED);
+                pauseChronometer();
+                Intent i = new Intent(getApplicationContext(), Passo5E1P2.class);
+                i.putExtra("time", score);
                 startActivity(i);
                 finish();
+
             }
         });
-
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openCustomWindow();
+                stopChronometer();
 
             }
         });
@@ -90,18 +113,55 @@ public class Passo5P2 extends AppCompatActivity {
             public void onClick(View view) {
 
                 help1.setVisibility(View.VISIBLE);
+                help2.setVisibility(View.VISIBLE);
 
                 animationDrawable1 = (AnimationDrawable) help1.getBackground();
+                animationDrawable2 = (AnimationDrawable) help2.getBackground();
                 animationDrawable1.start();
+                animationDrawable2.start();
 
                 button_aiuto.setVisibility(View.GONE);
 
             }
         });
-
-
     }
 
+    private void stopChronometer() {
+        if(running)
+        {
+            chronometer.stop();
+            String chronoText = chronometer.getText().toString();
+            // Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void chronometerstart() {
+
+        if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
+    }
+
+    public void pauseChronometer() {
+        if (running) {
+            chronometer.stop();
+            chronoText = chronometer.getText().toString(); // string tempo da salvare su Firebase
+            String [] splits1 = chronoText.split("\\:");
+            score = Integer.parseInt(splits1[1]);
+            //Toast.makeText(getApplicationContext(), "milliseconds: "+chronoText, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void resetChronometer() {
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
+    }
 
     private void playsound(String urlVoice)  {
 
@@ -111,9 +171,7 @@ public class Passo5P2 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
-
-                    attiva_medicine();
-
+                    layoutrispAllenatoreSalute.setVisibility(View.VISIBLE);
                     button_aiuto.setVisibility(View.VISIBLE);
                 }
             });
@@ -121,24 +179,6 @@ public class Passo5P2 extends AppCompatActivity {
 
         player.start();
 
-    }
-
-    private void attiva_medicine() {
-
-        compresseimg.setVisibility(View.VISIBLE);
-        sciroppoimg.setVisibility(View.VISIBLE);
-
-        //setta animazione lampeggiante
-        //sulle immagini delle medicine
-        YoYo.with(Techniques.Pulse)
-                .duration(700)
-                .repeat(10)
-                .playOn(compresseimg);
-
-        YoYo.with(Techniques.Pulse)
-                .duration(700)
-                .repeat(10)
-                .playOn(sciroppoimg);
     }
 
     private void stopPlayer() {
@@ -174,7 +214,7 @@ public class Passo5P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P2Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -189,5 +229,11 @@ public class Passo5P2 extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
+        stopChronometer();
     }
 }

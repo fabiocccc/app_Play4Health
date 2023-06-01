@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tesi">
         <activity
+            android:name=".AppTravisani.Percorso2.P2EpisodiActivity"
+            android:exported="false" />
+        <activity
             android:name=".AppTravisani.Percorso1.Episodio3.Passo5E3P1"
             android:exported="false" />
         <activity
@@ -67,25 +70,25 @@
             android:name=".AppTravisani.Percorso1.P1EpisodiActivity"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.Percorso2.Passo6P2"
+            android:name=".AppTravisani.Percorso2.Episodio1.Passo6E1P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.Percorso2.Passo5P2"
+            android:name=".AppTravisani.Percorso2.Episodio1.Passo5E1P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.Percorso2.Passo4P2"
+            android:name=".AppTravisani.Percorso2.Episodio1.Passo4E1P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.Percorso2.Passo3P2"
+            android:name=".AppTravisani.Percorso2.Episodio1.Passo3E1P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.Percorso2.Passo2P2"
+            android:name=".AppTravisani.Percorso2.Episodio1.Passo2E1P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.Percorso2.Passo1P2"
+            android:name=".AppTravisani.Percorso2.Episodio1.Passo1E1P2"
             android:exported="false" />
         <activity
-            android:name=".AppTravisani.Percorso2.PassiP2Activity"
+            android:name=".AppTravisani.Percorso2.Episodio1.PassiE1P2Activity"
             android:exported="false" />
         <activity
             android:name=".AppTravisani.ListaPremi"

@@ -10,7 +10,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -20,13 +19,8 @@ import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.tesi.AppTravisani.CodeTimer;
-import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
-
-import java.util.Timer;
 
 
 public class Passo1E1P1 extends AppCompatActivity {
@@ -218,8 +212,6 @@ public class Passo1E1P1 extends AppCompatActivity {
         chronometer.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
     }
-
-
 
 
     private void playsound(String urlVoice, int flag)  {

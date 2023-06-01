@@ -1,4 +1,4 @@
-package com.example.tesi.AppTravisani.Percorso2;
+package com.example.tesi.AppTravisani.Percorso2.Episodio1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.tesi.R;
 
-public class PassiP2Activity extends AppCompatActivity {
+public class PassiE1P2Activity extends AppCompatActivity {
 
     private CardView passo1, passo2, passo3, passo4, passo5, passo6;
     private ImageView backIcon;
@@ -21,10 +21,10 @@ public class PassiP2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passi_p2);
+        setContentView(R.layout.activity_passi_e1_p2);
 
         title_toolbar= findViewById(R.id.toolbar_title);
-        title_toolbar.setText("PERCORSO 2");
+        title_toolbar.setText("EPISODIO 1 - P2");
 
         backIcon = findViewById(R.id.back_icon);
         badgeIcon = findViewById(R.id.badge_icon);
@@ -47,7 +47,7 @@ public class PassiP2Activity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //aprire passo 1 del percorso 1
-                Intent i = new Intent(getApplicationContext(), Passo1P2.class);
+                Intent i = new Intent(getApplicationContext(), Passo1E1P2.class);
                 startActivity(i);
                 finish();
             }

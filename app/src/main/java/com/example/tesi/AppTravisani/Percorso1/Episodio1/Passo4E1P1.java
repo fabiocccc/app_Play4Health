@@ -7,24 +7,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppTravisani.Percorso1.Episodio2.PassiE2P1Activity;
-import com.example.tesi.AppTravisani.Percorso1.Passo1P1;
-import com.example.tesi.AppTravisani.Percorso2.PassiP2Activity;
 import com.example.tesi.R;
 import com.google.firebase.database.FirebaseDatabase;
 

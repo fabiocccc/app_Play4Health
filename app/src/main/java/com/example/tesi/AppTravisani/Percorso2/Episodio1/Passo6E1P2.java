@@ -1,4 +1,4 @@
-package com.example.tesi.AppTravisani.Percorso2;
+package com.example.tesi.AppTravisani.Percorso2.Episodio1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,9 +18,13 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class Passo6P2 extends AppCompatActivity {
+import java.util.Random;
+
+public class Passo6E1P2 extends AppCompatActivity {
 
     private FrameLayout btn_pause, btn_ripeti;
     private Dialog dialog, findialog; //finestra di dialogo
@@ -31,19 +35,35 @@ public class Passo6P2 extends AppCompatActivity {
     private AnimationDrawable animationDrawable1 = null;
     private String urlVoice6;
 
+    private TextView txtTimeFinal;
+    private int timeback;
+    private String timeScore;
+    private String user;
+    private Random codutente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo6_p2);
+        setContentView(R.layout.activity_passo6_e1_p2);
 
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
         button_aiuto = findViewById(R.id.button_aiuto);
         premio = findViewById(R.id.imagePremio);
         help1 = findViewById(R.id.help1);
+        txtTimeFinal = findViewById(R.id.txtTimeEP1P1);
 
         dialog= new Dialog(this);
         findialog = new Dialog(this);
+
+        //gestione tempo
+        codutente = new Random();
+        user = String.valueOf(codutente.nextInt()); // genera un cod utente casuale
+        timeback = getIntent().getExtras().getInt("time");
+        timeScore = "Tempo 00:" + timeback; // tempo da salvare su Firebase
+        //salvataggio su Firebase del tempo
+        FirebaseDatabase.getInstance().getReference().child("TimeP2").child("P2E1").child(user).setValue(timeScore);
+        txtTimeFinal.setText(timeScore);
 
 
         urlVoice6 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FHai%20superato%20il%20secondo%20percorso.mp3?alt=media&token=115ff2a8-b680-4131-975d-4a0b1d5f025e";
@@ -155,7 +175,7 @@ public class Passo6P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P2Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -190,7 +210,7 @@ public class Passo6P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 findialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P2Activity.class);
                 i.putExtra("flagDo",4);
                 startActivity(i);
                 finish();
@@ -202,7 +222,7 @@ public class Passo6P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 findialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Passo1P2.class);
+                Intent i = new Intent(getApplicationContext(), Passo1E1P2.class);
                 startActivity(i);
                 finish();
             }
@@ -214,12 +234,19 @@ public class Passo6P2 extends AppCompatActivity {
 
                 findialog.dismiss();
 
-                //continua con il percorso 3
+                Intent i = new Intent(getApplicationContext(), StoryCard.class);
+                startActivity(i);
+                finish();
 
 
             }
         });
 
         findialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
     }
 }

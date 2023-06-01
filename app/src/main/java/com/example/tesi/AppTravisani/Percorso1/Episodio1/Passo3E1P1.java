@@ -16,11 +16,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.tesi.AppTravisani.Percorso2.PassiP2Activity;
-import com.example.tesi.AppTravisani.Percorso2.Passo3P2;
 import com.example.tesi.R;
 
 public class Passo3E1P1 extends AppCompatActivity {

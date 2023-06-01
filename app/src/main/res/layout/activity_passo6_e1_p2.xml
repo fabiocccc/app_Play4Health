@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/calciatore_uomo2"
-    tools:context=".AppTravisani.Percorso2.Passo6P2">
+    tools:context=".AppTravisani.Percorso2.Episodio1.Passo6E1P2">
 
     <FrameLayout
         android:id="@+id/button_pause"
@@ -90,11 +90,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="0dp"
                 android:text="Hai superato il secondo percorso,
                 però prendi la medicina e resta a letto!"
                 android:textAlignment="center"
                 android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/txtTimeEP1P1"
+                android:layout_width="199dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="81dp"
+                android:layout_marginEnd="82dp"
+                android:layout_marginBottom="5dp"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:visibility="invisible" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
@@ -110,6 +127,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.393"
-        app:srcCompat="@drawable/stella" />
+        app:srcCompat="@drawable/icone_punteggio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

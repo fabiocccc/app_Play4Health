@@ -1,4 +1,4 @@
-package com.example.tesi.AppTravisani.Percorso2;
+package com.example.tesi.AppTravisani.Percorso2.Episodio1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.R;
 
-public class Passo2P2 extends AppCompatActivity {
+public class Passo2E1P2 extends AppCompatActivity {
 
     private ImageView help1;
     private FrameLayout button_aiuto;
@@ -45,10 +47,18 @@ public class Passo2P2 extends AppCompatActivity {
     private int contatore = 0;
     private  int ruolo = 0;
 
+
+    private Chronometer chronometer;
+    private long pauseOffset;
+    private boolean running;
+    private String chronoText;
+    private int score;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passo2_p2);
+        setContentView(R.layout.activity_passo2_e1_p2);
 
         btn_pause = findViewById(R.id.button_pause);
         button_aiuto = findViewById(R.id.button_aiuto);
@@ -72,6 +82,15 @@ public class Passo2P2 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
+        //cronometro
+        chronometer = findViewById(R.id.chronometer);
+        resetChronometer();
+        chronometer.setFormat("%s");
+        chronometer.setBase(SystemClock.elapsedRealtime());
+
+        chronometerstart();
+
+
         urlVoice1="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2FAllenatore%20scelta%20ruolo.mp3?alt=media&token=320013c1-84b0-4653-b258-64e190740831";
         playsound(urlVoice1, 0);
 
@@ -94,7 +113,7 @@ public class Passo2P2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openCustomWindow();
-                //  Toast.makeText(Passo1P1.this, "Hai cliccato stop percorso", Toast.LENGTH_SHORT).show();
+                stopChronometer();
 
             }
         });
@@ -112,7 +131,9 @@ public class Passo2P2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stopPlayer();
-                Intent i = new Intent(getApplicationContext(), Passo3P2.class);
+                pauseChronometer();
+                Intent i = new Intent(getApplicationContext(), Passo3E1P2.class);
+                i.putExtra("time", score);
                 startActivity(i);
                 finish();
 
@@ -212,7 +233,7 @@ public class Passo2P2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P2Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -667,5 +688,48 @@ public class Passo2P2 extends AppCompatActivity {
         button_att1.setBackground(getDrawable(R.drawable.circle_centr));
         //11
         button_att2.setBackground(getDrawable(R.drawable.circle_centr));
+    }
+
+    @Override
+    public void onBackPressed() {
+        openCustomWindow();
+        pauseChronometer();
+    }
+
+    private void stopChronometer() {
+        if(running)
+        {
+            chronometer.stop();
+            String chronoText = chronometer.getText().toString();
+            // Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void chronometerstart() {
+
+        if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
+    }
+
+    public void pauseChronometer() {
+        if (running) {
+            chronometer.stop();
+            chronoText = chronometer.getText().toString(); // string tempo da salvare su Firebase
+            String [] splits1 = chronoText.split("\\:");
+            score = Integer.parseInt(splits1[1]);
+            //Toast.makeText(getApplicationContext(), "milliseconds: "+chronoText, Toast.LENGTH_SHORT).show();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+        }
+    }
+
+    public void resetChronometer() {
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
     }
 }

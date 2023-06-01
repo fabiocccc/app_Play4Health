@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
-import com.example.tesi.AppTravisani.Percorso2.PassiP2Activity;
+import com.example.tesi.AppTravisani.Percorso2.Episodio1.PassiE1P2Activity;
 import com.example.tesi.R;
 
 public class Passo4P1 extends AppCompatActivity {
@@ -221,7 +221,7 @@ public class Passo4P1 extends AppCompatActivity {
                 findialog.dismiss();
 
                 //continua con il percorso 2
-                Intent i = new Intent(getApplicationContext(), PassiP2Activity.class);
+                Intent i = new Intent(getApplicationContext(), PassiE1P2Activity.class);
                 startActivity(i);
                 finish();
 

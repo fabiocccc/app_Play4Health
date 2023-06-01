@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_episodi"
-    tools:context=".AppTravisani.Percorso2.PassiP2Activity">
+    tools:context=".AppTravisani.Percorso2.Episodio1.PassiE1P2Activity">
 
     <include layout="@layout/toolbar" />
 
