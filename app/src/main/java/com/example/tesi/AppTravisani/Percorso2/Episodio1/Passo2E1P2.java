@@ -17,6 +17,7 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -52,7 +53,7 @@ public class Passo2E1P2 extends AppCompatActivity {
     private long pauseOffset;
     private boolean running;
     private String chronoText;
-    private int score;
+    private int score, timeback;
 
 
     @Override
@@ -87,7 +88,7 @@ public class Passo2E1P2 extends AppCompatActivity {
         resetChronometer();
         chronometer.setFormat("%s");
         chronometer.setBase(SystemClock.elapsedRealtime());
-
+        timeback = getIntent().getExtras().getInt("time");
         chronometerstart();
 
 
@@ -693,7 +694,7 @@ public class Passo2E1P2 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         openCustomWindow();
-        pauseChronometer();
+        stopChronometer();
     }
 
     private void stopChronometer() {
@@ -721,8 +722,9 @@ public class Passo2E1P2 extends AppCompatActivity {
             chronometer.stop();
             chronoText = chronometer.getText().toString(); // string tempo da salvare su Firebase
             String [] splits1 = chronoText.split("\\:");
-            score = Integer.parseInt(splits1[1]);
-            //Toast.makeText(getApplicationContext(), "milliseconds: "+chronoText, Toast.LENGTH_SHORT).show();
+            int time1 = Integer.parseInt(splits1[1]);
+            score = time1 + timeback;
+            // Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
         }

@@ -18,6 +18,7 @@ import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.tesi.R;
 
@@ -158,7 +159,7 @@ public class Passo1E1P2 extends AppCompatActivity {
             chronoText = chronometer.getText().toString(); // string tempo da salvare su Firebase
             String [] splits1 = chronoText.split("\\:");
             score = Integer.parseInt(splits1[1]);
-            //Toast.makeText(getApplicationContext(), "milliseconds: "+chronoText, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "milliseconds: "+ chronoText, Toast.LENGTH_SHORT).show();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
         }

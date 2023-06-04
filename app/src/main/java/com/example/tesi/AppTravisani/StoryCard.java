@@ -64,7 +64,7 @@ public class StoryCard extends AppCompatActivity {
 
         models = new ArrayList<>();
         models.add(new Model(R.drawable.startgame, "PERCORSO 1", "INIZIAMO A GIOCARE"));
-        models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 2", "TITOLO P2"));
+        models.add(new Model(R.drawable.icona_fitness, "PERCORSO 2", "L'ALLENAMENTO"));
         models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 3", "TITOLO P3"));
         models.add(new Model(R.drawable.ic_baseline_lock, "PERCORSO 4", "TITOLO P4"));
 
