@@ -48,20 +48,21 @@ public class Passo4E2P1 extends AppCompatActivity {
     private FrameLayout parola44 = null;
     private Button control;
 
-
     private LinearLayout linearParoleRandom;
 
     private LinearLayout linearRisposta;
 
     private String frasecorretta = "Il giocatore che difende la sua porta";
     private String frasecomposta = "";
-    private int flag = 0;
+    private int flag_contatore = 0;
 
     private Chronometer chronometer;
     private long pauseOffset;
     private boolean running;
     private String chronoText;
     private int score, timeback;
+
+    private int flag;
 
 
     @Override
@@ -77,6 +78,8 @@ public class Passo4E2P1 extends AppCompatActivity {
 
 
         dialog= new Dialog(this);
+
+        flag = 4;
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);
@@ -185,7 +188,7 @@ public class Passo4E2P1 extends AppCompatActivity {
         parola1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                flag = flag +1;
+                flag_contatore = flag_contatore +1;
                 linearParoleRandom.removeView(parola1);
                 linearRisposta.addView(parola11);
                 frasecomposta = frasecomposta + " Il giocatore "; }
@@ -194,7 +197,7 @@ public class Passo4E2P1 extends AppCompatActivity {
         parola2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                flag = flag +1;
+                flag_contatore = flag_contatore +1;
 
                 linearParoleRandom.removeView(parola2);
                 linearRisposta.addView(parola22);
@@ -204,7 +207,7 @@ public class Passo4E2P1 extends AppCompatActivity {
         parola3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                flag = flag +1;
+                flag_contatore = flag_contatore +1;
 
                 linearParoleRandom.removeView(parola3);
                 linearRisposta.addView(parola33);
@@ -214,7 +217,7 @@ public class Passo4E2P1 extends AppCompatActivity {
         parola4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                flag = flag +1;
+                flag_contatore = flag_contatore +1;
 
                 linearParoleRandom.removeView(parola4);
                 linearRisposta.addView(parola44);
@@ -272,7 +275,7 @@ public class Passo4E2P1 extends AppCompatActivity {
                 String s1 = frasecomposta.replaceAll(" ", "");
                 String s2 = frasecorretta.replaceAll(" ", "");
 
-                if (flag < 4)
+                if (flag_contatore < 4)
                 {
 
                     StyleableToast.makeText(getApplicationContext(), "Componi correttamente la frase", R.style.warningToast).show();
@@ -407,6 +410,8 @@ public class Passo4E2P1 extends AppCompatActivity {
                 dialog.dismiss();
                 resetChronometer();
                 Intent i = new Intent(getApplicationContext(), PassiE2P1Activity.class);
+                i.putExtra("flagDo",4);
+                i.putExtra("time", 0);
                 startActivity(i);
                 finish();
             }

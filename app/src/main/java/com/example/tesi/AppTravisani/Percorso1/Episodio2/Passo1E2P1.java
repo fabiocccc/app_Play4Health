@@ -39,6 +39,7 @@ public class Passo1E2P1 extends AppCompatActivity {
     private boolean running;
     private String chronoText;
     private int score;
+    private int flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,9 @@ public class Passo1E2P1 extends AppCompatActivity {
         risp90m = findViewById(R.id.card90min);
 
         dialog= new Dialog(this);
+
+        //gestione attivazione passi
+        flag = 1;
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);
@@ -216,6 +220,8 @@ public class Passo1E2P1 extends AppCompatActivity {
                 dialog.dismiss();
                 resetChronometer();
                 Intent i = new Intent(getApplicationContext(), PassiE2P1Activity.class);
+                i.putExtra("flagDo",1);
+                i.putExtra("time", 0);
                 startActivity(i);
                 finish();
             }

@@ -3,7 +3,9 @@ package com.example.tesi.AppTravisani.Percorso1.Episodio1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -41,6 +43,7 @@ public class Passo4E1P1 extends AppCompatActivity {
     private String user;
     private Random codutente;
 
+    private int flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,14 @@ public class Passo4E1P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
         findialog = new Dialog(this);
+
+        flag = 4;
+
+        //gestione memoria dell'esecuzione dei passi in diverse sessioni
+        SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("flagDo", flag);
+        editor.commit();
 
 
         //gestione tempo
@@ -180,6 +191,8 @@ public class Passo4E1P1 extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
+                i.putExtra("flagDo",4);
+                i.putExtra("time", 0);
                 startActivity(i);
                 finish();
             }
@@ -221,6 +234,7 @@ public class Passo4E1P1 extends AppCompatActivity {
                 findialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
                 i.putExtra("flagDo",4);
+                i.putExtra("time", 0);
                 startActivity(i);
                 finish();
             }
@@ -243,6 +257,7 @@ public class Passo4E1P1 extends AppCompatActivity {
 
                 findialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), PassiE2P1Activity.class);
+                i.putExtra("flagDo",0);
                 startActivity(i);
                 finish();
 

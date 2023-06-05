@@ -58,6 +58,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
 
                 //aprire passi dell'episodio 1 del percorso 1
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
+                i.putExtra("flagDo",0);
                 startActivity(i);
                 finish();
             }
@@ -69,8 +70,11 @@ public class P1EpisodiActivity extends AppCompatActivity {
 
                 //aprire passi dell'episodio 2 del percorso 1
                 Intent i = new Intent(getApplicationContext(), PassiE2P1Activity.class);
+                i.putExtra("flagDo",0);
                 startActivity(i);
                 finish();
+
+
             }
         });
 
@@ -80,6 +84,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
 
                 //aprire passi dell'episodio 3 del percorso 1
                 Intent i = new Intent(getApplicationContext(), PassiE3P1Activity.class);
+                i.putExtra("flagDo",0);
                 startActivity(i);
                 finish();
             }

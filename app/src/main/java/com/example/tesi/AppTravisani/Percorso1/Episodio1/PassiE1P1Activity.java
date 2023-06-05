@@ -1,6 +1,8 @@
 package com.example.tesi.AppTravisani.Percorso1.Episodio1;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +23,8 @@ public class PassiE1P1Activity extends AppCompatActivity {
     private ImageView badgeIcon;
     private ImageView imgCardP2,imgCardP3,imgCardP4;
     private TextView title_toolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +47,21 @@ public class PassiE1P1Activity extends AppCompatActivity {
         badgeIcon = findViewById(R.id.badge_icon);
         badgeIcon.setVisibility(View.INVISIBLE);
 
-//        //flag per capire se ha fatto già tutti i passi del primo percorso
-//        int flag = getIntent().getExtras().getInt("flagDo");
-//
-//        //6-->ha fatto i passi del primo percorso
-//        if(flag == 4)
-//        {
-//            imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
-//            imgCardP3.setImageResource(R.drawable.ic_baseline_lock_open);
-//            imgCardP4.setImageResource(R.drawable.ic_baseline_lock_open);
-//        }
+        //flag per capire se ha fatto già tutti i passi del primo percorso
+        int flag = getIntent().getExtras().getInt("flagDo");
 
 
+        //gestione memoria dell'esecuzione dei passi in diverse sessioni
+        SharedPreferences sharedPref = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        int flagDo = sharedPref.getInt("flagDo", 0);
+
+        if(flagDo == 4)
+        {
+            sbloccaPassi(4);
+        }
+
+        //4-->ha fatto tutti i passi del primo episodio
+        sbloccaPassi(flag);
 
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +73,6 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
             }
         });
-
-
 
 
        ///PASSO 1 PERCORSO 1
@@ -82,34 +87,35 @@ public class PassiE1P1Activity extends AppCompatActivity {
             }
         });
 
+
         ///PASSO 2 PERCORSO 1
 
-        passo2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //aprire passo 2 del percorso 1
-
-            }
-        });
+//        passo2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                //aprire passo 2 del percorso 1
+//
+//            }
+//        });
         ///PASSO 3 PERCORSO 1
-        passo3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //aprire passo 3 del percorso 1
-
-            }
-        });
+//        passo3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                //aprire passo 3 del percorso 1
+//
+//            }
+//        });
         ///PASSO 4 PERCORSO 1
-        passo4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //aprire passo 4 del percorso 1
-
-            }
-        });
+//        passo4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                //aprire passo 4 del percorso 1
+//
+//            }
+//        });
 //        ///PASSO 5 PERCORSO 1
 //        passo5.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -130,6 +136,107 @@ public class PassiE1P1Activity extends AppCompatActivity {
 //        });
 
 
+
+
+    }
+
+    private void sbloccaPassi(int flag) {
+
+        switch (flag)
+        {
+            case 2:
+                imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
+                passo2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        //aprire passo 2
+                        Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
+                        int score = getIntent().getExtras().getInt("time");
+                        i.putExtra("time", score);
+                        startActivity(i);
+                        finish();
+
+                    }
+                });
+                break;
+            case 3:
+                imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
+                passo2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        //aprire passo 2
+                        Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
+                        int score = getIntent().getExtras().getInt("time");
+                        i.putExtra("time", score);
+                        startActivity(i);
+                        finish();
+
+                    }
+                });
+                imgCardP3.setImageResource(R.drawable.ic_baseline_lock_open);
+                passo3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        //aprire passo 3
+                        Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);
+                        int score = getIntent().getExtras().getInt("time");
+                        i.putExtra("time", score);
+                        startActivity(i);
+                        finish();
+
+                    }
+                });
+                break;
+            case 4:
+                imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
+                passo2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        //aprire passo 2
+                        Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
+                        int score = getIntent().getExtras().getInt("time");
+                        i.putExtra("time", score);
+                        startActivity(i);
+                        finish();
+
+                    }
+                });
+                imgCardP3.setImageResource(R.drawable.ic_baseline_lock_open);
+                passo3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        //aprire passo 3
+                        Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);
+                        int score = getIntent().getExtras().getInt("time");
+                        i.putExtra("time", score);
+                        startActivity(i);
+                        finish();
+
+                    }
+                });
+                imgCardP4.setImageResource(R.drawable.ic_baseline_lock_open);
+                passo4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        //aprire passo 4
+                        Intent i = new Intent(getApplicationContext(), Passo4E1P1.class);
+                        int score = getIntent().getExtras().getInt("time");
+                        i.putExtra("time", score);
+                        startActivity(i);
+                        finish();
+
+                    }
+                });
+                break;
+            default:
+                break;
+        }
 
 
     }

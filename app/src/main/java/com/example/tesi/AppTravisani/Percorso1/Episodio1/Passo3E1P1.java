@@ -46,6 +46,8 @@ public class Passo3E1P1 extends AppCompatActivity {
     private String chronoText;
     private int score, timeback;
 
+    private int flag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,8 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_att2 = findViewById(R.id.button_Att2);
 
         dialog= new Dialog(this);
+
+        flag = 3;
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);
@@ -312,6 +316,8 @@ public class Passo3E1P1 extends AppCompatActivity {
                 dialog.dismiss();
                 resetChronometer();
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
+                i.putExtra("flagDo",3);
+                i.putExtra("time", 0);
                 startActivity(i);
                 finish();
             }

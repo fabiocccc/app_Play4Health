@@ -42,6 +42,7 @@ public class Passo1E1P1 extends AppCompatActivity {
     private boolean running;
     private String chronoText;
     private int score;
+    private int flag;
 
 
     @Override
@@ -58,6 +59,9 @@ public class Passo1E1P1 extends AppCompatActivity {
         txtAllenatore = findViewById(R.id.txt_allenatoreB);
 
         dialog= new Dialog(this);
+
+        //gestione attivazione passi
+        flag = 1;
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);
@@ -294,6 +298,8 @@ public class Passo1E1P1 extends AppCompatActivity {
                 dialog.dismiss();
                 resetChronometer();
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
+                i.putExtra("flagDo",1);
+                i.putExtra("time", 0);
                 startActivity(i);
                 finish();
             }
