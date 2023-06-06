@@ -54,14 +54,14 @@ public class PassiE3P1Activity extends AppCompatActivity {
         badgeIcon.setVisibility(View.INVISIBLE);
 
         //flag per capire se ha fatto già tutti i passi del primo percorso
-        int flag = getIntent().getExtras().getInt("flagDo");
+       int flag = getIntent().getExtras().getInt("flagDo");
 
 
         //gestione memoria dell'esecuzione dei passi in diverse sessioni
         SharedPreferences sharedPref = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        int flagDo = sharedPref.getInt("flagDo", 0);
+        int flagDo = sharedPref.getInt("flagDo3", 0);
 
-        if (flagDo == 6) {
+        if (flagDo == 5) {
             sbloccaPassi(5);
         }
 

@@ -3,7 +3,9 @@ package com.example.tesi.AppTravisani.Percorso1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,12 +20,13 @@ import com.example.tesi.R;
 
 public class P1EpisodiActivity extends AppCompatActivity {
 
-    private ImageView premi_toolbar;
     private CardView cv1, cv2 , cv3;
 
     private ImageView backIcon;
     private ImageView badgeIcon;
     private TextView title_toolbar;
+    private int click = 0, flagDo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
         title_toolbar.setText("EPISODI Percorso 1");
         title_toolbar.setTextSize(25);
 
+
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,13 +56,18 @@ public class P1EpisodiActivity extends AppCompatActivity {
         cv3 = findViewById(R.id.cv3);
 
 
+        //gestione memoria dell'esecuzione dei passi in diverse sessioni
+        SharedPreferences sharedPref = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        int flagDo = sharedPref.getInt("flagDo", 0);
+
+
         cv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //aprire passi dell'episodio 1 del percorso 1
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
-                i.putExtra("flagDo",0);
+                i.putExtra("flagDo",flagDo);
                 startActivity(i);
                 finish();
             }
@@ -70,7 +79,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
 
                 //aprire passi dell'episodio 2 del percorso 1
                 Intent i = new Intent(getApplicationContext(), PassiE2P1Activity.class);
-                i.putExtra("flagDo",0);
+                i.putExtra("flagDo",flagDo);
                 startActivity(i);
                 finish();
 
@@ -84,7 +93,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
 
                 //aprire passi dell'episodio 3 del percorso 1
                 Intent i = new Intent(getApplicationContext(), PassiE3P1Activity.class);
-                i.putExtra("flagDo",0);
+                i.putExtra("flagDo",flagDo);
                 startActivity(i);
                 finish();
             }

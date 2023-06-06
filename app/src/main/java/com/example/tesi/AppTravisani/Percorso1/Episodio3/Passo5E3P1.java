@@ -65,12 +65,12 @@ public class Passo5E3P1 extends AppCompatActivity {
         dialog= new Dialog(this);
         findialog = new Dialog(this);
 
-        flag = 6;
+        flag = 5;
 
         //gestione memoria dell'esecuzione dei passi in diverse sessioni
         SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("flagDo", flag);
+        editor.putInt("flagDo3", flag);
         editor.commit();
 
         //gestione tempo

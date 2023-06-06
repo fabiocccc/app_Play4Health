@@ -65,7 +65,7 @@ public class Passo4E1P1 extends AppCompatActivity {
         //gestione memoria dell'esecuzione dei passi in diverse sessioni
         SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("flagDo", flag);
+        editor.putInt("flagDo1", flag);
         editor.commit();
 
 

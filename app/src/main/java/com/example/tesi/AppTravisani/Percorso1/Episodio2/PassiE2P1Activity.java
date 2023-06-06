@@ -50,19 +50,19 @@ public class PassiE2P1Activity extends AppCompatActivity {
         badgeIcon.setVisibility(View.INVISIBLE);
 
         //flag per capire se ha fatto già tutti i passi del secondo percorso
-        int flag = getIntent().getExtras().getInt("flagDo");
+      //  int flag = getIntent().getExtras().getInt("flagDo");
 
 
         //gestione memoria dell'esecuzione dei passi in diverse sessioni
         SharedPreferences sharedPref = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        int flagDo = sharedPref.getInt("flagDo", 0);
+        int flagDo = sharedPref.getInt("flagDo2", 0);
 
         if (flagDo == 5) {
             sbloccaPassi(5);
         }
 
         //5-->ha fatto tutti i passi del secondo episodio
-        sbloccaPassi(flag);
+        sbloccaPassi(flagDo);
 
 
         backIcon.setOnClickListener(new View.OnClickListener() {
