@@ -103,7 +103,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Qunt'è la durata della partita di calcio: 45 o 90 minuti?"
+
+
+                android:text="Qunt'è la durata
+
+                                    della partita di calcio?"
                 android:textAlignment="center"
                 android:textSize="25dp" />
         </RelativeLayout>
@@ -115,7 +119,7 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_below="@id/cardViewAllenatore"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:columnCount="2"
         android:rowCount="3"
         android:layout_marginTop="20dp"

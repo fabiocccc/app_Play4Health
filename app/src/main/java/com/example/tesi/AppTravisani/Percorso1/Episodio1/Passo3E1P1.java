@@ -19,6 +19,8 @@ import android.widget.ImageView;
 
 import com.example.tesi.R;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 public class Passo3E1P1 extends AppCompatActivity {
 
     private ImageView help1;
@@ -136,6 +138,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_difensore1.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -145,6 +148,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_difensore2.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -154,6 +158,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_terzinod.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -163,6 +168,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_terzinos.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -172,6 +178,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_centro1.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -181,6 +188,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_centro2.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -190,6 +198,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_esternod.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -199,6 +208,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_esternos.setBackground(getDrawable(R.drawable.circle_att));
             }
         });
@@ -207,6 +217,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_att1.setBackground(getDrawable(R.drawable.circle_att));
 
             }
@@ -216,6 +227,7 @@ public class Passo3E1P1 extends AppCompatActivity {
             public void onClick(View v) {
                 urlclick="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Ferrorclick.mp3?alt=media&token=87bd10ea-c451-4322-8387-e58f254b545d" ;
                 playsound(urlclick);
+                StyleableToast.makeText(getApplicationContext(), "Risposta sbagliata, riprova!", R.style.errorToast).show();
                 button_att2.setBackground(getDrawable(R.drawable.circle_att));
             }
         });

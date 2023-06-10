@@ -103,7 +103,7 @@
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_below="@id/cardViewAllenatore"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:columnCount="2"
         android:rowCount="3"
         android:layout_marginTop="20dp"
