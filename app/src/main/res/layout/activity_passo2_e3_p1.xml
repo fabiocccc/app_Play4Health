@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Che cosa sta facendo?"
+                android:text="Ascolta e ripeti l'esercizio."
                 android:textAlignment="center"
                 android:textSize="25dp" />
         </RelativeLayout>
@@ -84,7 +84,7 @@
         android:id="@+id/imageViewAllenamento"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/uomo_piegamenti"
+        android:src="@drawable/affondi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

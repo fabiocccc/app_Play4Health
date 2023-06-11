@@ -27,6 +27,8 @@ import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import io.github.muddz.styleabletoast.StyleableToast;
+
 public class Passo3E3P1 extends AppCompatActivity {
 
 
@@ -41,6 +43,7 @@ public class Passo3E3P1 extends AppCompatActivity {
     private Dialog dialog; //finestra di dialogo
     private ImageView ivPortiere, ivpalla;
     private int click = 0;
+    private TextView txtGoal;
 
     private Chronometer chronometer;
     private long pauseOffset;
@@ -49,7 +52,7 @@ public class Passo3E3P1 extends AppCompatActivity {
     private int score, timeback;
 
     private int flag;
-
+    private int goal = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,7 @@ public class Passo3E3P1 extends AppCompatActivity {
         help2 = findViewById(R.id.help2);
         ivPortiere =  findViewById(R.id.imgPortiere);
         ivpalla = findViewById(R.id.imgPallone);
+        txtGoal = findViewById(R.id.txtGoal);
 
         dialog= new Dialog(this);
 
@@ -75,8 +79,12 @@ public class Passo3E3P1 extends AppCompatActivity {
         timeback = getIntent().getExtras().getInt("time");
         chronometerstart();
 
-        urlVoice1 ="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFai%20goal.mp3?alt=media&token=b3b7d5fb-a38d-488d-bdeb-929efb20ebec";
+        urlVoice1 ="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFai%20goal.mp3?alt=media&token=6e1f9b5a-1d0a-40ac-bf15-1e6df04f12a7";
         playsound(urlVoice1);
+
+       // Toast.makeText(getApplicationContext(), "Dopo l’allenamento puoi passare alle azioni di gioco quindi FAI GOAL!", Toast.LENGTH_LONG).show();
+
+        StyleableToast.makeText(getApplicationContext(), "Dopo l’allenamento puoi passare alle azioni di gioco quindi FAI GOAL!", R.style.mytoast).show();
 
         ivPortiere.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +103,11 @@ public class Passo3E3P1 extends AppCompatActivity {
                 SpringAnimationY(view, -1120f);
                 SpringAnimationY(view, 0f);
                 click = click + 1;
+
+
+                if(click == 1 || click == 3 || click == 5 || click == 7 || click==9 || click == 11)
+                goal = goal + 1;
+                {txtGoal.setText("Goal: " + goal + "/6");}
 
                 if(click == 11)
                 {
@@ -218,6 +231,8 @@ public class Passo3E3P1 extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     stopPlayer();
+                    ivpalla.setVisibility(View.VISIBLE);
+                    txtGoal.setVisibility(View.VISIBLE);
                     button_aiuto.setVisibility(View.VISIBLE);
                 }
             });

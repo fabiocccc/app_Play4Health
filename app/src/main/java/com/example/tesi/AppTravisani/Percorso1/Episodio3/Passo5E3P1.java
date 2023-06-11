@@ -82,7 +82,7 @@ public class Passo5E3P1 extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("TimeP1").child("P1E3").child(user).setValue(timeScore);
         txtTimeFinal.setText(timeScore);
 
-        urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E3P1.mp3?alt=media&token=36e50be5-703d-4b82-afa0-fc5a2d7c7af3";
+        urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E3P1.mp3?alt=media&token=dfbfd993-b94c-4ea3-9708-4aa5389354b9";
         playsound(urlVoice4);
 
 

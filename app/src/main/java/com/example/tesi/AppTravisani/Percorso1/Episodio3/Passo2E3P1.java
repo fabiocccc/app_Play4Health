@@ -83,7 +83,7 @@ public class Passo2E3P1 extends AppCompatActivity {
         timeback = getIntent().getExtras().getInt("time");
         chronometerstart();
 
-        urlVoice1 ="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FChe%20cosa%20sta%20facendo.mp3?alt=media&token=d0cff0d5-7832-439d-9036-f32cf616f8a9";
+        urlVoice1 ="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FAscolto%20e%20riproduzione%20esercizio.mp3?alt=media&token=b992b3a9-237d-4bc2-9f35-59cd3d3034be";
         playsound(urlVoice1, 1);
         contatore = 1;
 
@@ -140,7 +140,7 @@ public class Passo2E3P1 extends AppCompatActivity {
             public void onClick(View v) {
 
                 stopPlayer();
-                urlVoice2 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FTocca%20i%20piedi.mp3?alt=media&token=4f4ab025-cbff-4110-b67b-226683893a4e";
+                urlVoice2 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FAffondi.mp3?alt=media&token=60b1ec70-f426-48c9-8069-7c90967a3cdd";
                 playsound(urlVoice2, 2);
                 contatore = 2;
             }
@@ -177,7 +177,7 @@ public class Passo2E3P1 extends AppCompatActivity {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     txtTestoRegistrato.setText(result.get(0));
                     fraseRegistrata = result.get(0);
-                    String fraseprova = "tocca i piedi";
+                    String fraseprova = "affondi";
 
                     if(fraseRegistrata.equals(fraseprova))
                     {
@@ -257,15 +257,15 @@ public class Passo2E3P1 extends AppCompatActivity {
                     }
                     else if (flag == 2)
                     {
-//                        btnRegistra.setVisibility(View.VISIBLE);
-//                        txtTestoRegistrato.setVisibility(View.VISIBLE);
-//                        button_aiuto.setVisibility(View.VISIBLE);
+                        btnRegistra.setVisibility(View.VISIBLE);
+                        txtTestoRegistrato.setVisibility(View.VISIBLE);
+                        button_aiuto.setVisibility(View.VISIBLE);
 ///////////////////////////PROVA PROSSIMO PASSSO
-                        Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
-                        pauseChronometer();
-                        i.putExtra("time", score);
-                        startActivity(i);
-                        finish();
+//                        Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
+//                        pauseChronometer();
+//                        i.putExtra("time", score);
+//                        startActivity(i);
+//                        finish();
                     }
 
                 }

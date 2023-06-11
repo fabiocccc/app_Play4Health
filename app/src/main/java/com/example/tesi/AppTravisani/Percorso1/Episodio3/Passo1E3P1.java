@@ -104,7 +104,7 @@ public class Passo1E3P1 extends AppCompatActivity {
         });
 
 
-        urlVoice1="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FBene%20bisogna%20allenarsi.mp3?alt=media&token=d818f2a8-abb3-430e-b0e7-60e27f55f704";
+        urlVoice1="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FPrima%20di%20inziare%2C%20allenarsi.mp3?alt=media&token=bb6cc4e9-2d64-4fae-83dd-0ed26b7b58af";
         playsound(urlVoice1);
 
 

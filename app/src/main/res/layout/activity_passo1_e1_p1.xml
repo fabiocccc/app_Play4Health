@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Benvenuto!
+                android:text="Benvenuto alla partita di calcio!
                                    Vuoi giocare con noi?"
                 android:textAlignment="center"
                 android:textSize="25dp" />

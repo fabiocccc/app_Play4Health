@@ -72,7 +72,7 @@ public class Passo3E2P1 extends AppCompatActivity {
         timeback = getIntent().getExtras().getInt("time");
         chronometerstart();
 
-        urlVoice1 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FScelta%20ruolo%20giusto.mp3?alt=media&token=e4d5cb9b-e627-4acd-a72d-44d16cfafad6";
+        urlVoice1 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FScelta%20ruolo%20giusto.mp3?alt=media&token=dea3fb92-b818-49b9-bf0d-63a3d0b8ed84";
         playsound(urlVoice1);
 
         btn_pause.setOnClickListener(new View.OnClickListener() {

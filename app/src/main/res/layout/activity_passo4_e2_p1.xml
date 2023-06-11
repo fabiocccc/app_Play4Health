@@ -73,11 +73,13 @@
                 android:id="@+id/txt_allenatore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Qual'è la funzione del portiere?
-                              Ordina la frase."
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="0dp"
+                android:text="Qual è la funzione del portiere? Metti la frase nell'ordine corretto."
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="23dp" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

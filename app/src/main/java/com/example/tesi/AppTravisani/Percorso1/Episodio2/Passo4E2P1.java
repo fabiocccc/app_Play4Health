@@ -89,7 +89,7 @@ public class Passo4E2P1 extends AppCompatActivity {
         timeback = getIntent().getExtras().getInt("time");
         chronometerstart();
 
-        urlVoice1 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFunzione%20Portiere%20ordina%20frase.mp3?alt=media&token=c790466c-3992-459d-8565-89938b921aa3";
+        urlVoice1 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFunzione%20portiere%20ordina%20frase.mp3?alt=media&token=7fd34ba1-a898-4c0f-a6ff-41577a84c9a1";
         playsound(urlVoice1);
 
         btn_pause.setOnClickListener(new View.OnClickListener() {

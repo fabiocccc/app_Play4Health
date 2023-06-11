@@ -68,7 +68,7 @@ public class Passo1E2P1 extends AppCompatActivity {
 
         chronometerstart();
 
-        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FDurata%20partita.mp3?alt=media&token=53541292-a25e-44cb-a45b-9560266ba171";
+        urlVoice="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FDurata%20partita.mp3?alt=media&token=9a9f8d51-5bd2-4977-a992-3e2fcc4ce81d";
         playsound(urlVoice);
 
         btn_pause.setOnClickListener(new View.OnClickListener() {

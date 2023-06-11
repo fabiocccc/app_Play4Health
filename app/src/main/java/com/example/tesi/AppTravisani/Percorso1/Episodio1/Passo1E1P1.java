@@ -112,7 +112,7 @@ public class Passo1E1P1 extends AppCompatActivity {
         });
 
 
-        urlVoice1="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FBenvenuto.mp3?alt=media&token=73d40da7-dccc-4359-9b5f-9b88e4e0fff6";
+        urlVoice1="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FBenvenuto.mp3?alt=media&token=d97c8700-5d22-49aa-a1fa-09ac03980e0f";
         playsound(urlVoice1, 1);
         contatore = 1;
 
@@ -124,10 +124,10 @@ public class Passo1E1P1 extends AppCompatActivity {
                 rispOk.setBackgroundColor(Color.GREEN);
                 playsoundClick(R.raw.soundclick);
                 layoutrisp1.setVisibility(View.GONE);
-                txtAllenatore.setText("Molto bene! Ma, prima di cominciare, rispondi a qualche domanda.");
+                txtAllenatore.setText("Bene, ma prima di iniziare, devi rispondere ad alcune domande.");
                 button_aiuto.setVisibility(View.GONE);
                 help1.setVisibility(View.GONE);
-                urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FPrima%20di%20cominciare.mp3?alt=media&token=1cc6e8a2-8a6b-445e-a0d6-d3ab95a0a2d8";
+                urlVoice2="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FBene%20prima%20di%20iniziare.mp3?alt=media&token=2048a5f9-0a36-45ba-82a9-0b5f8f2c1cd2";
                 contatore=2;
                 playsound(urlVoice2, 2);
 

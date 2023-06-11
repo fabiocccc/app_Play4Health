@@ -90,7 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Bene, ora bisogna allenarsi!"
+                android:text="Prima di iniziare a giocare,
+                è necessario allenarsi un po’."
                 android:textAlignment="center"
                 android:textSize="25dp" />
         </RelativeLayout>

@@ -45,9 +45,9 @@
 
     <style name="mytoast">
         <item name="stTextBold">true</item>
-        <item name="stTextColor">#fff</item>
-        <item name="stTextSize">14sp</item>
-        <item name="stColorBackground">#fff</item>
+        <item name="stTextColor">#FF000000</item>
+        <item name="stTextSize">20sp</item>
+        <item name="stColorBackground">#FFF</item>
         <item name="stSolidBackground">true</item>
         <item name="stStrokeWidth">3dp</item>
         <item name="stStrokeColor">#fff</item>
