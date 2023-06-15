@@ -48,7 +48,6 @@ public class Passo3E1P1 extends AppCompatActivity {
     private String chronoText;
     private int score, timeback;
 
-    private int flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +58,6 @@ public class Passo3E1P1 extends AppCompatActivity {
         button_aiuto = findViewById(R.id.button_aiuto);
         btn_ripeti = findViewById(R.id.button_ripeti);
         help1 = findViewById(R.id.help1);
-
-
         button_portiere = findViewById(R.id.button_Portiere);
         button_difensore1 = findViewById(R.id.button_Difensore1);
         button_difensore2 = findViewById(R.id.button_Difensore2);
@@ -75,7 +72,7 @@ public class Passo3E1P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
-        flag = 3;
+
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);

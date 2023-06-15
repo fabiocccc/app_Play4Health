@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--    stile per Toast errore-->
     <style name="errorToast">
         <item name="stTextBold">true</item>
         <item name="stTextColor">#fff</item>
@@ -14,6 +15,8 @@
         <item name="stGravity">center</item> top or center
         <item name="stRadius">5dp</item>
     </style>
+
+    <!--    stile per Toast esito corretto-->
 
     <style name="rightToast">
         <item name="stTextBold">true</item>
@@ -29,6 +32,8 @@
         <item name="stRadius">5dp</item>
     </style>
 
+    <!--    stile per Toast avviso-->
+
     <style name="warningToast">
         <item name="stTextBold">true</item>
         <item name="stTextColor">#fff</item>
@@ -42,6 +47,8 @@
         <item name="stGravity">center</item> top or center
         <item name="stRadius">5dp</item>
     </style>
+
+    <!--    stile per Toast personalizzato bianco con stelline-->
 
     <style name="mytoast">
         <item name="stTextBold">true</item>

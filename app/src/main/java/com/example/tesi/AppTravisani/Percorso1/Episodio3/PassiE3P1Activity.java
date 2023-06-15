@@ -9,14 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.tesi.AppTravisani.Percorso1.Episodio2.Passo1E2P1;
-import com.example.tesi.AppTravisani.Percorso1.Episodio2.Passo2E2P1;
-import com.example.tesi.AppTravisani.Percorso1.Episodio2.Passo3E2P1;
-import com.example.tesi.AppTravisani.Percorso1.Episodio2.Passo4E2P1;
-import com.example.tesi.AppTravisani.Percorso1.Episodio2.Passo5E2P1;
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
-import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
 
 public class PassiE3P1Activity extends AppCompatActivity {
@@ -94,46 +87,9 @@ public class PassiE3P1Activity extends AppCompatActivity {
             }
         });
 
-        ///PASSO 2 PERCORSO 1
-
-//        passo2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 2 del percorso 1
-//
-//            }
-//        });
-        ///PASSO 3 PERCORSO 1
-//        passo3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 3 del percorso 1
-//
-//            }
-//        });
-        ///PASSO 4 PERCORSO 1
-//        passo4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 4 del percorso 1
-//
-//            }
-//        });
-
-        ///PASSO 5 PERCORSO 1
-//        passo5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 5 del percorso 1
-//
-//            }
-//        });
     }
 
+    //gestione pulsante back android
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), P1EpisodiActivity.class);
@@ -141,6 +97,7 @@ public class PassiE3P1Activity extends AppCompatActivity {
         finish();
     }
 
+    //sblocca passi a seconda del flag
     private void sbloccaPassi(int flag) {
 
         switch (flag) {

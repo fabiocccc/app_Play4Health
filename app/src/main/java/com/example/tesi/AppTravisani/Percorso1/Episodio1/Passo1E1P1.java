@@ -42,13 +42,15 @@ public class Passo1E1P1 extends AppCompatActivity {
     private boolean running;
     private String chronoText;
     private int score;
-    private int flag;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passo1_e1_p1);
+
+
         btn_pause = findViewById(R.id.button_pause);
         button_aiuto = findViewById(R.id.button_aiuto);
         btn_ripeti = findViewById(R.id.button_ripeti);
@@ -59,9 +61,6 @@ public class Passo1E1P1 extends AppCompatActivity {
         txtAllenatore = findViewById(R.id.txt_allenatoreB);
 
         dialog= new Dialog(this);
-
-        //gestione attivazione passi
-        flag = 1;
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);
@@ -114,7 +113,7 @@ public class Passo1E1P1 extends AppCompatActivity {
 
         urlVoice1="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FBenvenuto.mp3?alt=media&token=d97c8700-5d22-49aa-a1fa-09ac03980e0f";
         playsound(urlVoice1, 1);
-        contatore = 1;
+        contatore = 1; //controlla la voce da riprodurre
 
 
         rispOk.setOnClickListener(new View.OnClickListener() {

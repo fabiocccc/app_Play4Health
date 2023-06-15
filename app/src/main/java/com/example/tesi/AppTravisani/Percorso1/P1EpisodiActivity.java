@@ -25,8 +25,6 @@ public class P1EpisodiActivity extends AppCompatActivity {
     private ImageView backIcon;
     private ImageView badgeIcon;
     private TextView title_toolbar;
-    private int click = 0, flagDo;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

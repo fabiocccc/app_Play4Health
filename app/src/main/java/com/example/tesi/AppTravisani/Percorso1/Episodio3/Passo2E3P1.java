@@ -55,7 +55,6 @@ public class Passo2E3P1 extends AppCompatActivity {
     private String chronoText;
     private int score, timeback;
 
-    int flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,6 @@ public class Passo2E3P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
-        flag = 2;
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);
@@ -260,7 +258,10 @@ public class Passo2E3P1 extends AppCompatActivity {
                         btnRegistra.setVisibility(View.VISIBLE);
                         txtTestoRegistrato.setVisibility(View.VISIBLE);
                         button_aiuto.setVisibility(View.VISIBLE);
-///////////////////////////PROVA PROSSIMO PASSSO
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// /* commenta da riga 260 a 262 e decomenta 267 a 271 se vuoi testare con l'emulatore
+//     altrimenti fai il contrario se vuoi testare su real device la registrazione audio */
+
 //                        Intent i = new Intent(getApplicationContext(), Passo3E3P1.class);
 //                        pauseChronometer();
 //                        i.putExtra("time", score);

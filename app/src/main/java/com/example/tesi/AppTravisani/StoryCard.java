@@ -51,7 +51,6 @@ public class StoryCard extends AppCompatActivity {
         badgeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "Si aprirà la sezione dei badge", Toast.LENGTH_SHORT).show();
                 //Aprire activity con la lista dei premi
                 Intent i = new Intent(getApplicationContext(), ListaPremi.class);
                 startActivity(i);

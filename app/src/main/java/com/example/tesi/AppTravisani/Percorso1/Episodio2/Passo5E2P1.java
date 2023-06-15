@@ -81,8 +81,6 @@ public class Passo5E2P1 extends AppCompatActivity {
         txtTimeFinal.setText(timeScore);
 
 
-
-
         urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E2P1.mp3?alt=media&token=63d33c7a-a3dc-4b2f-bb80-e3ab3239f213";
         playsound(urlVoice4);
 

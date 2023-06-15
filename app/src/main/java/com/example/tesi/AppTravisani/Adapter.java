@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
-import com.example.tesi.AppTravisani.Percorso2.P2EpisodiActivity;
 import com.example.tesi.R;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -62,7 +61,7 @@ public class Adapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
 
-                //fa click
+                //riproduce il suono del click
                 playsound();
 
                 Intent i;
@@ -75,16 +74,13 @@ public class Adapter extends PagerAdapter {
                         context.startActivity(i);
                         break;
                     case 2:
-                        //Toast.makeText(context, "Si apriranno gli episodi della storia 2", Toast.LENGTH_SHORT).show();
-                        i = new Intent(context, P2EpisodiActivity.class);
-                        i.putExtra("flagDo", 0);
-                        context.startActivity(i);
+                        Toast.makeText(context, "Si apriranno gli episodi del percorso 2", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        Toast.makeText(context, "Si apriranno gli episodi della storia 3", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Si apriranno gli episodi del percorso 3", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
-                        Toast.makeText(context, "Si apriranno gli episodi della storia 4", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Si apriranno gli episodi del percorso 4", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;

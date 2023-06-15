@@ -44,15 +44,14 @@ public class Passo3E3P1 extends AppCompatActivity {
     private ImageView ivPortiere, ivpalla;
     private int click = 0;
     private TextView txtGoal;
-
     private Chronometer chronometer;
     private long pauseOffset;
     private boolean running;
     private String chronoText;
     private int score, timeback;
-
-    private int flag;
     private int goal = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +68,6 @@ public class Passo3E3P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
-        flag = 3;
-
         //cronometro
         chronometer = findViewById(R.id.chronometer);
         resetChronometer();
@@ -81,8 +78,6 @@ public class Passo3E3P1 extends AppCompatActivity {
 
         urlVoice1 ="https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFai%20goal.mp3?alt=media&token=6e1f9b5a-1d0a-40ac-bf15-1e6df04f12a7";
         playsound(urlVoice1);
-
-       // Toast.makeText(getApplicationContext(), "Dopo l’allenamento puoi passare alle azioni di gioco quindi FAI GOAL!", Toast.LENGTH_LONG).show();
 
         StyleableToast.makeText(getApplicationContext(), "Dopo l’allenamento puoi passare alle azioni di gioco quindi FAI GOAL!", R.style.mytoast).show();
 
@@ -123,8 +118,6 @@ public class Passo3E3P1 extends AppCompatActivity {
         });
 
 
-
-
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +156,8 @@ public class Passo3E3P1 extends AppCompatActivity {
         });
     }
 
+
+    //animazone per la palla
     public void SpringAnimationY(View view, float position)
     {
         SpringAnimation springAnimation = new SpringAnimation(view, DynamicAnimation.TRANSLATION_Y); // VERSO ANIMAZIONE ORIZZONTALE O VERTICALE
@@ -174,6 +169,7 @@ public class Passo3E3P1 extends AppCompatActivity {
         springAnimation.start();
     }
 
+    //animazone per il portiere
     public void SpringAnimationX(View view, float position)
     {
         SpringAnimation springAnimation = new SpringAnimation(view, DynamicAnimation.TRANSLATION_X); // VERSO ANIMAZIONE ORIZZONTALE O VERTICALE

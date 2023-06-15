@@ -53,11 +53,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.1.0'
 
 
-    //libreria per le animazioni home
+    //libreria per le animazioni della home
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
     implementation 'com.daimajia.easing:library:2.0@aar'
 
-    //libreria per animazione portiere
+    //libreria per animazione del portiere nel game
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 
     //libreria per custom Toast

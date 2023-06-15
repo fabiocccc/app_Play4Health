@@ -49,10 +49,6 @@ public class PassiE2P1Activity extends AppCompatActivity {
         badgeIcon = findViewById(R.id.badge_icon);
         badgeIcon.setVisibility(View.INVISIBLE);
 
-        //flag per capire se ha fatto già tutti i passi del secondo percorso
-      //  int flag = getIntent().getExtras().getInt("flagDo");
-
-
         //gestione memoria dell'esecuzione dei passi in diverse sessioni
         SharedPreferences sharedPref = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         int flagDo = sharedPref.getInt("flagDo2", 0);
@@ -89,46 +85,9 @@ public class PassiE2P1Activity extends AppCompatActivity {
             }
         });
 
-        ///PASSO 2 PERCORSO 1
-
-//        passo2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 2 del percorso 1
-//
-//            }
-//        });
-        ///PASSO 3 PERCORSO 1
-//        passo3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 3 del percorso 1
-//
-//            }
-//        });
-        ///PASSO 4 PERCORSO 1
-//        passo4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 4 del percorso 1
-//
-//            }
-//        });
-
-        ///PASSO 5 PERCORSO 1
-//        passo5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 5 del percorso 1
-//
-//            }
-//        });
     }
 
+    //gestione pulsante back android
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), P1EpisodiActivity.class);
@@ -136,6 +95,7 @@ public class PassiE2P1Activity extends AppCompatActivity {
         finish();
     }
 
+    //sblocca passi a seconda del flag
     private void sbloccaPassi(int flag) {
 
         switch (flag) {

@@ -36,7 +36,6 @@ public class Passo4E1P1 extends AppCompatActivity {
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
     private String urlVoice4;
-
     private TextView txtTimeFinal;
     private int timeback;
     private String timeScore;

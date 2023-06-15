@@ -1,6 +1,5 @@
 package com.example.tesi.AppTravisani.Percorso1.Episodio1;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
-import com.example.tesi.AppTravisani.Percorso1.Passo1P1;
-import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
 
 public class PassiE1P1Activity extends AppCompatActivity {
@@ -46,9 +43,6 @@ public class PassiE1P1Activity extends AppCompatActivity {
         backIcon = findViewById(R.id.back_icon);
         badgeIcon = findViewById(R.id.badge_icon);
         badgeIcon.setVisibility(View.INVISIBLE);
-
-        //flag per capire se ha fatto già tutti i passi del primo percorso
-      //  int flag = getIntent().getExtras().getInt("flagDo");
 
 
         //gestione memoria dell'esecuzione dei passi in diverse sessioni
@@ -88,58 +82,9 @@ public class PassiE1P1Activity extends AppCompatActivity {
         });
 
 
-        ///PASSO 2 PERCORSO 1
-
-//        passo2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 2 del percorso 1
-//
-//            }
-//        });
-        ///PASSO 3 PERCORSO 1
-//        passo3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 3 del percorso 1
-//
-//            }
-//        });
-        ///PASSO 4 PERCORSO 1
-//        passo4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 4 del percorso 1
-//
-//            }
-//        });
-//        ///PASSO 5 PERCORSO 1
-//        passo5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 5 del percorso 1
-//
-//            }
-//        });
-//        ///PASSO 6 PERCORSO 1
-//        passo6.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //aprire passo 6 del percorso 1
-//
-//            }
-//        });
-
-
-
-
     }
 
+    //sblocca passi a seconda del flag
     private void sbloccaPassi(int flag) {
 
         switch (flag)
@@ -240,6 +185,8 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
 
     }
+
+    //gestione pulsante back android
 
     @Override
     public void onBackPressed() {

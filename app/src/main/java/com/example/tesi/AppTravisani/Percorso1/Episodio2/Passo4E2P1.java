@@ -35,7 +35,6 @@ public class Passo4E2P1 extends AppCompatActivity {
     private ImageView help1;
     private String urlVoice1, urlclick;
     private MediaPlayer player;
-    private GridLayout layoutrisp2;
     private Dialog dialog; //finestra di dialogo
 
     private FrameLayout parola1 = null;
@@ -62,8 +61,6 @@ public class Passo4E2P1 extends AppCompatActivity {
     private String chronoText;
     private int score, timeback;
 
-    private int flag;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +71,8 @@ public class Passo4E2P1 extends AppCompatActivity {
         btn_pause = findViewById(R.id.button_pause);
         btn_ripeti = findViewById(R.id.button_ripeti);
         help1 = findViewById(R.id.help1);
-        layoutrisp2 = findViewById(R.id.RispGiocatore2);
-
 
         dialog= new Dialog(this);
-
-        flag = 4;
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);

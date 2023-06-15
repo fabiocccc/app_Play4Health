@@ -125,9 +125,9 @@ public class Home extends AppCompatActivity {
     public void StartExercise(View view) {
 
         //aprire APP PAVONE
-
         if(controlConnection())
         {
+            //Connessione assente
             showCustomDialog();
 
         }else
@@ -140,9 +140,10 @@ public class Home extends AppCompatActivity {
     }
     public void StartStory(View view) {
 
-        //aprire Sezione CardView
+        //aprire Sezione CardView APP TRAVISANI
         if(controlConnection())
         {
+            //Connessione assente
             showCustomDialog();
         }
         else
