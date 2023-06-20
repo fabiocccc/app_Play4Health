@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "11906669751",
-    "project_id": "appplay4health",
-    "storage_bucket": "appplay4health.appspot.com"
+    "project_number": "1060692807476",
+    "firebase_url": "https://app2-30443-default-rtdb.firebaseio.com",
+    "project_id": "app2-30443",
+    "storage_bucket": "app2-30443.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:11906669751:android:7acbfc8bcd2172d8178132",
+        "mobilesdk_app_id": "1:1060692807476:android:b1086d58ab60cb8a611f61",
         "android_client_info": {
           "package_name": "com.example.tesi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "11906669751-15nkgdeucoe8jv7v9crms4h2ksvkm81h.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.tesi",
-            "certificate_hash": "f3718e01dd2c8382681956912c9fb1bc9799ce7b"
-          }
-        },
-        {
-          "client_id": "11906669751-tdo21100u444vg1oq3hp8demhmjaoosu.apps.googleusercontent.com",
+          "client_id": "1060692807476-86luuho7b42tfdun6l1gd7a6abrh2gee.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBuvqE77m5SXh5VOk3NTSGJQh3wtVNyPac"
+          "current_key": "AIzaSyDXB2n7MW-HZkTuwZXpM78AzIW14Sas7nY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "11906669751-tdo21100u444vg1oq3hp8demhmjaoosu.apps.googleusercontent.com",
+              "client_id": "1060692807476-86luuho7b42tfdun6l1gd7a6abrh2gee.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
