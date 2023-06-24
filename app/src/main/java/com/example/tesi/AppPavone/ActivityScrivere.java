@@ -1,5 +1,8 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -10,6 +13,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -20,6 +24,11 @@ import android.widget.Spinner;
 
 import com.example.tesi.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +49,6 @@ public class ActivityScrivere extends AppCompatActivity {
     private Button button_Risp2;
     private Button button_Risp3;
     private Button button_Risp4;
-    private JSONArray jsonArray;
     private String corretta;
     private int errori;
     private Spinner spinner;
@@ -62,6 +70,9 @@ public class ActivityScrivere extends AppCompatActivity {
     private AnimationDrawable animationDrawableScelta4 = null;
 
     private Button button_avanti;
+
+    private ArrayList<Json> arrayJson;
+    DatabaseReference dr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,391 +132,391 @@ public class ActivityScrivere extends AppCompatActivity {
             }
         });
 
-        String jsonString = read(this, "dati.json");
-        try {
-            jsonArray = new JSONArray(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        int random = (int)(Math.random() * jsonArray.length());
-        //Toast.makeText(this, "nu: "+ random, Toast.LENGTH_SHORT).show();
-
-        ArrayList<String> parole = new ArrayList<>();
-
-
-        button_aiuto.setOnClickListener(new View.OnClickListener() {
+        arrayJson = new ArrayList<>();
+        readDataJson1(new MyCallback() {
             @Override
-            public void onClick(View view) {
+            public void onCallback(ArrayList<Json> arrayJson) {
 
-                help1.setVisibility(View.VISIBLE);
+                int random = (int)(Math.random() * arrayJson.size());
 
-                animationDrawable = (AnimationDrawable) help1.getBackground();
-                animationDrawable.start();
+                ArrayList<String> parole = new ArrayList<>();
 
-                button_aiuto.setVisibility(View.GONE);
-            }
-        });
+                button_aiuto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-        try {
-            corretta = jsonArray.getJSONObject(random).getString("ita");
-
-
-            risposte.add(jsonArray.getJSONObject(random).getString("ita"));
-            risposte.add(jsonArray.getJSONObject(random).getString("sug1"));
-            risposte.add(jsonArray.getJSONObject(random).getString("sug2"));
-            risposte.add(jsonArray.getJSONObject(random).getString("sug3"));
-
-
-            parole.add(jsonArray.getJSONObject(random).getString("fra"));
-            parole.add(jsonArray.getJSONObject(random).getString("eng"));
-
-            SpinnerAdapter adapter = new SpinnerAdapter(this, parole);
-            spinner.setAdapter(adapter);
-            spinner.setSelection(0);
-
-
-            int temp = (int) (Math.random() * risposte.size() );
-            button_Risp1.setText(risposte.get(temp));
-            risposte.remove(temp);
-            button_Risp1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if(ascoltato){
-                        if (button_Risp1.getText().toString().equals(corretta)) {
-                            //Corretto
-                            disabilitaBottoni();
-                            terminaAnimazioneScelta();
-
-
-                            button_avanti.setVisibility(View.VISIBLE);
-
-                            if(errori == 0){
-                                //metti il SVOLTO nel JSON
-
-                            } else {
-
-                            }
-
-                            button_aiuto.setVisibility(View.GONE);
-                            button_avanti.setVisibility(View.VISIBLE);
-
-                            esito1.setVisibility(View.VISIBLE);
-                            esito1.setImageResource(R.drawable.thumbs_up);
-
-                            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
-
-                        } else {
-                            errori++;
-
-                            if(errori == 3){
-                                button_aiuto.setVisibility(View.GONE);
-                                button_avanti.setVisibility(View.VISIBLE);
-
-                                esito1.setVisibility(View.VISIBLE);
-                                esito1.setImageResource(R.drawable.thumbs_down);
-
-                                esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
-
-                                disabilitaBottoni();
-                                terminaAnimazioneScelta();
-
-                            }
-
-                            button_Risp1.setClickable(false);
-                            button_Risp1.setBackgroundColor(Color.parseColor("#f54518"));
-
-                        }
-
-                    } else {
                         help1.setVisibility(View.VISIBLE);
 
                         animationDrawable = (AnimationDrawable) help1.getBackground();
                         animationDrawable.start();
+
                         button_aiuto.setVisibility(View.GONE);
                     }
-
-
-
-                }
                 });
 
-            temp = (int) (Math.random() * risposte.size() );
-            button_Risp2.setText(risposte.get(temp));
-            risposte.remove(temp);
-            button_Risp2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    if(ascoltato){
-                        if (button_Risp2.getText().toString().equals(corretta)) {
-                            //Corretto
-                            disabilitaBottoni();
-                            terminaAnimazioneScelta();
-                            button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
-                            button_avanti.setVisibility(View.VISIBLE);
+                    corretta = arrayJson.get(random).getIta();
 
-                            if(errori == 0){
-                                //metti il SVOLTO nel JSON
 
-                            }else {
+                    risposte.add(arrayJson.get(random).getIta());
+                    risposte.add((arrayJson.get(random).getSug1()));
+                    risposte.add((arrayJson.get(random).getSug2()));
+                    risposte.add((arrayJson.get(random).getSug3()));
 
-                            }
 
-                            button_aiuto.setVisibility(View.GONE);
-                            button_avanti.setVisibility(View.VISIBLE);
+                    parole.add((arrayJson.get(random).getFra()));
+                    parole.add((arrayJson.get(random).getEng()));
 
-                            esito1.setVisibility(View.VISIBLE);
-                            esito1.setImageResource(R.drawable.thumbs_up);
+                    SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                    spinner.setAdapter(adapter);
+                    spinner.setSelection(0);
 
-                            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 
-
-                        } else {
-                            errori++;
-
-                            if(errori == 3){
-                                button_aiuto.setVisibility(View.GONE);
-                                button_avanti.setVisibility(View.VISIBLE);
-
-                                esito1.setVisibility(View.VISIBLE);
-                                esito1.setImageResource(R.drawable.thumbs_down);
-
-                                esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
-                                disabilitaBottoni();
-                                terminaAnimazioneScelta();
-                            }
-
-                            button_Risp2.setClickable(false);
-                            button_Risp2.setBackgroundColor(Color.parseColor("#f54518"));
-
-                        }
-
-                    } else {
-                        help1.setVisibility(View.VISIBLE);
-
-                        animationDrawable = (AnimationDrawable) help1.getBackground();
-                        animationDrawable.start();
-                        button_aiuto.setVisibility(View.GONE);
-                    }
-
-
-                }
-            });
-
-
-
-
-            temp = (int) (Math.random() * risposte.size() );
-            button_Risp3.setText(risposte.get(temp));
-            risposte.remove(temp);
-            button_Risp3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if(ascoltato){
-                        if (button_Risp3.getText().toString().equals(corretta)) {
-                            //Corretto
-                            disabilitaBottoni();
-                            terminaAnimazioneScelta();
-                            button_avanti.setVisibility(View.VISIBLE);
-
-                            if(errori == 0){
-                                //metti il SVOLTO nel JSON
-
-                            } else {
-
-
-                            }
-
-                            button_aiuto.setVisibility(View.GONE);
-                            button_avanti.setVisibility(View.VISIBLE);
-
-                            esito1.setVisibility(View.VISIBLE);
-                            esito1.setImageResource(R.drawable.thumbs_up);
-
-                            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
-
-                        } else {
-                            errori++;
-
-                            if(errori == 3){
-                                button_aiuto.setVisibility(View.GONE);
-                                button_avanti.setVisibility(View.VISIBLE);
-
-                                esito1.setVisibility(View.VISIBLE);
-                                esito1.setImageResource(R.drawable.thumbs_down);
-
-                                esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
-                                disabilitaBottoni();
-                                terminaAnimazioneScelta();
-                            }
-
-                            button_Risp3.setClickable(false);
-                            button_Risp3.setBackgroundColor(Color.parseColor("#f54518"));
-
-                        }
-
-                    } else {
-                        help1.setVisibility(View.VISIBLE);
-
-                        animationDrawable = (AnimationDrawable) help1.getBackground();
-                        animationDrawable.start();
-                        button_aiuto.setVisibility(View.GONE);
-                    }
-
-
-
-                }
-            });
-
-            temp = (int) (Math.random() * risposte.size() );
-            button_Risp4.setText(risposte.get(temp));
-            risposte.remove(temp);
-            button_Risp4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if(ascoltato){
-                        if (button_Risp4.getText().toString().equals(corretta)) {
-                            //Corretto
-                            disabilitaBottoni();
-                            terminaAnimazioneScelta();
-                            button_avanti.setVisibility(View.VISIBLE);
-
-                            if(errori == 0){
-                                //metti il SVOLTO nel JSON
-
-
-                            }else {
-
-                            }
-
-                            button_aiuto.setVisibility(View.GONE);
-                            button_avanti.setVisibility(View.VISIBLE);
-
-                            esito1.setVisibility(View.VISIBLE);
-                            esito1.setImageResource(R.drawable.thumbs_up);
-
-                            esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
-
-                        } else {
-                            errori++;
-
-                            if(errori == 3){
-                                button_aiuto.setVisibility(View.GONE);
-                                button_avanti.setVisibility(View.VISIBLE);
-
-                                esito1.setVisibility(View.VISIBLE);
-                                esito1.setImageResource(R.drawable.thumbs_down);
-
-                                esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
-                                disabilitaBottoni();
-                                terminaAnimazioneScelta();
-                            }
-
-                            button_Risp4.setClickable(false);
-                            button_Risp4.setBackgroundColor(Color.parseColor("#f54518"));
-
-                        }
-
-                    } else {
-                        help1.setVisibility(View.VISIBLE);
-
-                        animationDrawable = (AnimationDrawable) help1.getBackground();
-                        animationDrawable.start();
-                        button_aiuto.setVisibility(View.GONE);
-                    }
-
-
-
-                }
-            });
-
-            if(jsonArray.getJSONObject(random).getString("img") != ""){
-                byte[] decodedString = Base64.decode(jsonArray.getJSONObject(random).getString("img"), Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                imageView_Scrivere.setImageBitmap(decodedByte);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        ///////////////////////////////////
-
-
-
-        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-
-                    button_Ascolta.setOnClickListener(new View.OnClickListener() {
+                    int temp = (int) (Math.random() * risposte.size() );
+                    button_Risp1.setText(risposte.get(temp));
+                    risposte.remove(temp);
+                    button_Risp1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
-                            ascoltato = true;
+                            if(ascoltato){
+                                if (button_Risp1.getText().toString().equals(corretta)) {
+                                    //Corretto
+                                    disabilitaBottoni();
+                                    terminaAnimazioneScelta();
 
-                            if(animationDrawable != null) {
-                                help1.setVisibility(View.GONE);
-                                animationDrawable.stop();
-                                animationDrawable = null;
 
-                                help2.setVisibility(View.VISIBLE);
-                                help3.setVisibility(View.VISIBLE);
-                                help4.setVisibility(View.VISIBLE);
-                                help5.setVisibility(View.VISIBLE);
+                                    button_avanti.setVisibility(View.VISIBLE);
 
-                                animationDrawableScelta1 = (AnimationDrawable) help2.getBackground();
-                                animationDrawableScelta2 = (AnimationDrawable) help3.getBackground();
-                                animationDrawableScelta3 = (AnimationDrawable) help4.getBackground();
-                                animationDrawableScelta4 = (AnimationDrawable) help5.getBackground();
-                                animationDrawableScelta1.start();
-                                animationDrawableScelta2.start();
-                                animationDrawableScelta3.start();
-                                animationDrawableScelta4.start();
+                                    if(errori == 0){
+                                        //metti il SVOLTO nel JSON
 
+                                    } else {
+
+                                    }
+
+                                    button_aiuto.setVisibility(View.GONE);
+                                    button_avanti.setVisibility(View.VISIBLE);
+
+                                    esito1.setVisibility(View.VISIBLE);
+                                    esito1.setImageResource(R.drawable.thumbs_up);
+
+                                    esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                                } else {
+                                    errori++;
+
+                                    if(errori == 3){
+                                        button_aiuto.setVisibility(View.GONE);
+                                        button_avanti.setVisibility(View.VISIBLE);
+
+                                        esito1.setVisibility(View.VISIBLE);
+                                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                                        disabilitaBottoni();
+                                        terminaAnimazioneScelta();
+
+                                    }
+
+                                    button_Risp1.setClickable(false);
+                                    button_Risp1.setBackgroundColor(Color.parseColor("#f54518"));
+
+                                }
+
+                            } else {
+                                help1.setVisibility(View.VISIBLE);
+
+                                animationDrawable = (AnimationDrawable) help1.getBackground();
+                                animationDrawable.start();
+                                button_aiuto.setVisibility(View.GONE);
                             }
 
-                            textToSpeech.setLanguage(Locale.ITALIAN);
-                            String toSpeakIt = corretta;
 
-                            textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
 
                         }
                     });
 
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    temp = (int) (Math.random() * risposte.size() );
+                    button_Risp2.setText(risposte.get(temp));
+                    risposte.remove(temp);
+                    button_Risp2.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        public void onClick(View view) {
 
                             if(ascoltato){
-                                switch (i){
-                                    case 0:
-                                        textToSpeech.setLanguage(Locale.FRANCE);
-                                        String toSpeakFr = spinner.getSelectedItem().toString();
+                                if (button_Risp2.getText().toString().equals(corretta)) {
+                                    //Corretto
+                                    disabilitaBottoni();
+                                    terminaAnimazioneScelta();
+                                    button_Risp2.setBackgroundColor(Color.parseColor("#50e024"));
+                                    button_avanti.setVisibility(View.VISIBLE);
 
-                                        textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
-                                        break;
-                                    case 1:
-                                        textToSpeech.setLanguage(Locale.ENGLISH);
-                                        String toSpeakEn = spinner.getSelectedItem().toString();
+                                    if(errori == 0){
+                                        //metti il SVOLTO nel JSON
 
-                                        textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
-                                        break;
+                                    }else {
+
+                                    }
+
+                                    button_aiuto.setVisibility(View.GONE);
+                                    button_avanti.setVisibility(View.VISIBLE);
+
+                                    esito1.setVisibility(View.VISIBLE);
+                                    esito1.setImageResource(R.drawable.thumbs_up);
+
+                                    esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+
+                                } else {
+                                    errori++;
+
+                                    if(errori == 3){
+                                        button_aiuto.setVisibility(View.GONE);
+                                        button_avanti.setVisibility(View.VISIBLE);
+
+                                        esito1.setVisibility(View.VISIBLE);
+                                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+                                        disabilitaBottoni();
+                                        terminaAnimazioneScelta();
+                                    }
+
+                                    button_Risp2.setClickable(false);
+                                    button_Risp2.setBackgroundColor(Color.parseColor("#f54518"));
+
                                 }
-                            }
-                        }
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
+                            } else {
+                                help1.setVisibility(View.VISIBLE);
+
+                                animationDrawable = (AnimationDrawable) help1.getBackground();
+                                animationDrawable.start();
+                                button_aiuto.setVisibility(View.GONE);
+                            }
+
 
                         }
                     });
-                }
+
+
+
+
+                    temp = (int) (Math.random() * risposte.size() );
+                    button_Risp3.setText(risposte.get(temp));
+                    risposte.remove(temp);
+                    button_Risp3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            if(ascoltato){
+                                if (button_Risp3.getText().toString().equals(corretta)) {
+                                    //Corretto
+                                    disabilitaBottoni();
+                                    terminaAnimazioneScelta();
+                                    button_avanti.setVisibility(View.VISIBLE);
+
+                                    if(errori == 0){
+                                        //metti il SVOLTO nel JSON
+
+                                    } else {
+
+
+                                    }
+
+                                    button_aiuto.setVisibility(View.GONE);
+                                    button_avanti.setVisibility(View.VISIBLE);
+
+                                    esito1.setVisibility(View.VISIBLE);
+                                    esito1.setImageResource(R.drawable.thumbs_up);
+
+                                    esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                                } else {
+                                    errori++;
+
+                                    if(errori == 3){
+                                        button_aiuto.setVisibility(View.GONE);
+                                        button_avanti.setVisibility(View.VISIBLE);
+
+                                        esito1.setVisibility(View.VISIBLE);
+                                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+                                        disabilitaBottoni();
+                                        terminaAnimazioneScelta();
+                                    }
+
+                                    button_Risp3.setClickable(false);
+                                    button_Risp3.setBackgroundColor(Color.parseColor("#f54518"));
+
+                                }
+
+                            } else {
+                                help1.setVisibility(View.VISIBLE);
+
+                                animationDrawable = (AnimationDrawable) help1.getBackground();
+                                animationDrawable.start();
+                                button_aiuto.setVisibility(View.GONE);
+                            }
+
+
+
+                        }
+                    });
+
+                    temp = (int) (Math.random() * risposte.size() );
+                    button_Risp4.setText(risposte.get(temp));
+                    risposte.remove(temp);
+                    button_Risp4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            if(ascoltato){
+                                if (button_Risp4.getText().toString().equals(corretta)) {
+                                    //Corretto
+                                    disabilitaBottoni();
+                                    terminaAnimazioneScelta();
+                                    button_avanti.setVisibility(View.VISIBLE);
+
+                                    if(errori == 0){
+                                        //metti il SVOLTO nel JSON
+
+
+                                    }else {
+
+                                    }
+
+                                    button_aiuto.setVisibility(View.GONE);
+                                    button_avanti.setVisibility(View.VISIBLE);
+
+                                    esito1.setVisibility(View.VISIBLE);
+                                    esito1.setImageResource(R.drawable.thumbs_up);
+
+                                    esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+
+                                } else {
+                                    errori++;
+
+                                    if(errori == 3){
+                                        button_aiuto.setVisibility(View.GONE);
+                                        button_avanti.setVisibility(View.VISIBLE);
+
+                                        esito1.setVisibility(View.VISIBLE);
+                                        esito1.setImageResource(R.drawable.thumbs_down);
+
+                                        esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
+                                        disabilitaBottoni();
+                                        terminaAnimazioneScelta();
+                                    }
+
+                                    button_Risp4.setClickable(false);
+                                    button_Risp4.setBackgroundColor(Color.parseColor("#f54518"));
+
+                                }
+
+                            } else {
+                                help1.setVisibility(View.VISIBLE);
+
+                                animationDrawable = (AnimationDrawable) help1.getBackground();
+                                animationDrawable.start();
+                                button_aiuto.setVisibility(View.GONE);
+                            }
+
+
+
+                        }
+                    });
+
+                    if(arrayJson.get(random).getImg() != ""){
+                        byte[] decodedString = Base64.decode(arrayJson.get(random).getImg(), Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        imageView_Scrivere.setImageBitmap(decodedByte);
+                    }
+
+
+
+
+                textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        if(status != TextToSpeech.ERROR) {
+
+                            button_Ascolta.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    ascoltato = true;
+
+                                    if(animationDrawable != null) {
+                                        help1.setVisibility(View.GONE);
+                                        animationDrawable.stop();
+                                        animationDrawable = null;
+
+                                        help2.setVisibility(View.VISIBLE);
+                                        help3.setVisibility(View.VISIBLE);
+                                        help4.setVisibility(View.VISIBLE);
+                                        help5.setVisibility(View.VISIBLE);
+
+                                        animationDrawableScelta1 = (AnimationDrawable) help2.getBackground();
+                                        animationDrawableScelta2 = (AnimationDrawable) help3.getBackground();
+                                        animationDrawableScelta3 = (AnimationDrawable) help4.getBackground();
+                                        animationDrawableScelta4 = (AnimationDrawable) help5.getBackground();
+                                        animationDrawableScelta1.start();
+                                        animationDrawableScelta2.start();
+                                        animationDrawableScelta3.start();
+                                        animationDrawableScelta4.start();
+
+                                    }
+
+                                    textToSpeech.setLanguage(Locale.ITALIAN);
+                                    String toSpeakIt = corretta;
+
+                                    textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
+
+                                }
+                            });
+
+                            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    if(ascoltato){
+                                        switch (i){
+                                            case 0:
+                                                textToSpeech.setLanguage(Locale.FRANCE);
+                                                String toSpeakFr = spinner.getSelectedItem().toString();
+
+                                                textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                                break;
+                                            case 1:
+                                                textToSpeech.setLanguage(Locale.ENGLISH);
+                                                String toSpeakEn = spinner.getSelectedItem().toString();
+
+                                                textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                                break;
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+
             }
+
+
         });
+
+
 
 
     }
@@ -570,5 +581,46 @@ public class ActivityScrivere extends AppCompatActivity {
         } catch (IOException ioException) {
             return null;
         }
+    }
+
+    public interface MyCallback {
+        void onCallback(ArrayList<Json> arrayJson);
+    }
+
+    public void readDataJson1(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("Json1");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String sug1 = ds.child("sug1").getValue(String.class);
+                    String sug2 = ds.child("sug2").getValue(String.class);
+                    String sug3 = ds.child("sug3").getValue(String.class);
+                    Boolean svolto = ds.child("svolto").getValue(Boolean.class);
+
+                    Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                    arrayJson.add(json);
+
+                }
+                myCallback.onCallback(arrayJson);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
