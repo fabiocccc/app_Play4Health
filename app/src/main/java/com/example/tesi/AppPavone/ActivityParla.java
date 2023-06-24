@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -20,6 +22,7 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -32,6 +35,11 @@ import android.widget.Toast;
 
 import com.example.tesi.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +63,6 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
     private TextToSpeech textToSpeech;
     private SpeechRecognizer speechRecognizer;
     private Intent recognizerIntent;
-    private JSONArray jsonArray;
     private ImageView imageView_Parla;
     private String corretta;
     private ImageView esito1;
@@ -67,6 +74,9 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
     private AnimationDrawable animationDrawable = null;
 
     private Button button_avanti;
+
+    private ArrayList<Json> arrayJson;
+    DatabaseReference dr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,144 +141,139 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
             }
         });
 
-
-
-        String jsonString = read(this, "dati.json");
-        try {
-            jsonArray = new JSONArray(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        int random = (int)(Math.random() * jsonArray.length());
-        //Toast.makeText(this, "nu: "+ random, Toast.LENGTH_SHORT).show();
-
-
+        arrayJson = new ArrayList<>();
         ArrayList<String> parole = new ArrayList<>();
-        try {
-            corretta = jsonArray.getJSONObject(random).getString("ita");
-            parole.add(jsonArray.getJSONObject(random).getString("ita"));
-            parole.add(jsonArray.getJSONObject(random).getString("fra"));
-            parole.add(jsonArray.getJSONObject(random).getString("eng"));
 
-            if(jsonArray.getJSONObject(random).getString("img") != ""){
-                        byte[] decodedString = Base64.decode(jsonArray.getJSONObject(random).getString("img"), Base64.DEFAULT);
+        readDataJson1(new MyCallback() {
+            @Override
+            public void onCallback(ArrayList<Json> arrayJson) {
+                int random = (int)(Math.random() * arrayJson.size());
+
+                corretta = arrayJson.get(random).getIta();
+                parole.add(arrayJson.get(random).getIta());
+                parole.add(arrayJson.get(random).getFra());
+                parole.add(arrayJson.get(random).getEng());
+
+
+                    if(arrayJson.get(random).getImg() != ""){
+                        byte[] decodedString = Base64.decode(arrayJson.get(random).getImg(), Base64.DEFAULT);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                         imageView_Parla.setImageBitmap(decodedByte);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        SpinnerAdapter adapter = new SpinnerAdapter(this, parole);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(0);
-
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        speechRecognizer.setRecognitionListener(this);
-
-
-        button_Parla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(ascoltato){
-                    button_avanti.setVisibility(View.VISIBLE);
-
-                    if(animationDrawable != null) {
-                        help2.setVisibility(View.GONE);
-                        animationDrawable.stop();
-                        animationDrawable = null;
-
-                        button_aiuto.setVisibility(View.VISIBLE);
                     }
 
-                    recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                    recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                    recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT");
-                    ActivityCompat.requestPermissions(ActivityParla.this, new String[] { Manifest.permission.RECORD_AUDIO }, REQUEST_RECORD_PERMISSION);
-
-                }else {
-                    help1.setVisibility(View.VISIBLE);
-
-                    animationDrawable = (AnimationDrawable) help1.getBackground();
-                    animationDrawable.start();
-
-                    button_aiuto.setVisibility(View.GONE);
-                }
-
-            }
-        });
-
-
-        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            if(ascoltato){
-                                switch (i){
-                                    case 0:
-                                        //Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
-                                        textToSpeech.setLanguage(Locale.ITALIAN);
-                                        String toSpeakIt = spinner.getSelectedItem().toString();
-
-                                        textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
-                                        break;
-                                    case 1:
-                                        //Toast.makeText(getApplicationContext(), "ENGLISH",Toast.LENGTH_SHORT).show();
-                                        textToSpeech.setLanguage(Locale.FRANCE);
-                                        String toSpeakFr = spinner.getSelectedItem().toString();
-
-                                        textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
-                                        break;
-                                    case 2:
-                                        //Toast.makeText(getApplicationContext(), "BAGUETA",Toast.LENGTH_SHORT).show();
-                                        textToSpeech.setLanguage(Locale.ENGLISH);
-                                        String toSpeakEn = spinner.getSelectedItem().toString();
-
-                                        textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-                }
-            }
-        });
-
-
-
-        button_Ascolta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ascoltato = true;
-
-                if(animationDrawable != null) {
-                    help1.setVisibility(View.GONE);
-                    animationDrawable.stop();
-
-                    help2.setVisibility(View.VISIBLE);
-
-                    animationDrawable = (AnimationDrawable) help2.getBackground();
-                    animationDrawable.start();
-                }
-
-                String toSpeak = spinner.getItemAtPosition(0).toString();
+                SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
+                spinner.setAdapter(adapter);
                 spinner.setSelection(0);
-                textToSpeech.setLanguage(Locale.ITALY);
-                textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+
+                speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext());
+                //speechRecognizer.setRecognitionListener(this);              commentato ma potrebbe dare problemi forse
+
+
+                button_Parla.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(ascoltato){
+                            button_avanti.setVisibility(View.VISIBLE);
+
+                            if(animationDrawable != null) {
+                                help2.setVisibility(View.GONE);
+                                animationDrawable.stop();
+                                animationDrawable = null;
+
+                                button_aiuto.setVisibility(View.VISIBLE);
+                            }
+
+                            recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                            recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                            recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT");
+                            ActivityCompat.requestPermissions(ActivityParla.this, new String[] { Manifest.permission.RECORD_AUDIO }, REQUEST_RECORD_PERMISSION);
+
+                        }else {
+                            help1.setVisibility(View.VISIBLE);
+
+                            animationDrawable = (AnimationDrawable) help1.getBackground();
+                            animationDrawable.start();
+
+                            button_aiuto.setVisibility(View.GONE);
+                        }
+
+                    }
+                });
+
+
+                textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        if(status != TextToSpeech.ERROR) {
+                            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    if(ascoltato){
+                                        switch (i){
+                                            case 0:
+                                                //Toast.makeText(getApplicationContext(), "ITALIA",Toast.LENGTH_SHORT).show();
+                                                textToSpeech.setLanguage(Locale.ITALIAN);
+                                                String toSpeakIt = spinner.getSelectedItem().toString();
+
+                                                textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
+                                                break;
+                                            case 1:
+                                                //Toast.makeText(getApplicationContext(), "ENGLISH",Toast.LENGTH_SHORT).show();
+                                                textToSpeech.setLanguage(Locale.FRANCE);
+                                                String toSpeakFr = spinner.getSelectedItem().toString();
+
+                                                textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                                break;
+                                            case 2:
+                                                //Toast.makeText(getApplicationContext(), "BAGUETA",Toast.LENGTH_SHORT).show();
+                                                textToSpeech.setLanguage(Locale.ENGLISH);
+                                                String toSpeakEn = spinner.getSelectedItem().toString();
+
+                                                textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+
+                button_Ascolta.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        ascoltato = true;
+
+                        if(animationDrawable != null) {
+                            help1.setVisibility(View.GONE);
+                            animationDrawable.stop();
+
+                            help2.setVisibility(View.VISIBLE);
+
+                            animationDrawable = (AnimationDrawable) help2.getBackground();
+                            animationDrawable.start();
+                        }
+
+                        String toSpeak = spinner.getItemAtPosition(0).toString();
+                        spinner.setSelection(0);
+                        textToSpeech.setLanguage(Locale.ITALY);
+                        textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                    }
+                });
+
             }
+
         });
+
+
 
     }
 
@@ -409,21 +414,44 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         return message;
     }
 
-    private String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
+    public interface MyCallback {
+        void onCallback(ArrayList<Json> arrayJson);
+    }
+
+    public void readDataJson1(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("Json1");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String sug1 = ds.child("sug1").getValue(String.class);
+                    String sug2 = ds.child("sug2").getValue(String.class);
+                    String sug3 = ds.child("sug3").getValue(String.class);
+                    Boolean svolto = ds.child("svolto").getValue(Boolean.class);
+
+                    Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                    arrayJson.add(json);
+
+                }
+                myCallback.onCallback(arrayJson);
             }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
