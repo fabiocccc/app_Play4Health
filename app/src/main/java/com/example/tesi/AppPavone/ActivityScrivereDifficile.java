@@ -1,5 +1,8 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -9,6 +12,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -22,6 +26,11 @@ import android.widget.TextView;
 
 import com.example.tesi.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,8 +58,7 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
     private FloatingActionButton button_Ascolta;
     private ImageView esito1;
     private Boolean ascoltato;
-
-    private JSONArray jsonArray;
+    
     private String corretta;
     private String mischiata;
 
@@ -61,6 +69,10 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
     private AnimationDrawable animationDrawableScelta1 = null;
 
     private Button button_avanti;
+
+    private ArrayList<Json> arrayJson;
+
+    DatabaseReference dr;
 
 
     @Override
@@ -107,236 +119,230 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
             }
         });
 
-        String jsonString = read(this, "dati.json");
-        try {
-            jsonArray = new JSONArray(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        arrayJson = new ArrayList<>();
+        readDataJson1(new MyCallback() {
+            @Override
+            public void onCallback(ArrayList<Json> arrayJson) {
 
-        int random = (int) (Math.random() * jsonArray.length());
-        //Toast.makeText(this, "nu: "+ random, Toast.LENGTH_SHORT).show();
+                int random = (int) (Math.random() * arrayJson.size());
 
-        ArrayList<String> parole = new ArrayList<>();
+                ArrayList<String> parole = new ArrayList<>();
 
-        try {
+                    String s = arrayJson.get(random).getIta();
+                    while(s.contains(" ")){
+                        random = (int) (Math.random() * arrayJson.size());
+                        s = arrayJson.get(random).getIta();
+                    }
 
-            String s = jsonArray.getJSONObject(random).getString("ita");
-            while(s.contains(" ")){
-                random = (int) (Math.random() * jsonArray.length());
-                s = jsonArray.getJSONObject(random).getString("ita");
-            }
+                    corretta = arrayJson.get(random).getIta();
+                    parole.add(arrayJson.get(random).getFra());
+                    parole.add(arrayJson.get(random).getEng());
 
+                    byte[] decodedString = Base64.decode(arrayJson.get(random).getImg(), Base64.DEFAULT);
 
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    imageView.setImageBitmap(decodedByte);
+                SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getApplicationContext(), parole, false);
+                spinner.setAdapter(spinnerAdapter);
+                spinner.setSelection(-1);
 
+                //Toast.makeText(getApplicationContext(), "-"+ lettera.getChildAt(1).toString(), Toast.LENGTH_SHORT).show();
+                List<String> characters = Arrays.asList(corretta.split(""));
+                Collections.shuffle(characters);
+                mischiata = "";
+                for (String character : characters)
+                {
+                    mischiata += character;
+                }
 
-            corretta = jsonArray.getJSONObject(random).getString("ita");
-            parole.add(jsonArray.getJSONObject(random).getString("fra"));
-            parole.add(jsonArray.getJSONObject(random).getString("eng"));
+                linearLettere = findViewById(R.id.linear_lettere);
+                linearLettere1 = findViewById(R.id.linear_lettere1);
+                linearRisposta = findViewById(R.id.linear_risposta);
+                linearRisposta1 = findViewById(R.id.linear_risposta1);
 
-            byte[] decodedString = Base64.decode(jsonArray.getJSONObject(random).getString("img"), Base64.DEFAULT);
+                linearRisposta.removeAllViews();
+                linearRisposta1.removeAllViews();
 
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            imageView.setImageBitmap(decodedByte);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, parole, false);
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setSelection(-1);
-
-        //Toast.makeText(getApplicationContext(), "-"+ lettera.getChildAt(1).toString(), Toast.LENGTH_SHORT).show();
-        List<String> characters = Arrays.asList(corretta.split(""));
-        Collections.shuffle(characters);
-        mischiata = "";
-        for (String character : characters)
-        {
-            mischiata += character;
-        }
-
-        linearLettere = findViewById(R.id.linear_lettere);
-        linearLettere1 = findViewById(R.id.linear_lettere1);
-        linearRisposta = findViewById(R.id.linear_risposta);
-        linearRisposta1 = findViewById(R.id.linear_risposta1);
-
-        linearRisposta.removeAllViews();
-        linearRisposta1.removeAllViews();
-
-        int i=0;
-        while(i != corretta.length() ){
-            FrameLayout lettera = null;
-            if(i >= 7){
-                linearRisposta1.setVisibility(View.VISIBLE);
-                lettera = (FrameLayout) LayoutInflater.from(this).inflate( R.layout.lettera, null);
-                linearLettere1.addView(lettera);
-                TextView t1 = (TextView) lettera.getChildAt(0);
-                Character c = mischiata.charAt(i);
-                t1.setText(c.toString());
-                i++;
-            } else{
-                lettera = (FrameLayout) LayoutInflater.from(this).inflate( R.layout.lettera, null);
-                linearLettere.addView(lettera);
-                TextView t1 = (TextView) lettera.getChildAt(0);
-                Character c = mischiata.charAt(i);
-                t1.setText(c.toString());
-                i++;
-            }
+                int i=0;
+                while(i != corretta.length() ){
+                    FrameLayout lettera = null;
+                    if(i >= 7){
+                        linearRisposta1.setVisibility(View.VISIBLE);
+                        lettera = (FrameLayout) LayoutInflater.from(getApplicationContext()).inflate( R.layout.lettera, null);
+                        linearLettere1.addView(lettera);
+                        TextView t1 = (TextView) lettera.getChildAt(0);
+                        Character c = mischiata.charAt(i);
+                        t1.setText(c.toString());
+                        i++;
+                    } else{
+                        lettera = (FrameLayout) LayoutInflater.from(getApplicationContext()).inflate( R.layout.lettera, null);
+                        linearLettere.addView(lettera);
+                        TextView t1 = (TextView) lettera.getChildAt(0);
+                        Character c = mischiata.charAt(i);
+                        t1.setText(c.toString());
+                        i++;
+                    }
 
 
-            FrameLayout finalLettera = lettera;
-            lettera.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                    FrameLayout finalLettera = lettera;
+                    lettera.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-                    if(ascoltato){
+                            if(ascoltato){
 
-                        esito1.setVisibility(View.GONE);
-                        esito1.clearAnimation();
+                                esito1.setVisibility(View.GONE);
+                                esito1.clearAnimation();
 
-                        if(animationDrawableScelta1 != null) {
-                            help2.setVisibility(View.GONE);
-                            animationDrawableScelta1.stop();
-                            animationDrawableScelta1 = null;
+                                if(animationDrawableScelta1 != null) {
+                                    help2.setVisibility(View.GONE);
+                                    animationDrawableScelta1.stop();
+                                    animationDrawableScelta1 = null;
 
-                            button_aiuto.setVisibility(View.VISIBLE);
-                        }
+                                    button_aiuto.setVisibility(View.VISIBLE);
+                                }
 
-                        LinearLayout v = (LinearLayout) finalLettera.getParent();
+                                LinearLayout v = (LinearLayout) finalLettera.getParent();
 
-                        if(getResources().getResourceEntryName(v.getId()).equals("linear_risposta")){
-                            linearRisposta.removeView(finalLettera);
+                                if(getResources().getResourceEntryName(v.getId()).equals("linear_risposta")){
+                                    linearRisposta.removeView(finalLettera);
 
-                            if(linearLettere.getChildCount() < 7){
-                                linearLettere.addView(finalLettera);
+                                    if(linearLettere.getChildCount() < 7){
+                                        linearLettere.addView(finalLettera);
+                                    } else {
+                                        linearLettere1.addView(finalLettera);
+                                    }
+                                    controllaLettere();
+
+                                } else if (getResources().getResourceEntryName(v.getId()).equals("linear_risposta1")){
+                                    linearRisposta1.removeView(finalLettera);
+
+                                    if(linearLettere.getChildCount() < 7){
+                                        linearLettere.addView(finalLettera);
+                                    } else {
+                                        linearLettere1.addView(finalLettera);
+                                    }
+                                    controllaLettere();
+
+
+                                }else if (getResources().getResourceEntryName(v.getId()).equals("linear_lettere")){
+                                    linearLettere.removeView(finalLettera);
+
+                                    if(linearRisposta.getChildCount() < 7){
+                                        linearRisposta.addView(finalLettera);
+                                    } else {
+                                        linearRisposta1.addView(finalLettera);
+                                    }
+                                    controllaLettere();
+
+
+                                } else if (getResources().getResourceEntryName(v.getId()).equals("linear_lettere1")){
+                                    linearLettere1.removeView(finalLettera);
+
+                                    if(linearRisposta.getChildCount() < 7){
+                                        linearRisposta.addView(finalLettera);
+                                    } else {
+                                        linearRisposta1.addView(finalLettera);
+                                    }
+                                    controllaLettere();
+
+                                }
+
                             } else {
-                                linearLettere1.addView(finalLettera);
+                                help1.setVisibility(View.VISIBLE);
+
+                                animationDrawable = (AnimationDrawable) help1.getBackground();
+                                animationDrawable.start();
+                                button_aiuto.setVisibility(View.GONE);
                             }
-                            controllaLettere();
 
-                        } else if (getResources().getResourceEntryName(v.getId()).equals("linear_risposta1")){
-                            linearRisposta1.removeView(finalLettera);
-
-                            if(linearLettere.getChildCount() < 7){
-                                linearLettere.addView(finalLettera);
-                            } else {
-                                linearLettere1.addView(finalLettera);
-                            }
-                            controllaLettere();
-
-
-                        }else if (getResources().getResourceEntryName(v.getId()).equals("linear_lettere")){
-                            linearLettere.removeView(finalLettera);
-
-                            if(linearRisposta.getChildCount() < 7){
-                                linearRisposta.addView(finalLettera);
-                            } else {
-                                linearRisposta1.addView(finalLettera);
-                            }
-                            controllaLettere();
-
-
-                        } else if (getResources().getResourceEntryName(v.getId()).equals("linear_lettere1")){
-                            linearLettere1.removeView(finalLettera);
-
-                            if(linearRisposta.getChildCount() < 7){
-                                linearRisposta.addView(finalLettera);
-                            } else {
-                                linearRisposta1.addView(finalLettera);
-                            }
-                            controllaLettere();
 
                         }
+                    });
 
-                    } else {
+                }
+
+                button_aiuto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                         help1.setVisibility(View.VISIBLE);
 
                         animationDrawable = (AnimationDrawable) help1.getBackground();
                         animationDrawable.start();
                         button_aiuto.setVisibility(View.GONE);
                     }
+                });
 
+                textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
 
-                }
-            });
+                        if(status != TextToSpeech.ERROR) {
 
-        }
+                            button_Ascolta.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
 
-        button_aiuto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                help1.setVisibility(View.VISIBLE);
+                                    ascoltato = true;
 
-                animationDrawable = (AnimationDrawable) help1.getBackground();
-                animationDrawable.start();
-                button_aiuto.setVisibility(View.GONE);
-            }
-        });
+                                    if(animationDrawable != null) {
+                                        help1.setVisibility(View.GONE);
+                                        animationDrawable.stop();
+                                        animationDrawable = null;
 
-        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
+                                        help2.setVisibility(View.VISIBLE);
 
-                if(status != TextToSpeech.ERROR) {
+                                        animationDrawableScelta1 = (AnimationDrawable) help2.getBackground();
+                                        animationDrawableScelta1.start();
 
-                    button_Ascolta.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                                    }
 
-                            ascoltato = true;
+                                    textToSpeech.setLanguage(Locale.ITALIAN);
+                                    String toSpeakIt = corretta;
 
-                            if(animationDrawable != null) {
-                                help1.setVisibility(View.GONE);
-                                animationDrawable.stop();
-                                animationDrawable = null;
+                                    textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
 
-                                help2.setVisibility(View.VISIBLE);
-
-                                animationDrawableScelta1 = (AnimationDrawable) help2.getBackground();
-                                animationDrawableScelta1.start();
-
-                            }
-
-                            textToSpeech.setLanguage(Locale.ITALIAN);
-                            String toSpeakIt = corretta;
-
-                            textToSpeech.speak(toSpeakIt, TextToSpeech.QUEUE_FLUSH, null);
-
-                        }
-                    });
-
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            if(ascoltato){
-                                switch (i){
-                                    case 0:
-                                        textToSpeech.setLanguage(Locale.FRANCE);
-                                        String toSpeakFr = spinner.getSelectedItem().toString();
-
-                                        textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
-                                        break;
-                                    case 1:
-                                        textToSpeech.setLanguage(Locale.ENGLISH);
-                                        String toSpeakEn = spinner.getSelectedItem().toString();
-
-                                        textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
-                                        break;
                                 }
-                            }
+                            });
 
+                            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    if(ascoltato){
+                                        switch (i){
+                                            case 0:
+                                                textToSpeech.setLanguage(Locale.FRANCE);
+                                                String toSpeakFr = spinner.getSelectedItem().toString();
+
+                                                textToSpeech.speak(toSpeakFr, TextToSpeech.QUEUE_FLUSH, null);
+                                                break;
+                                            case 1:
+                                                textToSpeech.setLanguage(Locale.ENGLISH);
+                                                String toSpeakEn = spinner.getSelectedItem().toString();
+
+                                                textToSpeech.speak(toSpeakEn, TextToSpeech.QUEUE_FLUSH, null);
+                                                break;
+                                        }
+                                    }
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                }
+                            });
                         }
+                    }
+                });
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
 
-                        }
-                    });
-                }
+
             }
+
+
         });
+
 
 
 
@@ -400,22 +406,44 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
 
     }
 
+    public interface MyCallback {
+        void onCallback(ArrayList<Json> arrayJson);
+    }
 
-        private String read(Context context, String fileName) {
-            try {
-                FileInputStream fis = context.openFileInput(fileName);
-                InputStreamReader isr = new InputStreamReader(fis);
-                BufferedReader bufferedReader = new BufferedReader(isr);
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
+    public void readDataJson1(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("Json1");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String sug1 = ds.child("sug1").getValue(String.class);
+                    String sug2 = ds.child("sug2").getValue(String.class);
+                    String sug3 = ds.child("sug3").getValue(String.class);
+                    Boolean svolto = ds.child("svolto").getValue(Boolean.class);
+
+                    Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                    arrayJson.add(json);
+
                 }
-                return sb.toString();
-            } catch (FileNotFoundException fileNotFound) {
-                return null;
-            } catch (IOException ioException) {
-                return null;
+                myCallback.onCallback(arrayJson);
             }
-        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 }

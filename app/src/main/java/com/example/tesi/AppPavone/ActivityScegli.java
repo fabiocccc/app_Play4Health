@@ -148,9 +148,9 @@ public class ActivityScegli extends AppCompatActivity {
                 parole1.add((arrayJson.get(random1).getFra()));
                 parole1.add((arrayJson.get(random1).getEng()));
 
-                parole1.add((arrayJson.get(random2).getIta()));
-                parole1.add((arrayJson.get(random2).getFra()));
-                parole1.add((arrayJson.get(random2).getEng()));
+                parole2.add((arrayJson.get(random2).getIta()));
+                parole2.add((arrayJson.get(random2).getFra()));
+                parole2.add((arrayJson.get(random2).getEng()));
 
                 if(arrayJson.get(random1).getImg() != ""){
                     byte[] decodedString = Base64.decode(arrayJson.get(random1).getImg(), Base64.DEFAULT);
