@@ -1,5 +1,8 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -11,6 +14,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,9 +23,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tesi.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import org.checkerframework.checker.units.qual.A;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -31,21 +43,25 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class ActivityAscolta extends AppCompatActivity {
 
     private LinearLayout linearLayout;
-    private JSONArray jsonArray;
     private TextToSpeech textToSpeech;
     private FrameLayout button_aiuto;
     private ImageView help1;
     private AnimationDrawable animationDrawable = null;
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
-    private ArrayList<String> parole;
     private String tipo;
     private TextView textView;
+
+    private ArrayList<String> paroleIta;
+    private ArrayList<Json> arrayJson;
+
+    DatabaseReference dr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,169 +107,59 @@ public class ActivityAscolta extends AppCompatActivity {
 
         }
 
+        arrayJson = new ArrayList<>();
+        paroleIta = new ArrayList<>();
+
         if(tipo.equals("calcio")){
             textView.setText("Ascolta");
-            String jsonString = read(this, "dati.json");
-            try {
-                jsonArray = new JSONArray(jsonString);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-            parole = new ArrayList<>();
-            try {
-                for(int i=0; i!= jsonArray.length(); i++){
-                    parole.add(jsonArray.getJSONObject(i).getString("ita"));
+            //callback per leggere quello che stava sul primo json
+
+            readDataJson1(new MyCallback() {
+                @Override
+                public void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
+                    costruisciFinestre(paroleIta, arrayJson);
                 }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            });
 
-        } else {
+
+        }  else {
 
             if(tipo.equals("corpo")){
                 textView.setText("Parti del corpo");
+                readDataJson2(new MyCallback() {
+                    @Override
+                    public void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
+
+                        costruisciFinestre(paroleIta, arrayJson);
+
+
+                    }
+
+
+                });
             } else {
                 textView.setText("Salute e benessere");
-            }
-
-
-            String jsonString = read(this, "datisecondo.json");
-            try {
-                jsonArray = new JSONArray(jsonString);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            parole = new ArrayList<>();
-            try {
-                for(int i=0; i!= jsonArray.length(); i++){
-                    if(jsonArray.getJSONObject(i).getString("tipo").equals(tipo)){
-                        parole.add(jsonArray.getJSONObject(i).getString("ita"));
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        int i = 0;
-        int j = 0;
-        while( i!= parole.size() ){
-            LinearLayout linear = (LinearLayout) LayoutInflater.from(this).inflate( R.layout.linear_ascolta, null);
-            linearLayout.addView(linear, j);
-            j++;
-
-            //PRIMA CARD
-            View card1 = linear.getChildAt(0);
-            TextView textCard1 = linear.getChildAt(0).findViewById(R.id.textCard1);
-            textCard1.setText(parole.get(i));
-            ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
-
-            try {
-                for(int k=0; k!= jsonArray.length(); k++){
-                    if(parole.get(i).equals(jsonArray.getJSONObject(k).getString("ita")) && jsonArray.getJSONObject(k).getString("img") != ""){
-                        byte[] decodedString = Base64.decode(jsonArray.getJSONObject(k).getString("img"), Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        imageCard1.setImageBitmap(decodedByte);
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            int finalI1 = i;
-            card1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if(animationDrawable != null) {
-                        help1.setVisibility(View.GONE);
-                        animationDrawable.stop();
-                    }
-                    buildCard(parole.get(finalI1));
-                }
-            });
-            i++;
-
-            //SECONDA CARD
-            if(i != parole.size()){
-                View card2 = linear.getChildAt(1);
-                TextView textCard2 = linear.getChildAt(1).findViewById(R.id.textCard2);
-                textCard2.setText(parole.get(i));
-                ImageView imageCard2 = linear.getChildAt(1).findViewById(R.id.imageCard2);
-
-                try {
-                    for(int k=0; k!= jsonArray.length(); k++){
-                        if(parole.get(i).equals(jsonArray.getJSONObject(k).getString("ita")) && jsonArray.getJSONObject(k).getString("img") != ""){
-                            byte[] decodedString = Base64.decode(jsonArray.getJSONObject(k).getString("img"), Base64.DEFAULT);
-                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                            imageCard2.setImageBitmap(decodedByte);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                int finalI = i;
-                card2.setOnClickListener(new View.OnClickListener() {
+                readDataJson3(new MyCallback() {
                     @Override
-                    public void onClick(View view) {
-                        if(animationDrawable != null) {
-                            help1.setVisibility(View.GONE);
-                            animationDrawable.stop();
-                        }
-                        buildCard(parole.get(finalI));
-                    }
-                });
+                    public void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
 
-                i++;
-            } else {
-                linear.getChildAt(1).setVisibility(View.INVISIBLE);
-                linear.getChildAt(2).setVisibility(View.INVISIBLE);
-                break;
+                        costruisciFinestre(paroleIta, arrayJson);
+
+
+                    }
+
+
+                });
             }
 
-            //TERZA CARD
-            if(i != parole.size()){
-                View card3 = linear.getChildAt(2);
-                TextView textCard3 = linear.getChildAt(2).findViewById(R.id.textCard3);
-                textCard3.setText(parole.get(i));
-                ImageView imageCard3 = linear.getChildAt(2).findViewById(R.id.imageCard3);
 
-                try {
-                    for(int k=0; k!= jsonArray.length(); k++){
-                        if(parole.get(i).equals(jsonArray.getJSONObject(k).getString("ita")) && jsonArray.getJSONObject(k).getString("img") != ""){
-                            byte[] decodedString = Base64.decode(jsonArray.getJSONObject(k).getString("img"), Base64.DEFAULT);
-                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                            imageCard3.setImageBitmap(decodedByte);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                int finalI = i;
-                card3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(animationDrawable != null) {
-                            help1.setVisibility(View.GONE);
-                            animationDrawable.stop();
-                        }
-                        buildCard(parole.get(finalI));
-                    }
-                });
-
-                i++;
-            } else {
-                linear.getChildAt(2).setVisibility(View.INVISIBLE);
-                break;
-            }
         }
 
     }
+
+
 
     @Override
     protected void onStart() {
@@ -263,7 +169,7 @@ public class ActivityAscolta extends AppCompatActivity {
 
     }
 
-    private void buildCard(String ita){
+    private void buildCard(String ita, ArrayList<Json> array){
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAscolta.this);
         builder.setCancelable(true);
 
@@ -277,19 +183,17 @@ public class ActivityAscolta extends AppCompatActivity {
         ArrayList<String> paroleAlert = new ArrayList<>();
         paroleAlert.add(ita);
 
-        try {
-            for(int k=0; k!= jsonArray.length(); k++){
-                if(ita.equals(jsonArray.getJSONObject(k).getString("ita"))){
-                    paroleAlert.add(jsonArray.getJSONObject(k).getString("fra"));
-                    paroleAlert.add(jsonArray.getJSONObject(k).getString("eng"));
-                    byte[] decodedString = Base64.decode(jsonArray.getJSONObject(k).getString("img"), Base64.DEFAULT);
+
+            for(int k=0; k!= array.size(); k++){
+                if(ita.equals(array.get(k).getIta())){
+                    paroleAlert.add(array.get(k).getFra());
+                    paroleAlert.add(array.get(k).getEng());
+                    byte[] decodedString = Base64.decode(array.get(k).getImg(), Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     imageView.setImageBitmap(decodedByte);
                 }
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
         if(animationDrawable != null){
             animationDrawable = null;
@@ -389,22 +293,232 @@ public class ActivityAscolta extends AppCompatActivity {
 
     }
 
+    public interface MyCallback {
+        void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson);
+    }
 
-    private String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
+    public void readDataJson1(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+            DatabaseReference rf = dr.child("Json1");
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String eng = ds.child("eng").getValue(String.class);
+                        String fra = ds.child("fra").getValue(String.class);
+                        String img = ds.child("img").getValue(String.class);
+                        String ita = ds.child("ita").getValue(String.class);
+                        String sug1 = ds.child("sug1").getValue(String.class);
+                        String sug2 = ds.child("sug2").getValue(String.class);
+                        String sug3 = ds.child("sug3").getValue(String.class);
+                        Boolean svolto = ds.child("svolto").getValue(Boolean.class);
+
+                        Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                        paroleIta.add(ita);
+                        arrayJson.add(json);
+
+                    }
+                    myCallback.onCallback(paroleIta, arrayJson);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+    }
+
+    public void readDataJson2(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference rf = dr.child("Json2");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String tipo = ds.child("tipo").getValue(String.class);
+
+                    if(tipo.equals("corpo")) {
+                        Json json = new Json(ita, fra, eng, tipo, img);
+                        paroleIta.add(ita);
+                        arrayJson.add(json);
+                    }
+
+                }
+
+                myCallback.onCallback(paroleIta, arrayJson);
+
             }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void readDataJson3(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference rf = dr.child("Json2");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String tipo = ds.child("tipo").getValue(String.class);
+
+                    if(tipo.equals("salute")) {
+                        Json json = new Json(ita, fra, eng, tipo, img);
+                        paroleIta.add(ita);
+                        arrayJson.add(json);
+                    }
+
+                }
+
+                myCallback.onCallback(paroleIta, arrayJson);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+        public void costruisciFinestre(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
+
+        int i = 0;
+        int j = 0;
+
+            while( i!= paroleIta.size() ){
+                LinearLayout linear = (LinearLayout) LayoutInflater.from(getApplicationContext()).inflate( R.layout.linear_ascolta, null);
+                linearLayout.addView(linear, j);
+                j++;
+
+                //PRIMA CARD
+                View card1 = linear.getChildAt(0);
+                TextView textCard1 = linear.getChildAt(0).findViewById(R.id.textCard1);
+                textCard1.setText(paroleIta.get(i));
+                ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
+
+
+                for(int k=0; k!= arrayJson.size(); k++){
+                    if(paroleIta.get(i).equals(arrayJson.get(k).getIta()) && arrayJson.get(k).getImg() != ""){
+                        byte[] decodedString = Base64.decode(arrayJson.get(k).getImg(), Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        imageCard1.setImageBitmap(decodedByte);
+                    }
+                }
+
+
+                int finalI1 = i;
+                card1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(animationDrawable != null) {
+                            help1.setVisibility(View.GONE);
+                            animationDrawable.stop();
+                        }
+                        buildCard(paroleIta.get(finalI1), arrayJson);
+                    }
+                });
+                i++;
+
+
+                //SECONDA CARD
+                if(i != paroleIta.size()){
+                    View card2 = linear.getChildAt(1);
+                    TextView textCard2 = linear.getChildAt(1).findViewById(R.id.textCard2);
+                    textCard2.setText(paroleIta.get(i));
+                    ImageView imageCard2 = linear.getChildAt(1).findViewById(R.id.imageCard2);
+
+
+                    for(int k=0; k!= arrayJson.size(); k++){
+                        if(paroleIta.get(i).equals(arrayJson.get(k).getIta()) && arrayJson.get(k).getImg() != ""){
+                            byte[] decodedString = Base64.decode(arrayJson.get(k).getImg(), Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            imageCard2.setImageBitmap(decodedByte);
+
+                        }
+                    }
+
+                    int finalI = i;
+                    card2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(animationDrawable != null) {
+                                help1.setVisibility(View.GONE);
+                                animationDrawable.stop();
+                            }
+                            buildCard(paroleIta.get(finalI), arrayJson);
+                        }
+                    });
+
+                    i++;
+                } else {
+                    linear.getChildAt(1).setVisibility(View.INVISIBLE);
+                    linear.getChildAt(2).setVisibility(View.INVISIBLE);
+                    break;
+                }
+
+                //TERZA CARD
+                if(i != paroleIta.size()){
+                    View card3 = linear.getChildAt(2);
+                    TextView textCard3 = linear.getChildAt(2).findViewById(R.id.textCard3);
+                    textCard3.setText(paroleIta.get(i));
+                    ImageView imageCard3 = linear.getChildAt(2).findViewById(R.id.imageCard3);
+
+
+                    for(int k=0; k!= arrayJson.size(); k++){
+                        if(paroleIta.get(i).equals(arrayJson.get(k).getIta()) && arrayJson.get(k).getImg() != ""){
+                            byte[] decodedString = Base64.decode(arrayJson.get(k).getImg(), Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            imageCard3.setImageBitmap(decodedByte);
+                        }
+                    }
+
+
+                    int finalI = i;
+                    card3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(animationDrawable != null) {
+                                help1.setVisibility(View.GONE);
+                                animationDrawable.stop();
+                            }
+                            buildCard(paroleIta.get(finalI), arrayJson);
+                        }
+                    });
+
+                    i++;
+                } else {
+                    linear.getChildAt(2).setVisibility(View.INVISIBLE);
+                    break;
+                }
+            }
+
     }
 }
