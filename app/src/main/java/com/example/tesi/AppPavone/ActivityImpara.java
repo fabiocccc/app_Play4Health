@@ -76,19 +76,19 @@ public class ActivityImpara extends AppCompatActivity {
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
 
         if(connected){
-            progressBar.setVisibility(View.VISIBLE);
-            button_HomeParla.setEnabled(false);
-            button_HomeScrivere.setEnabled(false);
-            button_HomeAscolta.setEnabled(false);
-            button_HomeScegli.setEnabled(false);
-            button_HomeCampo.setEnabled(false);
-            button_HomeCorpo.setEnabled(false);
-            button_Aggiorna.setEnabled(false);
-            button_indietro.setEnabled(false);
-            new ActivityImpara.DownloadFile().execute();
+            progressBar.setVisibility(View.GONE);
+            button_HomeParla.setEnabled(true);
+            button_HomeScrivere.setEnabled(true);
+            button_HomeAscolta.setEnabled(true);
+            button_HomeScegli.setEnabled(true);
+            button_HomeCampo.setEnabled(true);
+            button_HomeCorpo.setEnabled(true);
+            button_Aggiorna.setEnabled(true);
+            button_indietro.setEnabled(true);
 
-        } else {
-            //Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -105,67 +105,6 @@ public class ActivityImpara extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    class DownloadFile extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            StorageReference jsonFirebase = storageRef.child("dati.json");
-
-            String path = getFilesDir().getAbsolutePath() + "/dati.json";
-            File file = new File(path);
-            jsonFirebase.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    ActivityImpara.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(ActivityImpara.this, "Dati aggiornati con successo.", Toast.LENGTH_LONG).show();
-                            ActivityImpara.this.findViewById(R.id.button_HomeAscolta).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeParla).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeScegli).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeScrivere).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeCampo).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeCorpo).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeAggiorna).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_indietro).setEnabled(true);
-
-
-                        }
-                    });
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    ActivityImpara.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(ActivityImpara.this, "Aggiornamento non riuscito.", Toast.LENGTH_LONG).show();
-                            ActivityImpara.this.findViewById(R.id.button_HomeAscolta).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeParla).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeScegli).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeScrivere).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeCampo).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeCorpo).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_HomeAggiorna).setEnabled(true);
-                            ActivityImpara.this.findViewById(R.id.button_indietro).setEnabled(true);
-
-
-                        }
-                    });
-                }
-            });
-
-
-            return null;
-
-        }
     }
 
     private void aggiornaStelle(){
@@ -212,17 +151,16 @@ public class ActivityImpara extends AppCompatActivity {
                         connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
 
                 if(connected){
-                    progressBar.setVisibility(View.VISIBLE);
-                    button_HomeParla.setEnabled(false);
-                    button_HomeScrivere.setEnabled(false);
-                    button_HomeAscolta.setEnabled(false);
-                    button_HomeScegli.setEnabled(false);
-                    button_HomeCampo.setEnabled(false);
-                    button_HomeCorpo.setEnabled(false);
-                    button_Aggiorna.setEnabled(false);
+                    progressBar.setVisibility(View.GONE);
+                    button_HomeParla.setEnabled(true);
+                    button_HomeScrivere.setEnabled(true);
+                    button_HomeAscolta.setEnabled(true);
+                    button_HomeScegli.setEnabled(true);
+                    button_HomeCampo.setEnabled(true);
+                    button_HomeCorpo.setEnabled(true);
+                    button_Aggiorna.setEnabled(true);
                     button_indietro.setEnabled(true);
-
-                    new ActivityImpara.DownloadFile().execute();
+                    Toast.makeText(getApplicationContext(), "Aggiornamento riuscito", Toast.LENGTH_LONG).show();
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
@@ -439,106 +377,6 @@ public class ActivityImpara extends AppCompatActivity {
             }
         });
 
-
-        String jsonString = null;
-        try {
-            InputStream is = getResources().openRawResource(R.raw.dati);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            jsonString = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-
-        }
-
-        boolean isFilePresent = isFilePresent(this, "dati.json");
-        if(isFilePresent) {
-            //Toast.makeText(this,"file esiste", Toast.LENGTH_LONG).show();
-            String jsonString1 = read(this, "dati.json");
-            JSONArray jsonarray = null;
-            try {
-                jsonarray = new JSONArray(jsonString1);
-                for (int i = 0; i < jsonarray.length(); i++) {
-
-                    JSONObject jsonobject = jsonarray.getJSONObject(i);
-                    //Toast.makeText(this, jsonobject.toString(), Toast.LENGTH_LONG).show();
-                    if(jsonobject.getString("img") != ""){
-                        /*byte[] decodedString = Base64.decode(jsonobject.getString("img"), Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        imageViewTest.setImageBitmap(decodedByte);*/
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            //do the json parsing here and do the rest of functionality of app
-        } else {
-            boolean isFileCreated = create(this, "dati.json", jsonString);
-            if(isFileCreated) {
-                //Toast.makeText(this,"file creato", Toast.LENGTH_LONG).show();
-                //proceed with storing the first todo  or show ui
-            } else {
-                //show error or try again.
-            }
-        }
-
-
-
-
-        /*JSONArray jsonarray = null;
-        try {
-            jsonarray = new JSONArray(json);
-            for (int i = 0; i < jsonarray.length(); i++) {
-
-                JSONObject jsonobject = jsonarray.getJSONObject(i);
-                Toast.makeText(this, jsonobject.toString(), Toast.LENGTH_LONG).show();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-
     }
 
-    private String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
-    }
-
-    private boolean create(Context context, String fileName, String jsonString){
-        String FILENAME = "dati.json";
-        try {
-            FileOutputStream fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
-            if (jsonString != null) {
-                fos.write(jsonString.getBytes());
-            }
-            fos.close();
-            return true;
-        } catch (FileNotFoundException fileNotFound) {
-            return false;
-        } catch (IOException ioException) {
-            return false;
-        }
-
-    }
-
-    public boolean isFilePresent(Context context, String fileName) {
-        String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
-        File file = new File(path);
-        return file.exists();
-    }
 }

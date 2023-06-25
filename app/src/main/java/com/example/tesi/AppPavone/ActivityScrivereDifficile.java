@@ -58,7 +58,7 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
     private FloatingActionButton button_Ascolta;
     private ImageView esito1;
     private Boolean ascoltato;
-    
+
     private String corretta;
     private String mischiata;
 

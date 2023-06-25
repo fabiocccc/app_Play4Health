@@ -1,10 +1,14 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,6 +16,13 @@ import android.widget.Toast;
 
 import com.example.tesi.AppTravisani.Home;
 import com.example.tesi.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class HomePrima extends AppCompatActivity {
 
@@ -34,6 +45,9 @@ public class HomePrima extends AppCompatActivity {
     private ImageView stella3_2;
     private ImageView stella3_3;
 
+    private ArrayList<Json> arrayJson;
+
+    DatabaseReference dr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +76,25 @@ public class HomePrima extends AppCompatActivity {
         super.onStart();
 
         aggiornaStelle();
+        arrayJson = new ArrayList<>();
 
+        //la lettura fatta qui velocizza la prima volta che viene letto da realtime
+        readDataJson1(new MyCallback() {
+            @Override
+            public void onCallback(ArrayList<Json> arrayJson) {
 
+            }
+
+        });
+
+        //la lettura fatta qui velocizza la prima volta che viene letto da realtime
+        readDataJson2(new MyCallback() {
+            @Override
+            public void onCallback(ArrayList<Json> arrayJson) {
+
+            }
+
+        });
 
         button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,4 +210,81 @@ public class HomePrima extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+    public interface MyCallback {
+        void onCallback(ArrayList<Json> arrayJson);
+    }
+
+    public void readDataJson1(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("Json1");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String sug1 = ds.child("sug1").getValue(String.class);
+                    String sug2 = ds.child("sug2").getValue(String.class);
+                    String sug3 = ds.child("sug3").getValue(String.class);
+                    Boolean svolto = ds.child("svolto").getValue(Boolean.class);
+
+                    Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                    arrayJson.add(json);
+
+                }
+                myCallback.onCallback(arrayJson);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public void readDataJson2(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference rf = dr.child("Json2");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String tipo = ds.child("tipo").getValue(String.class);
+
+                    if(tipo.equals("corpo")) {
+                        Json json = new Json(ita, fra, eng, tipo, img);
+                        arrayJson.add(json);
+                    }
+
+                }
+
+                myCallback.onCallback(arrayJson);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 }
