@@ -386,27 +386,20 @@ public class ActivityListaDati extends AppCompatActivity {
 
             for(int k=0; k!= arrayJson.size(); k++){
                 if(ita.equals(arrayJson.get(k).getIta())){
-                    if(paroleAlert.contains(arrayJson.get(k).getFra())) {
-
-                    }
-                    else {
                         paroleAlert.add(arrayJson.get(k).getFra());
-                    }
-
-                    if(paroleAlert.contains(arrayJson.get(k).getEng())) {
-
-                    }
-                    else {
                         paroleAlert.add(arrayJson.get(k).getEng());
-                    }
-
-
                     byte[] decodedString = Base64.decode(arrayJson.get(k).getImg(), Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     imageView.setImageBitmap(decodedByte);
                 }
             }
 
+
+//inserisce una traduzione in più sia di francese che di inglese dopo aver effettuato l'eliminazione la prima volta
+          if (paroleAlert.size() == 5) {
+              paroleAlert.remove(2);
+              paroleAlert.remove(3);
+          }
 
         if(cancella){
             builder.setPositiveButton("Conferma elimina", new DialogInterface.OnClickListener() {
