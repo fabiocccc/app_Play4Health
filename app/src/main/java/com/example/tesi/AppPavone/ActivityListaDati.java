@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,9 +18,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -33,6 +37,11 @@ import android.widget.Toast;
 import com.example.tesi.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -57,11 +66,13 @@ public class ActivityListaDati extends AppCompatActivity {
     private Button button_CaricaDati;
     private ListView listView;
     private FrameLayout button_indietro;
-    private JSONArray jsonArray;
     private ArrayList<String> parole;
     private ListViewAdapter adapter;
     private TextToSpeech textToSpeech;
     private String tipo;
+    private ArrayList<Json> arrayJson;
+
+    DatabaseReference dr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,23 +111,186 @@ public class ActivityListaDati extends AppCompatActivity {
             finish();
         }
 
+        arrayJson = new ArrayList<>();
+        parole = new ArrayList<>();
         if(tipo.equals("calcio")){
-            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+
+
+            readDataJson1(new MyCallback() {
+                @Override
+                public void onCallback(ArrayList<String> parole, ArrayList<Json> arrayJson) {
+
+                    adapter = new ListViewAdapter(ActivityListaDati.this, parole);
+                    listView.setAdapter(adapter);
+                    ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
+                    ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
+
+                }
+
+            });
+
+        } else if(tipo.equals("corpo")) {
+
+            progressBar.setVisibility(View.GONE);
             listView.setEnabled(false);
             button_CaricaDati.setEnabled(false);
             button_indietro.setClickable(false);
-            new ActivityListaDati.DownloadFile().execute();
 
-        } else {
+            readDataJson2(new MyCallback() {
+                @Override
+                public void onCallback(ArrayList<String> parole, ArrayList<Json> arrayJson) {
 
-            progressBar.setVisibility(View.VISIBLE);
-            listView.setEnabled(false);
-            button_CaricaDati.setEnabled(false);
-            button_indietro.setClickable(false);
-            new ActivityListaDati.DownloadFileSecondo().execute();
+                    adapter = new ListViewAdapter(ActivityListaDati.this, parole);
+                    listView.setAdapter(adapter);
+                    ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
+                    ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
+
+                }
+
+            });
 
         }
 
+        else if(tipo.equals("salute")) {
+
+            progressBar.setVisibility(View.GONE);
+            listView.setEnabled(false);
+            button_CaricaDati.setEnabled(false);
+            button_indietro.setClickable(false);
+
+            readDataJson3(new MyCallback() {
+                @Override
+                public void onCallback(ArrayList<String> parole, ArrayList<Json> arrayJson) {
+
+                    adapter = new ListViewAdapter(ActivityListaDati.this, parole);
+                    listView.setAdapter(adapter);
+                    ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
+                    ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
+                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
+
+                }
+
+            });
+
+        }
+
+
+    }
+
+    public interface MyCallback {
+        void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson);
+    }
+
+    public void readDataJson1(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("Json1");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String sug1 = ds.child("sug1").getValue(String.class);
+                    String sug2 = ds.child("sug2").getValue(String.class);
+                    String sug3 = ds.child("sug3").getValue(String.class);
+                    Boolean svolto = ds.child("svolto").getValue(Boolean.class);
+
+                    Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                    parole.add(ita);
+                    arrayJson.add(json);
+
+                }
+                myCallback.onCallback(parole, arrayJson);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public void readDataJson2(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference rf = dr.child("Json2");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String tipo = ds.child("tipo").getValue(String.class);
+
+                    if(tipo.equals("corpo")) {
+                        Json json = new Json(ita, fra, eng, tipo, img);
+                        parole.add(ita);
+                        arrayJson.add(json);
+                    }
+
+                }
+
+                myCallback.onCallback(parole, arrayJson);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void readDataJson3(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference rf = dr.child("Json2");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String eng = ds.child("eng").getValue(String.class);
+                    String fra = ds.child("fra").getValue(String.class);
+                    String img = ds.child("img").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+                    String tipo = ds.child("tipo").getValue(String.class);
+
+                    if(tipo.equals("salute")) {
+                        Json json = new Json(ita, fra, eng, tipo, img);
+                        parole.add(ita);
+                        arrayJson.add(json);
+                    }
+
+                }
+
+                myCallback.onCallback(parole, arrayJson);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -141,160 +315,6 @@ public class ActivityListaDati extends AppCompatActivity {
 
     }
 
-
-    class DownloadFile extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            StorageReference jsonFirebase = storageRef.child("dati.json");
-
-            String path = getFilesDir().getAbsolutePath() + "/dati.json";
-            File file = new File(path);
-            jsonFirebase.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    ActivityListaDati.this.runOnUiThread(new Runnable() {
-                        public void run() {
-
-                            //Sincronizza dati in locale
-                            String jsonString = read(ActivityListaDati.this, "dati.json");
-                            try {
-                                jsonArray = new JSONArray(jsonString);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            progressBar.setVisibility(View.GONE);
-
-                            parole = new ArrayList<>();
-                            try {
-                                for(int i=0; i!= jsonArray.length(); i++){
-
-                                    parole.add(jsonArray.getJSONObject(i).getString("ita"));
-
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            adapter = new ListViewAdapter(ActivityListaDati.this, parole);
-                            listView.setAdapter(adapter);
-                            ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                            ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-                            ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
-
-                        }
-                    });
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-
-                    ActivityListaDati.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                            ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
-                        }
-                    });
-                }
-            });
-
-            return null;
-        }
-    }
-
-    class DownloadFileSecondo extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            StorageReference jsonFirebase = storageRef.child("datisecondo.json");
-
-            String path = getFilesDir().getAbsolutePath() + "/datisecondo.json";
-            File file = new File(path);
-            jsonFirebase.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    ActivityListaDati.this.runOnUiThread(new Runnable() {
-                        public void run() {
-
-                            //Sincronizza dati in locale
-                            String jsonString = read(ActivityListaDati.this, "datisecondo.json");
-                            try {
-                                jsonArray = new JSONArray(jsonString);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            progressBar.setVisibility(View.GONE);
-
-                            parole = new ArrayList<>();
-                            try {
-                                for(int i=0; i!= jsonArray.length(); i++){
-                                    if(jsonArray.getJSONObject(i).getString("tipo").equals(tipo)){
-                                        parole.add(jsonArray.getJSONObject(i).getString("ita"));
-                                    }
-                                }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            adapter = new ListViewAdapter(ActivityListaDati.this, parole);
-                            listView.setAdapter(adapter);
-                            ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                            ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-                            ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
-
-                        }
-                    });
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-
-                    ActivityListaDati.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                            ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
-                        }
-                    });
-                }
-            });
-
-            return null;
-        }
-    }
-
-    private String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
-    }
 
     public class ListViewAdapter extends BaseAdapter {
 
@@ -350,143 +370,6 @@ public class ActivityListaDati extends AppCompatActivity {
         }
     }
 
-    private boolean create(Context context, String fileName, String jsonString){
-        String FILENAME = "dati.json";
-        try {
-            FileOutputStream fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
-            if (jsonString != null) {
-                fos.write(jsonString.getBytes());
-            }
-            fos.close();
-            return true;
-        } catch (FileNotFoundException fileNotFound) {
-            return false;
-        } catch (IOException ioException) {
-            return false;
-        }
-
-    }
-
-    class UploadFile extends AsyncTask<Void, Void, Void> {
-        String TAG = "MAIN_ACTIVITY";
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            StorageReference jsonFirebase = storageRef.child("dati.json");
-
-            try {
-                FileInputStream fis = ActivityListaDati.this.openFileInput("dati.json");
-                jsonFirebase.putStream(fis).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ActivityListaDati.this.runOnUiThread(new Runnable() {
-                            public void run() {
-
-                                ActivityListaDati.this.runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        ActivityListaDati.this.findViewById(R.id.progress_circular).setVisibility(View.GONE);
-                                        Toast.makeText(ActivityListaDati.this, "Eliminato", Toast.LENGTH_LONG).show();
-                                        ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                                        ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-
-                                        ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
-                                        adapter.notifyDataSetChanged();
-
-
-                                    }
-                                });
-
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-
-            ActivityListaDati.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                    ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-
-                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
-                }
-            });
-
-            return null;
-
-        }
-    }
-
-    class UploadFileSecondo extends AsyncTask<Void, Void, Void> {
-        String TAG = "MAIN_ACTIVITY";
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            StorageReference jsonFirebase = storageRef.child("datisecondo.json");
-
-            try {
-                FileInputStream fis = ActivityListaDati.this.openFileInput("datisecondo.json");
-                jsonFirebase.putStream(fis).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ActivityListaDati.this.runOnUiThread(new Runnable() {
-                            public void run() {
-
-                                ActivityListaDati.this.runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        ActivityListaDati.this.findViewById(R.id.progress_circular).setVisibility(View.GONE);
-                                        Toast.makeText(ActivityListaDati.this, "Eliminato", Toast.LENGTH_LONG).show();
-                                        ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                                        ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-
-                                        ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
-                                        adapter.notifyDataSetChanged();
-
-
-                                    }
-                                });
-
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-
-            ActivityListaDati.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
-                    ActivityListaDati.this.findViewById(R.id.button_CaricaDati).setEnabled(true);
-
-                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(true);
-                }
-            });
-
-            return null;
-
-        }
-    }
-
     private void buildCard(String ita, Boolean cancella){
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityListaDati.this);
         builder.setCancelable(true);
@@ -501,47 +384,57 @@ public class ActivityListaDati extends AppCompatActivity {
         ArrayList<String> paroleAlert = new ArrayList<>();
         paroleAlert.add(ita);
 
-        try {
-            for(int k=0; k!= jsonArray.length(); k++){
-                if(ita.equals(jsonArray.getJSONObject(k).getString("ita"))){
-                    paroleAlert.add(jsonArray.getJSONObject(k).getString("fra"));
-                    paroleAlert.add(jsonArray.getJSONObject(k).getString("eng"));
-                    byte[] decodedString = Base64.decode(jsonArray.getJSONObject(k).getString("img"), Base64.DEFAULT);
+            for(int k=0; k!= arrayJson.size(); k++){
+                if(ita.equals(arrayJson.get(k).getIta())){
+                    if(paroleAlert.contains(arrayJson.get(k).getFra())) {
+
+                    }
+                    else {
+                        paroleAlert.add(arrayJson.get(k).getFra());
+                    }
+
+                    if(paroleAlert.contains(arrayJson.get(k).getEng())) {
+
+                    }
+                    else {
+                        paroleAlert.add(arrayJson.get(k).getEng());
+                    }
+
+
+                    byte[] decodedString = Base64.decode(arrayJson.get(k).getImg(), Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     imageView.setImageBitmap(decodedByte);
                 }
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
         if(cancella){
             builder.setPositiveButton("Conferma elimina", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    try {
                         Boolean trov = false;
                         int j = 0;
-                        while (j<jsonArray.length() && !trov){
-                            if(jsonArray.getJSONObject(j).get("ita").equals(ita) ){
+                        while (j<arrayJson.size() && !trov){
+                            if(arrayJson.get(j).getIta().equals(ita) ){
                                 trov = true;
-                                parole.remove(ita);
-                                jsonArray.remove(j);
+                                arrayJson.remove(j);
+                                parole.clear();
+                                adapter.notifyDataSetChanged();
 
                                 if(tipo.equals("calcio")){
-                                    create(getApplicationContext(), "dati.json", jsonArray.toString());
-                                    progressBar.setVisibility(View.VISIBLE);
-                                    listView.setEnabled(false);
-                                    button_CaricaDati.setEnabled(false);
-                                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(false);
-                                    new ActivityListaDati.UploadFile().execute();
-                                } else {
-                                    create(getApplicationContext(), "datisecondo.json", jsonArray.toString());
-                                    progressBar.setVisibility(View.VISIBLE);
-                                    listView.setEnabled(false);
-                                    button_CaricaDati.setEnabled(false);
-                                    ActivityListaDati.this.findViewById(R.id.button_indietro).setClickable(false);
-                                    new ActivityListaDati.UploadFileSecondo().execute();
+
+                                    deleteFromJson1(ita);
+                                    Toast.makeText(ActivityListaDati.this, "Eliminato", Toast.LENGTH_LONG).show();
+
+                                } if(tipo.equals("corpo")) {
+                                    deleteFromJson2(ita);
+                                    Toast.makeText(ActivityListaDati.this, "Eliminato", Toast.LENGTH_LONG).show();
+
+                                }
+                                if(tipo.equals("salute")) {
+                                    deleteFromJson3(ita);
+                                    Toast.makeText(ActivityListaDati.this, "Eliminato", Toast.LENGTH_LONG).show();
+
                                 }
 
 
@@ -550,9 +443,7 @@ public class ActivityListaDati extends AppCompatActivity {
                                 j++;
                             }
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
                 }
             });
         }
@@ -561,7 +452,6 @@ public class ActivityListaDati extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 textToSpeech.setLanguage(Locale.ITALIAN);
                 String toSpeakIt = spinner.getSelectedItem().toString();
 
@@ -574,10 +464,12 @@ public class ActivityListaDati extends AppCompatActivity {
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
 
+
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
+
                     textToSpeech.setLanguage(Locale.ITALIAN);
                     textToSpeech.speak(ita, TextToSpeech.QUEUE_FLUSH, null);
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -628,6 +520,103 @@ public class ActivityListaDati extends AppCompatActivity {
         alert11.show();
 
 
+    }
+
+    public void deleteFromJson1(String itaDaEliminare) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("Json1");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String ita = ds.child("ita").getValue(String.class);
+
+                    if (itaDaEliminare.equals(ita)) {
+                        ds.getRef().removeValue();
+                    }
+
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void deleteFromJson2(String itaDaEliminare) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("Json2");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String ita = ds.child("ita").getValue(String.class);
+                    String tipo = ds.child("tipo").getValue(String.class);
+
+                    if(tipo.equals("corpo")) {
+                        if (itaDaEliminare.equals(ita)) {
+                            ds.getRef().removeValue();
+                        }
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void deleteFromJson3(String itaDaEliminare) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("Json2");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    String ita = ds.child("ita").getValue(String.class);
+                    String tipo = ds.child("tipo").getValue(String.class);
+
+                    if(tipo.equals("salute")) {
+                        if (itaDaEliminare.equals(ita)) {
+                            ds.getRef().removeValue();
+                        }
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }
