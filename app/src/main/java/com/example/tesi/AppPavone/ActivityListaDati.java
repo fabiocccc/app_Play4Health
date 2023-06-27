@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -103,6 +104,9 @@ public class ActivityListaDati extends AppCompatActivity {
 
         boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+
+
 
         if(connected){
 
@@ -312,6 +316,16 @@ public class ActivityListaDati extends AppCompatActivity {
                 buildCard(parole.get(i), false);
             }
         });
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+//quando termina l'inserimento in carica viene fatto tornare a questo activity e viene pulita la lista
+            parole.clear();
+            adapter.notifyDataSetChanged();
 
     }
 
