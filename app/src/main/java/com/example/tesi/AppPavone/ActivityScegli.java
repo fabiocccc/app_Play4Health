@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.example.tesi.R;
@@ -65,6 +67,11 @@ public class ActivityScegli extends AppCompatActivity {
     private ArrayList<Json> arrayJson;
     DatabaseReference dr;
 
+    private ProgressBar progressBar;
+
+    private CardView card1;
+    private CardView card2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +92,22 @@ public class ActivityScegli extends AppCompatActivity {
 
         button_avanti = findViewById(R.id.button_avanti);
 
+        progressBar = findViewById(R.id.progress_bar);
+
+        card1 = findViewById(R.id.card_Scelta1);
+        card2 = findViewById(R.id.card_Scelta2);
+
+        //
+        progressBar.setVisibility(View.VISIBLE);
+        button_Ascolta.setVisibility(View.GONE);
+        imageView1.setVisibility(View.GONE);
+        imageView2.setVisibility(View.GONE);
+        spinner1.setVisibility(View.GONE);
+        spinner2.setVisibility(View.GONE);
+        card1.setVisibility(View.GONE);
+        card2.setVisibility(View.GONE);
+        button_aiuto.setVisibility(View.GONE);
+
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +126,7 @@ public class ActivityScegli extends AppCompatActivity {
         esito1.clearAnimation();
         esito2.setVisibility(View.GONE);
         esito2.clearAnimation();
-        button_aiuto.setVisibility(View.VISIBLE);
+        button_aiuto.setVisibility(View.GONE);
 
 
         button_avanti.setVisibility(View.GONE);
@@ -134,6 +157,15 @@ public class ActivityScegli extends AppCompatActivity {
         readDataJson1(new MyCallback() {
             @Override
             public void onCallback(ArrayList<Json> arrayJson) {
+                progressBar.setVisibility(View.GONE);
+                card1.setVisibility(View.VISIBLE);
+                card2.setVisibility(View.VISIBLE);
+                button_Ascolta.setVisibility(View.VISIBLE);
+                imageView1.setVisibility(View.VISIBLE);
+                imageView2.setVisibility(View.VISIBLE);
+                spinner1.setVisibility(View.VISIBLE);
+                spinner2.setVisibility(View.VISIBLE);
+                button_aiuto.setVisibility(View.VISIBLE);
 
                 int random1 = (int)(Math.random() * arrayJson.size());
                 int random2 = (int)(Math.random() * arrayJson.size());

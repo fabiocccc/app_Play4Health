@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +64,8 @@ public class ActivityAscolta extends AppCompatActivity {
 
     DatabaseReference dr;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,9 @@ public class ActivityAscolta extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
+
+        progressBar = findViewById(R.id.progress);
+        progressBar.setVisibility(View.VISIBLE);
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +124,7 @@ public class ActivityAscolta extends AppCompatActivity {
             readDataJson1(new MyCallback() {
                 @Override
                 public void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
+                    progressBar.setVisibility(View.GONE);
                     costruisciFinestre(paroleIta, arrayJson);
                 }
 
@@ -128,10 +135,11 @@ public class ActivityAscolta extends AppCompatActivity {
 
             if(tipo.equals("corpo")){
                 textView.setText("Parti del corpo");
+
                 readDataJson2(new MyCallback() {
                     @Override
                     public void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
-
+                        progressBar.setVisibility(View.GONE);
                         costruisciFinestre(paroleIta, arrayJson);
 
 
@@ -141,10 +149,11 @@ public class ActivityAscolta extends AppCompatActivity {
                 });
             } else {
                 textView.setText("Salute e benessere");
+
                 readDataJson3(new MyCallback() {
                     @Override
                     public void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
-
+                        progressBar.setVisibility(View.GONE);
                         costruisciFinestre(paroleIta, arrayJson);
 
 

@@ -85,6 +85,8 @@ public class ActivityListaDati extends AppCompatActivity {
         button_CaricaDati = findViewById(R.id.button_CaricaDati);
         button_indietro = findViewById(R.id.button_indietro);
 
+        progressBar.setVisibility(View.VISIBLE);
+
         button_indietro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,13 +120,11 @@ public class ActivityListaDati extends AppCompatActivity {
         arrayJson = new ArrayList<>();
         parole = new ArrayList<>();
         if(tipo.equals("calcio")){
-            progressBar.setVisibility(View.GONE);
-
 
             readDataJson1(new MyCallback() {
                 @Override
                 public void onCallback(ArrayList<String> parole, ArrayList<Json> arrayJson) {
-
+                    progressBar.setVisibility(View.GONE);
                     adapter = new ListViewAdapter(ActivityListaDati.this, parole);
                     listView.setAdapter(adapter);
                     ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
@@ -137,7 +137,6 @@ public class ActivityListaDati extends AppCompatActivity {
 
         } else if(tipo.equals("corpo")) {
 
-            progressBar.setVisibility(View.GONE);
             listView.setEnabled(false);
             button_CaricaDati.setEnabled(false);
             button_indietro.setClickable(false);
@@ -145,7 +144,7 @@ public class ActivityListaDati extends AppCompatActivity {
             readDataJson2(new MyCallback() {
                 @Override
                 public void onCallback(ArrayList<String> parole, ArrayList<Json> arrayJson) {
-
+                    progressBar.setVisibility(View.GONE);
                     adapter = new ListViewAdapter(ActivityListaDati.this, parole);
                     listView.setAdapter(adapter);
                     ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);
@@ -160,7 +159,6 @@ public class ActivityListaDati extends AppCompatActivity {
 
         else if(tipo.equals("salute")) {
 
-            progressBar.setVisibility(View.GONE);
             listView.setEnabled(false);
             button_CaricaDati.setEnabled(false);
             button_indietro.setClickable(false);
@@ -168,7 +166,7 @@ public class ActivityListaDati extends AppCompatActivity {
             readDataJson3(new MyCallback() {
                 @Override
                 public void onCallback(ArrayList<String> parole, ArrayList<Json> arrayJson) {
-
+                    progressBar.setVisibility(View.GONE);
                     adapter = new ListViewAdapter(ActivityListaDati.this, parole);
                     listView.setAdapter(adapter);
                     ActivityListaDati.this.findViewById(R.id.listaDati).setEnabled(true);

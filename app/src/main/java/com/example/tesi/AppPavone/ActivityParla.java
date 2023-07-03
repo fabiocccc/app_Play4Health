@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -29,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,6 +79,9 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
     private ArrayList<Json> arrayJson;
     DatabaseReference dr;
+    private ProgressBar progressBar;
+
+    private CardView card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +100,19 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         help2 = findViewById(R.id.help2);
         button_avanti = findViewById(R.id.button_avanti);
 
+        //
+
+        card = findViewById(R.id.card_Parla);
+        progressBar = findViewById(R.id.progress_bar);
+
+        progressBar.setVisibility(View.VISIBLE);
+        card.setVisibility(View.GONE);
+        button_Parla.setVisibility(View.GONE);
+        button_Ascolta.setVisibility(View.GONE);
+        imageView_Parla.setVisibility(View.GONE);
+        button_aiuto.setVisibility(View.GONE);
+        text_Riconosciuto.setVisibility(View.GONE);
+        spinner.setVisibility(View.GONE);
 
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +131,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         ascoltato = false;
 
         button_avanti.setVisibility(View.GONE);
-        button_aiuto.setVisibility(View.VISIBLE);
+        button_aiuto.setVisibility(View.GONE);
         esito1.setVisibility(View.GONE);
         esito1.clearAnimation();
 
@@ -147,6 +165,16 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         readDataJson1(new MyCallback() {
             @Override
             public void onCallback(ArrayList<Json> arrayJson) {
+
+                progressBar.setVisibility(View.GONE);
+                card.setVisibility(View.VISIBLE);
+                button_Parla.setVisibility(View.VISIBLE);
+                button_Ascolta.setVisibility(View.VISIBLE);
+                imageView_Parla.setVisibility(View.VISIBLE);
+                button_aiuto.setVisibility(View.VISIBLE);
+                text_Riconosciuto.setVisibility(View.VISIBLE);
+                spinner.setVisibility(View.VISIBLE);
+
                 int random = (int)(Math.random() * arrayJson.size());
 
                 corretta = arrayJson.get(random).getIta();

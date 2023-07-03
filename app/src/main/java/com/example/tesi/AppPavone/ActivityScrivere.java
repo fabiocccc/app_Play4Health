@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.example.tesi.R;
@@ -73,6 +75,8 @@ public class ActivityScrivere extends AppCompatActivity {
 
     private ArrayList<Json> arrayJson;
     DatabaseReference dr;
+    private CardView card;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +102,21 @@ public class ActivityScrivere extends AppCompatActivity {
         button_avanti = findViewById(R.id.button_avanti);
 
         risposte = new ArrayList<>();
+
+        //
+
+        card = findViewById(R.id.card_Scrivere);
+        progressBar = findViewById(R.id.progress_bar);
+
+        card.setVisibility(View.GONE);
+        imageView_Scrivere.setVisibility(View.GONE);
+        button_Risp1.setVisibility(View.GONE);
+        button_Risp2.setVisibility(View.GONE);
+        button_Risp3.setVisibility(View.GONE);
+        button_Risp4.setVisibility(View.GONE);
+        button_Ascolta.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        button_aiuto.setVisibility(View.GONE);
 
         findViewById(R.id.button_indietro).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +155,16 @@ public class ActivityScrivere extends AppCompatActivity {
         readDataJson1(new MyCallback() {
             @Override
             public void onCallback(ArrayList<Json> arrayJson) {
+
+                card.setVisibility(View.VISIBLE);
+                imageView_Scrivere.setVisibility(View.VISIBLE);
+                button_Risp1.setVisibility(View.VISIBLE);
+                button_Risp2.setVisibility(View.VISIBLE);
+                button_Risp3.setVisibility(View.VISIBLE);
+                button_Risp4.setVisibility(View.VISIBLE);
+                button_Ascolta.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+                button_aiuto.setVisibility(View.VISIBLE);
 
                 int random = (int)(Math.random() * arrayJson.size());
 

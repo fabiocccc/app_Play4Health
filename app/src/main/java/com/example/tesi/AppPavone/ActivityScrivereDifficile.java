@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -74,6 +76,9 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
 
     DatabaseReference dr;
 
+    private ProgressBar progressBar;
+    private CardView card;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +103,24 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
         help2 = findViewById(R.id.help2);
 
         button_avanti = findViewById(R.id.button_avanti);
+
+        //
+
+        card = findViewById(R.id.card_Scrivere);
+        progressBar = findViewById(R.id.progress_bar);
+
+        linearLettere = findViewById(R.id.linear_lettere);
+        linearLettere1 = findViewById(R.id.linear_lettere1);
+        linearRisposta = findViewById(R.id.linear_risposta);
+        linearRisposta1 = findViewById(R.id.linear_risposta1);
+
+        card.setVisibility(View.GONE);
+        linearLettere.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        linearLettere1.setVisibility(View.GONE);
+        linearRisposta.setVisibility(View.GONE);
+        linearRisposta1.setVisibility(View.GONE);
+        button_Ascolta.setVisibility(View.GONE);
     }
 
     @Override
@@ -106,7 +129,7 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
 
         ascoltato = false;
 
-        button_aiuto.setVisibility(View.VISIBLE);
+        button_aiuto.setVisibility(View.GONE);
         esito1.setVisibility(View.GONE);
         esito1.clearAnimation();
 
@@ -123,6 +146,14 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
         readDataJson1(new MyCallback() {
             @Override
             public void onCallback(ArrayList<Json> arrayJson) {
+
+                card.setVisibility(View.VISIBLE);
+                linearLettere.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+                linearLettere1.setVisibility(View.VISIBLE);
+                linearRisposta.setVisibility(View.VISIBLE);
+                linearRisposta1.setVisibility(View.VISIBLE);
+                button_Ascolta.setVisibility(View.VISIBLE);
 
                 int random = (int) (Math.random() * arrayJson.size());
 
