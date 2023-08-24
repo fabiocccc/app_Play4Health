@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tesi.AppConte.Login;
 import com.example.tesi.R;
 
 public class SplashScreen extends AppCompatActivity {
@@ -68,8 +69,8 @@ public class SplashScreen extends AppCompatActivity {
                 finish();
             } else {
 
-                //apri la home
-                Intent i = new Intent(getApplicationContext(), Home.class);
+                //apri la schermata login
+                Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
                 finish();
 

@@ -44,6 +44,11 @@ public class Home extends AppCompatActivity {
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
 
+        Bundle extra = getIntent().getExtras();
+        if (extra != null) {
+            String nomeUtente = extra.getString("nomeUtente");
+            System.out.println("nuovo activity:"+nomeUtente);
+        }
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
