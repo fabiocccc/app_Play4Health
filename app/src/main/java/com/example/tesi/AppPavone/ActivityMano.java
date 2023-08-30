@@ -1,5 +1,6 @@
 package com.example.tesi.AppPavone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
@@ -19,10 +20,22 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.tesi.AppConte.AttivitaUtente;
 import com.example.tesi.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 public class ActivityMano extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener, View.OnClickListener {
 
@@ -42,6 +55,10 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
     private FrameLayout button_aiuto;
     private ImageView help1;
     private AnimationDrawable animationDrawable = null;
+
+    DatabaseReference dr;
+    private String key;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +95,8 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
         findViewById(R.id.anulare).setOnLongClickListener(this);
         findViewById(R.id.mignolo).setOnLongClickListener(this);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
 
@@ -88,6 +107,71 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
             }
         });
 
+        //controllo se l'utente è loggato
+        if(user != null) {
+
+
+            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+            String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+            trovaKeyUtente(nomeUtente);
+
+        }
+
+    }
+
+    public void trovaKeyUtente(String nomeUtente) {
+
+        String id = UUID.randomUUID().toString();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        key = postSnapshot.getKey();
+
+                        scriviAttivitaDb(id, nomeUtente);
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    public void scriviAttivitaDb(String id, String nomeUtente) {
+
+        //prendo la key dello user  loggato
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
+        String completato = "L'utente" + " " + nomeUtente + " " + "ha eseguito l'attività completa parti del corpo (mano) in data:" + " " +formattedDate;
+
+        //String dataFasulla = "29-08-2023";
+        AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
+
+        dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
 
     }
 

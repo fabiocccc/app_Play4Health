@@ -26,8 +26,11 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.tesi.AppConte.AttivitaUtente;
 import com.example.tesi.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,11 +45,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class ActivityScrivereDifficile extends AppCompatActivity {
 
@@ -78,6 +85,9 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private CardView card;
+
+    private String key;
+    private FirebaseUser user;
 
 
     @Override
@@ -121,6 +131,8 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
         linearRisposta.setVisibility(View.GONE);
         linearRisposta1.setVisibility(View.GONE);
         button_Ascolta.setVisibility(View.GONE);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
@@ -367,7 +379,17 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
                     }
                 });
 
+                //controllo se l'utente è loggato
+                if(user != null) {
 
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente);
+
+                }
 
             }
 
@@ -376,6 +398,60 @@ public class ActivityScrivereDifficile extends AppCompatActivity {
 
 
 
+
+    }
+
+    public void trovaKeyUtente(String nomeUtente) {
+
+        String id = UUID.randomUUID().toString();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        key = postSnapshot.getKey();
+
+                        scriviAttivitaDb(id, nomeUtente);
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    public void scriviAttivitaDb(String id, String nomeUtente) {
+
+        //prendo la key dello user  loggato
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
+        String completato = "L'utente" + " " + nomeUtente + " " + "ha eseguito l'attività scrivere difficile in data:" + " " +formattedDate;
+
+        //String dataFasulla = "29-08-2023";
+        AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
+
+        dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
 
     }
 

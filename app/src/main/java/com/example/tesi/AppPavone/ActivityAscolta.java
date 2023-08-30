@@ -73,7 +73,6 @@ public class ActivityAscolta extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private String key;
-
     private FirebaseUser user;
 
 
@@ -209,8 +208,6 @@ public class ActivityAscolta extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
-                int cont = 0;
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                     String username = postSnapshot.child("username").getValue(String.class);
@@ -245,7 +242,7 @@ public class ActivityAscolta extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "L'utente" + " " + nomeUtente + " " + "ha completato l'attività ascolta in data:" + " " +formattedDate;
+        String completato = "L'utente" + " " + nomeUtente + " " + "ha eseguito l'attività ascolta in data:" + " " +formattedDate;
 
         //String dataFasulla = "29-08-2023";
         AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
