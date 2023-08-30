@@ -31,7 +31,7 @@ public class Home extends AppCompatActivity {
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
     private ImageView help1, help2;
-
+    private String nomeUtente = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +44,10 @@ public class Home extends AppCompatActivity {
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
 
+
         Bundle extra = getIntent().getExtras();
         if (extra != null) {
-            String nomeUtente = extra.getString("nomeUtente");
+            nomeUtente = extra.getString("nomeUtente");
             System.out.println("nuovo activity:"+nomeUtente);
         }
 
@@ -138,6 +139,8 @@ public class Home extends AppCompatActivity {
         }else
         {
             Intent i = new Intent(getApplicationContext(), HomePrima.class);
+            i.putExtra("nomeUtente", nomeUtente);
+            System.out.println("nomeprimadipassare:"+nomeUtente);
             startActivity(i);
             finish();
         }

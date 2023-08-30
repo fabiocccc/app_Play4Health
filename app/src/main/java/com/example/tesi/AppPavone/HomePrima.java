@@ -49,6 +49,8 @@ public class HomePrima extends AppCompatActivity {
 
     DatabaseReference dr;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,8 @@ public class HomePrima extends AppCompatActivity {
 
         aggiornaStelle();
         arrayJson = new ArrayList<>();
+
+
 
         //la lettura fatta qui velocizza la prima volta che viene letto da realtime
         readDataJson1(new MyCallback() {

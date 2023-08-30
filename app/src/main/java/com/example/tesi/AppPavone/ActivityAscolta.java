@@ -26,8 +26,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tesi.AppConte.AttivitaUtente;
 import com.example.tesi.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,9 +46,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class ActivityAscolta extends AppCompatActivity {
 
@@ -63,8 +70,12 @@ public class ActivityAscolta extends AppCompatActivity {
     private ArrayList<Json> arrayJson;
 
     DatabaseReference dr;
-
     private ProgressBar progressBar;
+
+    private String key;
+
+    private FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +88,8 @@ public class ActivityAscolta extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progress);
         progressBar.setVisibility(View.VISIBLE);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +139,23 @@ public class ActivityAscolta extends AppCompatActivity {
                 public void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
                     progressBar.setVisibility(View.GONE);
                     costruisciFinestre(paroleIta, arrayJson);
+
+                    //controllo se l'utente è loggato
+                    if(user != null) {
+
+
+                            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                            String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                            trovaKeyUtente(nomeUtente);
+
+                    }
+                    else{
+                        System.out.println("nessun utene loggato");
+                    }
+
+
                 }
 
             });
@@ -168,6 +198,61 @@ public class ActivityAscolta extends AppCompatActivity {
 
     }
 
+    public void trovaKeyUtente(String nomeUtente) {
+
+        String id = UUID.randomUUID().toString();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                int cont = 0;
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        key = postSnapshot.getKey();
+
+                        scriviAttivitaDb(id, nomeUtente);
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    public void scriviAttivitaDb(String id, String nomeUtente) {
+
+        //prendo la key dello user  loggato
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
+        String completato = "L'utente" + " " + nomeUtente + " " + "ha completato l'attività ascolta in data:" + " " +formattedDate;
+
+        //String dataFasulla = "29-08-2023";
+        AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
+
+        dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
+
+    }
 
 
     @Override
