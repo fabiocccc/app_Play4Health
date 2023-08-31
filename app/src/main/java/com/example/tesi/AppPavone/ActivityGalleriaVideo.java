@@ -18,14 +18,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.tesi.AppConte.AttivitaUtente;
 import com.example.tesi.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 
 public class ActivityGalleriaVideo extends AppCompatActivity {
 
@@ -37,6 +50,10 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
     private TextView textView;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+
+    DatabaseReference dr;
+    private String key;
+    private FirebaseUser user;
 
 
     @Override
@@ -66,6 +83,19 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
 
         if(connected){
+            user = FirebaseAuth.getInstance().getCurrentUser();
+
+            //controllo se l'utente è loggato
+            if(user != null) {
+
+
+                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                trovaKeyUtente(nomeUtente);
+
+            }
 
         } else {
             Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
@@ -296,6 +326,60 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         }
 
 
+
+    }
+
+    public void trovaKeyUtente(String nomeUtente) {
+
+        String id = UUID.randomUUID().toString();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        key = postSnapshot.getKey();
+
+                        scriviAttivitaDb(id, nomeUtente);
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    public void scriviAttivitaDb(String id, String nomeUtente) {
+
+        //prendo la key dello user  loggato
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
+        String completato = "L'utente" + " " + nomeUtente + " " + "ha eseguito l'attività allenamento video:" + " " +formattedDate;
+
+        //String dataFasulla = "29-08-2023";
+        AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
+
+        dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
 
     }
 

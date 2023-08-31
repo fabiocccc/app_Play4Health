@@ -1,5 +1,6 @@
 package com.example.tesi.AppTravisani.Percorso1.Episodio3;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -20,14 +21,26 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.tesi.AppConte.AttivitaUtente;
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio2.PassiE2P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio2.Passo1E2P1;
 import com.example.tesi.AppTravisani.StoryCard;
 import com.example.tesi.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 
 public class Passo5E3P1 extends AppCompatActivity {
 
@@ -47,6 +60,10 @@ public class Passo5E3P1 extends AppCompatActivity {
     private Random codutente;
 
     private int flag;
+
+    DatabaseReference dr;
+    private String key;
+    private FirebaseUser userDb;
 
 
     @Override
@@ -81,6 +98,20 @@ public class Passo5E3P1 extends AppCompatActivity {
         //salvataggio su Firebase del tempo
         FirebaseDatabase.getInstance().getReference().child("TimeP1").child("P1E3").child(user).setValue(timeScore);
         txtTimeFinal.setText(timeScore);
+
+        userDb = FirebaseAuth.getInstance().getCurrentUser();
+
+        //controllo se l'utente è loggato
+        if(userDb != null) {
+
+
+            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+            String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+            trovaKeyUtente(nomeUtente);
+
+        }
 
         urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E3P1.mp3?alt=media&token=dfbfd993-b94c-4ea3-9708-4aa5389354b9";
         playsound(urlVoice4);
@@ -123,6 +154,57 @@ public class Passo5E3P1 extends AppCompatActivity {
                 PopUPFinePercorso();
             }
         });
+    }
+
+    public void trovaKeyUtente(String nomeUtente) {
+
+        String id = UUID.randomUUID().toString();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        key = postSnapshot.getKey();
+
+                        scriviAttivitaDb();
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    public void scriviAttivitaDb() {
+
+        //prendo la key dello user  loggato
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
+        AttivitaUtente attivitaUtente = new AttivitaUtente(timeScore, formattedDate);
+        FirebaseDatabase.getInstance().getReference().child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E3").child(user).setValue(attivitaUtente);
+        txtTimeFinal.setText(timeScore);
+
     }
 
     private void playsound(String urlVoice)  {

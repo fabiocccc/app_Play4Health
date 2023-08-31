@@ -139,21 +139,6 @@ public class ActivityAscolta extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     costruisciFinestre(paroleIta, arrayJson);
 
-                    //controllo se l'utente è loggato
-                    if(user != null) {
-
-
-                            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-                            trovaKeyUtente(nomeUtente);
-
-                    }
-                    else{
-                        System.out.println("nessun utene loggato");
-                    }
-
 
                 }
 
@@ -499,6 +484,20 @@ public class ActivityAscolta extends AppCompatActivity {
     }
 
         public void costruisciFinestre(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
+
+
+            //controllo se l'utente è loggato
+            if(user != null) {
+
+
+                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                trovaKeyUtente(nomeUtente);
+
+            }
+
 
         int i = 0;
         int j = 0;
