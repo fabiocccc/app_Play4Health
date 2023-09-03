@@ -15,12 +15,17 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.tesi.AppConte.Login;
 import com.example.tesi.AppPavone.HomePrima;
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 import java.net.NetworkInterface;
 
@@ -30,7 +35,11 @@ public class Home extends AppCompatActivity {
     private FrameLayout button_aiuto;
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
-    private ImageView help1, help2;
+    private ImageView help1, help2, logout;
+
+    DatabaseReference dr;
+    private String key;
+    private FirebaseUser userDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +51,19 @@ public class Home extends AppCompatActivity {
         button_aiuto = findViewById(R.id.button_aiuto);
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
+        logout = findViewById(R.id.logout);
 
+        //logout.setVisibility(View.GONE);
+
+        userDb = FirebaseAuth.getInstance().getCurrentUser();
+
+        //controllo se l'utente è loggato
+        if(userDb != null) {
+            logout.setVisibility(View.VISIBLE);
+        }
+        else if(userDb == null) {
+            logout.setVisibility(View.GONE);
+        }
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +82,19 @@ public class Home extends AppCompatActivity {
             }
         });
 
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String messaggio = "Sei sicuro di volerti disconnettere?";
+                showMessage(messaggio);
+
+
+            }
+        });
+
         //setta animazione lampeggiante
         //sulla palla
         YoYo.with(Techniques.Pulse)
@@ -72,6 +106,34 @@ public class Home extends AppCompatActivity {
                 .duration(700)
                 .repeat(10)
                 .playOn(book);
+    }
+
+    private void showMessage(String messaggio) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+        builder.setMessage(messaggio)
+                .setTitle("Logout");
+// Add the buttons
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                System.out.println("firebase:"+mailLogged);
+
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getApplicationContext(), "Disconnessione effettuata", Toast.LENGTH_SHORT).show();
+
+                finish();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+// Set other dialog properties
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private boolean controlConnection() {

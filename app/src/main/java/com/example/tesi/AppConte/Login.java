@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,16 +84,17 @@ public class Login extends AppCompatActivity {
 
                 if (utenteTrovato == 1) {
 
-                    //TODO mettere schermata login effettuato con successo
+                    Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
 
+                    finish();
                     Intent intent = new Intent(getApplicationContext(), Home.class);
                     startActivity(intent);
-                    finish();
+
 
                 }
                 else {
 
-                    //TODO utente non trovato, login fallito
+                    Toast.makeText(getApplicationContext(), "Utente non trovato", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -107,75 +109,15 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                FirebaseAuth.getInstance().signOut();
+
+
+
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
                 finish();
             }
         });
-
-/*
-        readData(new MyCallback() {
-            @Override
-            public void onCallback(ArrayList<Utente> listaUtenti) {
-                int trovato = 0;
-                String utente = "";
-
-                image_Carica.setVisibility(View.VISIBLE);
-                //image_Carica.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                byte[] decodedString = Base64.decode(listaUtenti.get(0).getImmagine(), Base64.NO_WRAP);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                image_Carica.setImageBitmap(decodedByte);
-                //image_Carica.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                image_Carica.setDrawingCacheEnabled(true);
-
-                Bitmap bmap = image_Carica.getDrawingCache();
-                //bmap.eraseColor(Color.TRANSPARENT);
-
-
-                BitmapFactory.Options op = new BitmapFactory.Options();
-                op.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                bmap = BitmapFactory.decodeFile(path, op);
-
-
-                bmap = Bitmap.createScaledBitmap(bmap, 80, 56, false);
-
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bmap.compress(Bitmap.CompressFormat.PNG, 0, baos);
-                byte[] imageBytes = baos.toByteArray();
-                String input = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
-                System.out.println("encode i:"+ input);
-
-
-
-                System.out.println("stringa da cercare:"+ image_CaricaBase64);
-                for (int i=0; i<listaUtenti.size(); i++){
-
-
-                    System.out.println("elemento i:"+ listaUtenti.get(i).getImmagine());
-                    if((listaUtenti.get(i).getImmagine()).equals(image_CaricaBase64)) {
-                        System.out.print("elemento trovato\n");
-                        trovato = 1;
-                        utente = listaUtenti.get(i).getUsername();
-                    }
-
-                }
-
-                if (trovato == 1) {
-
-                    System.out.print("elemento trovato\n");
-                    System.out.print("nome utente:"+utente);
-                }
-                else if (trovato == 0){
-                    System.out.print("elemento non trovato\n");
-                }
-
-            }
-
-
-        });
-*/
-
-
 
 
     }
@@ -184,6 +126,7 @@ public class Login extends AppCompatActivity {
         super.onStart();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
 
         if(user != null) {
 
@@ -204,11 +147,14 @@ public class Login extends AppCompatActivity {
         });
 
 
-
     }
+
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        mAuth = FirebaseAuth.getInstance();
         if (requestCode == PICK_IMAGE) {
 
             Uri selectedImageUri = data.getData();
@@ -260,10 +206,6 @@ public class Login extends AppCompatActivity {
                             byte[] prova2 = prova.toByteArray();
 
 
-
-
-
-
                             //controllo che le 2 immagini siano uguali controllando i loro byte array
                             if(Arrays.equals(decodedString, prova2)) {
 
@@ -277,58 +219,80 @@ public class Login extends AppCompatActivity {
 
                                 String email = nomeUtente.concat("@gmail.com");
 
-                                //creo l'utente nella sezione autenticazione di firebase
+
+                                mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                        if (task.isSuccessful()){
+                                            boolean check =!task.getResult().getSignInMethods().isEmpty();
+                                            if (!check){
+
+                                                //effettuo la registrazione
+
+                                                //creo l'utente nella sezione autenticazione di firebase
+
+                                                mAuth.createUserWithEmailAndPassword(email, password)
+                                                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    // Sign in success, update UI with the signed-in user's information
+                                                                    Log.d(TAG, "createUserWithEmail:success");
+                                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                                    System.out.println("firebase oncomplete:"+user);
+                                                                    //updateUI(user);
+                                                                } else {
+                                                                    // If sign in fails, display a message to the user.
+                                                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+
+                                                                    //updateUI(null);
+                                                                }
+                                                            }
+                                                        });
+                                            }
+                                            else {
+                                                    //Toast.makeText(getApplicationContext(),"email already exst",Toast.LENGTH_LONG).show();
+
+                                                    //effettuo login
+                                                    mAuth.signInWithEmailAndPassword(email, password)
+                                                            .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        // Sign in success, update UI with the signed-in user's information
+                                                                        Log.d(TAG, "signInWithEmail:success");
+                                                                        //if(user!= null) {
+
+                                                                        FirebaseUser user = mAuth.getCurrentUser();
+                                                                        //System.out.println("firebase oncomplete:"+user);
+
+                                                                        //email utente loggato
+                                                                        String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                                                                        //System.out.println("firebase:"+mailLogged);
+                                                                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                                        //System.out.println("firebase:"+uid);
+                                                                        // }
+
+
+                                                                        //updateUI(user);
+                                                                    } else {
+                                                                        // If sign in fails, display a message to the user.
+                                                                        Log.d(TAG, "signInWithEmail:failure");
+
+                                                                        //updateUI(null);
+                                                                    }
+                                                                }
+                                                            });
+
+
+                                            }
+                                        }
+                                    }
+                                });
+
+
+
 /*
-                                mAuth.createUserWithEmailAndPassword(email, password)
-                                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if (task.isSuccessful()) {
-                                                    // Sign in success, update UI with the signed-in user's information
-                                                    Log.d(TAG, "createUserWithEmail:success");
-                                                    FirebaseUser user = mAuth.getCurrentUser();
-                                                    System.out.println("firebase oncomplete:"+user);
-                                                    //updateUI(user);
-                                                } else {
-                                                    // If sign in fails, display a message to the user.
-                                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-
-                                                    //updateUI(null);
-                                                }
-                                            }
-                                        });
-*/
-
-
-
-                                //effettuo login
-                                mAuth.signInWithEmailAndPassword(email, password)
-                                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if (task.isSuccessful()) {
-                                                    // Sign in success, update UI with the signed-in user's information
-                                                    Log.d(TAG, "signInWithEmail:success");
-                                                    FirebaseUser user = mAuth.getCurrentUser();
-                                                    System.out.println("firebase oncomplete:"+user);
-                                                    //updateUI(user);
-                                                } else {
-                                                    // If sign in fails, display a message to the user.
-                                                    Log.d(TAG, "signInWithEmail:failure");
-
-                                                    //updateUI(null);
-                                                }
-                                            }
-                                        });
-
-                                //email utente loggato
-                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                                System.out.println("firebase:"+mailLogged);
-                                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                System.out.println("firebase:"+uid);
-
-
-
 
                                     dr = FirebaseDatabase.getInstance().getReference();
 
@@ -351,13 +315,7 @@ public class Login extends AppCompatActivity {
                                         }
 
                                     });
-
-
-                                //String key = dr.push().getKey();
-                                //System.out.println("key:"+key);
-                                //dr.child("utenti").child(uid).child("bb").setValue("qwq");
-
-
+                                    */
 
                             }
 
@@ -369,10 +327,7 @@ public class Login extends AppCompatActivity {
 
 
                         }
-                        else if (trovato == 0){
-                            System.out.print("elemento non trovato\n");
-                            nomeUtente ="";
-                        }
+
 
                     }
 

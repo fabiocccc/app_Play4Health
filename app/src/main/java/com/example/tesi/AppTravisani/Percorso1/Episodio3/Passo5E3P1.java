@@ -94,7 +94,7 @@ public class Passo5E3P1 extends AppCompatActivity {
         codutente = new Random();
         user = String.valueOf(codutente.nextInt()); // genera un cod utente casuale
         timeback = getIntent().getExtras().getInt("time");
-        timeScore = "Tempo 00:" + timeback; // tempo da salvare su Firebase
+        timeScore = "00:" + timeback; // tempo da salvare su Firebase
         //salvataggio su Firebase del tempo
         FirebaseDatabase.getInstance().getReference().child("TimeP1").child("P1E3").child(user).setValue(timeScore);
         txtTimeFinal.setText(timeScore);
@@ -174,7 +174,7 @@ public class Passo5E3P1 extends AppCompatActivity {
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb();
+                        scriviAttivitaDb(nomeUtente);
 
                     }
 
@@ -191,7 +191,7 @@ public class Passo5E3P1 extends AppCompatActivity {
         });
     }
 
-    public void scriviAttivitaDb() {
+    public void scriviAttivitaDb(String nomeUtente) {
 
         //prendo la key dello user  loggato
         dr = FirebaseDatabase.getInstance().getReference();
@@ -201,7 +201,9 @@ public class Passo5E3P1 extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        AttivitaUtente attivitaUtente = new AttivitaUtente(timeScore, formattedDate);
+        String completato = "L'utente" + " " + nomeUtente + " " + "ha completato il percorso 1 episodio 3 con il tempo :" + " " +timeScore;
+
+        AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
         FirebaseDatabase.getInstance().getReference().child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E3").child(user).setValue(attivitaUtente);
         txtTimeFinal.setText(timeScore);
 
