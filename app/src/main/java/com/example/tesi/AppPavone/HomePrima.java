@@ -241,8 +241,14 @@ public class HomePrima extends AppCompatActivity {
                     String sug3 = ds.child("sug3").getValue(String.class);
                     Boolean svolto = ds.child("svolto").getValue(Boolean.class);
 
-                    Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
-                    arrayJson.add(json);
+                    String mostra = ds.child("mostra").getValue(String.class);
+
+                    if(mostra.equals("si")) {
+
+                        Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                        arrayJson.add(json);
+
+                    }
 
                 }
                 myCallback.onCallback(arrayJson);
@@ -273,7 +279,9 @@ public class HomePrima extends AppCompatActivity {
                     String ita = ds.child("ita").getValue(String.class);
                     String tipo = ds.child("tipo").getValue(String.class);
 
-                    if(tipo.equals("corpo")) {
+                    String mostra = ds.child("mostra").getValue(String.class);
+
+                    if((tipo.equals("corpo")) && (mostra.equals("si"))) {
                         Json json = new Json(ita, fra, eng, tipo, img);
                         arrayJson.add(json);
                     }

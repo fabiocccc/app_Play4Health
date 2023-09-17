@@ -375,7 +375,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "L'utente" + " " + nomeUtente + " " + "ha eseguito l'attività ripeti in data:" + " " +formattedDate;
+        String completato = "Ha eseguito l'attività ripeti in data:" + " " +formattedDate;
 
         //String dataFasulla = "29-08-2023";
         AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
@@ -546,8 +546,13 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
                     String sug3 = ds.child("sug3").getValue(String.class);
                     Boolean svolto = ds.child("svolto").getValue(Boolean.class);
 
-                    Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
-                    arrayJson.add(json);
+                    String mostra = ds.child("mostra").getValue(String.class);
+
+                    if(mostra.equals("si")) {
+
+                        Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                        arrayJson.add(json);
+                    }
 
                 }
                 myCallback.onCallback(arrayJson);

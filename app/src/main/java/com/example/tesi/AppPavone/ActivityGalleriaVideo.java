@@ -374,7 +374,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "L'utente" + " " + nomeUtente + " " + "ha eseguito l'attività allenamento video:" + " " +formattedDate;
+        String completato = "Ha eseguito l'attività allenamento video:" + " " +formattedDate;
 
         //String dataFasulla = "29-08-2023";
         AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);

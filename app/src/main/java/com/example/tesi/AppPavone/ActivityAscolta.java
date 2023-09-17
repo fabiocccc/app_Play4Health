@@ -227,7 +227,7 @@ public class ActivityAscolta extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "L'utente" + " " + nomeUtente + " " + "ha eseguito l'attività ascolta in data:" + " " +formattedDate;
+        String completato = "Ha eseguito l'attività ascolta in data:" + " " +formattedDate;
 
         //String dataFasulla = "29-08-2023";
         AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
@@ -395,9 +395,15 @@ public class ActivityAscolta extends AppCompatActivity {
                         String sug3 = ds.child("sug3").getValue(String.class);
                         Boolean svolto = ds.child("svolto").getValue(Boolean.class);
 
-                        Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
-                        paroleIta.add(ita);
-                        arrayJson.add(json);
+                        String mostra = ds.child("mostra").getValue(String.class);
+
+                        if(mostra.equals("si")) {
+
+                            Json json = new Json(ita, fra, eng, sug1, sug2, sug3, img, svolto);
+                            paroleIta.add(ita);
+                            arrayJson.add(json);
+                        }
+
 
                     }
                     myCallback.onCallback(paroleIta, arrayJson);
@@ -428,7 +434,9 @@ public class ActivityAscolta extends AppCompatActivity {
                     String ita = ds.child("ita").getValue(String.class);
                     String tipo = ds.child("tipo").getValue(String.class);
 
-                    if(tipo.equals("corpo")) {
+                    String mostra = ds.child("mostra").getValue(String.class);
+
+                    if((tipo.equals("corpo")) && (mostra.equals("si"))) {
                         Json json = new Json(ita, fra, eng, tipo, img);
                         paroleIta.add(ita);
                         arrayJson.add(json);
@@ -464,7 +472,9 @@ public class ActivityAscolta extends AppCompatActivity {
                     String ita = ds.child("ita").getValue(String.class);
                     String tipo = ds.child("tipo").getValue(String.class);
 
-                    if(tipo.equals("salute")) {
+                    String mostra = ds.child("mostra").getValue(String.class);
+
+                    if((tipo.equals("salute")) && (mostra.equals("si"))){
                         Json json = new Json(ita, fra, eng, tipo, img);
                         paroleIta.add(ita);
                         arrayJson.add(json);

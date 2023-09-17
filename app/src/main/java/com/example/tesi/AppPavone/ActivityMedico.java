@@ -143,7 +143,7 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "L'utente" + " " + nomeUtente + " " + "ha eseguito l'attività il medico consiglia in data:" + " " +formattedDate;
+        String completato = "Ha eseguito l'attività il medico consiglia in data:" + " " +formattedDate;
 
         //String dataFasulla = "29-08-2023";
         AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
