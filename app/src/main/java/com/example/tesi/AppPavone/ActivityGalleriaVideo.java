@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -50,6 +53,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
     private ArrayList<String> listaSbagliata;
     private ArrayList<String> listaVideoFra;
     private ArrayList<String> listaVideoEng;
+    private ArrayList<String> nomiContenuti;
     private TextView textView;
     private FirebaseStorage storage;
     private StorageReference storageReference;
@@ -81,6 +85,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         listaSbagliata = new ArrayList<>();
         listaVideoFra = new ArrayList<>();
         listaVideoEng = new ArrayList<>();
+        nomiContenuti = new ArrayList<>();
         textView = findViewById(R.id.textView);
 
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -129,94 +134,103 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                 // You may call listAll() recursively on them.
                             }
 
-                            for (StorageReference item : listResult.getItems()) {
-                                // All the items under listRef.
-                                lista.add(item.getName());
-                                String[] parts = item.getName().split("\\$");
-                                //System.out.println("parts[0]:"+parts[0]);
-                                listaVideo.add(parts[0]);
-                                listaDomanda.add(parts[1]);
-                                listaCorretta.add(parts[2]);
-                                listaSbagliata.add(parts[3]);
-                                //System.out.println("lista:"+listaVideo);
-                            }
+                            readCommenti(new MyCallback() {
+                                @Override
+                                public void onCallback(ArrayList<String> nomiContenuti) {
 
-                            int j = 0;
-                            int i = 0;
-                            while (i != listaVideo.size()){
 
-                                LinearLayout linear = (LinearLayout) LayoutInflater.from(ActivityGalleriaVideo.this).inflate( R.layout.linear_galleria, null);
-                                linearLayout.addView(linear, j);
-                                j++;
+                                    for (StorageReference item : listResult.getItems()) {
+                                        // All the items under listRef.
+                                        String[] parts = item.getName().split("\\$");
 
-                                //PRIMA CARD
-                                View card1 = linear.getChildAt(0);
-                                TextView textCard1 = linear.getChildAt(0).findViewById(R.id.textCard1);
-                                textCard1.setText(listaVideo.get(i));
-                                ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
+                                        if (nomiContenuti.contains(parts[0])) {
+                                            listaVideo.add(parts[0]);
+                                            listaDomanda.add(parts[1]);
+                                            listaCorretta.add(parts[2]);
+                                            listaSbagliata.add(parts[3]);
 
-                                storageReference.child("/videos/commenti/" + listaVideo.get(i) +"$"+ listaDomanda.get(i) +"$"+ listaCorretta.get(i) +"$"+ listaSbagliata.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        Glide.with(ActivityGalleriaVideo.this)
-                                                .load(uri)
-                                                .centerCrop()
-                                                .into(imageCard1);
-                                    }
-                                });
-
-                                int finalI = i;
-                                imageCard1.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                        System.out.println("elemento lista:"+lista.get(finalI));
-                                        intent.putExtra("nome", listaVideo.get(finalI) +"$"+ listaDomanda.get(finalI) +"$"+ listaCorretta.get(finalI) +"$"+ listaSbagliata.get(finalI));
-                                        intent.putExtra("tipo", "commento");
-                                        startActivity(intent);
-                                    }
-                                });
-
-                                i++;
-
-                                if(i != listaVideo.size()){
-                                    //SECONDA CARD
-                                    View card2 = linear.getChildAt(1);
-                                    TextView textCard2 = linear.getChildAt(1).findViewById(R.id.textCard2);
-                                    textCard2.setText(listaVideo.get(i));
-
-                                    ImageView imageCard2 = linear.getChildAt(1).findViewById(R.id.imageCard2);
-
-                                    storageReference.child("/videos/commenti/" + listaVideo.get(i) +"$"+ listaDomanda.get(i) +"$"+ listaCorretta.get(i) +"$"+ listaSbagliata.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            Glide.with(ActivityGalleriaVideo.this)
-                                                    .load(uri)
-                                                    .centerCrop()
-                                                    .into(imageCard2);
                                         }
-                                    });
 
-                                    int finalI1 = i;
-                                    imageCard2.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                            System.out.println("elemento lista seconda card:"+listaVideo.get(finalI1));
-                                            intent.putExtra("nome", listaVideo.get(finalI1) +"$"+ listaDomanda.get(finalI1) +"$"+ listaCorretta.get(finalI1) +"$"+ listaSbagliata.get(finalI1) );
-                                            intent.putExtra("tipo", "commento");
-                                            startActivity(intent);
+                                    }
+
+
+                                    int j = 0;
+                                    int i = 0;
+                                    while (i != listaVideo.size()) {
+
+                                        LinearLayout linear = (LinearLayout) LayoutInflater.from(ActivityGalleriaVideo.this).inflate(R.layout.linear_galleria, null);
+                                        linearLayout.addView(linear, j);
+                                        j++;
+
+                                        //PRIMA CARD
+                                        View card1 = linear.getChildAt(0);
+                                        TextView textCard1 = linear.getChildAt(0).findViewById(R.id.textCard1);
+                                        textCard1.setText(listaVideo.get(i));
+                                        ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
+
+                                        storageReference.child("/videos/commenti/" + listaVideo.get(i) + "$" + listaDomanda.get(i) + "$" + listaCorretta.get(i) + "$" + listaSbagliata.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                Glide.with(ActivityGalleriaVideo.this)
+                                                        .load(uri)
+                                                        .centerCrop()
+                                                        .into(imageCard1);
+                                            }
+                                        });
+
+                                        int finalI = i;
+                                        imageCard1.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
+                                                intent.putExtra("nome", listaVideo.get(finalI) + "$" + listaDomanda.get(finalI) + "$" + listaCorretta.get(finalI) + "$" + listaSbagliata.get(finalI));
+                                                intent.putExtra("tipo", "commento");
+                                                startActivity(intent);
+                                            }
+                                        });
+
+                                        i++;
+
+                                        if (i != listaVideo.size()) {
+                                            //SECONDA CARD
+                                            View card2 = linear.getChildAt(1);
+                                            TextView textCard2 = linear.getChildAt(1).findViewById(R.id.textCard2);
+                                            textCard2.setText(listaVideo.get(i));
+
+                                            ImageView imageCard2 = linear.getChildAt(1).findViewById(R.id.imageCard2);
+
+                                            storageReference.child("/videos/commenti/" + listaVideo.get(i) + "$" + listaDomanda.get(i) + "$" + listaCorretta.get(i) + "$" + listaSbagliata.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    Glide.with(ActivityGalleriaVideo.this)
+                                                            .load(uri)
+                                                            .centerCrop()
+                                                            .into(imageCard2);
+                                                }
+                                            });
+
+                                            int finalI1 = i;
+                                            imageCard2.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
+                                                    System.out.println("elemento lista seconda card:" + listaVideo.get(finalI1));
+                                                    intent.putExtra("nome", listaVideo.get(finalI1) + "$" + listaDomanda.get(finalI1) + "$" + listaCorretta.get(finalI1) + "$" + listaSbagliata.get(finalI1));
+                                                    intent.putExtra("tipo", "commento");
+                                                    startActivity(intent);
+                                                }
+                                            });
+
+                                            i++;
+                                        } else {
+                                            linear.getChildAt(1).setVisibility(View.INVISIBLE);
+                                            break;
                                         }
-                                    });
 
-                                    i++;
-                                } else {
-                                    linear.getChildAt(1).setVisibility(View.INVISIBLE);
-                                    break;
+                                    }
+
                                 }
-
-                            }
-
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -257,94 +271,111 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                 // You may call listAll() recursively on them.
                             }
 
-                            for (StorageReference item : listResult.getItems()) {
-                                // All the items under listRef.
-                                String[] parts = item.getName().split("\\$");
-                                listaVideo.add(parts[0]);
-                                listaVideoFra.add(parts[1]);
-                                listaVideoEng.add(parts[2]);
-                            }
-
-                            int j = 0;
-                            int i = 0;
-                            while (i != listaVideo.size()){
-
-                                LinearLayout linear = (LinearLayout) LayoutInflater.from(ActivityGalleriaVideo.this).inflate( R.layout.linear_galleria, null);
-                                linearLayout.addView(linear, j);
-                                j++;
-
-                                //PRIMA CARD
-                                View card1 = linear.getChildAt(0);
-                                TextView textCard1 = linear.getChildAt(0).findViewById(R.id.textCard1);
-                                textCard1.setText(listaVideo.get(i));
-                                ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
+                            readGesti(new MyCallback() {
+                                @Override
+                                public void onCallback(ArrayList<String> nomiContenuti) {
 
 
-                                storageReference.child("/videos/gesti/" + listaVideo.get(i) +"$"+ listaVideoFra.get(i) +"$"+
-                                        listaVideoEng.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        Glide.with(ActivityGalleriaVideo.this)
-                                                .load(uri)
-                                                .centerCrop()
-                                                .into(imageCard1);
-                                    }
-                                });
+                                    for (StorageReference item : listResult.getItems()) {
+                                        // All the items under listRef.
+                                        String[] parts = item.getName().split("\\$");
 
+                                        if(nomiContenuti.contains(parts[0])) {
+                                            listaVideo.add(parts[0]);
+                                            listaVideoFra.add(parts[1]);
+                                            listaVideoEng.add(parts[2]);
 
-                                int finalI = i;
-                                imageCard1.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                        intent.putExtra("nome", listaVideo.get(finalI) + "$"+ listaVideoFra.get(finalI) +"$"+
-                                                listaVideoEng.get(finalI));
-                                        intent.putExtra("tipo", "gesto");
-                                        startActivity(intent);
-                                    }
-                                });
-
-                                i++;
-
-                                if(i != listaVideo.size()){
-                                    //SECONDA CARD
-                                    View card2 = linear.getChildAt(1);
-                                    TextView textCard2 = linear.getChildAt(1).findViewById(R.id.textCard2);
-                                    textCard2.setText(listaVideo.get(i));
-                                    ImageView imageCard2 = linear.getChildAt(1).findViewById(R.id.imageCard2);
-
-                                    storageReference.child("/videos/gesti/" + listaVideo.get(i) +"$"+ listaVideoFra.get(i) +"$"+
-                                            listaVideoEng.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            Glide.with(ActivityGalleriaVideo.this)
-                                                    .load(uri)
-                                                    .centerCrop()
-                                                    .into(imageCard2);
                                         }
-                                    });
 
-                                    int finalI1 = i;
-                                    imageCard2.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                            intent.putExtra("nome", listaVideo.get(finalI1) + "$"+ listaVideoFra.get(finalI1) +"$"+
-                                                    listaVideoEng.get(finalI1));
-                                            intent.putExtra("tipo", "gesto");
-                                            startActivity(intent);
+                                    }
+
+                                    int j = 0;
+                                    int i = 0;
+                                    while (i != listaVideo.size()) {
+
+                                        LinearLayout linear = (LinearLayout) LayoutInflater.from(ActivityGalleriaVideo.this).inflate(R.layout.linear_galleria, null);
+                                        linearLayout.addView(linear, j);
+                                        j++;
+
+                                        //PRIMA CARD
+                                        View card1 = linear.getChildAt(0);
+                                        TextView textCard1 = linear.getChildAt(0).findViewById(R.id.textCard1);
+                                        textCard1.setText(listaVideo.get(i));
+                                        ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
+
+
+                                        storageReference.child("/videos/gesti/" + listaVideo.get(i) + "$" + listaVideoFra.get(i) + "$" +
+                                                listaVideoEng.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                Glide.with(ActivityGalleriaVideo.this)
+                                                        .load(uri)
+                                                        .centerCrop()
+                                                        .into(imageCard1);
+                                            }
+                                        });
+
+
+                                        int finalI = i;
+                                        imageCard1.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
+                                                intent.putExtra("nome", listaVideo.get(finalI) + "$" + listaVideoFra.get(finalI) + "$" +
+                                                        listaVideoEng.get(finalI));
+                                                intent.putExtra("tipo", "gesto");
+                                                startActivity(intent);
+                                            }
+                                        });
+
+                                        i++;
+
+                                        if (i != listaVideo.size()) {
+                                            //SECONDA CARD
+                                            View card2 = linear.getChildAt(1);
+                                            TextView textCard2 = linear.getChildAt(1).findViewById(R.id.textCard2);
+                                            textCard2.setText(listaVideo.get(i));
+                                            ImageView imageCard2 = linear.getChildAt(1).findViewById(R.id.imageCard2);
+
+                                            storageReference.child("/videos/gesti/" + listaVideo.get(i) + "$" + listaVideoFra.get(i) + "$" +
+                                                    listaVideoEng.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    Glide.with(ActivityGalleriaVideo.this)
+                                                            .load(uri)
+                                                            .centerCrop()
+                                                            .into(imageCard2);
+                                                }
+                                            });
+
+                                            int finalI1 = i;
+                                            imageCard2.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
+                                                    intent.putExtra("nome", listaVideo.get(finalI1) + "$" + listaVideoFra.get(finalI1) + "$" +
+                                                            listaVideoEng.get(finalI1));
+                                                    intent.putExtra("tipo", "gesto");
+                                                    startActivity(intent);
+                                                }
+                                            });
+
+                                            i++;
+                                        } else {
+                                            linear.getChildAt(1).setVisibility(View.INVISIBLE);
+                                            break;
                                         }
-                                    });
 
-                                    i++;
-                                } else {
-                                    linear.getChildAt(1).setVisibility(View.INVISIBLE);
-                                    break;
+                                    }
+
                                 }
 
-                            }
 
+                            });
                         }
+   //
+
+
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -358,6 +389,79 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         }
 
 
+
+    }
+    public interface MyCallback {
+        void onCallback(ArrayList<String> nomiContenuti);
+    }
+
+    public void readGesti(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("video").child("gesti");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String mostra = ds.child("mostra").getValue(String.class);
+                    String ita = ds.child("ita").getValue(String.class);
+
+                    if(mostra.equals("si")) {
+
+                        nomiContenuti.add(ita);
+
+                    }
+
+
+                }
+                myCallback.onCallback(nomiContenuti);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public void readCommenti(MyCallback myCallback) {
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("video").child("commenti");
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String mostra = ds.child("mostra").getValue(String.class);
+                    String ita = ds.child("nome").getValue(String.class);
+
+                    if(mostra.equals("si")) {
+
+                        nomiContenuti.add(ita);
+
+                    }
+
+
+                }
+                myCallback.onCallback(nomiContenuti);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
