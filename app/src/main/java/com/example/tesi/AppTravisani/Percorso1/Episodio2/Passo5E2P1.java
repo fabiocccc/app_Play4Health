@@ -197,7 +197,7 @@ public class Passo5E2P1 extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "Ha completato il percorso 1 episodio 2 con il tempo :" + " " +timeScore;
+        String completato = "Ha completato il percorso 1 episodio 2 con il tempo:" + " " +timeScore + " " + "in data:" + " " + formattedDate;
 
         AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
         FirebaseDatabase.getInstance().getReference().child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E2").child(user).setValue(attivitaUtente);

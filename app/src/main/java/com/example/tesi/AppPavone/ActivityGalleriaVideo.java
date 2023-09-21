@@ -45,6 +45,9 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
     private LinearLayout linearLayout;
     private ArrayList<String> lista;
     private ArrayList<String> listaVideo;
+    private ArrayList<String> listaDomanda;
+    private ArrayList<String> listaCorretta;
+    private ArrayList<String> listaSbagliata;
     private ArrayList<String> listaVideoFra;
     private ArrayList<String> listaVideoEng;
     private TextView textView;
@@ -73,6 +76,9 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         linearLayout = findViewById(R.id.linear);
         lista = new ArrayList<>();
         listaVideo = new ArrayList<>();
+        listaDomanda = new ArrayList<>();
+        listaCorretta = new ArrayList<>();
+        listaSbagliata = new ArrayList<>();
         listaVideoFra = new ArrayList<>();
         listaVideoEng = new ArrayList<>();
         textView = findViewById(R.id.textView);
@@ -83,6 +89,15 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
 
         if(connected){
+
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+        if(getIntent().getStringExtra("tipo").equals("commento")){
+
             user = FirebaseAuth.getInstance().getCurrentUser();
 
             //controllo se l'utente è loggato
@@ -93,16 +108,9 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
                 String nomeUtente =  mailLogged.replace("@gmail.com", "");
 
-                trovaKeyUtente(nomeUtente);
+                trovaKeyUtente(nomeUtente, "commenti");
 
             }
-
-        } else {
-            Toast.makeText(getApplicationContext(), "Non sei connesso a Internet", Toast.LENGTH_LONG).show();
-            finish();
-        }
-
-        if(getIntent().getStringExtra("tipo").equals("commento")){
             //GALLERIA VIDEO COMMENTI
             StorageReference listRef = storageReference.child("/videos/commenti/");
 
@@ -125,7 +133,12 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                 // All the items under listRef.
                                 lista.add(item.getName());
                                 String[] parts = item.getName().split("\\$");
+                                //System.out.println("parts[0]:"+parts[0]);
                                 listaVideo.add(parts[0]);
+                                listaDomanda.add(parts[1]);
+                                listaCorretta.add(parts[2]);
+                                listaSbagliata.add(parts[3]);
+                                //System.out.println("lista:"+listaVideo);
                             }
 
                             int j = 0;
@@ -142,7 +155,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                 textCard1.setText(listaVideo.get(i));
                                 ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
 
-                                storageReference.child("/videos/commenti/" + listaVideo.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                storageReference.child("/videos/commenti/" + listaVideo.get(i) +"$"+ listaDomanda.get(i) +"$"+ listaCorretta.get(i) +"$"+ listaSbagliata.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         Glide.with(ActivityGalleriaVideo.this)
@@ -157,7 +170,8 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                     @Override
                                     public void onClick(View view) {
                                         Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                        intent.putExtra("nome", lista.get(finalI));
+                                        System.out.println("elemento lista:"+lista.get(finalI));
+                                        intent.putExtra("nome", listaVideo.get(finalI) +"$"+ listaDomanda.get(finalI) +"$"+ listaCorretta.get(finalI) +"$"+ listaSbagliata.get(finalI));
                                         intent.putExtra("tipo", "commento");
                                         startActivity(intent);
                                     }
@@ -170,9 +184,10 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                     View card2 = linear.getChildAt(1);
                                     TextView textCard2 = linear.getChildAt(1).findViewById(R.id.textCard2);
                                     textCard2.setText(listaVideo.get(i));
+
                                     ImageView imageCard2 = linear.getChildAt(1).findViewById(R.id.imageCard2);
 
-                                    storageReference.child("/videos/commenti/" + listaVideo.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    storageReference.child("/videos/commenti/" + listaVideo.get(i) +"$"+ listaDomanda.get(i) +"$"+ listaCorretta.get(i) +"$"+ listaSbagliata.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
                                             Glide.with(ActivityGalleriaVideo.this)
@@ -187,7 +202,8 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                         @Override
                                         public void onClick(View view) {
                                             Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                            intent.putExtra("nome", listaVideo.get(finalI1) );
+                                            System.out.println("elemento lista seconda card:"+listaVideo.get(finalI1));
+                                            intent.putExtra("nome", listaVideo.get(finalI1) +"$"+ listaDomanda.get(finalI1) +"$"+ listaCorretta.get(finalI1) +"$"+ listaSbagliata.get(finalI1) );
                                             intent.putExtra("tipo", "commento");
                                             startActivity(intent);
                                         }
@@ -213,6 +229,22 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
 
         } else {
+
+            user = FirebaseAuth.getInstance().getCurrentUser();
+
+            //controllo se l'utente è loggato
+            if(user != null) {
+
+
+                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                trovaKeyUtente(nomeUtente, "gesti");
+
+            }
+
+
             //GALLERIA VIDEO GESTI
             StorageReference listRef = storageReference.child("/videos/gesti/");
             textView.setText("Allenati");
@@ -329,7 +361,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String stringa) {
 
         String id = UUID.randomUUID().toString();
 
@@ -347,7 +379,14 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        if(stringa.equals("gesti")) {
+                            scriviAttivitaDb(id, nomeUtente, "gesti");
+                        }
+
+                        if(stringa.equals("commenti")) {
+                            scriviAttivitaDb(id, nomeUtente, "commenti");
+                        }
+
 
                     }
 
@@ -364,7 +403,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         });
     }
 
-    public void scriviAttivitaDb(String id, String nomeUtente) {
+    public void scriviAttivitaDb(String id, String nomeUtente, String stringa) {
 
         //prendo la key dello user  loggato
         dr = FirebaseDatabase.getInstance().getReference();
@@ -374,12 +413,24 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "Ha eseguito l'attività allenamento video:" + " " +formattedDate;
+        if(stringa.equals("gesti")) {
 
-        //String dataFasulla = "29-08-2023";
-        AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
+            String completato = "Ha eseguito l'attività allenamento video in data:" + " " +formattedDate;
+            AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
 
-        dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
+            dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
+
+        }
+
+        if(stringa.equals("commenti")) {
+
+            String completato = "Ha guardato un video presente nella sezione video in data:" + " " +formattedDate;
+            AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
+
+            dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
+
+        }
+
 
     }
 
