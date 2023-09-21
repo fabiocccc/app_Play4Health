@@ -46,7 +46,7 @@ import java.util.UUID;
 public class ActivityGalleriaVideo extends AppCompatActivity {
 
     private LinearLayout linearLayout;
-    private ArrayList<String> lista;
+
     private ArrayList<String> listaVideo;
     private ArrayList<String> listaDomanda;
     private ArrayList<String> listaCorretta;
@@ -78,7 +78,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
         });
 
         linearLayout = findViewById(R.id.linear);
-        lista = new ArrayList<>();
+
         listaVideo = new ArrayList<>();
         listaDomanda = new ArrayList<>();
         listaCorretta = new ArrayList<>();

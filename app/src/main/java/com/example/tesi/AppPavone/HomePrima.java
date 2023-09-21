@@ -71,6 +71,7 @@ public class HomePrima extends AppCompatActivity {
         stella3_2 = findViewById(R.id.stella3_2);
         stella3_3 = findViewById(R.id.stella3_3);
 
+        button_HomeDati.setVisibility(View.INVISIBLE);
     }
 
     @Override
