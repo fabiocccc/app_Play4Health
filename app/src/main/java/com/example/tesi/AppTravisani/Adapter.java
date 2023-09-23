@@ -71,6 +71,7 @@ public class Adapter extends PagerAdapter {
                     case 1:
                         i = new Intent(context, P1EpisodiActivity.class);
                         i.putExtra("flagDo", 0);
+                        i.putExtra("percorso1", "IL GIOCO DEL CALCIO");
                         context.startActivity(i);
                         break;
                     case 2:

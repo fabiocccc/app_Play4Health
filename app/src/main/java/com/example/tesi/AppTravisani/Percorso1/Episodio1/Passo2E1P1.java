@@ -41,6 +41,8 @@ public class Passo2E1P1 extends AppCompatActivity {
     private String chronoText;
     private int score, timeback;
 
+    private String nomePercorso;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,8 @@ public class Passo2E1P1 extends AppCompatActivity {
 
         urlVoice1 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FNro%20Giocatori%20Squadra.mp3?alt=media&token=52215c75-d967-4eb6-9132-1a50fb1ad70c";
         playsound(urlVoice1);
+
+        nomePercorso = new String();
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +115,11 @@ public class Passo2E1P1 extends AppCompatActivity {
             }
         });
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            nomePercorso = extras.getString("percorso1");
+        }
+
         risp11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +129,7 @@ public class Passo2E1P1 extends AppCompatActivity {
                 //PASSO 3 EPISODIO 1 P1
                 Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);
                 i.putExtra("time", score);
+                i.putExtra("percorso1", nomePercorso);
                 startActivity(i);
                 finish();
             }

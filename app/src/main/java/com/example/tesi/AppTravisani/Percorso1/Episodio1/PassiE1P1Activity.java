@@ -20,6 +20,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
     private ImageView badgeIcon;
     private ImageView imgCardP2,imgCardP3,imgCardP4;
     private TextView title_toolbar;
+    private String nomePercorso;
 
 
     @Override
@@ -43,7 +44,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
         backIcon = findViewById(R.id.back_icon);
         badgeIcon = findViewById(R.id.badge_icon);
         badgeIcon.setVisibility(View.INVISIBLE);
-
+        nomePercorso = new String();
 
         //gestione memoria dell'esecuzione dei passi in diverse sessioni
         SharedPreferences sharedPref = getSharedPreferences("MySharedPref", MODE_PRIVATE);
@@ -52,6 +53,12 @@ public class PassiE1P1Activity extends AppCompatActivity {
         if(flagDo == 4)
         {
             sbloccaPassi(4);
+        }
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            nomePercorso = extras.getString("percorso1");
+            System.out.println("nom1:"+nomePercorso);
         }
 
         //4-->ha fatto tutti i passi del primo episodio
@@ -76,6 +83,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
                 //aprire passo 1 del percorso 1
                 Intent i = new Intent(getApplicationContext(), Passo1E1P1.class);
+                i.putExtra("percorso1", nomePercorso);
                 startActivity(i);
                 finish();
             }
@@ -99,6 +107,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
                         int score = getIntent().getExtras().getInt("time");
                         i.putExtra("time", score);
+                        i.putExtra("percorso1", nomePercorso);
                         startActivity(i);
                         finish();
 
@@ -115,6 +124,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
                         int score = getIntent().getExtras().getInt("time");
                         i.putExtra("time", score);
+                        i.putExtra("percorso1", nomePercorso);
                         startActivity(i);
                         finish();
 
@@ -129,6 +139,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);
                         int score = getIntent().getExtras().getInt("time");
                         i.putExtra("time", score);
+                        i.putExtra("percorso1", nomePercorso);
                         startActivity(i);
                         finish();
 
@@ -145,6 +156,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
                         int score = getIntent().getExtras().getInt("time");
                         i.putExtra("time", score);
+                        i.putExtra("percorso1", nomePercorso);
                         startActivity(i);
                         finish();
 
@@ -158,6 +170,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
                         //aprire passo 3
                         Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);
                         int score = getIntent().getExtras().getInt("time");
+                        i.putExtra("percorso1", nomePercorso);
                         i.putExtra("time", score);
                         startActivity(i);
                         finish();

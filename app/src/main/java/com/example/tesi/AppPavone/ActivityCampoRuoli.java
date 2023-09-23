@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +10,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -88,21 +91,11 @@ public class ActivityCampoRuoli extends AppCompatActivity {
             }
         });
 
-        //controllo se l'utente è loggato
-        if(user != null) {
 
-
-            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-            trovaKeyUtente(nomeUtente);
-
-        }
 
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
 
         String id = UUID.randomUUID().toString();
 
@@ -120,7 +113,7 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        scriviElemento(id, elementoCliccato);
 
                     }
 
@@ -135,6 +128,49 @@ public class ActivityCampoRuoli extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        System.out.println("ele:"+elementoCliccato);
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti").child(key).child("campo ruoli");
+
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String parola = ds.child("parola").getValue(String.class);
+
+                    paroleEseguite.add(parola);
+
+                }
+
+                if(!paroleEseguite.contains(elementoCliccato)) {
+
+                    gf.child("utenti").child(key).child("campo ruoli").child(id).child("parola").setValue(elementoCliccato);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {
@@ -205,6 +241,17 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Portiere"); parole.add("Gardien de but"); parole.add("Goalkeeper");
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Portiere");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -218,6 +265,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Difensore"); parole.add("Défenseur"); parole.add("Defender");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Difensore1");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -238,6 +295,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Difensore"); parole.add("Défenseur"); parole.add("Defender");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Difensore2");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -251,6 +318,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Terzino destro"); parole.add("Arrière droit"); parole.add("Right-back");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Terzino destro");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -264,6 +341,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Terzino sinistro"); parole.add("Arrière gauche"); parole.add("Left-back");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Terzino sinistro");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -277,6 +364,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Centrocampista"); parole.add("Milieu de terrain"); parole.add("Midfielder");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Centrocampista1");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -290,6 +387,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Centrocampista"); parole.add("Milieu de terrain"); parole.add("Midfielder");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Centrocampista2");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -303,6 +410,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Esterno destro"); parole.add("Champ droit"); parole.add("Right winger");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Esterno destro");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -316,6 +433,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Esterno sinistro"); parole.add("Champ gauche"); parole.add("Left winger");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Esterno sinistro");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -329,6 +456,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Attaccante"); parole.add("Attaquant"); parole.add("Striker");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Attaccante1");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -342,6 +479,16 @@ public class ActivityCampoRuoli extends AppCompatActivity {
 
                 ArrayList parole = new ArrayList();
                 parole.add("Attaccante"); parole.add("Attaquant"); parole.add("Striker");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Attaccante2");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);

@@ -1,11 +1,14 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -78,17 +81,7 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        //controllo se l'utente è loggato
-        if(user != null) {
 
-
-            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-            trovaKeyUtente(nomeUtente);
-
-        }
 
         button_indietro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +91,7 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
 
         String id = UUID.randomUUID().toString();
 
@@ -116,7 +109,7 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        scriviElemento(id, elementoCliccato);
 
                     }
 
@@ -131,6 +124,47 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
             }
 
         });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti").child(key).child("medico consiglia");
+
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String parola = ds.child("parola").getValue(String.class);
+
+                    paroleEseguite.add(parola);
+
+                }
+
+                if(!paroleEseguite.contains(elementoCliccato)) {
+
+                    gf.child("utenti").child(key).child("medico consiglia").child(id).child("parola").setValue(elementoCliccato);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {
@@ -205,6 +239,17 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
                 fraString = "Restez au lit!";
                 engString = "Stay in bed!";
                 textView.setText(itaString);
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, itaString);
+
+                }
                 button_letto.setBackgroundColor(Color.parseColor("#50e024"));
                 riproduci();
 
@@ -215,6 +260,17 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
                 fraString = "Ne prenez pas froid!";
                 engString = "Don't catch a cold!";
                 textView.setText(itaString);
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, itaString);
+
+                }
                 button_freddo.setBackgroundColor(Color.parseColor("#50e024"));
                 riproduci();
 
@@ -225,6 +281,17 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
                 fraString = "Ne faites plus de ski!";
                 engString = "Don't ski anymore!";
                 textView.setText(itaString);
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, itaString);
+
+                }
                 button_sci.setBackgroundColor(Color.parseColor("#50e024"));
                 riproduci();
                 break;
@@ -234,6 +301,17 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
                 fraString = "Ne mangez pas de sucreries!";
                 engString = "Don't eat sweets!";
                 textView.setText(itaString);
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, itaString);
+
+                }
                 button_zuccheri.setBackgroundColor(Color.parseColor("#50e024"));
                 riproduci();
                 break;
@@ -244,6 +322,17 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
                 engString = "Apply an ointment!";
                 textView.setText(itaString);
                 button_pomata.setBackgroundColor(Color.parseColor("#50e024"));
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, itaString);
+
+                }
                 riproduci();
                 break;
             case R.id.button_compresse:
@@ -252,6 +341,17 @@ public class ActivityMedico extends AppCompatActivity implements View.OnClickLis
                 fraString = "Prenez ces comprimés!";
                 engString = "Take these pills!";
                 textView.setText(itaString);
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, itaString);
+
+                }
                 button_compresse.setBackgroundColor(Color.parseColor("#50e024"));
                 riproduci();
                 break;

@@ -341,6 +341,17 @@ public class ActivityScegli extends AppCompatActivity {
 
                         if(ascoltato){
                             if(corr == 1){
+                                //controllo se l'utente è loggato
+                                if(user != null) {
+
+
+                                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                    trovaKeyUtente(nomeUtente, corretta);
+
+                                }
                                 //giusto
                                 button_aiuto.setVisibility(View.GONE);
                                 button_avanti.setVisibility(View.VISIBLE);
@@ -394,6 +405,18 @@ public class ActivityScegli extends AppCompatActivity {
 
                         if(ascoltato){
                             if(corr == 2){
+
+                                //controllo se l'utente è loggato
+                                if(user != null) {
+
+
+                                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                    trovaKeyUtente(nomeUtente, corretta);
+
+                                }
                                 //giusto
                                 button_avanti.setVisibility(View.VISIBLE);
                                 button_aiuto.setVisibility(View.GONE);
@@ -428,17 +451,7 @@ public class ActivityScegli extends AppCompatActivity {
                     }
                 });
 
-                //controllo se l'utente è loggato
-                if(user != null) {
 
-
-                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-                    trovaKeyUtente(nomeUtente);
-
-                }
 
 
             }
@@ -499,7 +512,7 @@ public class ActivityScegli extends AppCompatActivity {
 
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
 
         String id = UUID.randomUUID().toString();
 
@@ -517,7 +530,7 @@ public class ActivityScegli extends AppCompatActivity {
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        scriviElemento(id, elementoCliccato);
 
                     }
 
@@ -532,6 +545,49 @@ public class ActivityScegli extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        System.out.println("ele:"+elementoCliccato);
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti").child(key).child("scegli");
+
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String parola = ds.child("parola").getValue(String.class);
+
+                    paroleEseguite.add(parola);
+
+                }
+
+                if(!paroleEseguite.contains(elementoCliccato)) {
+
+                    gf.child("utenti").child(key).child("scegli").child(id).child("parola").setValue(elementoCliccato);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {

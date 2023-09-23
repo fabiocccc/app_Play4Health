@@ -182,7 +182,7 @@ public class ActivityAscolta extends AppCompatActivity {
 
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
 
         String id = UUID.randomUUID().toString();
 
@@ -200,7 +200,7 @@ public class ActivityAscolta extends AppCompatActivity {
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        scriviElemento(id, elementoCliccato);
 
                     }
 
@@ -233,6 +233,121 @@ public class ActivityAscolta extends AppCompatActivity {
         AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
 
         dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
+
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        if(tipo.equals("calcio")){
+
+            DatabaseReference rf = dr.child("utenti").child(key).child("ascolta");
+
+            DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String parola = ds.child("parola").getValue(String.class);
+
+                        paroleEseguite.add(parola);
+
+                    }
+
+                    if(!paroleEseguite.contains(elementoCliccato)) {
+
+                        gf.child("utenti").child(key).child("ascolta").child(id).child("parola").setValue(elementoCliccato);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+       else if(tipo.equals("corpo")){
+
+            DatabaseReference rf = dr.child("utenti").child(key).child("parti corpo");
+
+            DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String parola = ds.child("parola").getValue(String.class);
+
+                        paroleEseguite.add(parola);
+
+                    }
+
+                    if(!paroleEseguite.contains(elementoCliccato)) {
+
+                        gf.child("utenti").child(key).child("parti corpo").child(id).child("parola").setValue(elementoCliccato);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else {
+
+            DatabaseReference rf = dr.child("utenti").child(key).child("salute");
+
+            DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String parola = ds.child("parola").getValue(String.class);
+
+                        paroleEseguite.add(parola);
+
+                    }
+
+                    if(!paroleEseguite.contains(elementoCliccato)) {
+
+                        gf.child("utenti").child(key).child("salute").child(id).child("parola").setValue(elementoCliccato);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+
+
 
     }
 
@@ -310,6 +425,24 @@ public class ActivityAscolta extends AppCompatActivity {
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
                     textToSpeech.setLanguage(Locale.ITALIAN);
+
+
+                    //controllo se l'utente è loggato
+                    if(user != null) {
+
+
+                        String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                        String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                        trovaKeyUtente(nomeUtente, ita);
+
+                    }
+
+
+
+
+
                     textToSpeech.speak(ita, TextToSpeech.QUEUE_FLUSH, null);
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -368,6 +501,7 @@ public class ActivityAscolta extends AppCompatActivity {
 
 
     }
+
 
     public interface MyCallback {
         void onCallback(ArrayList<String> paroleIta, ArrayList<Json> arrayJson);
@@ -494,20 +628,6 @@ public class ActivityAscolta extends AppCompatActivity {
     }
 
         public void costruisciFinestre(ArrayList<String> paroleIta, ArrayList<Json> arrayJson) {
-
-
-            //controllo se l'utente è loggato
-            if(user != null) {
-
-
-                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-                trovaKeyUtente(nomeUtente);
-
-            }
-
 
         int i = 0;
         int j = 0;

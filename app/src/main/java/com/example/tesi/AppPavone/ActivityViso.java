@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -105,55 +108,11 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
         });
 
 
-        //controllo se l'utente è loggato
-        if(user != null) {
 
-
-            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-            trovaKeyUtente(nomeUtente);
-
-        }
 
 
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
-
-        String id = UUID.randomUUID().toString();
-
-        dr = FirebaseDatabase.getInstance().getReference();
-
-        DatabaseReference rf = dr.child("utenti");
-        rf.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-
-                    String username = postSnapshot.child("username").getValue(String.class);
-                    if (username.equals(nomeUtente)) {
-
-                        key = postSnapshot.getKey();
-
-                        scriviAttivitaDb(id, nomeUtente);
-
-                    }
-
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
-    }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {
 
@@ -236,6 +195,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                     parole.add("Capelli");
                     parole.add("Cheveux");
                     parole.add("Hair");
+
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -254,6 +214,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                     parole.add("Orecchie");
                     parole.add("Oreilles");
                     parole.add("Ears");
+
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -272,6 +233,7 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                     parole.add("Orecchie");
                     parole.add("Oreilles");
                     parole.add("Ears");
+
                     SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                     spinner.setAdapter(adapter);
                     spinner.setSelection(0);
@@ -323,6 +285,84 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
         });
     }
 
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
+
+        String id = UUID.randomUUID().toString();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        key = postSnapshot.getKey();
+
+                        scriviElemento(id, elementoCliccato);
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        System.out.println("ele:"+elementoCliccato);
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti").child(key).child("corpo viso");
+
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String parola = ds.child("parola").getValue(String.class);
+
+                    paroleEseguite.add(parola);
+
+                }
+
+                if(!paroleEseguite.contains(elementoCliccato)) {
+
+                    gf.child("utenti").child(key).child("corpo viso").child(id).child("parola").setValue(elementoCliccato);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
     @Override
     public boolean onDrag(View v, DragEvent event) {
         int action = event.getAction();
@@ -362,6 +402,18 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             img.setOnClickListener(ActivityViso.this);
                             img.performClick();
 
+                            //controllo se l'utente è loggato
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Capelli");
+
+                            }
+
                         }
                         break;
                     case "orecchie":
@@ -385,6 +437,17 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             img.setOnClickListener(ActivityViso.this);
                             img.performClick();
 
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Orecchie");
+
+                            }
+
                         }
                         break;
                     case "bocca":
@@ -403,6 +466,17 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
 
                             img.setOnClickListener(ActivityViso.this);
                             img.performClick();
+
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Bocca");
+
+                            }
                         }
                         break;
                     case "naso":
@@ -422,6 +496,17 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
                             img.setOnClickListener(ActivityViso.this);
                             img.performClick();
 
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Naso");
+
+                            }
+
                         }
                         break;
                     case "occhi":
@@ -440,6 +525,17 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
 
                             img.setOnClickListener(ActivityViso.this);
                             img.performClick();
+
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Occhi");
+
+                            }
                         }
                         break;
                     case "sopracciglia":
@@ -458,6 +554,17 @@ public class ActivityViso extends AppCompatActivity implements View.OnDragListen
 
                             img.setOnClickListener(ActivityViso.this);
                             img.performClick();
+
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Sopracciglia");
+
+                            }
                         }
                         break;
                 }

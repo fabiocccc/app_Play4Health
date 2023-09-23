@@ -48,6 +48,8 @@ public class Passo3E1P1 extends AppCompatActivity {
     private String chronoText;
     private int score, timeback;
 
+    private String nomePercorso;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,7 @@ public class Passo3E1P1 extends AppCompatActivity {
 
         dialog= new Dialog(this);
 
-
+        nomePercorso = new String();
 
         //cronometro
         chronometer = findViewById(R.id.chronometer);
@@ -117,6 +119,11 @@ public class Passo3E1P1 extends AppCompatActivity {
             }
         });
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            nomePercorso = extras.getString("percorso1");
+        }
+
         button_portiere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +132,7 @@ public class Passo3E1P1 extends AppCompatActivity {
                 pauseChronometer();
                 Intent i = new Intent(getApplicationContext(), Passo4E1P1.class);
                 i.putExtra("time", score);
+                i.putExtra("percorso1", nomePercorso);
                 startActivity(i);
                 finish();
 

@@ -309,17 +309,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
                     }
                 });
 
-                //controllo se l'utente è loggato
-                if(user != null) {
 
-
-                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-                    trovaKeyUtente(nomeUtente);
-
-                }
 
             }
 
@@ -330,7 +320,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
 
     }
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
 
         String id = UUID.randomUUID().toString();
 
@@ -348,7 +338,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        scriviElemento(id, elementoCliccato);
 
                     }
 
@@ -363,6 +353,49 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
             }
 
         });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        System.out.println("ele:"+elementoCliccato);
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+            DatabaseReference rf = dr.child("utenti").child(key).child("ripeti");
+
+            DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String parola = ds.child("parola").getValue(String.class);
+
+                        paroleEseguite.add(parola);
+
+                    }
+
+                    if(!paroleEseguite.contains(elementoCliccato)) {
+
+                        gf.child("utenti").child(key).child("ripeti").child(id).child("parola").setValue(elementoCliccato);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {
@@ -457,6 +490,18 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
 
             esito1.setVisibility(View.VISIBLE);
             esito1.setImageResource(R.drawable.thumbs_up);
+
+            //controllo se l'utente è loggato
+            if(user != null) {
+
+
+                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                trovaKeyUtente(nomeUtente, corretta);
+
+            }
 
             esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 

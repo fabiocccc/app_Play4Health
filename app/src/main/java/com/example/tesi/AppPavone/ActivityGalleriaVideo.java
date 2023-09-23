@@ -105,17 +105,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
             user = FirebaseAuth.getInstance().getCurrentUser();
 
-            //controllo se l'utente è loggato
-            if(user != null) {
 
-
-                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-                trovaKeyUtente(nomeUtente, "commenti");
-
-            }
             //GALLERIA VIDEO COMMENTI
             StorageReference listRef = storageReference.child("/videos/commenti/");
 
@@ -166,6 +156,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                         View card1 = linear.getChildAt(0);
                                         TextView textCard1 = linear.getChildAt(0).findViewById(R.id.textCard1);
                                         textCard1.setText(listaVideo.get(i));
+
                                         ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
 
                                         storageReference.child("/videos/commenti/" + listaVideo.get(i) + "$" + listaDomanda.get(i) + "$" + listaCorretta.get(i) + "$" + listaSbagliata.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -185,6 +176,17 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                                 Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
                                                 intent.putExtra("nome", listaVideo.get(finalI) + "$" + listaDomanda.get(finalI) + "$" + listaCorretta.get(finalI) + "$" + listaSbagliata.get(finalI));
                                                 intent.putExtra("tipo", "commento");
+                                                //controllo se l'utente è loggato
+                                                if(user != null) {
+
+
+                                                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                                    trovaKeyUtente(nomeUtente, "commenti", listaVideo.get(finalI));
+
+                                                }
                                                 startActivity(intent);
                                             }
                                         });
@@ -214,9 +216,21 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(View view) {
                                                     Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                                                    System.out.println("elemento lista seconda card:" + listaVideo.get(finalI1));
+
                                                     intent.putExtra("nome", listaVideo.get(finalI1) + "$" + listaDomanda.get(finalI1) + "$" + listaCorretta.get(finalI1) + "$" + listaSbagliata.get(finalI1));
                                                     intent.putExtra("tipo", "commento");
+                                                    //controllo se l'utente è loggato
+                                                    if(user != null) {
+
+
+                                                        String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                                        String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                                        trovaKeyUtente(nomeUtente, "commenti", listaVideo.get(finalI1));
+
+                                                    }
+                                                    startActivity(intent);
                                                     startActivity(intent);
                                                 }
                                             });
@@ -246,17 +260,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
             user = FirebaseAuth.getInstance().getCurrentUser();
 
-            //controllo se l'utente è loggato
-            if(user != null) {
 
-
-                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-                trovaKeyUtente(nomeUtente, "gesti");
-
-            }
 
 
             //GALLERIA VIDEO GESTI
@@ -301,6 +305,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                         View card1 = linear.getChildAt(0);
                                         TextView textCard1 = linear.getChildAt(0).findViewById(R.id.textCard1);
                                         textCard1.setText(listaVideo.get(i));
+
                                         ImageView imageCard1 = linear.getChildAt(0).findViewById(R.id.imageCard1);
 
 
@@ -323,6 +328,17 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                                 Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
                                                 intent.putExtra("nome", listaVideo.get(finalI) + "$" + listaVideoFra.get(finalI) + "$" +
                                                         listaVideoEng.get(finalI));
+                                                //controllo se l'utente è loggato
+                                                if(user != null) {
+
+
+                                                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                                    trovaKeyUtente(nomeUtente, "gesti", listaVideo.get(finalI));
+
+                                                }
                                                 intent.putExtra("tipo", "gesto");
                                                 startActivity(intent);
                                             }
@@ -356,6 +372,17 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
                                                     intent.putExtra("nome", listaVideo.get(finalI1) + "$" + listaVideoFra.get(finalI1) + "$" +
                                                             listaVideoEng.get(finalI1));
                                                     intent.putExtra("tipo", "gesto");
+                                                    //controllo se l'utente è loggato
+                                                    if(user != null) {
+
+
+                                                        String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                                        String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                                        trovaKeyUtente(nomeUtente, "gesti", listaVideo.get(finalI1));
+
+                                                    }
                                                     startActivity(intent);
                                                 }
                                             });
@@ -465,7 +492,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
     }
 
-    public void trovaKeyUtente(String nomeUtente, String stringa) {
+    public void trovaKeyUtente(String nomeUtente, String tipoVideo, String nomeVideo) {
 
         String id = UUID.randomUUID().toString();
 
@@ -483,14 +510,7 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
 
                         key = postSnapshot.getKey();
 
-                        if(stringa.equals("gesti")) {
-                            scriviAttivitaDb(id, nomeUtente, "gesti");
-                        }
-
-                        if(stringa.equals("commenti")) {
-                            scriviAttivitaDb(id, nomeUtente, "commenti");
-                        }
-
+                        scriviElemento(id, tipoVideo, nomeVideo);
 
                     }
 
@@ -505,6 +525,85 @@ public class ActivityGalleriaVideo extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void scriviElemento(String id, String tipoVideo, String nomeVideo) {
+
+        ArrayList<String> videos = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        if(tipoVideo.equals("gesti")) {
+            DatabaseReference rf = dr.child("utenti").child(key).child("allenati");
+
+            DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String video = ds.child("nomeVideo").getValue(String.class);
+
+                        videos.add(video);
+
+                    }
+
+                    if(!videos.contains(nomeVideo)) {
+
+                        gf.child("utenti").child(key).child("allenati").child(id).child("nomeVideo").setValue(nomeVideo);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+        else if(tipoVideo.equals("commenti")) {
+            DatabaseReference rf = dr.child("utenti").child(key).child("video");
+
+            DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String video = ds.child("nomeVideo").getValue(String.class);
+
+                        videos.add(video);
+
+                    }
+
+                    if(!videos.contains(nomeVideo)) {
+
+                        gf.child("utenti").child(key).child("video").child(id).child("nomeVideo").setValue(nomeVideo);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+
+
+
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente, String stringa) {

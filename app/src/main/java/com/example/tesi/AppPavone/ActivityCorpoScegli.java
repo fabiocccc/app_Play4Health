@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +10,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -116,21 +119,11 @@ public class ActivityCorpoScegli extends AppCompatActivity {
             }
         });
 
-        //controllo se l'utente è loggato
-        if(user != null) {
 
-
-            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-            trovaKeyUtente(nomeUtente);
-
-        }
 
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
 
         String id = UUID.randomUUID().toString();
 
@@ -148,7 +141,7 @@ public class ActivityCorpoScegli extends AppCompatActivity {
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        scriviElemento(id, elementoCliccato);
 
                     }
 
@@ -163,6 +156,49 @@ public class ActivityCorpoScegli extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        System.out.println("ele:"+elementoCliccato);
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti").child(key).child("corpo scegli");
+
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String parola = ds.child("parola").getValue(String.class);
+
+                    paroleEseguite.add(parola);
+
+                }
+
+                if(!paroleEseguite.contains(elementoCliccato)) {
+
+                    gf.child("utenti").child(key).child("corpo scegli").child(id).child("parola").setValue(elementoCliccato);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {
@@ -338,6 +374,18 @@ public class ActivityCorpoScegli extends AppCompatActivity {
                         esito1.setVisibility(View.VISIBLE);
                         esito1.setImageResource(R.drawable.thumbs_up);
 
+                        //controllo se l'utente è loggato
+                        if(user != null) {
+
+
+                            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                            String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                            trovaKeyUtente(nomeUtente, corretta);
+
+                        }
+
                         esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 
                         button_Risp1.setClickable(false);
@@ -473,6 +521,18 @@ public class ActivityCorpoScegli extends AppCompatActivity {
 
                         esito1.setVisibility(View.VISIBLE);
                         esito1.setImageResource(R.drawable.thumbs_up);
+
+                        //controllo se l'utente è loggato
+                        if(user != null) {
+
+
+                            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                            String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                            trovaKeyUtente(nomeUtente, corretta);
+
+                        }
 
                         esito1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_esito));
 

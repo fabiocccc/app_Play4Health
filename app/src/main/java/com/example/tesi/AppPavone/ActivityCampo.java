@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +9,7 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -85,53 +88,8 @@ public class ActivityCampo extends AppCompatActivity {
             }
         });
 
-        //controllo se l'utente è loggato
-        if(user != null) {
 
 
-            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-            trovaKeyUtente(nomeUtente);
-
-        }
-
-    }
-
-    public void trovaKeyUtente(String nomeUtente) {
-
-        String id = UUID.randomUUID().toString();
-
-        dr = FirebaseDatabase.getInstance().getReference();
-
-        DatabaseReference rf = dr.child("utenti");
-        rf.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-
-                    String username = postSnapshot.child("username").getValue(String.class);
-                    if (username.equals(nomeUtente)) {
-
-                        key = postSnapshot.getKey();
-
-                        scriviAttivitaDb(id, nomeUtente);
-
-                    }
-
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {
@@ -150,6 +108,84 @@ public class ActivityCampo extends AppCompatActivity {
         AttivitaUtente attivitaUtente = new AttivitaUtente(completato, formattedDate);
 
         dr.child("utenti").child(key).child("attivita").child(id).setValue(attivitaUtente);
+
+    }
+
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
+
+        String id = UUID.randomUUID().toString();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        key = postSnapshot.getKey();
+
+                        scriviElemento(id, elementoCliccato);
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        System.out.println("ele:"+elementoCliccato);
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti").child(key).child("campo");
+
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String parola = ds.child("parola").getValue(String.class);
+
+                    paroleEseguite.add(parola);
+
+                }
+
+                if(!paroleEseguite.contains(elementoCliccato)) {
+
+                    gf.child("utenti").child(key).child("campo").child(id).child("parola").setValue(elementoCliccato);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 
@@ -179,8 +215,20 @@ public class ActivityCampo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 resettaEvidenzia();
+
                 ArrayList parole = new ArrayList();
                 parole.add("Area di porta"); parole.add("Surface de but"); parole.add("Goal area");
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Area di porta1");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -196,6 +244,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di porta"); parole.add("Surface de but"); parole.add("Goal area");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Area di porta2");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -209,6 +267,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di rigore"); parole.add("Zone de penalty"); parole.add("Penalty area");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Area di rigore1");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -230,6 +298,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Area di rigore"); parole.add("Zone de penalty"); parole.add("Penalty area");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Area di rigore2");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -243,6 +321,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Angolo1");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -256,6 +344,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Angolo2");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -269,6 +367,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Angolo3");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -282,6 +390,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Angolo"); parole.add("Corner"); parole.add("Corner");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Angolo4");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -295,6 +413,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Linea mediana"); parole.add("Ligne médiane"); parole.add("Half-way line");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Linea mediana1");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -308,6 +436,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Linea mediana"); parole.add("Ligne médiane"); parole.add("Half-way line");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Linea mediana2");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -321,6 +459,16 @@ public class ActivityCampo extends AppCompatActivity {
                 resettaEvidenzia();
                 ArrayList parole = new ArrayList();
                 parole.add("Cerchio di centrocampo"); parole.add("Rond central"); parole.add("Centre circle");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Cerchio di centrocampo");
+
+                }
                 SpinnerAdapter adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);

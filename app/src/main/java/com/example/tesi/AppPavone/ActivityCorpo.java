@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -149,20 +152,10 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
         help1 = findViewById(R.id.help1);
 
 
-        //controllo se l'utente è loggato
-        if(user != null) {
 
-
-            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-            trovaKeyUtente(nomeUtente);
-
-        }
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
 
         String id = UUID.randomUUID().toString();
 
@@ -180,7 +173,7 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        scriviElemento(id, elementoCliccato);
 
                     }
 
@@ -195,6 +188,49 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             }
 
         });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        System.out.println("ele:"+elementoCliccato);
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti").child(key).child("corpo");
+
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String parola = ds.child("parola").getValue(String.class);
+
+                    paroleEseguite.add(parola);
+
+                }
+
+                if(!paroleEseguite.contains(elementoCliccato)) {
+
+                    gf.child("utenti").child(key).child("corpo").child(id).child("parola").setValue(elementoCliccato);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {
@@ -351,6 +387,17 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.piedi:
                 parole = new ArrayList();
                 parole.add("Piedi"); parole.add("Pieds"); parole.add("Feet");
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Piedi");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -358,6 +405,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.caviglie:
                 parole = new ArrayList();
                 parole.add("Caviglie"); parole.add("Chevilles"); parole.add("Ankles");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Caviglie");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -365,6 +422,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.stinchi:
                 parole = new ArrayList();
                 parole.add("Stinchi"); parole.add("Tibias"); parole.add("Shins");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Stinchi");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -372,6 +439,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.ginocchia:
                 parole = new ArrayList();
                 parole.add("Ginocchia"); parole.add("Genoux"); parole.add("Knees");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Ginocchia");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -379,6 +456,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.coscie:
                 parole = new ArrayList();
                 parole.add("Cosce"); parole.add("Cuisses"); parole.add("Thighs");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Cosce");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -386,6 +473,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.addome:
                 parole = new ArrayList();
                 parole.add("Addome"); parole.add("Ventre"); parole.add("Abdomen");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Addome");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -393,6 +490,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.torace:
                 parole = new ArrayList();
                 parole.add("Torace"); parole.add("Poitrine"); parole.add("Chest");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Torace");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -400,6 +507,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.collo:
                 parole = new ArrayList();
                 parole.add("Collo"); parole.add("Cou"); parole.add("Neck");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Collo");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -407,6 +524,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.testa:
                 parole = new ArrayList();
                 parole.add("Testa"); parole.add("Tête"); parole.add("Head");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Testa");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -414,6 +541,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.braccioDestro:
                 parole = new ArrayList();
                 parole.add("Braccio"); parole.add("Bras"); parole.add("Arm");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Braccio1");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -421,6 +558,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.braccioSinistro:
                 parole = new ArrayList();
                 parole.add("Braccio"); parole.add("Bras"); parole.add("Arm");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Braccio2");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -428,6 +575,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.avambraccioDestro:
                 parole = new ArrayList();
                 parole.add("Avambraccio"); parole.add("Avant-bras"); parole.add("Forearm");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Avambraccio1");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -435,6 +592,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.avambraccioSinistro:
                 parole = new ArrayList();
                 parole.add("Avambraccio"); parole.add("Avant-bras"); parole.add("Forearm");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Avambraccio2");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -442,6 +609,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.manoDestra:
                 parole = new ArrayList();
                 parole.add("Mano"); parole.add("Main"); parole.add("Hand");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Mano1");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);
@@ -449,6 +626,16 @@ public class ActivityCorpo extends AppCompatActivity implements View.OnDragListe
             case R.id.manoSinistra:
                 parole = new ArrayList();
                 parole.add("Mano"); parole.add("Main"); parole.add("Hand");
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, "Mano2");
+
+                }
                 adapter = new SpinnerAdapter(getApplicationContext(), parole);
                 spinner.setAdapter(adapter);
                 spinner.setSelection(0);

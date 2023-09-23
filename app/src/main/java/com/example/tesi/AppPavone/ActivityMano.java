@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -107,17 +110,7 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
             }
         });
 
-        //controllo se l'utente è loggato
-        if(user != null) {
 
-
-            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-            trovaKeyUtente(nomeUtente);
-
-        }
 
     }
 
@@ -348,6 +341,18 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                             img.setOnClickListener(ActivityMano.this);
                             img.performClick();
 
+                            //controllo se l'utente è loggato
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Polso");
+
+                            }
+
                         }
                         break;
                     case "palmo":
@@ -370,6 +375,17 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                             ImageView img = (ImageView) view;
                             img.setOnClickListener(ActivityMano.this);
                             img.performClick();
+
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Palmo");
+
+                            }
                         }
                         break;
                     case "pollice":
@@ -388,6 +404,17 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
 
                             img.setOnClickListener(ActivityMano.this);
                             img.performClick();
+
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Pollice");
+
+                            }
 
                         }
                         break;
@@ -408,6 +435,17 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                             img.setOnClickListener(ActivityMano.this);
                             img.performClick();
 
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Indice");
+
+                            }
+
                         }
                         break;
                     case "medio":
@@ -426,6 +464,17 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
 
                             img.setOnClickListener(ActivityMano.this);
                             img.performClick();
+
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Medio");
+
+                            }
                         }
                         break;
                     case "anulare":
@@ -445,6 +494,17 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
                             img.setOnClickListener(ActivityMano.this);
                             img.performClick();
 
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Anulare");
+
+                            }
+
                         }
                         break;
                     case "mignolo":
@@ -463,6 +523,17 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
 
                             img.setOnClickListener(ActivityMano.this);
                             img.performClick();
+
+                            if(user != null) {
+
+
+                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                                trovaKeyUtente(nomeUtente, "Mignolo");
+
+                            }
                         }
                         break;
                 }
@@ -483,6 +554,84 @@ public class ActivityMano extends AppCompatActivity implements View.OnDragListen
         view.startDrag(data, shadowBuilder, view, 0);
         //view.setVisibility(View.INVISIBLE);
         return true;
+
+    }
+
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
+
+        String id = UUID.randomUUID().toString();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        key = postSnapshot.getKey();
+
+                        scriviElemento(id, elementoCliccato);
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+        System.out.println("ele:"+elementoCliccato);
+
+        ArrayList<String> paroleEseguite = new ArrayList<>();
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rf = dr.child("utenti").child(key).child("corpo mano");
+
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    String parola = ds.child("parola").getValue(String.class);
+
+                    paroleEseguite.add(parola);
+
+                }
+
+                if(!paroleEseguite.contains(elementoCliccato)) {
+
+                    gf.child("utenti").child(key).child("corpo mano").child(id).child("parola").setValue(elementoCliccato);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 

@@ -1,5 +1,7 @@
 package com.example.tesi.AppPavone;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -110,18 +113,6 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        //controllo se l'utente è loggato
-        if(user != null) {
-
-
-            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            String nomeUtente =  mailLogged.replace("@gmail.com", "");
-
-            trovaKeyUtente(nomeUtente);
-
-        }
-
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ArrayList<String> domanda1 = new ArrayList<>();
@@ -199,7 +190,7 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    public void trovaKeyUtente(String nomeUtente) {
+    public void trovaKeyUtente(String nomeUtente, String elementoCliccato) {
 
         String id = UUID.randomUUID().toString();
 
@@ -217,7 +208,7 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(id, nomeUtente);
+                        scriviElemento(id, elementoCliccato);
 
                     }
 
@@ -232,6 +223,86 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
             }
 
         });
+    }
+
+    public void scriviElemento(String id, String elementoCliccato) {
+
+
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        if(dialogoScelto == 1) {
+            ArrayList<String> paroleEseguite = new ArrayList<>();
+            DatabaseReference rf = dr.child("utenti").child(key).child("parla con il medico dialogo1");
+
+            DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String parola = ds.child("parola").getValue(String.class);
+
+                        paroleEseguite.add(parola);
+
+                    }
+
+                    if(!paroleEseguite.contains(elementoCliccato)) {
+
+                        gf.child("utenti").child(key).child("parla con il medico dialogo1").child(id).child("parola").setValue(elementoCliccato);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+else if (dialogoScelto == 2) {
+            ArrayList<String> paroleEseguite = new ArrayList<>();
+            DatabaseReference rf = dr.child("utenti").child(key).child("parla con il medico dialogo2");
+
+            DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
+
+
+            rf.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    for(DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                        // A new comment has been added, add it to the displayed list
+                        String parola = ds.child("parola").getValue(String.class);
+
+                        paroleEseguite.add(parola);
+
+                    }
+
+                    if(!paroleEseguite.contains(elementoCliccato)) {
+
+                        gf.child("utenti").child(key).child("parla con il medico dialogo2").child(id).child("parola").setValue(elementoCliccato);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+
+
     }
 
     public void scriviAttivitaDb(String id, String nomeUtente) {
@@ -323,6 +394,17 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
                 deleseziona();
                 ArrayList<String> risp = (ArrayList<String>) risposte.get(dialogoScelto).get(1);
                 textPaziente.setText((String) risp.get(0));
+                //controllo se l'utente è loggato
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, risp.get(0));
+
+                }
                 button_risp1.setBackgroundColor(Color.parseColor("#50e024"));
                 rispScelta = 1;
                 animazione();
@@ -334,6 +416,16 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
                 deleseziona();
                 risp = (ArrayList<String>) risposte.get(dialogoScelto).get(2);
                 textPaziente.setText((String) risp.get(0));
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, risp.get(0));
+
+                }
                 button_risp2.setBackgroundColor(Color.parseColor("#50e024"));
                 rispScelta = 2;
                 animazione();
@@ -345,6 +437,16 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
                 deleseziona();
                 risp = (ArrayList<String>) risposte.get(dialogoScelto).get(3);
                 textPaziente.setText((String) risp.get(0));
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, risp.get(0));
+
+                }
                 button_risp3.setBackgroundColor(Color.parseColor("#50e024"));
                 rispScelta = 3;
                 animazione();
@@ -356,6 +458,16 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
                 deleseziona();
                  risp = (ArrayList<String>) risposte.get(dialogoScelto).get(4);
                 textPaziente.setText((String) risp.get(0));
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, risp.get(0));
+
+                }
                 button_risp4.setBackgroundColor(Color.parseColor("#50e024"));
                 rispScelta = 4;
                 animazione();
@@ -367,6 +479,16 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
                 deleseziona();
                 risp = (ArrayList<String>) risposte.get(dialogoScelto).get(5);
                 textPaziente.setText((String) risp.get(0));
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, risp.get(0));
+
+                }
                 button_risp5.setBackgroundColor(Color.parseColor("#50e024"));
                 rispScelta = 5;
                 animazione();
@@ -378,6 +500,16 @@ public class ActivityDialogo extends AppCompatActivity implements View.OnClickLi
                 deleseziona();
                 risp = (ArrayList<String>) risposte.get(dialogoScelto).get(6);
                 textPaziente.setText((String) risp.get(0));
+                if(user != null) {
+
+
+                    String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                    String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+                    trovaKeyUtente(nomeUtente, risp.get(0));
+
+                }
                 button_risp6.setBackgroundColor(Color.parseColor("#50e024"));
                 rispScelta = 6;
                 animazione();

@@ -25,6 +25,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
     private ImageView backIcon;
     private ImageView badgeIcon;
     private TextView title_toolbar;
+    private String nomePercorso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
             }
         });
 
-
+        nomePercorso = new String();
         cv1 = findViewById(R.id.cv1);
         cv2 = findViewById(R.id.cv2);
         cv3 = findViewById(R.id.cv3);
@@ -58,6 +59,12 @@ public class P1EpisodiActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         int flagDo = sharedPref.getInt("flagDo", 0);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            nomePercorso = extras.getString("percorso1");
+            System.out.println("nom1:"+nomePercorso);
+        }
+
 
         cv1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +73,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
                 //aprire passi dell'episodio 1 del percorso 1
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
                 i.putExtra("flagDo",flagDo);
+                i.putExtra("percorso1",nomePercorso);
                 startActivity(i);
                 finish();
             }
