@@ -206,7 +206,7 @@ public class ActivityParla extends AppCompatActivity implements RecognitionListe
                 spinner.setSelection(0);
 
                 speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext());
-                //speechRecognizer.setRecognitionListener(this);              commentato ma potrebbe dare problemi forse
+                speechRecognizer.setRecognitionListener(ActivityParla.this);              //commentato ma potrebbe dare problemi forse
 
 
                 button_Parla.setOnClickListener(new View.OnClickListener() {
