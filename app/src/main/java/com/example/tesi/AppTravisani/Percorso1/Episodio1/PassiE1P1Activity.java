@@ -186,6 +186,7 @@ public class PassiE1P1Activity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), Passo4E1P1.class);
                         int score = getIntent().getExtras().getInt("time");
                         i.putExtra("time", score);
+                        i.putExtra("percorso1", nomePercorso);
                         startActivity(i);
                         finish();
 

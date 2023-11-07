@@ -58,23 +58,14 @@ public class SplashScreen extends AppCompatActivity {
 
             boolean isFirstTime= onBordingScreen.getBoolean("firstTime",true);
 
-            if(isFirstTime){//se è la prima volta che un user apre l'app succede:
-                SharedPreferences.Editor editor = onBordingScreen.edit();
-                editor.putBoolean("firstTime",false);
-                editor.apply();
 
-                //aprire la sequenza di slide che spiegano come si usa l'app
-                Intent i = new Intent(getApplicationContext(), Home.class);
-                startActivity(i);
-                finish();
-            } else {
 
                 //apri la schermata login
                 Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
                 finish();
 
-            }
+
 
 
         },SPLASH_TIMER);

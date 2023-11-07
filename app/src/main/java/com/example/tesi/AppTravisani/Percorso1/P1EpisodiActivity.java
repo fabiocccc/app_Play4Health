@@ -62,7 +62,6 @@ public class P1EpisodiActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             nomePercorso = extras.getString("percorso1");
-            System.out.println("nom1:"+nomePercorso);
         }
 
 
