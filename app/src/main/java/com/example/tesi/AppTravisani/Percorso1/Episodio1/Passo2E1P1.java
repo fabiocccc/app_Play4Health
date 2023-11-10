@@ -42,6 +42,8 @@ public class Passo2E1P1 extends AppCompatActivity {
     private int score, timeback;
 
     private String nomePercorso;
+    private int numeroEpisodi = 0;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class Passo2E1P1 extends AppCompatActivity {
         risp11 = findViewById(R.id.card11);
         risp13 = findViewById(R.id.card13);
         risp15 = findViewById(R.id.card15);
+
+        key = new String();
 
         dialog= new Dialog(this);
 
@@ -118,6 +122,8 @@ public class Passo2E1P1 extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             nomePercorso = extras.getString("percorso1");
+            numeroEpisodi = extras.getInt("percorso1Fatto");
+            key = extras.getString("keyUser");
         }
 
         risp11.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +135,9 @@ public class Passo2E1P1 extends AppCompatActivity {
                 //PASSO 3 EPISODIO 1 P1
                 Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);
                 i.putExtra("time", score);
+                i.putExtra("percorso1Fatto",numeroEpisodi);
                 i.putExtra("percorso1", nomePercorso);
+                i.putExtra("keyUser",key);
                 startActivity(i);
                 finish();
             }

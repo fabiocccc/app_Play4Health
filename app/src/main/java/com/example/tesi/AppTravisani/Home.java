@@ -15,11 +15,13 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppConte.Login;
+import com.example.tesi.AppConte.TipoLogin;
 import com.example.tesi.AppPavone.HomePrima;
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
@@ -36,6 +38,8 @@ public class Home extends AppCompatActivity {
     private AnimationDrawable animationDrawable1 = null;
     private AnimationDrawable animationDrawable2 = null;
     private ImageView help1, help2, logout;
+    private TextView txtCiao;
+    private TextView txtUser;
 
     DatabaseReference dr;
     private String key;
@@ -52,6 +56,8 @@ public class Home extends AppCompatActivity {
         help1 = findViewById(R.id.help1);
         help2 = findViewById(R.id.help2);
         logout = findViewById(R.id.logout);
+        txtCiao = findViewById(R.id.textCiao);
+        txtUser = findViewById(R.id.textUsername);
 
         //logout.setVisibility(View.GONE);
 
@@ -60,9 +66,20 @@ public class Home extends AppCompatActivity {
         //controllo se l'utente è loggato
         if(userDb != null) {
             logout.setVisibility(View.VISIBLE);
+
+            txtCiao.setText("Ciao");
+            txtCiao.setVisibility(View.VISIBLE);
+
+            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            String nomeUtente =  mailLogged.replace("@gmail.com", "");
+            txtUser.setText(nomeUtente);
+            txtUser.setVisibility(View.VISIBLE);
+
         }
         else if(userDb == null) {
             logout.setVisibility(View.GONE);
+            txtCiao.setVisibility(View.INVISIBLE);
+            txtUser.setVisibility(View.INVISIBLE);
         }
 
         button_aiuto.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +139,7 @@ public class Home extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Disconnessione effettuata", Toast.LENGTH_SHORT).show();
 
                 finish();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
+                Intent intent = new Intent(getApplicationContext(), TipoLogin.class);
                 startActivity(intent);
             }
         });

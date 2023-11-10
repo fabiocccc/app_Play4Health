@@ -1,26 +1,45 @@
 package com.example.tesi.AppTravisani.Percorso1.Episodio1;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.tesi.AppTravisani.CustomPremiAdapter;
+import com.example.tesi.AppTravisani.ListaPremi;
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PassiE1P1Activity extends AppCompatActivity {
 
     private CardView passo1, passo2, passo3, passo4;
     private ImageView backIcon;
     private ImageView badgeIcon;
-    private ImageView imgCardP2,imgCardP3,imgCardP4;
+    private ImageView imgCardP2,imgCardP3,imgCardP4,imgCardP2Calcio,imgCardP3Calcio,imgCardP4Calcio;
     private TextView title_toolbar;
     private String nomePercorso;
+    private int numeroEpisodi = 0;
+
+    DatabaseReference dr;
+    private String key;
+    private FirebaseUser user;
+    private String nomeUtente;
 
 
     @Override
@@ -41,28 +60,78 @@ public class PassiE1P1Activity extends AppCompatActivity {
         imgCardP3= findViewById(R.id.passo3img);
         imgCardP4= findViewById(R.id.passo4img);
 
+        imgCardP2Calcio= findViewById(R.id.passo2imgCalcio);
+        imgCardP3Calcio= findViewById(R.id.passo3imgCalcio);
+        imgCardP4Calcio= findViewById(R.id.passo4imgCalcio);
+
         backIcon = findViewById(R.id.back_icon);
         badgeIcon = findViewById(R.id.badge_icon);
         badgeIcon.setVisibility(View.INVISIBLE);
+
+        imgCardP2.setVisibility(View.INVISIBLE);
+        imgCardP3.setVisibility(View.INVISIBLE);
+        imgCardP4.setVisibility(View.INVISIBLE);
+        imgCardP2Calcio.setVisibility(View.INVISIBLE);
+        imgCardP3Calcio.setVisibility(View.INVISIBLE);
+        imgCardP4Calcio.setVisibility(View.INVISIBLE);
+
         nomePercorso = new String();
+        key = new String();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
-        //gestione memoria dell'esecuzione dei passi in diverse sessioni
-        SharedPreferences sharedPref = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        int flagDo = sharedPref.getInt("flagDo1", 0);
+        if(user != null) {
 
-        if(flagDo == 4)
-        {
-            sbloccaPassi(4);
+            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            nomeUtente =  mailLogged.replace("@gmail.com", "");
+            Bundle extras = getIntent().getExtras();
+
+            if(extras != null) {
+                nomePercorso = extras.getString("percorso1");
+                numeroEpisodi = extras.getInt("percorso1Fatto");
+                key = extras.getString("keyUser");
+            }
+                sbloccaPassi(numeroEpisodi);
+
+            ///PASSO 1 PERCORSO 1
+            passo1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //aprire passo 1 del percorso 1
+                    Intent i = new Intent(getApplicationContext(), Passo1E1P1.class);
+
+                    nomePercorso = "il gioco del calcio";
+                    i.putExtra("percorso1Fatto",numeroEpisodi);
+                    i.putExtra("percorso1", nomePercorso);
+                    i.putExtra("keyUser",key);
+                    startActivity(i);
+                    finish();
+
+
+                }
+            });
+
         }
+        else if(user == null ){
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null) {
-            nomePercorso = extras.getString("percorso1");
-            System.out.println("nom1:"+nomePercorso);
+            sbloccaPassi(0);
+
+            ///PASSO 1 PERCORSO 1
+            passo1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //aprire passo 1 del percorso 1
+                    Intent i = new Intent(getApplicationContext(), Passo1E1P1.class);
+
+                    startActivity(i);
+                    finish();
+
+
+                }
+            });
+
         }
-
-        //4-->ha fatto tutti i passi del primo episodio
-        sbloccaPassi(flagDo);
 
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,30 +144,16 @@ public class PassiE1P1Activity extends AppCompatActivity {
             }
         });
 
-
-       ///PASSO 1 PERCORSO 1
-        passo1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //aprire passo 1 del percorso 1
-                Intent i = new Intent(getApplicationContext(), Passo1E1P1.class);
-                i.putExtra("percorso1", nomePercorso);
-                startActivity(i);
-                finish();
-            }
-        });
-
-
     }
 
     //sblocca passi a seconda del flag
     private void sbloccaPassi(int flag) {
-
-        switch (flag)
+        if (flag == 1)
         {
-            case 2:
-                imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
+
+            imgCardP2Calcio.setVisibility(View.VISIBLE);
+            imgCardP2.setVisibility(View.GONE);
+
                 passo2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -113,24 +168,10 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
                     }
                 });
-                break;
-            case 3:
-                imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
-                passo2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                        //aprire passo 2
-                        Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
-                        int score = getIntent().getExtras().getInt("time");
-                        i.putExtra("time", score);
-                        i.putExtra("percorso1", nomePercorso);
-                        startActivity(i);
-                        finish();
 
-                    }
-                });
-                imgCardP3.setImageResource(R.drawable.ic_baseline_lock_open);
+            imgCardP3Calcio.setVisibility(View.VISIBLE);
+            imgCardP3.setVisibility(View.GONE);
                 passo3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -145,39 +186,11 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
                     }
                 });
-                break;
-            case 4:
-                imgCardP2.setImageResource(R.drawable.ic_baseline_lock_open);
-                passo2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                        //aprire passo 2
-                        Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
-                        int score = getIntent().getExtras().getInt("time");
-                        i.putExtra("time", score);
-                        i.putExtra("percorso1", nomePercorso);
-                        startActivity(i);
-                        finish();
 
-                    }
-                });
-                imgCardP3.setImageResource(R.drawable.ic_baseline_lock_open);
-                passo3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                        //aprire passo 3
-                        Intent i = new Intent(getApplicationContext(), Passo3E1P1.class);
-                        int score = getIntent().getExtras().getInt("time");
-                        i.putExtra("percorso1", nomePercorso);
-                        i.putExtra("time", score);
-                        startActivity(i);
-                        finish();
-
-                    }
-                });
-                imgCardP4.setImageResource(R.drawable.ic_baseline_lock_open);
+            imgCardP4Calcio.setVisibility(View.VISIBLE);
+            imgCardP4.setVisibility(View.GONE);
                 passo4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -192,9 +205,19 @@ public class PassiE1P1Activity extends AppCompatActivity {
 
                     }
                 });
-                break;
-            default:
-                break;
+
+        }
+        else if (flag == 0) {
+
+            imgCardP2Calcio.setVisibility(View.GONE);
+            imgCardP2.setVisibility(View.VISIBLE);
+
+            imgCardP3Calcio.setVisibility(View.GONE);
+            imgCardP3.setVisibility(View.VISIBLE);
+
+            imgCardP4Calcio.setVisibility(View.GONE);
+            imgCardP4.setVisibility(View.VISIBLE);
+
         }
 
 

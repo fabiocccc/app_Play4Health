@@ -100,6 +100,12 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_lock" />
 
+                <ImageView
+                    android:id="@+id/passo2imgPorta"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/iconportiere" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,6 +144,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_lock" />
+
+                <ImageView
+                    android:id="@+id/passo3imgPorta"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/iconportiere" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,6 +190,12 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_lock" />
 
+                <ImageView
+                    android:id="@+id/passo4imgPorta"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/iconportiere" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -216,6 +234,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_baseline_lock" />
+
+                        <ImageView
+                            android:id="@+id/passo5imgPorta"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/iconportiere" />
 
                         <TextView
                             android:layout_width="wrap_content"

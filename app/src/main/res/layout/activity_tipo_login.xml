@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imagelogo"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nomelogo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="72dp"
+        android:fontFamily="casual"
+        android:text="Play4Health"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button_Username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagelogo" />
+
+
+    <android.widget.Button
+        android:id="@+id/button_Username"
+        android:layout_width="119dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="155dp"
+        android:layout_marginEnd="137dp"
+        android:layout_marginBottom="60dp"
+        android:background="@color/teal_800"
+        android:text="Accedi con username"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/button_Ospite"
+        app:layout_constraintEnd_toEndOf="@+id/nomelogo"
+        app:layout_constraintStart_toStartOf="@+id/nomelogo" />
+
+    <android.widget.Button
+        android:id="@+id/button_Ospite"
+        android:layout_width="119dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="137dp"
+        android:background="@color/teal_800"
+        android:text="Accedi come ospite"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/nomelogo"
+        app:layout_constraintStart_toStartOf="@+id/nomelogo"
+        app:layout_constraintTop_toTopOf="@+id/button_Username" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

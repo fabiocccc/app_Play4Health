@@ -1,5 +1,7 @@
 package com.example.tesi.AppTravisani.Percorso1.Episodio2;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +15,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -24,7 +28,9 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppConte.AttivitaUtente;
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.PassiE1P1Activity;
 import com.example.tesi.AppTravisani.Percorso1.Episodio1.Passo1E1P1;
+import com.example.tesi.AppTravisani.Percorso1.Episodio1.Passo4E1P1;
 import com.example.tesi.AppTravisani.Percorso1.Episodio3.PassiE3P1Activity;
+import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,6 +69,8 @@ public class Passo5E2P1 extends AppCompatActivity {
     DatabaseReference dr;
     private String key;
     private FirebaseUser userDb;
+
+    private int episodio3 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +113,25 @@ public class Passo5E2P1 extends AppCompatActivity {
 
             String nomeUtente =  mailLogged.replace("@gmail.com", "");
 
-            trovaKeyUtente(nomeUtente);
+            passiE3Completati(new Passo5E2P1.MyCallback() {
+
+                public void onCallback(int numeroEpisodi, String key) {
+
+                    //vale 1 se ha completato il percorso 2
+                    episodio3 = numeroEpisodi;
+                }
+
+
+            });
+
+            new android.os.Handler(Looper.getMainLooper()).postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            trovaKeyUtente(nomeUtente);
+                        }
+                    },
+                    20000);
+
 
         }
 
@@ -197,11 +223,38 @@ public class Passo5E2P1 extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "il gioco del calcio" + " "+"episodio 2";
+        DatabaseReference rf2 = dr.child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E2");
 
-        AttivitaUtente attivitaUtente = new AttivitaUtente(completato, timeScore,formattedDate);
-        FirebaseDatabase.getInstance().getReference().child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E2").child(user).setValue(attivitaUtente);
-        txtTimeFinal.setText(timeScore);
+        rf2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int numeroEpisodi = 0;
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    numeroEpisodi = numeroEpisodi + 1;
+
+                }
+
+                //controllo che l'episodio non sia stato svolto
+                if(numeroEpisodi == 0) {
+                    String completato = "il gioco del calcio" + " "+"episodio 2";
+
+                    AttivitaUtente attivitaUtente = new AttivitaUtente(completato, timeScore,formattedDate);
+                    FirebaseDatabase.getInstance().getReference().child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E2").child(user).setValue(attivitaUtente);
+                    txtTimeFinal.setText(timeScore);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
     }
 
@@ -339,7 +392,7 @@ public class Passo5E2P1 extends AppCompatActivity {
 
                 findialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), PassiE3P1Activity.class);
-                i.putExtra("flagDo",0);
+                i.putExtra("percorso3Fatto",episodio3);
                 startActivity(i);
                 finish();
 
@@ -347,6 +400,78 @@ public class Passo5E2P1 extends AppCompatActivity {
         });
 
         findialog.show();
+    }
+
+    public interface MyCallback {
+        void onCallback(int numeroEpisodi, String key);
+    }
+
+    public void passiE3Completati(Passo5E2P1.MyCallback myCallback) {
+
+        String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        String nomeUtente =  mailLogged.replace("@gmail.com", "");
+
+        dr = FirebaseDatabase.getInstance().getReference();
+
+        //prendo la key dello user loggato
+
+        DatabaseReference rf = dr.child("utenti");
+        rf.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    String username = postSnapshot.child("username").getValue(String.class);
+                    if (username.equals(nomeUtente)) {
+
+                        //salvo la key dell'utente loggato per controllare qunati percorsi ha svolto
+                        key = postSnapshot.getKey();
+
+                        ///
+
+                        DatabaseReference rf2 = dr.child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E3");
+
+                        rf2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                int numeroEpisodi = 0;
+                                for(DataSnapshot ds : snapshot.getChildren()) {
+                                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                                    // A new comment has been added, add it to the displayed list
+                                    numeroEpisodi = numeroEpisodi + 1;
+
+                                }
+                                myCallback.onCallback(numeroEpisodi, key);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                        ///
+
+
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+
     }
 
     @Override

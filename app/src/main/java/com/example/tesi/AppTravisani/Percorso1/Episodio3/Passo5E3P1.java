@@ -1,5 +1,7 @@
 package com.example.tesi.AppTravisani.Percorso1.Episodio3;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +15,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -109,7 +113,13 @@ public class Passo5E3P1 extends AppCompatActivity {
 
             String nomeUtente =  mailLogged.replace("@gmail.com", "");
 
-            trovaKeyUtente(nomeUtente);
+            new android.os.Handler(Looper.getMainLooper()).postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            trovaKeyUtente(nomeUtente);
+                        }
+                    },
+                    20000);
 
         }
 
@@ -201,11 +211,36 @@ public class Passo5E3P1 extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String completato = "il gioco del calcio" + " "+"episodio 3";
+        DatabaseReference rf2 = dr.child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E3");
 
-        AttivitaUtente attivitaUtente = new AttivitaUtente(completato, timeScore,formattedDate);
-        FirebaseDatabase.getInstance().getReference().child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E3").child(user).setValue(attivitaUtente);
-        txtTimeFinal.setText(timeScore);
+        rf2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int numeroEpisodi = 0;
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    numeroEpisodi = numeroEpisodi + 1;
+
+                }
+
+                //controllo che l'episodio non sia stato svolto
+                if(numeroEpisodi == 0) {
+                    String completato = "il gioco del calcio" + " "+"episodio 3";
+
+                    AttivitaUtente attivitaUtente = new AttivitaUtente(completato, timeScore,formattedDate);
+                    FirebaseDatabase.getInstance().getReference().child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E3").child(user).setValue(attivitaUtente);
+                    txtTimeFinal.setText(timeScore);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

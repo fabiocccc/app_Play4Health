@@ -12,9 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.tesi.AppConte.Login;
+import com.example.tesi.AppConte.TipoLogin;
 import com.example.tesi.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -29,9 +33,13 @@ public class SplashScreen extends AppCompatActivity {
 
     SharedPreferences onBordingScreen;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
 
         //nasconde la barra dell'app
@@ -58,12 +66,22 @@ public class SplashScreen extends AppCompatActivity {
 
             boolean isFirstTime= onBordingScreen.getBoolean("firstTime",true);
 
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            mAuth = FirebaseAuth.getInstance();
 
-
+            if(user != null) {
+                Intent intent = new Intent(SplashScreen.this, Home.class);
+                startActivity(intent);
+            }
+            else {
                 //apri la schermata login
-                Intent i = new Intent(getApplicationContext(), Login.class);
+                Intent i = new Intent(getApplicationContext(), TipoLogin.class);
                 startActivity(i);
                 finish();
+            }
+
+
+
 
 
 
@@ -71,4 +89,5 @@ public class SplashScreen extends AppCompatActivity {
         },SPLASH_TIMER);
 
     }
+
 }

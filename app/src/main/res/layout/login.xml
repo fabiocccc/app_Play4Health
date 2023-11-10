@@ -5,87 +5,131 @@
     android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-
-    <android.widget.Button
-        android:id="@+id/button_Ospite"
-        android:layout_width="119dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="52dp"
-        android:background="@color/teal_800"
-        android:text="Accedi come ospite"
-        android:textColor="@color/white"
+    <ImageView
+        android:id="@+id/imagelogo"
+        android:layout_width="404dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Foto" />
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="212dp"
+        android:text="Inserisci il tuo username"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_Carica2"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="68dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 
-    <TextView
-        android:id="@+id/textView4"
+    <EditText
+        android:id="@+id/editTextUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="83dp"
-        android:text="Inserisci l'immagine per effettuare il login"
+        android:layout_marginTop="112dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toTopOf="@+id/txtUsername" />
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="152dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.985"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="152dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+
+    <android.widget.Button
+        android:id="@+id/button_Verifica"
+        android:layout_width="119dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="133dp"
+        android:background="@color/teal_800"
+        android:text="Verifica"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/image2"
+        app:layout_constraintStart_toEndOf="@+id/image3"
+        app:layout_constraintTop_toBottomOf="@+id/image1" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="152dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+
+    <TextView
+        android:id="@+id/txtPassword"
+        android:layout_width="213dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="128dp"
+        android:text="Seleziona la password"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.widget.Button
-        android:id="@+id/button_Foto"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/cirlce1"
-        android:backgroundTint="@color/teal_800"
-        android:foreground="@drawable/galleria"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_Carica"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-
-    <ImageView
-        android:id="@+id/image_Carica"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginBottom="52dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/button_Foto"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <android.widget.Button
-        android:id="@+id/button_Salva"
-        android:layout_width="119dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="69dp"
-        android:background="@color/teal_800"
-        android:text="Login"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/button_Ospite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Foto" />
+        app:layout_constraintTop_toBottomOf="@+id/imagelogo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

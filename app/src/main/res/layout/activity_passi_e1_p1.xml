@@ -101,6 +101,13 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_lock" />
 
+                <ImageView
+                    android:id="@+id/passo2imgCalcio"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icona_giocatore" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,6 +147,13 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_lock" />
 
+                <ImageView
+                    android:id="@+id/passo3imgCalcio"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icona_giocatore" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,6 +192,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_lock" />
+
+                <ImageView
+                    android:id="@+id/passo4imgCalcio"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icona_giocatore" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -44,6 +44,8 @@ public class Passo1E1P1 extends AppCompatActivity {
     private int score;
 
     private String nomePercorso;
+    private int numeroEpisodi = 0;
+    private String key;
 
 
     @Override
@@ -72,6 +74,7 @@ public class Passo1E1P1 extends AppCompatActivity {
         chronometerstart();
 
         nomePercorso = new String();
+        key = new String();
 
         btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +143,8 @@ public class Passo1E1P1 extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             nomePercorso = extras.getString("percorso1");
+            numeroEpisodi = extras.getInt("percorso1Fatto");
+            key = extras.getString("keyUser");
         }
 
         rispPollice.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +158,8 @@ public class Passo1E1P1 extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), Passo2E1P1.class);
                 i.putExtra("time", score);
                 i.putExtra("percorso1", nomePercorso);
+                i.putExtra("percorso1Fatto",numeroEpisodi);
+                i.putExtra("keyUser",key);
                 startActivity(i);
                 finish();
             }
