@@ -63,7 +63,7 @@ public class Passo5E3P1 extends AppCompatActivity {
     private String user;
     private Random codutente;
 
-    private int flag;
+    private int episodio3Completato = 0;
 
     DatabaseReference dr;
     private String key;
@@ -86,40 +86,27 @@ public class Passo5E3P1 extends AppCompatActivity {
         dialog= new Dialog(this);
         findialog = new Dialog(this);
 
-        flag = 5;
-
-        //gestione memoria dell'esecuzione dei passi in diverse sessioni
-        SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("flagDo3", flag);
-        editor.commit();
-
         //gestione tempo
         codutente = new Random();
         user = String.valueOf(codutente.nextInt()); // genera un cod utente casuale
         timeback = getIntent().getExtras().getInt("time");
         timeScore = "00:" + timeback; // tempo da salvare su Firebase
-        //salvataggio su Firebase del tempo
-        FirebaseDatabase.getInstance().getReference().child("TimeP1").child("P1E3").child(user).setValue(timeScore);
-        txtTimeFinal.setText(timeScore);
 
         userDb = FirebaseAuth.getInstance().getCurrentUser();
 
         //controllo se l'utente è loggato
         if(userDb != null) {
 
+            Bundle extras = getIntent().getExtras();
+            if(extras != null) {
+                episodio3Completato = extras.getInt("percorso3Fatto");
+            }
 
             String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
             String nomeUtente =  mailLogged.replace("@gmail.com", "");
 
-            new android.os.Handler(Looper.getMainLooper()).postDelayed(
-                    new Runnable() {
-                        public void run() {
-                            trovaKeyUtente(nomeUtente);
-                        }
-                    },
-                    20000);
+            trovaKeyUtente(nomeUtente);
 
         }
 
@@ -312,8 +299,7 @@ public class Passo5E3P1 extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), PassiE3P1Activity.class);
-                i.putExtra("flagDo",5);
-                i.putExtra("time", 0);
+                i.putExtra("percorso3Fatto",episodio3Completato);
                 startActivity(i);
                 finish();
             }
@@ -354,7 +340,7 @@ public class Passo5E3P1 extends AppCompatActivity {
             public void onClick(View view) {
                 findialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), PassiE3P1Activity.class);
-                i.putExtra("flagDo",5);
+                i.putExtra("percorso3Fatto",1);
                 startActivity(i);
                 finish();
             }
@@ -366,6 +352,7 @@ public class Passo5E3P1 extends AppCompatActivity {
             public void onClick(View view) {
                 findialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), Passo1E3P1.class);
+                i.putExtra("percorso3Fatto",1);
                 startActivity(i);
                 finish();
             }
@@ -377,7 +364,6 @@ public class Passo5E3P1 extends AppCompatActivity {
 
                 findialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), StoryCard.class);
-                i.putExtra("flagDo",0);
                 startActivity(i);
                 finish();
 

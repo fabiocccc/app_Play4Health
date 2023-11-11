@@ -333,6 +333,20 @@ public class Login extends AppCompatActivity {
                                                             FirebaseUser user = mAuth.getCurrentUser();
                                                             System.out.println("firebase oncomplete:"+user);
                                                             //updateUI(user);
+
+                                                            //email utente loggato
+                                                            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                                                            //System.out.println("firebase:"+mailLogged);
+                                                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                            //System.out.println("firebase:"+uid);
+                                                            // }
+
+                                                            Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                            Intent intent = new Intent(getApplicationContext(), Home.class);
+                                                            startActivity(intent);
+
+
                                                         } else {
                                                             // If sign in fails, display a message to the user.
                                                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

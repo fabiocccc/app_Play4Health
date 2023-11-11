@@ -224,6 +224,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
                                     numeroEpisodi = numeroEpisodi + 1;
 
                                 }
+                                rf2.removeEventListener(this);
                                 myCallback.onCallback(numeroEpisodi, key);
                             }
 
@@ -241,6 +242,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
 
 
                 }
+                rf.removeEventListener(this);
 
             }
 
@@ -287,6 +289,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
                                     numeroEpisodi = numeroEpisodi + 1;
 
                                 }
+                                rf2.removeEventListener(this);
                                 myCallback.onCallback(numeroEpisodi, key);
                             }
 
@@ -304,6 +307,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
 
 
                 }
+                rf.removeEventListener(this);
 
             }
 
@@ -350,6 +354,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
                                     numeroEpisodi = numeroEpisodi + 1;
 
                                 }
+                                rf2.removeEventListener(this);
                                 myCallback.onCallback(numeroEpisodi, key);
                             }
 
@@ -367,6 +372,7 @@ public class P1EpisodiActivity extends AppCompatActivity {
 
 
                 }
+                rf.removeEventListener(this);
 
             }
 

@@ -27,8 +27,11 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.tesi.AppConte.AttivitaUtente;
 import com.example.tesi.AppTravisani.Percorso1.Episodio2.PassiE2P1Activity;
+import com.example.tesi.AppTravisani.Percorso1.Episodio2.Passo5E2P1;
 import com.example.tesi.AppTravisani.Percorso1.P1EpisodiActivity;
 import com.example.tesi.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -60,10 +63,10 @@ public class Passo4E1P1 extends AppCompatActivity {
     private String user;
     private Random codutente;
 
-    private int flag;
-
     private String nomePercorso;
     private int episodio2 = 0;
+
+    private int episodio1Completato = 0;
 
     DatabaseReference dr;
     private String key;
@@ -84,13 +87,6 @@ public class Passo4E1P1 extends AppCompatActivity {
         dialog= new Dialog(this);
         findialog = new Dialog(this);
         nomePercorso = new String();
-        //flag = 4;
-
-        //gestione memoria dell'esecuzione dei passi in diverse sessioni
-        //SharedPreferences sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
-        //SharedPreferences.Editor editor = sharedPref.edit();
-        //editor.putInt("flagDo1", flag);
-        //editor.commit();
 
 
         //gestione tempo
@@ -98,21 +94,18 @@ public class Passo4E1P1 extends AppCompatActivity {
         user = String.valueOf(codutente.nextInt()); // genera un cod utente casuale
         timeback = getIntent().getExtras().getInt("time");
         timeScore = "00:" + timeback; // tempo da salvare su Firebase
-        //salvataggio su Firebase del tempo
 
 
         userDb = FirebaseAuth.getInstance().getCurrentUser();
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null) {
-            nomePercorso = extras.getString("percorso1");
-
-        }
-
-
-
         //controllo se l'utente è loggato
         if(userDb != null) {
+
+            Bundle extras = getIntent().getExtras();
+            if(extras != null) {
+                nomePercorso = extras.getString("percorso1");
+                episodio1Completato = extras.getInt("percorso1Fatto");
+            }
 
 
             String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -130,16 +123,9 @@ public class Passo4E1P1 extends AppCompatActivity {
 
             });
 
+            trovaKeyUtente(nomeUtente);
 
-            new android.os.Handler(Looper.getMainLooper()).postDelayed(
-                    new Runnable() {
-                        public void run() {
-                            trovaKeyUtente(nomeUtente, nomePercorso);
-                        }
-                    },
-                    20000);
         }
-
 
         urlVoice4 = "https://firebasestorage.googleapis.com/v0/b/appplay4health.appspot.com/o/audios%2Fita%2FFine%20E1P1.mp3?alt=media&token=aabb6c07-8591-415a-94df-f199a76abc4f";
         playsound(urlVoice4);
@@ -185,7 +171,7 @@ public class Passo4E1P1 extends AppCompatActivity {
 
     }
 
-    public void trovaKeyUtente(String nomeUtente, String nomePercorso) {
+    public void trovaKeyUtente(String nomeUtente) {
 
         String id = UUID.randomUUID().toString();
 
@@ -203,7 +189,7 @@ public class Passo4E1P1 extends AppCompatActivity {
 
                         key = postSnapshot.getKey();
 
-                        scriviAttivitaDb(nomeUtente, nomePercorso);
+                        scriviAttivitaDb();
 
                     }
 
@@ -220,16 +206,17 @@ public class Passo4E1P1 extends AppCompatActivity {
         });
     }
 
-    public void scriviAttivitaDb(String nomeUtente,String nomePercorso) {
+    public void scriviAttivitaDb() {
 
-        dr = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference dr2 = FirebaseDatabase.getInstance().getReference();
 
         Date c = Calendar.getInstance().getTime();
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        DatabaseReference rf2 = dr.child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E1");
+        DatabaseReference rf2 = dr2.child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E1");
+        DatabaseReference gf = FirebaseDatabase.getInstance().getReference();
 
         rf2.addValueEventListener(new ValueEventListener() {
             @Override
@@ -239,18 +226,22 @@ public class Passo4E1P1 extends AppCompatActivity {
                     Log.d(TAG, "onChildAdded:" + snapshot.getKey());
 
                     // A new comment has been added, add it to the displayed list
+
                     numeroEpisodi = numeroEpisodi + 1;
 
-                }
 
+                        rf2.removeEventListener(this);
+
+                }
                 //controllo che l'episodio non sia stato svolto
                 if(numeroEpisodi == 0) {
-                    String completato = nomePercorso + " "+"episodio 1";
+                    String completato = "il gioco del calcio" + " "+"episodio 1";
 
                     AttivitaUtente attivitaUtente = new AttivitaUtente(completato, timeScore,formattedDate);
                     FirebaseDatabase.getInstance().getReference().child("utenti").child(key).child("percorsi").child("TimeP1").child("P1E1").child(user).setValue(attivitaUtente);
                     txtTimeFinal.setText(timeScore);
                 }
+
 
             }
 
@@ -259,6 +250,8 @@ public class Passo4E1P1 extends AppCompatActivity {
 
             }
         });
+
+
 
 
 
@@ -405,8 +398,7 @@ public class Passo4E1P1 extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
-                i.putExtra("flagDo",4);
-                i.putExtra("time", 0);
+                i.putExtra("percorso1Fatto", episodio1Completato);
                 startActivity(i);
                 finish();
             }
@@ -445,12 +437,14 @@ public class Passo4E1P1 extends AppCompatActivity {
         imageViewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 findialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), PassiE1P1Activity.class);
-
-
+                i.putExtra("percorso1Fatto", 1);
                 startActivity(i);
                 finish();
+
+
             }
         });
 
@@ -460,6 +454,7 @@ public class Passo4E1P1 extends AppCompatActivity {
             public void onClick(View view) {
                 findialog.dismiss();
                 Intent i = new Intent(getApplicationContext(), Passo1E1P1.class);
+                i.putExtra("percorso1Fatto", 1);
                 startActivity(i);
                 finish();
             }
