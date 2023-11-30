@@ -9,57 +9,74 @@
         android:id="@+id/imagelogo"
         android:layout_width="404dp"
         android:layout_height="114dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:progressTint="#273CB3"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminateTint="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:layout_constraintVertical_bias="0.39" />
+
     <TextView
         android:id="@+id/txtUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="160dp"
+
+        android:layout_marginEnd="109dp"
         android:text="Inserisci il tuo username"
         android:textColor="@color/black"
         android:textSize="18dp"
-
         android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/imagelogo"
+        app:layout_constraintStart_toStartOf="@+id/imagelogo"
+        app:layout_constraintTop_toTopOf="@+id/imagelogo" />
 
     <ImageView
         android:id="@+id/image_Carica2"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginTop="68dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="138dp"
+        android:layout_marginEnd="277dp"
 
-        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="@+id/imagelogo"
+        app:layout_constraintStart_toStartOf="@+id/imagelogo"
+        app:layout_constraintTop_toBottomOf="@+id/imagelogo" />
 
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="96dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_centerHorizontal="true"
+        app:layout_constraintEnd_toEndOf="@+id/imagelogo"
+        app:layout_constraintStart_toStartOf="@+id/imagelogo"
         app:layout_constraintTop_toTopOf="@+id/txtUsername" />
 
     <ImageView
@@ -68,9 +85,9 @@
         android:layout_height="130dp"
         android:layout_marginTop="152dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
 
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.985"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
@@ -81,7 +98,7 @@
         android:layout_height="130dp"
         android:layout_marginTop="152dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerInside"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintHorizontal_bias="0.06"
@@ -94,26 +111,27 @@
         android:layout_height="48dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="138dp"
         android:layout_marginTop="63dp"
-        android:layout_marginEnd="133dp"
+        android:layout_marginEnd="3dp"
         android:background="@color/teal_800"
         android:text="Verifica"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/image2"
-        app:layout_constraintStart_toEndOf="@+id/image3"
+        app:layout_constraintEnd_toStartOf="@+id/image2"
+        app:layout_constraintStart_toStartOf="@+id/image3"
         app:layout_constraintTop_toBottomOf="@+id/image1" />
 
     <ImageView
         android:id="@+id/image1"
         android:layout_width="130dp"
         android:layout_height="130dp"
+        android:layout_marginStart="144dp"
         android:layout_marginTop="152dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="133dp"
 
-        app:layout_constraintHorizontal_bias="0.523"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="@+id/image2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 

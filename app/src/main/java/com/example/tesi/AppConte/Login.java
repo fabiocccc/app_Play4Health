@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +72,8 @@ public class Login extends AppCompatActivity {
     private EditText editTextUsername;
 
     private int errori = 0;
-
+    private ProgressBar progressBar;
+    private ImageView logo;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,9 @@ public class Login extends AppCompatActivity {
         textUsername = findViewById(R.id.txtUsername);
         textPassword = findViewById(R.id.txtPassword);
         editTextUsername = findViewById(R.id.editTextUsername);
+        progressBar = findViewById(R.id.progress);
+
+        logo= findViewById(R.id.imagelogo);
 
         listaUtenti = new ArrayList<>();
         nomeUtente = new String();
@@ -97,7 +102,7 @@ public class Login extends AppCompatActivity {
         imagePw2.setVisibility(View.INVISIBLE);
         imagePw3.setVisibility(View.INVISIBLE);
         textPassword.setVisibility(View.INVISIBLE);
-
+        progressBar.setVisibility(View.INVISIBLE);
 
 
         button_Verifica.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +110,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 button_Verifica.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
 
                 String username = editTextUsername.getText().toString();
                 System.out.println(username);
@@ -132,7 +138,7 @@ public class Login extends AppCompatActivity {
                             imagePw3.setVisibility(View.VISIBLE);
                             editTextUsername.setVisibility(View.INVISIBLE);
                             textUsername.setVisibility(View.INVISIBLE);
-
+                            progressBar.setVisibility(View.INVISIBLE);
                             int random = new Random().nextInt(6) + 0;
                             System.out.println(random);
 
@@ -152,7 +158,7 @@ public class Login extends AppCompatActivity {
 
 
                             if(random == 0) {
-                                imagePw1.setBackgroundResource(R.drawable.gatto_41);
+                                imagePw1.setBackgroundResource(R.drawable.ridi);
 
                                 byte[] decodedString2 = Base64.decode(passwordStringaUser, Base64.NO_WRAP);
                                 Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
@@ -164,14 +170,14 @@ public class Login extends AppCompatActivity {
                                 byte[] prova2 = prov2.toByteArray();
                                 System.out.println(prova2);
 
-                                imagePw3.setBackgroundResource(R.drawable.progetto_senza_titolo_2023_08_05t133418_991_870x563);
+                                imagePw3.setBackgroundResource(R.drawable.shiba3);
 
                                 controllaImmagine(imagePw1, imagePw2, imagePw3, 2, prova2, prova);
 
                             }
 
                             else if(random == 1) {
-                                imagePw2.setBackgroundResource(R.drawable.gatto_41);
+                                imagePw2.setBackgroundResource(R.drawable.ridi);
 
                                 byte[] decodedString2 = Base64.decode(passwordStringaUser, Base64.NO_WRAP);
                                 Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
@@ -183,14 +189,14 @@ public class Login extends AppCompatActivity {
                                 byte[] prova2 = prov2.toByteArray();
                                 System.out.println(prova2);
 
-                                imagePw3.setBackgroundResource(R.drawable.progetto_senza_titolo_2023_08_05t133418_991_870x563);
+                                imagePw3.setBackgroundResource(R.drawable.shiba3);
 
                                 controllaImmagine(imagePw1, imagePw2, imagePw3, 1, prova2, prova);
 
                             }
 
                             else if(random == 2) {
-                                imagePw2.setBackgroundResource(R.drawable.gatto_41);
+                                imagePw2.setBackgroundResource(R.drawable.ridi);
 
                                 byte[] decodedString2 = Base64.decode(passwordStringaUser, Base64.NO_WRAP);
                                 Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
@@ -202,14 +208,14 @@ public class Login extends AppCompatActivity {
                                 byte[] prova2 = prov2.toByteArray();
                                 System.out.println(prova2);
 
-                                imagePw1.setBackgroundResource(R.drawable.progetto_senza_titolo_2023_08_05t133418_991_870x563);
+                                imagePw1.setBackgroundResource(R.drawable.shiba3);
 
                                 controllaImmagine(imagePw1, imagePw2, imagePw3, 3, prova2, prova);
 
                             }
 
                             else if(random == 3) {
-                                imagePw3.setBackgroundResource(R.drawable.gatto_41);
+                                imagePw3.setBackgroundResource(R.drawable.ridi);
 
                                 byte[] decodedString2 = Base64.decode(passwordStringaUser, Base64.NO_WRAP);
                                 Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
@@ -221,14 +227,14 @@ public class Login extends AppCompatActivity {
                                 byte[] prova2 = prov2.toByteArray();
                                 System.out.println(prova2);
 
-                                imagePw1.setBackgroundResource(R.drawable.progetto_senza_titolo_2023_08_05t133418_991_870x563);
+                                imagePw1.setBackgroundResource(R.drawable.shiba3);
 
                                 controllaImmagine(imagePw1, imagePw2, imagePw3, 2, prova2, prova);
 
                             }
 
                             else if(random == 4) {
-                                imagePw1.setBackgroundResource(R.drawable.gatto_41);
+                                imagePw1.setBackgroundResource(R.drawable.ridi);
 
                                 byte[] decodedString2 = Base64.decode(passwordStringaUser, Base64.NO_WRAP);
                                 Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
@@ -240,14 +246,14 @@ public class Login extends AppCompatActivity {
                                 byte[] prova2 = prov2.toByteArray();
                                 System.out.println(prova2);
 
-                                imagePw2.setBackgroundResource(R.drawable.progetto_senza_titolo_2023_08_05t133418_991_870x563);
+                                imagePw2.setBackgroundResource(R.drawable.shiba3);
 
                                 controllaImmagine(imagePw1, imagePw2, imagePw3, 3, prova2, prova);
 
                             }
 
                             else if(random == 5) {
-                                imagePw3.setBackgroundResource(R.drawable.gatto_41);
+                                imagePw3.setBackgroundResource(R.drawable.ridi);
 
                                 byte[] decodedString2 = Base64.decode(passwordStringaUser, Base64.NO_WRAP);
                                 Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
@@ -259,7 +265,7 @@ public class Login extends AppCompatActivity {
                                 byte[] prova2 = prov2.toByteArray();
                                 System.out.println(prova2);
 
-                                imagePw2.setBackgroundResource(R.drawable.progetto_senza_titolo_2023_08_05t133418_991_870x563);
+                                imagePw2.setBackgroundResource(R.drawable.shiba3);
 
                                 controllaImmagine(imagePw1, imagePw2, imagePw3, 1, prova2, prova);
 
@@ -271,6 +277,7 @@ public class Login extends AppCompatActivity {
 
                         }
                         else if (trovato == 0) {
+                            progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(getApplicationContext(), "Utente non trovato", Toast.LENGTH_SHORT).show();
                             button_Verifica.setVisibility(View.VISIBLE);
                         }
@@ -300,6 +307,13 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(numero == 1) {
+                    Toast.makeText(getApplicationContext(), "Accesso in corso", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                    image1.setVisibility(View.INVISIBLE);
+                    image2.setVisibility(View.INVISIBLE);
+                    image3.setVisibility(View.INVISIBLE);
+                    textPassword.setVisibility(View.INVISIBLE);
+                    logo.setVisibility(View.INVISIBLE);
 
                     if(Arrays.equals(prova, prova2)) {
 
@@ -453,6 +467,13 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(numero == 2) {
+                    Toast.makeText(getApplicationContext(), "Accesso in corso", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                    image1.setVisibility(View.INVISIBLE);
+                    image2.setVisibility(View.INVISIBLE);
+                    image3.setVisibility(View.INVISIBLE);
+                    textPassword.setVisibility(View.INVISIBLE);
+                    logo.setVisibility(View.INVISIBLE);
 
                     if(Arrays.equals(prova, prova2)) {
 
@@ -486,6 +507,12 @@ public class Login extends AppCompatActivity {
                                                             FirebaseUser user = mAuth.getCurrentUser();
                                                             System.out.println("firebase oncomplete:"+user);
                                                             //updateUI(user);
+
+                                                            Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                            Intent intent = new Intent(getApplicationContext(), Home.class);
+                                                            startActivity(intent);
+
                                                         } else {
                                                             // If sign in fails, display a message to the user.
                                                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -593,6 +620,13 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(numero == 3) {
+                    Toast.makeText(getApplicationContext(), "Accesso in corso", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                    image1.setVisibility(View.INVISIBLE);
+                    image2.setVisibility(View.INVISIBLE);
+                    image3.setVisibility(View.INVISIBLE);
+                    textPassword.setVisibility(View.INVISIBLE);
+                    logo.setVisibility(View.INVISIBLE);
 
                     if(Arrays.equals(prova, prova2)) {
 
@@ -626,6 +660,11 @@ public class Login extends AppCompatActivity {
                                                             FirebaseUser user = mAuth.getCurrentUser();
                                                             System.out.println("firebase oncomplete:"+user);
                                                             //updateUI(user);
+
+                                                            Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                            Intent intent = new Intent(getApplicationContext(), Home.class);
+                                                            startActivity(intent);
                                                         } else {
                                                             // If sign in fails, display a message to the user.
                                                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
