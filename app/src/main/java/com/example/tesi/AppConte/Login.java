@@ -823,6 +823,7 @@ public class Login extends AppCompatActivity {
                     listaUtenti.add(utente);
 
                 }
+                rf.removeEventListener(this);
                 myCallback.onCallback(listaUtenti);
             }
 
