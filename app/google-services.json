@@ -1,37 +1,27 @@
 {
   "project_info": {
-    "project_number": "1060692807476",
-    "firebase_url": "https://app2-30443-default-rtdb.firebaseio.com",
-    "project_id": "app2-30443",
-    "storage_bucket": "app2-30443.appspot.com"
+    "project_number": "18095889051",
+    "firebase_url": "https://play4health-abdc1-default-rtdb.firebaseio.com",
+    "project_id": "play4health-abdc1",
+    "storage_bucket": "play4health-abdc1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1060692807476:android:b1086d58ab60cb8a611f61",
+        "mobilesdk_app_id": "1:18095889051:android:ed4c7f7a5b35c6e11f043e",
         "android_client_info": {
           "package_name": "com.example.tesi"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1060692807476-86luuho7b42tfdun6l1gd7a6abrh2gee.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDXB2n7MW-HZkTuwZXpM78AzIW14Sas7nY"
+          "current_key": "AIzaSyBOrbWgB2U-9VZnosIJFnxD710qwsaQe84"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1060692807476-86luuho7b42tfdun6l1gd7a6abrh2gee.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

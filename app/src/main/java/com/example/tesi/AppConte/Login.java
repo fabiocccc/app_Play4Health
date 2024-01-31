@@ -361,55 +361,50 @@ public class Login extends AppCompatActivity {
                                                             startActivity(intent);
 
 
-                                                        } else {
-                                                            // If sign in fails, display a message to the user.
-                                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                                        }                                     else {
+                                                            //Toast.makeText(getApplicationContext(),"email already exst",Toast.LENGTH_LONG).show();
 
-                                                            //updateUI(null);
+                                                            //effettuo login
+                                                            mAuth.signInWithEmailAndPassword(email, password)
+                                                                    .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                // Sign in success, update UI with the signed-in user's information
+                                                                                Log.d(TAG, "signInWithEmail:success");
+                                                                                //if(user!= null) {
+
+                                                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                                                //System.out.println("firebase oncomplete:"+user);
+
+                                                                                //email utente loggato
+                                                                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                                                                                //System.out.println("firebase:"+mailLogged);
+                                                                                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                                                //System.out.println("firebase:"+uid);
+                                                                                // }
+
+                                                                                Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
+                                                                                finish();
+                                                                                Intent intent = new Intent(getApplicationContext(), Home.class);
+                                                                                startActivity(intent);
+
+                                                                                //updateUI(user);
+                                                                            } else {
+                                                                                // If sign in fails, display a message to the user.
+                                                                                Log.d(TAG, "signInWithEmail:failure");
+
+                                                                                //updateUI(null);
+                                                                            }
+                                                                        }
+                                                                    });
+
+
                                                         }
                                                     }
                                                 });
                                     }
-                                    else {
-                                        //Toast.makeText(getApplicationContext(),"email already exst",Toast.LENGTH_LONG).show();
 
-                                        //effettuo login
-                                        mAuth.signInWithEmailAndPassword(email, password)
-                                                .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                                        if (task.isSuccessful()) {
-                                                            // Sign in success, update UI with the signed-in user's information
-                                                            Log.d(TAG, "signInWithEmail:success");
-                                                            //if(user!= null) {
-
-                                                            FirebaseUser user = mAuth.getCurrentUser();
-                                                            //System.out.println("firebase oncomplete:"+user);
-
-                                                            //email utente loggato
-                                                            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                                                            //System.out.println("firebase:"+mailLogged);
-                                                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                                            //System.out.println("firebase:"+uid);
-                                                            // }
-
-                                                            Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
-                                                            finish();
-                                                            Intent intent = new Intent(getApplicationContext(), Home.class);
-                                                            startActivity(intent);
-
-                                                            //updateUI(user);
-                                                        } else {
-                                                            // If sign in fails, display a message to the user.
-                                                            Log.d(TAG, "signInWithEmail:failure");
-
-                                                            //updateUI(null);
-                                                        }
-                                                    }
-                                                });
-
-
-                                    }
                                 }
                             }
                         });
@@ -513,55 +508,50 @@ public class Login extends AppCompatActivity {
                                                             Intent intent = new Intent(getApplicationContext(), Home.class);
                                                             startActivity(intent);
 
-                                                        } else {
-                                                            // If sign in fails, display a message to the user.
-                                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                                        }                                     else {
+                                                            //Toast.makeText(getApplicationContext(),"email already exst",Toast.LENGTH_LONG).show();
 
-                                                            //updateUI(null);
+                                                            //effettuo login
+                                                            mAuth.signInWithEmailAndPassword(email, password)
+                                                                    .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                // Sign in success, update UI with the signed-in user's information
+                                                                                Log.d(TAG, "signInWithEmail:success");
+                                                                                //if(user!= null) {
+
+                                                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                                                //System.out.println("firebase oncomplete:"+user);
+
+                                                                                //email utente loggato
+                                                                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                                                                                //System.out.println("firebase:"+mailLogged);
+                                                                                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                                                //System.out.println("firebase:"+uid);
+                                                                                // }
+
+                                                                                Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
+                                                                                finish();
+                                                                                Intent intent = new Intent(getApplicationContext(), Home.class);
+                                                                                startActivity(intent);
+
+                                                                                //updateUI(user);
+                                                                            } else {
+                                                                                // If sign in fails, display a message to the user.
+                                                                                Log.d(TAG, "signInWithEmail:failure");
+
+                                                                                //updateUI(null);
+                                                                            }
+                                                                        }
+                                                                    });
+
+
                                                         }
                                                     }
                                                 });
                                     }
-                                    else {
-                                        //Toast.makeText(getApplicationContext(),"email already exst",Toast.LENGTH_LONG).show();
 
-                                        //effettuo login
-                                        mAuth.signInWithEmailAndPassword(email, password)
-                                                .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                                        if (task.isSuccessful()) {
-                                                            // Sign in success, update UI with the signed-in user's information
-                                                            Log.d(TAG, "signInWithEmail:success");
-                                                            //if(user!= null) {
-
-                                                            FirebaseUser user = mAuth.getCurrentUser();
-                                                            //System.out.println("firebase oncomplete:"+user);
-
-                                                            //email utente loggato
-                                                            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                                                            //System.out.println("firebase:"+mailLogged);
-                                                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                                            //System.out.println("firebase:"+uid);
-                                                            // }
-
-                                                            Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
-                                                            finish();
-                                                            Intent intent = new Intent(getApplicationContext(), Home.class);
-                                                            startActivity(intent);
-
-                                                            //updateUI(user);
-                                                        } else {
-                                                            // If sign in fails, display a message to the user.
-                                                            Log.d(TAG, "signInWithEmail:failure");
-
-                                                            //updateUI(null);
-                                                        }
-                                                    }
-                                                });
-
-
-                                    }
                                 }
                             }
                         });
@@ -665,55 +655,50 @@ public class Login extends AppCompatActivity {
                                                             finish();
                                                             Intent intent = new Intent(getApplicationContext(), Home.class);
                                                             startActivity(intent);
-                                                        } else {
-                                                            // If sign in fails, display a message to the user.
-                                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                                        }                                     else {
+                                                            //Toast.makeText(getApplicationContext(),"email already exst",Toast.LENGTH_LONG).show();
 
-                                                            //updateUI(null);
+                                                            //effettuo login
+                                                            mAuth.signInWithEmailAndPassword(email, password)
+                                                                    .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                // Sign in success, update UI with the signed-in user's information
+                                                                                Log.d(TAG, "signInWithEmail:success");
+                                                                                //if(user!= null) {
+
+                                                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                                                //System.out.println("firebase oncomplete:"+user);
+
+                                                                                //email utente loggato
+                                                                                String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                                                                                //System.out.println("firebase:"+mailLogged);
+                                                                                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                                                //System.out.println("firebase:"+uid);
+                                                                                // }
+
+                                                                                Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
+                                                                                finish();
+                                                                                Intent intent = new Intent(getApplicationContext(), Home.class);
+                                                                                startActivity(intent);
+
+                                                                                //updateUI(user);
+                                                                            } else {
+                                                                                // If sign in fails, display a message to the user.
+                                                                                Log.d(TAG, "signInWithEmail:failure");
+
+                                                                                //updateUI(null);
+                                                                            }
+                                                                        }
+                                                                    });
+
+
                                                         }
                                                     }
                                                 });
                                     }
-                                    else {
-                                        //Toast.makeText(getApplicationContext(),"email already exst",Toast.LENGTH_LONG).show();
 
-                                        //effettuo login
-                                        mAuth.signInWithEmailAndPassword(email, password)
-                                                .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                                        if (task.isSuccessful()) {
-                                                            // Sign in success, update UI with the signed-in user's information
-                                                            Log.d(TAG, "signInWithEmail:success");
-                                                            //if(user!= null) {
-
-                                                            FirebaseUser user = mAuth.getCurrentUser();
-                                                            //System.out.println("firebase oncomplete:"+user);
-
-                                                            //email utente loggato
-                                                            String mailLogged = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                                                            //System.out.println("firebase:"+mailLogged);
-                                                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                                            //System.out.println("firebase:"+uid);
-                                                            // }
-
-                                                            Toast.makeText(getApplicationContext(), "Accesso eseguito", Toast.LENGTH_SHORT).show();
-                                                            finish();
-                                                            Intent intent = new Intent(getApplicationContext(), Home.class);
-                                                            startActivity(intent);
-
-                                                            //updateUI(user);
-                                                        } else {
-                                                            // If sign in fails, display a message to the user.
-                                                            Log.d(TAG, "signInWithEmail:failure");
-
-                                                            //updateUI(null);
-                                                        }
-                                                    }
-                                                });
-
-
-                                    }
                                 }
                             }
                         });
